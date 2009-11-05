@@ -1,0 +1,28 @@
+<% title 'Welcome to Yoga Today' %>
+<div id="main">
+
+    <div id="page_container">
+      <div id="page_information">
+        <%= breadcrumb("Registration Confirmation") %>
+
+        <div class="arial18_green" id="main_title">Welcome to Yoga Today</div>
+      </div>
+
+    </div>
+
+    <div id="main_content">
+
+       <!--div id="container_1col" style="float:left">&nbsp;</div-->
+       <!--div class="grid_spacer" style="float:left">&nbsp;</div-->
+       <div id="container_4col" style="float:left">
+	 <div class="filter_options" style="border: none; background-image: none; padding-left: 0px;">
+       <p>  Welcome to the Yoga Today Community! Your registration is
+complete and you're all set to start practicing with us. You can add classes to
+your Queue (playlist). </p>
+<p> Thanks for being here.</p>
+<%= button_to_function 'Watch classes now', 
+"location.href = '#{video_url(free_video_of_week.video)}'", :class=>"bigger_button" %>
+	 </div>
+       </div>
+    </div>
+  </div>

@@ -1,0 +1,7 @@
+<% title 'Videos' %>
+<%# This file is called 'list.rhtml' due to a bug in ActiveScaffold. Don't rename it. Or else.%>
+Filter:
+<%= link_to_unless_current "All videos", url_for(:controller => 'admin/videos') %> |
+<%= link_to_unless_current "Featured videos admin", url_for(:controller => 'admin/featured_videos') %>
+
+<%= render :super %>

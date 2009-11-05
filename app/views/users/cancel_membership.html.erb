@@ -1,0 +1,54 @@
+<% can_has_js 'jquery.validate' %>
+<script type='text/javascript'>
+	$(document).ready(function() {
+		$('#cancel_form').validate({
+			rules: {
+				'accept_cancel_terms': 'required'
+			}
+		});
+	});
+</script>
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb(["My Account", url_for(:controller => "users", :action => "profile")], "Cancel Membership") %>
+      <div class="arial18_green" id="main_title">Cancel membership</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <div id="container_4col" style="float:left;">
+      <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
+				<p><strong><em><%= flash[:notice] %></em></strong></p>
+        <% unless current_user.account.blank? %>
+			<ul style='padding-left: 15px;'>
+				<li>
+					Your Membership will terminate on the last day of your current billing
+					cycle. No refunds are offered for partial months. You may sign up for a Yoga
+					Today Membership again at any time.
+				</li>
+				<li>
+					We will send you an email confirming your cancellation.
+				</li>
+			</ul>
+
+            <br/>
+					<% form_tag cancel_membership_user_path(current_user), :id => 'cancel_form' do %>
+						<%= check_box_tag 'accept_cancel_terms' %>
+					<span style="font-weight: bold;">I accept and understand the <%= link_to 'terms of cancellation', membership_terms_user_path(current_user), :target => '_blank' %>
+					and want to cancel my account.</span></p>
+					<br /><br /><br />
+					<%= submit_tag 'Cancel membership', :class => 'bigger_button' %>
+					<%= button_to_function 'Cancel', :class => 'smaller_button' do |page| page.redirect_to profile_user_path(current_user) end %>
+					<% end %>
+					
+        <% else %>
+          <p>You are not subscribed to anything on Yoga Today.</p>
+        <% end %>        
+      </div>
+    </div>
+    <div id="container_2col" style="float:right">
+      <%= render :partial => 'profile_sidebar' %>
+    </div>
+  </div>
+</div>

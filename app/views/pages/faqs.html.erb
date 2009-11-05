@@ -1,0 +1,68 @@
+<% title 'faqs' %>
+<% if params[:type] %>
+  <% can_has_js :select_faq_tab do %>
+    $(document).ready(function() {
+    <% if params[:type] == 'technical' %>
+      discussionChange('review_display_button','review_display');
+    <% elsif params[:type] == 'yoga' %>
+      discussionChange('discussion_display_button','discussion_display');
+    <% elsif params[:type] == 'billing' %>
+      discussionChange('suggestion_display_button','suggestion_new_topic');
+    <% end %>
+    });
+  <% end %>
+<% end %>
+<div id="main">
+
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("FAQs") %>
+    <div style="padding-bottom: 3px;" id="main_title" class="arial18_green">Frequesntly Asked Questions</div>      </div>
+    <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+  </div>
+
+  <div id="main_content">
+    <div id="container_4col" style="float:left;">
+
+      <a name="q_top" id="q_top"></a>
+      <div id="review_section">
+        <div id="review_header" class="arial16_bold_black">
+
+          <div class="review_option" id="discussion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'discussion_display');" style="background-color:#ffffff; border-bottom-color: #ffffff;"><h2 style="font-weight: normal;">Yoga Questions</h2></div>
+          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
+          <div class="review_option" id="review_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'review_display');"><h2 style="font-weight: normal;">Technical Questions</h2></div>
+          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
+          <div class="review_option" id="suggestion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'suggestion_new_topic');"><h2 style="font-weight: normal;">Billing Questions</h2></div>
+
+        </div>
+      </div>
+
+      <!-- YOGA -->
+      <div id="discussion_display" class="feedback" style="clear:both; display:block;">
+        <%= render :partial => 'faq_question', :collection => @yoga_category.faqs %>
+        <%= render :partial => 'faq_answer', :collection => @yoga_category.faqs %>
+      </div>
+
+      <!-- TECHNICAL -->
+      <div id="review_display" class="feedback" style="clear:both; display:none;">
+        <%= render :partial => 'faq_question', :collection => @technical_category.faqs %>
+        <%= render :partial => 'faq_answer', :collection => @technical_category.faqs %>
+      </div>
+
+      <!-- BILLING -->
+      <div id="suggestion_new_topic"  class="feedback" style="clear:both; display:none;">
+        <%= render :partial => 'faq_question', :collection => @billing_category.faqs %>
+        <%= render :partial => 'faq_answer', :collection => @billing_category.faqs %>
+
+      </div>
+
+
+    </div>
+
+    <%= render :partial => 'nav_sidebar' %>
+
+  </div>
+</div>

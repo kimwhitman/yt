@@ -1,0 +1,104 @@
+<% title 'Your Shopping Cart' %>
+<div id="main">
+     <div id="page_container">
+      <div id="page_information">
+        <div id="main_title" class="arial18_green">Shopping Cart<span style="display:none">(<span id="header_cart_size"><%= shopping_cart.size %></span>)</span></div>
+      </div>
+    </div>
+		 <% if @modifying_purchase %>
+		 <div id="container_6col">
+		   <strong>Once you are done modifying your purchase, please click the 'continue' button below.</strong>
+		 </div>
+		 <% end %>
+    <div style="clear: both; font-weight: bold;" id="header_6col" class="arial13_bold_gray">
+      <div style="float: left; " id="container_1col">
+        Item
+      </div>
+      <div style="padding-left: 10px; float: left;"><img height="1" width="1" src="images/spacer.gif"/></div>
+      <div style="float: left;" id="container_4col">
+        Description
+      </div>
+      <div style="float: right; text-align: right;" id="container_1col">
+        Price
+      </div>
+    </div>
+
+
+    <div id="main_content">		 
+      <div style="float: left;" id="container_6col">
+      <% unless shopping_cart.has_valid_products? %>
+      <div id="message">
+        Some items in your shopping cart no longer exist. These items are:
+        <ul>
+        <% shopping_cart.invalid_cart_items('Video').each do |item| %>
+          <li>
+            <%= item.name %>
+          </li>
+        <% end %>
+        </ul>        
+      </div>
+      <% end %>
+      <%= render :partial => 'video', :collection => shopping_cart.videos %>
+
+        
+      <div id="wrap">
+      <% if shopping_cart.cart_items.size > 0 %>
+        <div style="height: 70px;" class="results_row" id="checkout_amounts">
+          <div style="float: right;" id="container_2col">
+            <div style="float: left; text-align: right; line-height: 160%;" id="container_1col">
+              Sub-total<br/>
+              Taxes<br/>
+              <span class="arial16_bold_green">Total</span>
+            </div>
+
+            <div style="float: left;" class="grid_spacer">
+              <img height="50" width="20" src="images/spacer.gif"/>
+            </div>
+
+            <div style="float: left; text-align: right; line-height: 160%;" id="container_1col" class="arial13_bold_green">
+              <span id="cart_subtotal"><%= number_to_currency(shopping_cart.subtotal.to_dollars) %> </span><br/>
+              <span id="cart_taxes"><%= number_to_currency(shopping_cart.taxes.to_dollars) %> </span><br/>
+              <span id="cart_total" class="arial16_bold_green"><%= number_to_currency(shopping_cart.total.to_dollars) %></span>
+            </div>
+          </div>
+        </div>
+        <div class="results_row" id="checkout_button_wrap">
+          <div style="float: right; text-align: right;" id="container_1col">
+					  <%# link_to 'Checkout', checkout_path, :class => 'button' %>
+            <%= button_to_function @modifying_purchase ? 'Continue checkout' : 'Checkout' do |page|
+										if @modifying_purchase
+												 page.redirect_to(confirm_purchase_url)
+										else
+												 page.redirect_to(checkout_path)
+										end
+										
+            end
+            %>
+          </div>
+          <div style="float: right; text-align: right;" id="container_1col">
+            <% if session[:continue_shopping_to] == "search" %>
+              <input class='bigger_button' value="Continue Search" type="button" onclick="javascript:window.location.href='<%=url_for(search_videos_path(:search => session[:last_search_params])) %>';" />
+            <% elsif session[:continue_shopping_to] == "show" %>
+              <input class='bigger_button' value="Continue Search" type="button" onclick="javascript:window.location.href='<%=url_for(video_path(session[:last_video_id])) %>';" />
+            <% else %>
+              <input class='bigger_button' value="Continue Search" type="button" onclick="javascript:window.location.href='/';" />
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <h2 style="margin-top: 20px;">Your shopping cart is empty</h2>
+        <div style="float: right; text-align: right; margin-right: 3px;" id="container_1col">
+          <% if session[:continue_shopping_to] == "search" %>
+            <input class='bigger_button' value="Continue Search" type="button" onclick="javascript:window.location.href='<%=url_for(search_videos_path(:search => session[:last_search_params])) %>';" />
+          <% elsif session[:continue_shopping_to] == "show" %>
+            <input class='bigger_button' value="Continue Search" type="button" onclick="javascript:window.location.href='<%=url_for(video_path(session[:last_video_id])) %>';" />
+          <% else %>
+            <input class='bigger_button' value="Continue Search" type="button" onclick="javascript:window.location.href='/';" />
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+
+      </div>
+    </div>
+  </div>

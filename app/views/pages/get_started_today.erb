@@ -1,0 +1,88 @@
+  <div id="main">
+  	<div id="container_4col" style="float:left;">
+      <div id="video_banner">
+        <object width="622" height="400" id="delve_player827411o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="opaque"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=f2dfe9b43972411ca10826cb5779f82b&amp;channelId=2bc02e0995ee4e6e9fb62512a41af408"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player827411e" wmode="opaque" width="622" height="400" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=f2dfe9b43972411ca10826cb5779f82b&amp;channelId=2bc02e0995ee4e6e9fb62512a41af408"></embed></object>
+      </div>
+    </div>
+    
+    <div id="get-started-box">
+      <p id="get-started-title">Get Started Today</p>
+      <p>Discover a new way to do yoga.  So much more than a convenient practice, this is a growing community where you can immerse yourself in a lifestyle of health and wellbeing.</p>
+      <p>Easily select from hundreds of streaming and downloadable classes in settings that harmonize with the postures and at the level and style most convenient to you.</p>
+      <p>Interact with our expert instructors expand your practice online and discover the place where yoga lives today and everyday.</p>
+    </div>
+
+     
+    <div id="main_content">
+      <div id="container_4col" style="float:left;">
+        <% GetStartedToday.find(:all, :order => 'rank DESC').each do |gst| %>
+          <div class="get-started-item">
+            <div id="get-started-icon">
+            	<% if gst.link.blank? %>
+              		<a href="<%= logged_in? ? billing_user_path(current_user) : '/sign-up'%>">
+              	<% else %>
+              		<a href="<%= gst.link %>">
+              	<% end %>
+                <% if gst.image? %>
+                  <%= image_tag gst.image.url, :style=>"border: none;" %>
+                <% end %>
+              </a>
+            </div>
+            <div id="get-started-text">
+              <%= gst.content %>
+            </div>
+          </div>
+        <% end %>
+      </div> 
+
+      <div id="container_2col" style="float:right; height:15px;"></div>
+      
+      <% if free_video_of_week %>
+      	<div id="container_2col" style="float:right;">
+          <%= render :partial => 'shared/free_video_advert', :object => free_video_of_week %> 
+        <div id="container_2col" style="float:right; height:15px;"></div>
+      	</div>
+      <% end %>
+      
+      <% if !logged_in? || (logged_in? && !current_user.has_paying_subscription?) %>
+		<div id="container_2col" style="float:right;">
+          
+        <div id="container_2col" style="float:right; height:15px;"></div>
+      	</div>
+      <% end %>
+
+      
+      <div id="join_2col" style="float:right;"><a href="/videos">
+        <span class="arial16_green">Search the Library</span><br />
+        <span class="verdana10_gray" style="line-height:12px;">Over 160 classes to keep workouts fresh and invigorating</span>
+        <div style="float:right;" class="verdana10_bold_gray">
+          <div style="float:left; padding-top:4px; padding-right:4px;"><img src="images/mailing-list-arrow.png" width="10" height="10" border="0" />
+          </div></a>
+          <div style="float:left;">
+            <a href="/videos" class="verdana10_bold_gray">search</a>
+          </div>
+        </div>
+      </div>
+      
+      <div id="container_2col" style="float:right; height:15px;"></div>
+      
+      <% unless @user_story.blank? %>
+        <div style="border: 1px solid rgb(218, 218, 215); float: right;" id="words-from-community-box" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= user_stories_path(:anchor => dom_id(@user_story)) %>';">
+          <div>
+            <div class="arial16_green">
+              <%= image_tag "words_from_community.gif", :style => "margin-left: -15px; margin-top: -10px;" %>
+            </div>
+            <div id="community_image">
+              <%= image_tag(@user_story.image.url, :style => "border:none;max-width:190px;max-height:119px;") if @user_story.image? %>             
+            </div>
+            <div style="line-height: 12px;"><span class="arial11_lt_green"><%= @user_story.title %></span><br/>
+              <span class="arial11_gray">Posted <%= time_ago(@user_story.publish_at, :mf => false) %><br/>
+                By <%= @user_story.name.split.first  %>, <%= @user_story.location  %><br/><img height="4" width="100" src="/images/spacer.gif" style="border:none;"/><br/>
+              <%= truncate(@user_story.story, 52) %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

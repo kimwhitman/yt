@@ -1,0 +1,48 @@
+<%
+  username = review.user.blank? ? "Anonymous" : review.user.name
+  city = review.user.blank? ? nil : review.user.city  
+  state = review.user.blank? ? nil : review.user.state
+  country = review.user.blank? ? nil : review.user.country
+  location = [city, state, country].delete_if{|item| (item == 'United States' || item.blank?)}.compact.join(', ')
+%>
+<div class="discussion_row">
+  <div id="container_1col" style="float:left;">
+  <div class="discussion_info">  
+  	<div class="avatar_wrap" style="float:left;padding-right:2px;">  
+    <%= user_photo_image review.user %>
+    </div>
+    <%= username %><br />
+    <%= "#{location}<br>" unless location.blank? %>
+    <span class="arial11_black"><%= time_ago(review.updated_at) %></span> </div>
+  </div>
+
+
+  <div class="grid_spacer">
+&nbsp;            </div>
+
+  <div id="container_3col"  style="float:left">
+      <div style="vertical-align:middle; line-height: 18px;">
+      	<%= render_star_rating(review.score, :name => "score_#{review.id}") unless review.score == 0  %> &nbsp;<span style="color:#666666;font-size: 14px;font-weight: bold;"><%= review.title %></span>
+      </div>
+      <div style="padding-top: 5px;"></div>
+      <% unless review.content.blank? %>
+      	<% if review.content.length > 75%>
+	      <div id="<%= review.id %>_short_review" class="content">
+	        <%= link_to_function "#{image_tag 'triangle_right.png', :border => 0}", "document.getElementById('#{review.id}_full_review').style.display = '';document.getElementById('#{review.id}_short_review').style.display = 'none';", :class => 'more_link' %>
+	      	<%= truncate(review.content, 75) %>   
+	      </div>
+	      <div id="<%= review.id %>_full_review" class="content" style="display:none;">
+	        <%= link_to_function "#{image_tag 'triangle_down.png', :border => 0, :style=>'vertical-align:middle;'}", "document.getElementById('#{review.id}_short_review').style.display = '';document.getElementById('#{review.id}_full_review').style.display = 'none';", :class => 'less_link' %>
+	      	<%= review.content %>
+	      </div>
+	    <% else %>
+		     <div id="<%= review.id %>_full_review" class="content">
+		      	<%= review.content %>   
+		      </div>
+		<% end %>
+	  <% end %>
+	  <% if logged_in? && current_user.id == review.user_id %>
+	      		<%= link_to_remote "Delete", :url => video_review_path(review.video_id, review.id), :method => :delete, :html => {:style=>"text-decoration: underline;"}, :confirm => "This will delete your review."%></span>  
+	  <% end %>
+   </div>
+</div>

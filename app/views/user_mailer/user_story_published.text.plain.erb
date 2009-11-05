@@ -1,0 +1,10 @@
+Hello <%= @user_story.name.split(' ').first %>,
+
+Your user story has been published on Yoga Today!
+<% unless @user_story.personal_message.blank? %>
+Message from Yoga Today Team: <%= @user_story.personal_message %>
+<% end %>
+
+To see it, visit <%= user_story_url(@user_story) %>!
+
+-- Yoga Today Team

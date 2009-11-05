@@ -1,0 +1,548 @@
+<%
+title @video.title
+can_has_js 'registration', 'jquery.timeago', 
+  'jquery.rating', 'jquery.metadata', 'jquery.validate', 'jquery.form',
+  'login', 'jquery.scrollTo'
+can_has_css 'jquery.rating'
+%>
+<% can_has_js :timeago do %>
+  $(document).ready(function() {
+  $('abbr[class*=timeago]').timeago();
+  });
+<% end %>
+
+<%
+post_submission_text = logged_in? ? "Submit" : "Post anonymously"
+%>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // validate sign-up forms.
+    var options = {
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({ dataType: 'script'});
+      }
+    }
+    validate_new_user_form('#new_reply_signup', options);
+    validate_new_user_form('#new_response_signup', options);
+    validate_new_user_form('#new_review_signup', options);
+    validate_new_user_form('#new_suggestion_signup', options)
+    // validate sign-in form on keyup and submit
+    $("#new_comment").validate({
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({
+          dataType: 'script',
+          complete: function(req, status) { $(form).find('input[type=submit]').removeAttr('disabled'); }
+        });
+        $(form).find('input[type=submit]').attr('disabled',true);
+      },
+      rules: {
+        "comment[content]":  {
+          required: true,
+          maxlength: 1000
+        }
+      },
+      messages: {
+        "comment[content]": "A message is required, and cannot be more than 1000 characters."
+      }
+    });
+    $("#new_response").validate({
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({
+          dataType: 'script',
+          complete: function(req, status) { $(form).find('input[type=submit]').removeAttr('disabled'); }
+        });
+        $(form).find('input[type=submit]').attr('disabled',true);
+      },
+      rules: {
+        "comment[content]":  {
+          required: true,
+          maxlength: 1000
+        }
+      },
+      messages: {
+        "comment[content]": "A message is required, and cannot be more than 1000 characters."
+      }
+    });
+    $("#new_suggestion").validate({
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({
+          dataType: 'script',
+          complete: function(req, status) { $(form).find('input[type=submit]').removeAttr('disabled'); }
+        });
+        $(form).find('input[type=submit]').attr('disabled',true);
+      },
+      rules: {
+        "suggestion[title]": {
+          maxlength: 255
+        },
+        "suggestion[content]":  {
+          required: true,
+          maxlength: 1000
+        }
+      },
+      messages: {
+        "suggestion[content]": "A message is required, and cannot be more than 1000 characters."
+      }
+    });
+    $("#new_review").validate({
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({
+          dataType: 'script',
+          complete: function(req, status) { $(form).find('input[type=submit]').removeAttr('disabled'); }
+        });
+        $(form).find('input[type=submit]').attr('disabled',true);
+      },
+      rules: {
+        "review[title]": {
+          required: function(element) {
+            return ($('#review_score').val() == '');
+          },
+          maxlength: 255
+        },
+        "review[content]": {
+          required: function(element) {
+            return ($('#review_score').val() == '');
+          },
+          maxlength: 1000
+        },
+        "review_score": {
+          required: function(element) {
+            return ($('#review_title').val() == '' || $('#review_content').val() == '');
+          }
+        }
+      },
+      messages: {
+        "review[title]": "A title is required if you don't enter a rating, and cannot be more than 255 characters.",
+        "review[content]": "A message is required if you don't enter a rating, and cannot be more than 1000 characters.",
+        "review_score": "A score is required if you don't enter a title or content."
+      }
+    });
+    validate_login_form('#discussion_login');
+    validate_login_form('#response_login');
+
+    validate_login_form('#review_login');
+    validate_login_form('#suggestion_login');
+  });
+</script>
+<div id="main">
+  <div style="float: left;" id="container_4col">
+    <div id="video_banner">
+      <% if @preview != nil %>
+        <%= display_video(@video, true) %>
+      <% elsif (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
+        <%= display_video(@video) %>
+      <% else %>
+        <div style="position: absolute; top: 0px; left: 0px; z-index:0">
+          <%= link_to image_tag( @video.thumbnail_url, :width => 620, :style=>"margin: 0px; padding: 0px; border: 0px;"), :action => "show", :id => @video.id, :preview => 'true' %>
+        </div>
+        <div style="position: absolute; top: 0px; left: 0px; z-index:1">
+          <%= link_to image_tag( "playerControls.gif", :style=>"margin: 0px; padding: 0px; border: 0px;"), :action => "show", :id => @video.id, :preview => 'true' %>
+        </div>
+        <div style="position: absolute; top: 160px; left: 290px; z-index:2">
+          <%= link_to image_tag( "overlay-round-play-arrow.png", :style=>"margin: 0px; padding: 0px; border: 0px;"), :action => "show", :id => @video.id, :preview => 'true' %>
+        </div>
+        <div style="float: left;">
+          <img height="401" width="0" src="/images/spacer.gif"/>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div style="float: right;" id="container_2col">
+    <div class="grid_line"><img height="1" width="1" src="/images/spacer.gif"/></div>
+
+    <div id="info_panel">
+      <% if @preview == nil %>
+        <%= render :partial => 'info', :locals => { :video => @video } %>
+      <% else %>
+        <%= render :partial => 'member', :locals => { :video => @video } %>
+      <% end %>
+    </div>
+
+    <div id="class_buttons">
+
+      <%= add_video_to_playlist_link "+ My Yoga Queue", @video, :class => 'biga_button', :style => 'float:left' %>
+      <%= add_video_to_cart_link "Buy | #{number_to_currency(@video.price(current_user)).split('.').first}<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>", @video, :class => 'smaller_button', :style => 'float:left' %>
+
+      <% unless (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
+        <%= link_to "<span>Preview</span>", {:action => "show", :id => @video.id, :preview => 'true'}, :class => 'smaller_button', :style => 'float:left' %>
+      <% end %>
+      <img height="30" width="5" src="/images/spacer.gif"/>
+      <!-- Need better placement for preview button -->
+    </div>
+
+    <div id="class_description">
+      <strong>Tags: </strong><%= @video.mds_tags %>
+    </div>
+  </div>
+
+  <div id="page_container">
+    <div id="page_information">
+
+      <div><img height="14" width="1" src="/images/spacer.gif"/></div>
+
+    </div>
+  </div>
+  <div id="main_content">
+    <div id="container_4col" style="float:left;">
+      <div class="grid_line"><img height="1" width="1" src="/images/spacer.gif"/></div>
+      <% unless @related_videos.blank? %>
+        <%= render :partial => 'related_videos' %>
+      <% end %>
+      <!--
+        <div class="results_row" style="padding-top:0px">
+
+        <div class="video_box1">
+  <a href="video_details.php?vid=12345" title="More information about this video"><img src="/images/fpo/temp-video-thumbnail.png" width="140" height="78" border="0" /></a><br />
+          <a href="video_details.php?vid=12345" title="More information about this video" class="arial13_bold_black">Yoga for Rock...</a><br />
+          <span class="arial11_gray">Neesha | <span class="arial11_yellow">First Time</span> | 10:30</span><br />
+
+        </div>
+
+        </div>
+-->
+      <div id="review_section">
+        <div id="review_header" class="arial16_bold_black">
+          <div class="review_option" id="discussion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'discussion_display');" style="background-color:#ffffff; border-bottom-color: #ffffff;"><h2 style="font-weight: normal">Discussion (<span class='discussion_count'><%= @video.comments.public.count  %></span>)</h2></div>
+          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
+          <div class="review_option" id="review_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'review_display');"><h2 style="font-weight: normal">Reviews (<span class='review_count'><%= @video.reviews.public.count  %></span>)</h2></div>
+          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
+
+          <div class="review_option" id="suggestion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'suggestion_new_topic');"><h2 style="font-weight: normal">Make a suggestion</h2></div>
+
+        </div>
+      </div>
+
+
+
+      <!-- DISCUSSION -->
+        <!-- display -->
+      <div id="discussion_display" class="feedback" style="clear:both;">
+        <div id="discussion_text" style="float:left; clear:both;">
+          Connect with the Yoga Today community and share your thoughts about<br />this class, ask questions about yoga and get answers from the instructors.
+        </div>
+
+        <% if (logged_in?) %>
+         <!-- EAE no  new topics unless logged in -->
+         <a class="big_button" id="add_new_topic_button" onmouseover="this.style.cursor='Pointer';this.style.color='#333333';" onmouseout="this.style.color='#666666';" onclick="transition_elements('#discussion_display', '#discussion_new_topic');" style="float:right; color: #666666;">Add new topic
+         </a>
+        <% end %>
+        <div style="height:20px; clear:both;"></div>
+        <div id="comments">
+          <%= render :partial => 'comment', :collection => @video.comments.public.topics %>
+        </div>
+      </div>
+
+
+
+      <!-- new topic -->
+
+      <div id="discussion_new_topic"  class="feedback" style="clear:both; display:none;">
+        <div class="arial20_bold_green" id="discussion_title">
+        <h3>New Topic</h3>          </div>
+
+        <div id="discussion_text">
+        Connect with the Yoga Today community and share your thoughts about this class, ask questions about yoga and get answers from the instructors.          </div>
+
+        <div id="new_topic_form">
+          <% form_for [@video, Comment.new] do |f| %>
+            <div class="form_row">
+
+              <div class="form_title" id="topic_form_title">
+              Title:              </div>
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="topic_form_title_field">
+                <%= f.text_field :title, :size => 50 %>
+              </div>
+            </div>
+
+            <div class="form_row">
+
+              <div class="form_title" id="topic_form_message">
+              Message:</div>
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="topic_form_message_field">
+                <%= f.text_area :content, :size => "54x6" %>
+              </div>
+            </div>
+            <div class="form_row">
+              <div id="container_1col" style="float:left;">&nbsp;</div>
+              <div class="grid_spacer">&nbsp;</div>
+              <div class="form_field_3col" id="discussion_form_login_status_field">
+                <%= render :partial => 'shared/workflow/sign_in_sign_up/footer',
+                  :locals => {
+                  :submit_text => post_submission_text,
+                  :from => '#new_topic_form',
+                  :cancel_callback => "transition_elements('#discussion_new_topic', '#discussion_display'); $('#comment_title, #comment_content').val('');$('#discussion_new_topic label.error').hide();",
+                  :sign_in_to => '#discussion_login_form_div',
+                  :sign_up_to => '#discussion_registration_form_div'
+                }
+              %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div id="discussion_login_form_div" style="display:none;">
+          <% form_tag sign_in_path, :id => 'discussion_login' do %>
+            <%= render :partial => 'users/inline_login',
+              :locals => {
+              :cancel_callback => "transition_elements('#discussion_login_form_div', '#new_topic_form');$('#discussion_login input[type=text]').val('');$('#discussion_login_form_div label.error').hide();",
+              :source => 'new_reply'
+            } %>
+          <% end %>
+        </div>
+        <div id="discussion_registration_form_div" style="display:none;">
+          <% form_for(User.new, :html => { :id => 'new_reply_signup' }) do |f| %>
+            <%= render :partial => "users/form",
+              :locals => {
+              :f => f,
+              :remember_me => true,
+              :cancel_callback => "transition_elements('#discussion_registration_form_div','#new_topic_form');$('#discussion_form_div label.error').hide();"} %>
+            <%= hidden_field_tag 'source', 'new_reply' %>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="response_login_form_div" style="display:none;">
+        <% form_tag sign_in_path, :id => 'response_login' do %>
+          <%= render :partial => 'users/inline_login',
+            :locals => {
+            :cancel_callback => "transition_elements('#response_login_form_div', '#discussion_display');$('#response_login input[type=text]').val('');$('#response_login_form_div label.error').hide();",
+            :source => 'new_response'
+          } %>
+        <% end %>
+      </div>
+      <div id="response_registration_form_div" style="display:none;">
+        <% form_for(User.new, :html => { :id => 'new_response_signup' }) do |f| %>
+          <%= render :partial => "users/form",
+            :locals => {
+            :f => f,
+            :remember_me => true,
+            :cancel_callback => "transition_elements('#response_registration_form_div','#discussion_display');$('#response_form_div label.error').hide();"} %>
+          <%= hidden_field_tag 'source', 'new_response' %>
+        <% end %>
+      </div>
+
+
+
+      <!-- REVIEW -->
+
+        <!-- display -->
+      <div id="review_display" class="feedback" style="clear:both; display:none;">
+        <div id="review_text" style="float:left; clear:both;">
+
+        </div>
+        <div id="">
+          <div class="arial16_green" style="float:left; padding-bottom: 5px;"><span class='lower_review_count'><%= pluralize(@video.reviews.public.count, "Review") %></span> <span> | Average</span>&nbsp;&nbsp;</div><div class='video_overall_rating'><%= render_star_rating(@video.score, :name => 'rating_average_tab') %></div>
+        </div>
+        <% if (logged_in?) %>
+         <!-- EAE no reviews unless logged in -->
+         <a class="big_button" id="write_review_button" onmouseover="this.style.cursor='Pointer';this.style.color='#333333';" onmouseout="this.style.color='#666666';" onclick="transition_elements('#review_display', '#review_new_topic');" style="float:right; color: #666666;">Write a review
+         </a>
+        <% end %>
+
+        <div style="height:20px; clear:both;"></div>
+        <div id="reviews">
+          <%= render :partial => 'review', :collection => @video.reviews.public %>
+        </div>
+      </div>
+      <!-- new review -->
+
+      <div id="review_new_topic"  class="feedback" style="clear:both; display:none;">
+        <div class="arial20_bold_green" id="">
+        <h3>Write a review</h3>          </div>
+
+        <div id="review_text">
+        Tell the Yoga Today community what you really think about this video. But while we encourage you to share your opinion, please treat other users with respect.           </div>
+
+        <div id="new_review_form">
+          <% form_for([@video, Review.new]) do |f| %>
+            <div class="form_row">
+
+              <div class="form_title" id="review_form_title">
+              Your rating:</div>
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="review_form_rating_field">
+                <%= star_rating_input(:name => 'review_score', :metadata => { :required => true }) %>
+              </div>
+            </div>
+
+            <div class="form_row">
+              <div class="form_title" id="review_form_title">
+              Title of review:              </div>
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="review_review_title_field">
+                <%= f.text_field :title, :size => 50 %>
+              </div>
+            </div>
+
+            <div class="form_row">
+              <div class="form_title" id="review_form_message">
+              Message:              </div>
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="review_form_message_field">
+                <%= f.text_area :content, :size => '54x6' %>
+              </div>
+            </div>
+            <div class="form_row">
+              <div id="container_1col" style="float:left;">&nbsp;</div>
+              <div class="grid_spacer">&nbsp;</div>
+              <div class="form_field_3col" id="topic_form_login_status_field">
+                <%= render :partial => 'shared/workflow/sign_in_sign_up/footer',
+                  :locals => {
+                  :submit_text => post_submission_text,
+                  :from => '#new_review_form',
+                  :cancel_callback => "transition_elements('#review_new_topic', '#review_display'); $('#review_title, #review_content, input[name=review_score]').val('');$.rating.group['1_review_score'].current = null;$.rating.event.drain('1_review_score');$('#review_new_topic label.error').hide();",
+                  :sign_in_to => '#review_login_form_div',
+                  :sign_up_to => '#review_registration_form_div'
+                }
+              %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div id="review_login_form_div" style="display:none">
+          <% form_tag sign_in_path, :id => 'review_login'do %>
+            <%= render :partial => 'users/inline_login',
+              :locals => {
+              :cancel_callback => "transition_elements('#review_login_form_div', '#new_review_form');$('#review_login input[type=text]').val(''); $('#review_login_form_div label.error').hide();",
+              :source => 'new_review'
+            } %>
+          <% end %>
+        </div>
+        <div id="review_registration_form_div" style="display:none;">
+          <% form_for(User.new, :html => { :id => 'new_review_signup' }) do |f| %>
+            <%= render :partial => "users/form",
+              :locals => {
+              :f => f,
+              :remember_me => true,
+              :cancel_callback => "transition_elements('#review_registration_form_div','#new_review_form');$('#review_registration_form_div label.error').hide();"} %>
+            <%= hidden_field_tag 'source', 'new_review' %>
+          <% end %>
+        </div>
+      </div>
+      <!-- SUGGESTION -->
+        <!-- new suggestion -->
+      <div id="suggestion_new_topic"  class="feedback" style="clear:both; display:none;">
+
+        <div class="arial20_bold_green" id="discussion_title">
+        <h3>Suggestion</h3>          </div>
+
+        <div id="discussion_text">
+          Leave a suggestion for us concerning this video.
+        </div>
+
+        <div id="new_suggestion_form">
+          <% form_tag url_for(:action => 'leave_suggestion'), :id => 'new_suggestion' do %>
+            <div class="form_row">
+              <div class="form_title" id="topic_form_title">
+                Suggestion Title:
+              </div>
+
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="topic_form_title_field">
+                <%= text_field :suggestion, :title, :size => '50' %>
+              </div>
+            </div>
+
+            <div class="form_row">
+              <div class="form_title" id="suggestion_form_message">
+                Suggestion:
+              </div>
+
+
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="suggestion_form_message_field">
+                <%= text_area :suggestion, :content, :size => '54x6' %>
+              </div>
+            </div>
+
+            <div class="form_row">
+              <div id="container_1col" style="float:left;">&nbsp;</div>
+              <div class="grid_spacer">&nbsp;</div>
+
+              <div class="form_field_3col" id="suggestion_form_login_status_field">
+                <%= render :partial => 'shared/workflow/sign_in_sign_up/footer',
+                  :locals => {
+                  :submit_text => post_submission_text,
+                  :from => '#new_suggestion_form',
+                  :cancel_callback => "$('#suggestion_title, #suggestion_content').val('')",
+                  :sign_in_to => '#suggestion_login_form_div',
+                  :sign_up_to => '#suggestion_registration_form_div'
+                }
+              %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div id="suggestion_login_form_div" style="display:none;">
+          <% form_tag sign_in_path, :id => 'suggestion_login'do %>
+            <%= render :partial => 'users/inline_login',
+              :locals => {
+              :cancel_callback => "transition_elements('#suggestion_login_form_div', '#new_suggestion_form');$('#suggestion_login input[type=text]').val('');$('#suggestion_login_form_div label.error').hide();",
+              :source => 'new_suggestion'
+            } %>
+          <% end %>
+
+        </div>
+
+
+        <div id="suggestion_registration_form_div" style="display:none;">
+          <% form_for(User.new, :html => { :id => 'new_suggestion_signup' }) do |f| %>
+            <%= render :partial => "users/form",
+              :locals => {
+              :f => f,
+              :remember_me => true,
+              :cancel_callback => "transition_elements('#suggestion_registration_form_div','#new_suggestion_form');$('#suggestion_form_div label.error').hide();"} %>
+            <%= hidden_field_tag 'source', 'new_suggestion' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- narrow search menu -->
+    <div id="container_2col" style="float:right; padding-top: 112px;">
+      <!-- TODO -->
+      <% push_up = true %>
+
+      <% if !logged_in? || !current_user.has_paying_subscription? %>
+        <% subscription_advert_path = !logged_in? ? sign_up_path : billing_user_path(current_user) %>
+        <% push_up = false %>
+        <div id="container_2col">
+          <a href="<%= subscription_advert_path %>"><img src="/images/blue_box_2col.png" width="300" border="0" height="145"></a>
+        </div>
+        <div><img src="/images/spacer.gif" width="1" height="10"></div>
+      <% end %>
+
+
+      <div id="container_2col">
+        <% if free_video_of_week && @video != free_video_of_week.video %>
+          <% push_up = false %>
+          <%= render :partial => 'shared/free_video_advert', :object => free_video_of_week %>
+          <div><img src="/images/spacer.gif" width="1" height="10"></div>
+        <% end %>
+      </div>
+
+
+      <div class="ext_ads" <%= "style='margin-top: -13px;'" if push_up %>>
+        <script type="text/javascript">
+          GA_googleFillSlot("YogaToday_VideoDetails_Bottom_300x250");
+        </script>
+      </div>
+
+    </div>
+  </div>
+</div>

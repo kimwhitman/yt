@@ -1,0 +1,54 @@
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb(["My Account",  profile_user_path(current_user)], "Billing History") %>
+      <div class="arial18_green" id="main_title">Subscription Billing History</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <div id="container_4col" style="float:left;">
+      <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
+        <% unless current_user.account.subscription.subscription_payments.empty? %>
+        <h2 style="margin-bottom: 20px; color:#000000;">Monthly Subscription Charges</h2>
+        <table id="billing_history_table" cellspacing="0" cellpadding="2" border="0" width="100%">
+          <tbody><tr id="header_row" class="arial13_bold_black">
+            <td>Date</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>Method</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>Period</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>Charge</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>Tax</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>Total</td>
+          </tr>
+          <% current_user.account.subscription.subscription_payments.find(:all, :order => 'created_at desc').each do |sp| %>
+          <tr class="arial13_black">
+            <td><%= sp.created_at.strftime '%d-%b-%y' %></td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>Credit Card</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td><%= sp.created_at.strftime '%d-%b-%y' %> - <%= (sp.created_at + 1.month - 1.day).strftime '%d-%b-%y' %></td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>            
+            <td><%= number_to_currency(sp.amount) %></td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td>$0.00</td>
+            <td><img height="1" width="20" src="images/spacer.gif"/></td>
+            <td><%= number_to_currency(sp.amount) %></td>
+          </tr>
+          <% end %>
+        </tbody></table>
+        <% else %>
+          <p class="arial11_black">No account information available.</p>
+        <% end %>
+        
+      </div>
+    </div>
+    <div id="container_2col" style="float:right">
+      <%= render :partial => 'profile_sidebar' %>
+    </div>
+  </div>
+</div>

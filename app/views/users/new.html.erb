@@ -1,0 +1,31 @@
+<%
+  title 'Registration'
+  can_has_js 'registration', 'jquery.validate', 'jquery.form'
+%>
+<% can_has_js :validate_new_user_form do %>
+  $(document).ready(function() {
+    validate_new_user_form("#new_user")
+  });
+<% end %>
+<div id="main">
+
+    <div id="page_container">
+      <div id="page_information">
+        <%= breadcrumb("Registration") %>
+
+        <div class="arial18_green" id="main_title">Yoga Today Registration</div>
+      </div>
+      <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+    </div>
+
+    <div id="main_content">
+       <% form_for @user do |f| -%>
+        <%= render :partial => "form", :locals => { :f => f, :choose_a_plan => true } %>
+      <% end -%>
+    </div>
+  </div>
+
+

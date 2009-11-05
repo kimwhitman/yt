@@ -1,0 +1,42 @@
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb(["Press & News", "/press-and-news"], @post.title) %>
+    <div id="main_title" class="arial18_green"><%= @post.title %></div>      </div>
+    <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+  </div>
+  <div id="main_content">
+    <div style="float: left; margin-top: 11px;" id="container_4col">
+      <div class="filter_options" style="border: none; background-image: none; padding-left: 0px;">
+        <div class="form_row">
+          <% if @post.photo? %>
+          	<div style="float:left; margin-right: 15px;">
+            <%= image_tag @post.photo.url, :style => 'margin-bottom:15px; width: 250px;'%>
+            <% unless @post.caption.blank? %>
+              <div style="margin-top: -15px; font-size: 10px;"><%= @post.caption %></div>
+            <% end %>
+            </div>
+          <% end %>		  
+          <p style="margin-top: 0px;">
+          	Posted: <%= @post.date_posted.strftime("%m-%d-%y") %>
+          </p>
+
+          <p><%= @post.intro  %></p>
+          <p>
+          	<%= @post.body.gsub("\n","<br>") %>
+          </p>
+          <br>
+          <% if !@post.url_title.blank? && !@post.url.blank? %>
+            <p>
+              <%= link_to @post.url_title, @post.url %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%= render :partial => 'nav_sidebar' %>
+  </div>
+</div>

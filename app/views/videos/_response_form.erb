@@ -1,0 +1,53 @@
+
+<%
+post_submission_text = logged_in? ? "Submit" : "Post anonymously"
+%>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#new_response_<%=comment.id%>").validate({
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({ dataType: 'script'});
+      },
+      rules: {
+        "comment[content]":  {
+          required: true,
+          maxlength: 1000
+        }
+      },
+      messages: {
+        "comment[content]": "A message is required, and cannot be more than 1000 characters."
+      }
+    });
+  });
+</script>
+
+<div id="comment_<%=comment.id%>_response_form" style="display:none;margin-top: -20px;  padding-bottom: 20px;">
+  <%form_for [comment.video, Comment.new], :html => {:id => "new_response_#{comment.id}", :style=> 'margin-bottom: 20px;'} do |f|%>
+    <%= f.hidden_field :title, :value => '' %>
+    <%= f.hidden_field :parent_comment_id, :value => comment.id %>
+    <div class="form_row">
+      <div class="form_title" id="topic_form_message">
+        Reply:
+      </div>
+      <div class="grid_spacer">&nbsp;</div>
+      <div class="form_field_3col" id="topic_form_message_field">
+        <%= f.text_area :content, :size => "54x6" %>
+      </div>
+    </div>
+    <div class="form_row">
+      <div id="container_1col" style="float:left;">&nbsp;</div>
+      <div class="grid_spacer">&nbsp;</div>
+      <div class="form_field_3col" id="response_form_login_status_field">
+        <%= render :partial => 'shared/workflow/sign_in_sign_up/footer',
+          :locals => {
+          :submit_text => post_submission_text,
+          :from => '#discussion_display',
+          :cancel_callback => "$('#comment_#{comment.id}_response_form').hide(); $('#add_response_button_#{comment.id}').show(); $('#comment_title, #comment_content').val('');$('#response_new_topic label.error').hide()",
+          :sign_in_to => '#response_login_form_div',
+          :sign_up_to => '#response_registration_form_div'
+        }
+      %>
+      </div>
+    </div>
+  <% end %>
+</div>

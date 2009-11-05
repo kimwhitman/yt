@@ -1,0 +1,17 @@
+Hello,
+
+For the video "<%= @video.title %>",
+<% if @user %>
+The user <%=  @user.name %>
+<% else %>
+An anonymous user
+<% end %>
+left the following message:
+
+<%= @suggestion.title %>
+<%= @suggestion.content %>
+
+<% if @user %>
+  ** Since the user was logged in when they made this suggestion, you can reply to this email to send
+  them a message directly. **
+<% end %>

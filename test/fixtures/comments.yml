@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+    id: 1
+    video_id: 1
+    user_id: 1
+    is_public: true
+    title: A Bad Title
+    content: This is a really really long comment!
+    created_at: <%= DateTime.now - 3.hours %>
+    updated_at: <%= DateTime.now - 3.hours %>
+two:
+    id: 2
+    video_id: 1
+    user_id: 1
+    is_public: true
+    title: A sample review
+    content: This comment isn't so long.

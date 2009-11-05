@@ -1,0 +1,22 @@
+<div style="padding-top: 0px;" class="main_row">
+	<% if instructor.photo? %>
+        <div style="float: left;width:160px;" id="container_1col">	
+	  <%= image_tag instructor.photo.url, :style=> 'max-width:160px;max-height:213px'%>	
+        </div>
+	<% end %>
+        <div class="grid_spacer"> </div>      
+        <div style="float: left;" id="container_3col">
+        	<h2>
+		<%= instructor.name %>
+                </h2>
+            
+            <div class="grid_line"><img height="1" width="1" src="/images/spacer.gif"/></div>
+            
+            <div style="padding-top: 0px;" class="main_row">
+	    <p>
+	    <%= instructor.biography.gsub("\n", "<br>") %>
+	    </p>
+            </div>
+        </div>
+    <div style="clear:both; padding-bottom: 25px;"></div>
+</div>

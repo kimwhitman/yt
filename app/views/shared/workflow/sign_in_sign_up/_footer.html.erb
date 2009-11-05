@@ -1,0 +1,21 @@
+<%
+  cancel_callback ||= "transition_elements('#{cancel_from || from}','#{cancel_to}')" 
+  css_class = ''
+  if submit_text.length > 12
+  	css_class = 'bigger_button'
+  end
+  if submit_text.length > 21
+  	css_class = 'biggest_button'
+  end
+%>
+
+<%= submit_tag submit_text, :class=>css_class %>
+<%= button_to_function 'Cancel', cancel_callback, :class=>'smaller_button' %>
+<% unless logged_in? %>
+  <br /><br /> <!-- WTF BR?! CSS! -->
+  <div class="sign_up_sign_in_call">
+    <%= link_to_function 'Log in to leave your name!', "transition_elements('#{from}','#{sign_in_to}');" %>
+    |
+    <%= link_to_function 'Create an account in 30 seconds!', "transition_elements('#{from}', '#{sign_up_to}');" %>
+  </div>
+<% end %>

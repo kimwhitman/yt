@@ -1,0 +1,31 @@
+if logged_in? # Success
+  page.replace_html "login_display", render(:partial => 'shared/header_link_nav')
+  page << "$('#new_comment, #new_review, #new_suggestion').find('input[type=submit]').val('Submit');"
+  page << "$('.sign_up_sign_in_call').hide();"
+  page.update_playlist
+  case params[:source]
+  when 'header'    
+  when 'new_reply'
+    page.call 'transition_elements', '#discussion_login_form_div', '#new_topic_form'
+  when 'new_response'
+    page.call 'transition_elements', '#response_login_form_div', '#discussion_display'
+  when 'new_review'
+    page.call 'transition_elements', '#review_login_form_div', '#new_review_form'
+  when 'new_suggestion'
+    page.call 'transition_elements', '#suggestion_login_form_div', '#new_suggestion_form'
+  end
+else # Failure
+  error_label = '<label for="password" generated="true" class="error">Username / password invalid.</label>'
+  case params[:source]
+  when 'header'
+    page.show('header_login_warning')
+  when 'new_reply'
+    page << "$('#discussion_login input[name=password]').after('#{escape_javascript(error_label)}')"
+  when 'new_response'
+    page << "$('#response_login input[name=password]').after('#{escape_javascript(error_label)}')"
+  when 'new_review'
+    page << "$('#review_login input[name=password]').after('#{escape_javascript(error_label)}')"
+  when 'new_suggestion'
+    page << "$('#suggestion_login input[name=password]').after('#{escape_javascript(error_label)}')"
+  end
+end

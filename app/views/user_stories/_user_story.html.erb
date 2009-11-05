@@ -1,0 +1,27 @@
+<div class="story_row" id="<%= dom_id(user_story)  %>">
+
+  <div style="float: left; text-align: right;font-size: 13px; color: #333333;" id="container_1col">
+    <%= user_story.name.split.first %>
+    <br/><span class="arial11_gray"><%= user_story.location.gsub(", United States", "") %><br/>
+    <%= user_story.publish_at.strftime "%B %d, %Y" %> </span>
+  </div>
+
+  <div style="float: left;" id="grid_spacer">
+    <img height="1" width="20" src="/images/spacer.gif"/>
+  </div>
+
+  <div style="float: left;" id="container_3col">
+    <h1 style="margin: 0px 0px 25px 0px; color: #488A1A; line-height: 22px; font-size: 18px;"><%= user_story.title %></h1>
+  	<div>
+  		<%= user_story.story.gsub("\n","<br>") %>
+  	</div>
+  </div>
+
+  <div style="float: right;" id="container_2col">
+    <% if user_story.image? %>
+      <%= image_tag(user_story.image.url, :class => 'user_story_image') %>
+    <% end %>    
+  </div>
+
+  <div style="clear: both; height: 20px;"> </div>
+</div>

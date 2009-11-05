@@ -1,0 +1,6 @@
+if @suggestion.valid?
+  page.replace_html 'new_suggestion_form', '<p><strong>Your suggestion has been emailed. Thank you.</strong></p>'
+else
+  error_label = "<label for='password' generated='true' class='error'>Could not send message: #{@suggestion.errors.join('<br />')}.</label>"
+  page << "$('#new_suggestion #suggestion_content').after('#{escape_javascript(error_label)}')"
+end

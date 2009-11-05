@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Uh-oh!</title>
+  </head>
+  <body>
+	<%= render :partial => "shared/email_header" %>
+<br />
+Uh-oh!
+<br />
+<br />
+We were unable to charge your credit card <%= @subscription.card_number %> 
+<br />
+<%= number_to_currency(@subscription.amount) %> for your <%= @subscription.subscription_plan.name %> plan. 
+<br />
+<br />
+Please visit your account page at the following URL to update
+<br />
+your payment information as soon as possible:
+<br />
+<br />
+http://www.yogatoday.com/
+<br />
+<br />
+If you have any questions about this email, please contact 
+<br />
+sales@yogatoday.com
+<br />
+<br />
+Thank you for your business!
+<br />
+  </body>
+</html>

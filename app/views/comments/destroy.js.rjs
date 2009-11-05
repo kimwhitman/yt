@@ -1,0 +1,3 @@
+page.replace_html "comments", render(:partial => 'videos/comment', :collection => @video.comments.public.topics)
+page.replace_html '.discussion_count', @video.comments.public.count.to_s
+page << "$('#comment_title').val(''); $('#comment_content').val('');"

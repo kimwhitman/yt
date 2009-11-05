@@ -1,0 +1,35 @@
+<% can_has_js 'jquery.metadata', 'jquery.rating' %>
+<% can_has_css 'jquery.rating'%>
+<script>
+  $(document).ready(function(){$('input[type=radio].star').rating();});
+</script>
+<%
+  video = listing
+%>
+<div class="results_row">
+  <div class="video_list_thumb">
+    <%= link_to_video video %>
+  </div>
+
+  <div class="video_list_text">
+    <a href="<%= video_path video %>" title="More information about '<%= h video.title  %>'" class="video-thumb-title">
+      <%= video.title %>
+    </a>
+    <br />
+    <div class="video-thumb-info"><div style="float:left;"><%= truncate(video.instructor_names.join(',
+    '), 30)  %>  | <%= video.skill_name %> |
+    <%= video.duration_to_minutes %>:<%= video.duration_seconds %> |</div> <div style="float:left; padding-left: 3px;"><%= render_star_rating video.score %></div></div>
+
+    <div style="clear:both;">
+      <%= video.description %>
+    </div>
+  </div>
+
+  <div class="video_list_buttons">
+    <%= add_video_to_playlist_link '+ Queue', video %>     
+    <br />
+    <div class="vert_spacer10"><img src="/images/spacer.gif" width="1" height="10" /></div>
+    <%= add_video_to_cart_link "Buy | #{number_to_currency(video.price(current_user)).split('.').first}<span style='vertical-align: top; line-height: 14px; font-size: 8px;'>99</span>", video %>
+  </div>
+
+</div>

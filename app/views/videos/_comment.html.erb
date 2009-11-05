@@ -1,0 +1,62 @@
+<%
+  username = comment.user.blank? ? "Anonymous" : comment.user.name
+  	city = comment.user.blank? ? nil : comment.user.city  
+	state = comment.user.blank? ? nil : comment.user.state
+  		country = comment.user.blank? ? nil : comment.user.country
+  		location = [city, state, country].delete_if{|item| (item == 'United States' || item.blank?)}.compact.join(', ')
+	
+%>
+<div class='comment_wrap'>
+	<div class="discussion_row">
+	  <div id="container_1col" style="float:left;">
+	  	<div class="discussion_info">  
+	  		<div class="avatar_wrap" style="float:left; padding-right: 2px;">  
+		    	<%= user_photo_image comment.user %>
+		    </div>
+		    <%= username  %> <br />
+		    <%= "#{location}<br>" unless location.blank? %>
+		    <span class="arial11_black"><%= time_ago comment.updated_at %> </span>
+		</div>
+	  </div>
+	
+	  <div class="grid_spacer">&nbsp;</div>
+	  <div id="container_3col"  style="float:left">
+	    <div class='title'>
+	      <strong>
+	      	<% if comment.responses.size > 0%>
+	      		<%= link_to_function "#{image_tag 'triangle_right.png', :border => 0}<span id=#{comment.id}_num_responses_1> (#{comment.responses.size})</span>", "more_or_less(this, true); document.getElementById('#{comment.id}_responses').style.display = '';", :class => 'more_link' %>
+	      		<%= link_to_function "#{image_tag 'triangle_down.png', :border => 0, :style=>'vertical-align:middle;'}<span id=#{comment.id}_num_responses_2> (#{comment.responses.size})</span>", "more_or_less(this, false); document.getElementById('#{comment.id}_responses').style.display = 'none';", :class => 'less_link', :style => 'display:none' %>
+	      	<% else %>
+	      		<%= link_to_function "#{image_tag 'triangle_right.png', :border => 0}<span id=#{comment.id}_num_responses_1></span>", "more_or_less(this, true); document.getElementById('#{comment.id}_responses').style.display = '';", :class => 'more_link' %>
+	      		<%= link_to_function "#{image_tag 'triangle_down.png', :border => 0, :style=>'vertical-align:middle;'}<span id=#{comment.id}_num_responses_2></span>", "more_or_less(this, false); document.getElementById('#{comment.id}_responses').style.display = 'none';", :class => 'less_link', :style => 'display:none' %>
+	      	<% end %>
+	      	<%= comment.title %>
+	  	</strong>
+	    </div>
+	    <div class="content" style="border:none;"><%= truncate(comment.content, 75) %> </div>
+	    <div class="content" style="display:none;">
+	      <%= comment.content %> 
+	       <span id="offensive_flag_<%=comment.id%>"><%= link_to_remote "Flag as offensive", :url => {:action => "mark_as_offensive", :id => comment.id}, :html => {:style=>"text-decoration: underline;"}%></span>
+	      <% if logged_in? && current_user.id == comment.user_id && comment.responses.empty? %>
+	       	- 
+	      	<span><%= link_to_remote "Delete", :url => video_comment_path(comment.video_id, comment.id), :method => :delete, :html => {:style=>"text-decoration: underline;"}, :confirm => "This will delete your comment."%></span>
+	      <% end %>
+	    </div>
+	   </div>
+	</div>
+	<div id="<%=comment.id%>_responses" style="display:none;">
+		<div id="<%=comment.id%>_just_responses">
+			<%= render :partial => "videos/response", :collection => comment.responses, :locals => {:comment => comment} %>
+		</div>
+		<div id="container_3col"  style="float:right; margin: 20px 0px;">
+      <% if (logged_in?) %>
+        <!-- EAE no replies unless logged in -->
+			  <a class="bigger_button" id="add_response_button_<%=comment.id%>" onmouseover="this.style.cursor='Pointer'; this.style.color='#333333';" onmouseout="this.style.color='#666666';" onclick="$('#comment_<%=comment.id%>_response_form').show(); $('#add_response_button_<%=comment.id%>').hide();" style="float:left;color: #666666;">
+				  Reply to this topic
+			  </a>
+      <% end  %>
+		</div>
+	
+		<%= render :partial => "videos/response_form", :locals => {:comment => comment}%>
+	</div>
+</div>

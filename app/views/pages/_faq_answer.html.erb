@@ -1,0 +1,12 @@
+<div id="<%= dom_id(faq_answer)  %>" class="results_row" style="display:none">
+  <div class="faq-title">
+    <%= faq_answer.question %>
+  </div>
+  <div class='faq-nav'>
+    &nbsp;&nbsp;-&nbsp;&nbsp;<%= link_to_function 'hide answers', "$('##{dom_id(faq_answer)}').hide();"  %>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#q_top">back to top</a>
+  </div>
+  <div class='faq-answer'>
+    <%= faq_answer.answer %>
+  </div>
+  <div class="grid_line" style="margin-top:20px;"><img src="../images/spacer.gif" width="1" height="1"></div>
+</div>

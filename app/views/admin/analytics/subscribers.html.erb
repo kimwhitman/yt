@@ -1,0 +1,35 @@
+<%= render :partial => 'submenu' %>
+<table>
+	<thead>
+		<th>
+			User
+		</th>
+		<th>
+			First paying day
+		</th>
+		<th>
+			Cancellation date
+		</th>
+	</thead>
+	<% if @users.blank? %>
+		<tr>
+			<td colspan='7'>No users have subscribed to Yoga Today.</td>
+		</tr>
+	<% end %>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.name %> (<%= user.email %>)</td>
+			<td>
+				<%= user.account.subscription.subscription_payments.first.created_at %>
+			</td>
+			<td>
+				<% if user.has_paying_subscription? %>
+				User has not cancelled yet.
+				<% else %>
+				<%= user.account.subscription.subscription_payments.last.created_at %>
+				<% end %>
+			</td>			
+		</tr>
+	<% end %>
+</table>
+<%= will_paginate @users %>

@@ -1,0 +1,23 @@
+<%# Right now we only handle purchasing videos. There might be more crap in the future like T-shirts and stuff. %>
+<%# TODO TODO TODO we need to set this from 'high' to 'hd' %>
+<%
+  video ||= purchased_item.product
+%>
+<div class="results_row" id="<%= dom_id video %>">
+  <div class="video_list_thumb">
+    <% if purchased_item.downloadable? %>
+      <%= link_to_video video, :url => download_purchased_item_path(purchased_item), :dont_show_free => true  %>
+    <% else %>
+      <%= link_to_video video, :dont_show_free => true %>      
+    <% end %>
+  </div>
+
+  <div class="grid_spacer"><img height="78" width="1" src="/images/spacer.gif"/></div>
+
+  <div style="float: left;" id="container_3col">
+
+  <a class="arial13_bold_black" title="More information about this video" href="<%= download_purchased_item_path(purchased_item) %>"><%= video.title %></a><br/>
+    <span class="arial11_gray"><%= video.instructor_names.join(', ')  %>  | <span class="arial11_gray"><%= video.skill_name  %></span> | <%= video.duration_to_minutes %>:<%= video.duration_seconds %></span><br/>
+    <%= video.description %>
+  </div>
+</div>

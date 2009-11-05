@@ -1,0 +1,39 @@
+<%
+  cancel_callback ||= nil
+%>
+<div class="form_row">
+  <div class="form_title" id="review_login_form_username">
+    Username:
+  </div>
+
+  <div class="grid_spacer">&nbsp;</div>
+
+  <div class="form_field" id="review_login_form_username_field" style="float:left">
+    <%= text_field_tag 'email', nil, :size => 100 %>
+  </div>
+</div>
+
+<div class="form_row">
+  <div class="form_title" id="review_login_form_password">
+    Password:
+  </div>
+
+  <div class="grid_spacer">&nbsp;</div>
+
+  <div class="form_field" id="review_login_form_password_field" style="float:left">
+    <%= password_field_tag 'password', nil, :size => 40 %>    
+  </div>
+</div>
+
+<div class="form_row">
+  <div class="form_title" id="review_login_form_password">
+    &nbsp;
+  </div>
+
+  <div class="grid_spacer">&nbsp;</div>
+
+  <div class="form_field" id="review_login_form_password_field" style="float:left">
+    <%= submit_tag 'Log in', :class=>'smaller_button' %> <%= button_to_function 'Cancel', cancel_callback, :class=>'smaller_button' %>
+    <%= hidden_field_tag 'source', source %>
+  </div>
+</div>

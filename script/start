@@ -1,0 +1,3 @@
+#! /bin/bash
+#mongrel_rails start -e production -p 9500
+mongrel_rails cluster::start

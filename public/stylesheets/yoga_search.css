@@ -1,0 +1,143 @@
+@charset "utf-8";
+#page_container {
+	width: 100%;
+	overflow: auto;
+	float: left;
+}
+
+
+#page_information   {
+	width: 500px;
+	float: left;
+}
+#navigation     {
+
+}
+.review_header {
+	overflow: auto;
+	width: 300px;
+	margin: auto;
+}
+#review_section {
+	overflow: auto;
+	vertical-align: bottom;
+	margin: auto;
+	background-image: url(../images/border_bkg_dadad5.png);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+.feedback {
+	padding-top: 20px;
+}
+.form_title {
+	text-align: right;
+	width: 140px;
+	clear: both;
+	float: left;
+	vertical-align: text-bottom;
+}
+.form_row {
+	vertical-align: middle;
+	padding-top: 10px;
+	clear: both;
+}
+.form_field_3col {
+	float: left;
+}
+
+
+
+.review_option {
+	background-color: #f0f0f0;
+	float: left;
+	margin-top: 25px;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #dadad5;
+	border-right-color: #dadad5;
+	border-bottom-color: #dadad5;
+	border-left-color: #dadad5;
+	vertical-align: baseline;
+}
+.review_option_spacer {
+	float: left;
+	margin-top: 25px;
+	clear: right;
+	vertical-align: baseline;
+}
+
+
+#main_title  {
+	padding-top: 5px;
+	padding-bottom: 20px;
+}
+#unlimited_videos  {
+	width: 300px;
+	float: right;
+	overflow: auto;
+	position: relative;
+	top: 8px;
+}
+#unlimited_videos  #watch_videos  {
+	width: 300px;
+	text-align: right;
+}
+#unlimited_videos  #Subscribe  {
+	width: 300px;
+	text-align: right;
+}
+
+#sort_by_options {
+	width: 140px;
+	z-index: 50;
+	overflow: auto;
+	display: none;
+	
+}
+#sort_by_dropdown {
+	position: relative;
+}
+
+.display_results_options_nav {
+	float: right;
+	border: 1px solid #cccccc;
+}
+#details_video {
+	margin-top: 15px;
+	margin-bottom: 25px;
+	overflow: auto;
+}
+
+#page_count_bottom {
+	clear: both;
+	padding-top: 30px;
+	padding-bottom: 60px;
+}
+
+#main  #sort_by {
+	float: left;
+	margin-right: 20px;
+}
+
+
+#main  #page_count {
+	float: left;
+}
+#main #main_header {
+	margin: 0 auto;
+	z-index: 0;
+
+}
+#main_review {
+	float: left;
+}

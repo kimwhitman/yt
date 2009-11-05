@@ -1,0 +1,10 @@
+page.replace_html "reviews", render(:partial => 'videos/review', :collection => @video.reviews.public)
+page.replace_html '.review_count', @video.reviews.public.count.to_s
+page.replace_html '.lower_review_count', pluralize(@video.reviews.public.count.to_s, "Review")
+page << "$('#review_display input[@type=radio].star').rating();"
+page << "$('#review_title').val(''); $('#review_content').val(''); $('input[name=review_score]').val('');"
+page << "$.rating.group['1_review_score'].current = null;"
+page << "$.rating.event.drain('1_review_score');"
+page << "$('.video_overall_rating .star').removeClass('star_on')"
+page << "$('.video_overall_rating .star:lt(#{@video.score * 2})').addClass('star_on')"
+page << "$('abbr[class*=timeago]').timeago();"

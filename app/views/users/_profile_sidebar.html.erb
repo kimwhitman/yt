@@ -1,0 +1,40 @@
+<div class="filter_options">
+
+  <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Profile', profile_user_path(current_user)  %>
+    </span>
+  </div>
+  <% if current_user.has_paying_subscription? %>
+  <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Payment Info', billing_user_path(current_user)  %>
+    </span>
+  </div>
+  <% end %>
+  <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>    
+  <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Subscription Billing History', billing_history_user_path(current_user) %>
+    </span>
+  </div>
+  <% end %>
+  <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Membership Terms and Details', membership_terms_user_path(current_user) %>
+    </span>
+  </div>
+  <% if current_user.has_paying_subscription? %>
+  <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Cancel Membership', cancel_membership_user_path(current_user) %>
+    </span>
+  </div>
+  <% else %>
+   <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Subscribe to Yoga Today', billing_user_path(current_user)  %>
+    </span>
+  </div>
+  <% end %>
+</div>

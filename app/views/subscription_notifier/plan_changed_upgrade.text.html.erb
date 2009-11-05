@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>
+      <%=  "Your Yoga Today Subscription has been activated! (RECEIPT \##{@subscription.id})" %>
+    </title>
+  </head>
+  <body>
+    <%= render :partial => "shared/email_header2",
+      :locals => { :headertitle => "Your Yoga Today Subscription has been activated! (RECEIPT \##{@subscription.id})"} %>
+    <div>
+      <br />
+      Hello <%= @user.name %> ,
+      <br />
+      Welcome to the Yoga Today Community! We're pleased to inform you that your
+      subscription has been successfully processed and you now have unlimited
+      streaming access to the Yoga Today Library. As an Unlimited Member, you also
+      qualify for our special subscriber's rate of $2.99 for downloaded classes.
+      <br />
+      Be sure to visit your Profile page to create an avatar so that other members
+      will recognize you when you rate, review and discuss classes.
+      <br />
+      Classes added to your Yoga Queue will be saved for your return when you log out.
+      Click
+      <a href="http://www.yogatoday.com/videos">
+        here
+      </a>
+      to begin practicing with us right away!
+      <br />
+      Thanks and Love from everyone at Yoga Today:)
+      <br />
+      Order # <%=  @subscription.id %>
+      <br />
+      Name: <%= @user.name %>
+      <br />
+      Order Date: <%= @subscription.id %>
+      <br />
+      Credit Card Number: <%= @subscription.card_number %>
+      <br />
+      Amount Charged: <%= number_to_currency(@subscription.amount) %>
+      <br />
+      Membership Terms:
+      <br />
+      Billing occurs automatically at the beginning of each period and your next
+      payment is scheduled to be debited on
+      <%= @subscription.next_renewal_at.to_s(:long_day).squeeze(' ') %>.
+      You may cancel at any time by
+      visiting http://www.yogatoday.com, logging into your account,
+      clicking on "My Profile" and selecting "Cancel Membership."
+      Sorry, no refunds can be offered for partial months.
+      <br />
+      For details about the Yoga Today Terms of Service, visit
+      <a href="http://www.yogatoday.com/terms-and-conditions">
+        http://www.yogatoday.com/terms-and-conditions
+      </a>
+      <br />
+      Our privacy policy can be accessed at
+      <a href="http://www.yogatoday.com/privacy-policy">
+        http://www.yogatoday.com/privacy-policy
+      </a>
+      <br />
+      This email was sent to you as part of your Yoga Today membership.
+      If you would like to stop receiving these emails please visit your Profile page,
+      uncheck "Yes, send me news from YogaToday.com," and save your changes.
+      <br />
+      Please do not reply to this email.
+      <br />
+      For more information about your account, please visit
+      <a href="http://www.yogatoday.com/faqs">
+        http://www.yogatoday.com/faqs
+      </a>
+      <br />
+      If you require further assistance, please contact support@yogatoday.com
+      <br />
+    </div>
+  </body>
+</html>
+

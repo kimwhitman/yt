@@ -1,0 +1,38 @@
+<% title 'Forgot your password?' %>
+<div id="main">
+
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("Forgotten Password") %>
+
+      <div class="arial18_green" id="main_title">Forgotten password</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <% form_tag :action => 'forgot' do %>
+      <div id="container_1col" style="float: left;">&nbsp;</div>
+      <div class="grid_spacer" style="float: left;">&nbsp;</div>
+      <div id="container_4col" style="float: left;">
+        <p>Please enter the e-mail address you gave us when you registered and we'll email you your password.</p>
+
+
+        <div style="float: left;">
+          <% if flash[:error] %>
+            <div>
+              <%= flash[:error] %>
+            </div>
+          <% end %>
+
+          <label>Email</label>
+          <%= text_field_tag :email %>
+          <div class="grid_spacer" style="float: left;">&nbsp;</div>
+          <%= submit_tag 'Reset password' %>
+      </div>
+      
+    </div>
+    <% end %>
+
+
+  </div>
+</div>

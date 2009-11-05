@@ -1,0 +1,27 @@
+<%= render :partial => 'submenu' %>
+<table>
+	<thead>
+		<th>
+			User
+		</th>
+		<th>
+			Purchases (total amount)
+		</th>
+		<th>
+			Videos
+		</th>
+	</thead>
+	<% if @purchases.blank? %>
+		<tr>
+			<td colspan='7'>No logged in users have made purchases.</td>
+		</tr>
+	<% end %>
+	<% @purchases.each do |purchase| %>
+		<tr>
+			<td><%= purchase.user.name %> (<%= purchase.user.email %>)</td>
+			<td><%= purchase.purchase_items.count %> (<%= number_to_currency(purchase.total) %>)</td>
+			<td><%= purchase.purchase_items.collect { |pi| pi.name }.join(', ') %></td>
+		</tr>
+	<% end %>
+</table>
+<%= will_paginate @purchases %>

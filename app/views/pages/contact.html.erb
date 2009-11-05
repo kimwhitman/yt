@@ -1,0 +1,139 @@
+<% title 'Contact' %>
+<% can_has_js 'jquery.validate' %>
+<% can_has_js :validate_contact_form do %>
+  $(document).ready(function() {
+    $('#feedback_form').validate({
+        rules: {
+          first_name: 'required',
+          last_name: 'required',
+          email: {
+            required: true,
+            email: true
+          },
+          message: 'required'
+        },
+        messages: {
+          first_name: 'First Name is required',
+          last_name: 'Last Name is required',
+          email: 'A valid email is required',
+          message: 'Message is required'
+        }
+      });
+  });
+<% end %>
+<div id="main">
+
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("Contact") %>
+    <div id="main_title" class="arial18_green">Contact Us</div>      </div>
+    <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+  </div>
+
+  <div id="main_content">
+
+
+    <div style="float: left;" id="container_4col">
+      <% if flash[:contact_error] %>
+        <div style="color:Red">
+          <%= flash[:contact_error] %>
+        </div>
+
+      <% end %>
+      <div class="filter_options" style="border: none; background-image: none; padding-left: 0px;">
+        <% form_tag contact_path, :id => 'feedback_form', :name => 'feedback_form' do %>
+
+          <div class="form_row" style="padding-top: 21px;">
+            <div style="width: 130px; float: left;" id="container_2col">
+              Yoga Today LLC<br/>
+              P.O. Box 9880<br/>
+              Jackson, WY 83002
+            </div>
+            <div style="float: right;" id="container_2col">
+              <span class="arial13_bold_black" style="color: #666666;">Phone:</span> 307-734-0877<br/>
+              <span class="arial13_bold_black" style="color: #666666;">Fax:</span> 307-734-0898<br/>
+              <span class="arial13_bold_black" style="color: #666666;">Email:</span> <%= mail_to 'info@yogatoday.com', 'info(at)yogatoday.com' %>
+            </div>
+          </div>
+
+          <div class="form_row">
+             
+          </div>
+
+
+          <div class="form_row">
+            <span class="arial16_bold_green">Send us a note</span><br/>Thanks. Your feedback makes Yoga Today better for everyone.
+          </div>
+
+          <div class="form_row">
+            <div style="width: 130px;" id="first_name_title" class="form_title">
+            First Name*              </div>
+
+            <div class="grid_spacer"> </div>
+
+            <div id="first_name_field" class="form_field_3col">
+              <%= text_field_tag 'first_name', '', :size => '30' %>
+            </div>
+          </div>
+
+          <div class="form_row">
+            <div style="width: 130px;" id="last_name_title" class="form_title">
+            Last Name*              </div>
+
+            <div class="grid_spacer"> </div>
+
+            <div id="last_name_field" class="form_field_3col">
+              <%= text_field_tag 'last_name', '', :size => '30' %>
+            </div>
+          </div>
+
+          <div class="form_row">
+            <div style="width: 130px;" id="email_title" class="form_title">
+            Email*              </div>
+
+            <div class="grid_spacer"> </div>
+
+            <div id="email_field" class="form_field_3col">
+              <%= text_field_tag 'email', '', :size => '30' %>
+            </div>
+          </div>
+
+          <div class="form_row">
+            <div style="width: 130px;" id="message_title" class="form_title">
+            Comments/<br/>Questions/<br/>Feedback*          </div>
+
+            <div class="grid_spacer"> </div>
+
+            <div id="message_field" class="form_field_3col">
+              <%= text_area_tag 'message', '', :size => '54x6' %>
+            </div>
+          </div>
+
+          <div class="form_row">
+            <div style="width: 130px;" id="message_title" class="form_title">
+                      </div>
+
+            <div class="grid_spacer"> </div>
+
+            <div id="topic_form_submit" class="form_field_3col">              
+              <%= submit_tag 'Submit', :class => 'button' %>
+            </div>
+          </div>
+          
+        <% end %>
+        <script type="text/javascript">document.getElementById('first_name').focus();</script>
+
+      </div>
+    </div>
+
+    <%= render :partial => 'nav_sidebar' %>
+
+
+
+
+
+  </div>
+</div>

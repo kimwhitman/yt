@@ -1,0 +1,26 @@
+<%= render :partial => 'submenu' %>
+<table>
+	<thead>
+		<th>
+			Video
+		</th>
+		<th>
+			Purchases (total amount)
+		</th>		
+	</thead>
+	<% if @videos.blank? %>
+		<tr>
+			<td colspan='7'>No videos have been purchased.</td>
+		</tr>
+	<% end %>
+	<% @videos.each do |video| %>
+		<tr>
+			<td><%= video.title %></td>
+			<td>
+				<%= PurchaseItem.count(:conditions => "purchase_type = 'video' AND purchased_item_id = #{video.id}") %>
+				(<%= number_to_currency (PurchaseItem.sum('price_in_cents', :conditions => { :purchased_item_id => 1, :purchase_type => 'video' }) / 100.0) %>)
+			</td>			
+		</tr>
+	<% end %>
+</table>
+<%= will_paginate @videos %>

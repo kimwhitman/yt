@@ -1,0 +1,7 @@
+<% if @record.has_announced_publish %>
+  Updating this user story will not send a thank you e-mail since one was already sent.
+<% else %>
+  If you choose to publish this story, a thank you e-mail will be sent to <%= @record.email %>.
+<% end %>
+
+<%= render :super %>

@@ -1,0 +1,56 @@
+<% title 'Featured Videos' %>
+<%# This file is called 'list.rhtml' due to a bug in ActiveScaffold. Don't rename it. Or else.%>
+Filter:
+<%= link_to_unless_current "All videos", url_for(:controller => 'admin/videos') %> |
+<%= link_to_unless_current "Featured videos", url_for(:controller => 'admin/featured_videos') %>
+
+<style type="text/css">
+	#sortable {
+    list-style-type: none; margin: 0; padding: 0;
+    min-width: 170px;
+  }
+	#sortable li {
+    margin: 3px; padding: 1px; float: left; width: 130px; text-align: center;
+  }
+	</style>
+	<script type='text/javascript'>
+	/* totally cribbed from http://keith-wood.name/datepick.html */
+	function customRange(input) {  
+    return {minDate: (input.id == "endDatepicker" ? 
+        $("#startDatepicker").datepick("getDate") : null),  
+        maxDate: (input.id == "startDatepicker" ? 
+        $("#endDatepicker").datepick("getDate") : null)};  
+	}
+	function setup_date_pickers() {
+		(function($) {
+			$('#startDatepicker,#endDatepicker').datepick({beforeShow: customRange, 
+				showOn: 'both', buttonImageOnly: true, buttonImage: 'calendar.gif'});
+		})(jQuery);		
+	}
+	</script>
+	<script type="text/javascript">
+  (function($) {
+    // Safe to use jQuery $ in here, yo
+    $(function() {
+      $("#sortable").sortable();			
+    });
+  })(jQuery);
+	</script>
+
+<% form_tag url_for(:action => 'set_ranks') do %>
+<div style='margin-bottom:10px; margin-top:10px;'>
+  
+  <div class='active-scaffold-header'>
+    <h2>Featured Video Order</h2>
+    <em>Drag and drop videos into desired order, then click 'save.'</em>
+  </div>
+
+<ul id="sortable">
+  <%= render :partial => 'featured_video', :collection => FeaturedVideo.by_rank %>  
+</ul>
+
+</div>
+<div style='clear:both'>&nbsp;</div>
+<%= submit_tag 'Update featured video order' %>
+<% end %>
+<%= render :super %>

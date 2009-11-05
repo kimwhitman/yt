@@ -1,0 +1,33 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+YogaToday website.
+
+The Delve Platform (MDS?) is pretty primitive in the following respects:
+* it doesn't allow for custom properties on media, a'la GData, so we're duplicating a lot of stuff here
+on YogaToday that would be better off serviced through whatever console Delve's got going.
+* only one thumbnail size.
+* there doesn't appear to be a concept of 'private media' so we have to... ...
+... ... I haven't figured out that part yet. Will need to find a solution before launch so'z
+the HD quality videos don't get pirated to hell by a curious and technical Yoga Today user.
+* search-no-search?
+
+Right now we'll handle all the dirty mojo client-side but if Delve ever upgrades the infrastructure
+we can loose some weight and use that stuff directly.
+
+Sticky points in storing redundant data is danger of falling out of sync. If
+the YT people say, "Hey, this Yoga Title is better for my video because it brings more traffic..."
+then the cached video information on the website falls out of sync if they change through the
+Delve panel. Title + Duration + Description is cached client-side because: EAPIS search
+isn't there and lack of metadata on Delve means we'd need to first search remotely, then
+search locally, as particular data like instructor, skill level, etc, are only available
+on the webserver.
+
+On thumbnails, they will probably look like crap unless we do some kind of quality resizing.
+Should use ImageMagick to dynamically resize the thumbnails. Trooptube did this but cached the results.
+
+Things to note about the Video table:
+* the whole *_media_id column deal on the Video. This represent the media id's
+of preview, hd, and regular streaming-quality videos hosted by Delve.
+* Duration: Delve returns milliseconds, but we only need seconds,
+so we do a duration_in_seconds / 1000 to get seconds.

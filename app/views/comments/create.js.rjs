@@ -1,0 +1,15 @@
+if @comment.parent_comment_id.blank?
+	page.replace_html "comments", render(:partial => 'videos/comment', :collection => @video.comments.public.topics)
+	page.replace_html '.discussion_count', @video.comments.public.count.to_s
+	page << "transition_elements('#discussion_new_topic','#discussion_display');"
+	page << "$('#comment_title').val(''); $('#comment_content').val('');"
+else
+	page.replace_html "#{@comment.parent_comment_id}_just_responses", render(:partial => 'videos/response', :collection => @comment.parent_comment.responses)
+	page.show "add_response_button_#{@comment.parent_comment_id}"
+	page.hide "comment_#{@comment.parent_comment_id}_response_form"
+	page.replace_html '.discussion_count', @video.comments.public.count.to_s
+	page.replace_html "#{@comment.parent_comment.id}_num_responses_1", " (#{@comment.parent_comment.responses.size})"
+	page.replace_html "#{@comment.parent_comment.id}_num_responses_2", " (#{@comment.parent_comment.responses.size})"
+	page << "$('#comment_title').val(''); $('#comment_content').val('');"
+end
+page << "$('abbr[class*=timeago]').timeago();"

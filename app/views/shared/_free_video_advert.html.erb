@@ -1,0 +1,20 @@
+<% video ||= free_video_advert.video %>
+		<div id="advert-free" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= video_url(video) %>';">
+          <div id="advert-free-header">
+            <img src="/images/advert-free-class-header.png" width="300" height="40" style="border: none;" />
+          </div>
+          <div id="advert-free-content">
+            <div id="feature-video-info-class-title">
+              <%= video.title %>
+            </div>
+            
+            <div id="feature-video-info-class-text">
+              <%= video.skill_name %> | <%= video.style_names.join(',
+              ') %> | <%= video.instructor_names.join(', ') %> |
+              <%= video.duration_to_minutes %>:<%= video.duration_seconds %>
+            </div>
+          </div>
+          <div id="advert-free-footer">
+            <img src="/images/advert-free-class-action.png" width="300" height="24" border="0"/>
+          </div>
+        </div>

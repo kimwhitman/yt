@@ -1,0 +1,30 @@
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("Press & News") %>
+    <div id="main_title" class="arial18_green">Press and News</div>      </div>
+    <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+  </div>
+  <div id="main_content">
+    <div style="float: left; margin-top: 11px;" id="container_4col">
+	  <% @posts.each do |post| %>
+	      <div class="filter_options" style="border: none; background-image: none; padding-left: 0px;">
+	        <div class="form_row">	  
+	          <p class="arial16_gray" style='margin-bottom: 6px;'>
+	            <%= link_to post.title, "/press-and-news?id=#{post.id}"%><br>
+	            <span class="arial13_gray"> Posted: <%= post.date_posted.strftime("%m-%d-%y")%></span>
+	          </p>
+		  		<p style='margin: 10px 0px 0px 0px;'>
+		  		<%= post.intro %> <%= link_to "more...", "/press-and-news?id=#{post.id}"%>
+		  		</p>
+	        </div>
+	      </div>
+	  <% end %>
+	  <%= will_paginate @posts %>
+    </div>
+    <%= render :partial => 'nav_sidebar' %>
+  </div>
+</div>

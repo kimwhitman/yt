@@ -1,0 +1,33 @@
+<%
+  # We actually receive a ShoppingCartItem that is linked to a Video model here.
+  cart_item = video
+  video = cart_item.product
+  modifiable = true if modifiable.nil?
+%>
+<div class="results_row" id="<%= dom_id video %>">
+  <div class="video_list_thumb">
+    <%= link_to_video(video, {:dont_show_free => true})  %>    
+  </div>
+
+  <div class="grid_spacer"><img height="78" width="1" src="/images/spacer.gif"/></div>
+
+  <div style="float: left;" id="container_3col">
+  <%= link_to_video video, :style=>"font-size: 13px", :class => 'video-thumb-title', :text => video.title %>    <br/>
+    <span class="video-thumb-info"><%= video.instructor_names.join(', ')  %>   |  <%= video.skill_name  %>  | <%= video.duration_to_minutes %>:<%= video.duration_seconds %></span><br/>
+    <%= video.description %><div style='margin-top: 5px;'><%= link_to "Details", video_path(video.id) %></div>
+  </div>
+
+
+  <div style="float: left; padding-left: 150px;" class="grid_spacer"><img height="78" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left; text-align: right; width: 75px;">
+    <% if modifiable %>
+      <%= link_to_function "Delete", "$('#remove_options_#{video.id}').show()", :id => "remove_button_#{video.id}" %><div style="clear:both"></div>
+      <div id="remove_options_<%=video.id%>" style="display:none; margin-left: 7px;width: 51px; float:right; margin-top: 2px;">
+        <%= link_to_remote 'Yes', :url => url_for(:action => 'remove', :id => video.id), :method => :delete %> / 
+        <%= link_to_function "No ", "$('#remove_options_#{video.id}').hide()", :style => "padding-right: 0px" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="arial13_bold_gray" style="float: right; text-align: right; width: 50px; padding-right: 8px;" id="container_1col"><%= number_to_currency cart_item.amount.to_dollars %></div>
+</div>

@@ -1,0 +1,6 @@
+id = "video_#{params[:id]}_cart"
+page.replace_html id, link_to("<strong>In Cart</strong>", cart_path)
+page.show('cart_link')
+page.hide('not_cart_link')
+page << "$('##{id}').attr('onclick', 'return false');"
+page.update_cart

@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Thank You</title>
+  </head>
+  <body>
+	<%= render :partial => "shared/email_header" %>
+  	Hello <%=h @user_story.name %>,
+    <br><br>
+    <%= @user_story.personal_message.gsub("\n", "<br>") %>
+    <br><br>
+    Namaste,
+    <br><br>
+    Kim, Neesha, Adi, Sarah and the whole crew
+    <br><br>
+    View your story here: <%= link_to "Thank you for helping me connect with my inner me", user_story_url(@user_story) %>
+    <br><br><br>
+    <div style="text-align: center;">
+      www.YogaToday.com
+    </div>
+    <br><br>
+    <div style="font-size: 10px">
+      Yoga Today LLC<br>
+      P.O. Box 9880<br>
+      Jackson, WY 83002
+    </div>
+  </body>
+</html>

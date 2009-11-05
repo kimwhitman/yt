@@ -1,0 +1,17 @@
+<% title 'Our Instructors' %>
+<div id="main">
+
+    <div id="page_container">
+      <div id="page_information">
+      <%= breadcrumb("Instructors") %>
+        <div class="arial18_green" id="main_title">Our Instructors</div>
+      </div>      
+    </div>
+
+
+    <div id="main_content">
+      <%= render :partial => 'instructor', :collection => @instructors %>
+      
+      <div style="height:40; clear:both;"><img src="/images/spacer.gif" width="1" height="40" />
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+<%
+  display_mode = params[:display] || @display_mode || 'grid'
+  grid_image = display_mode == 'grid' ? 'switch-view-grid-selected.png' : 'switch-view-grid.png'
+  list_image = display_mode == 'list' ? 'switch-view-list-selected.png' : 'switch-view-list.png'
+%>
+<script type='text/javascript'>
+  // AJAXify pagination.
+  /*
+  $(document).ready(function() {
+    $('a.prev_page, a.next_page').click(function() {
+      $.ajax({
+        beforeSend:function(request){$('#search_message').show(); },
+        data: $('#search_form').serialize() + "&sort_by=" + $('#sort_by').val(),
+        type: 'get',
+        dataType: 'script',
+        url: $(this).attr('href')
+      });
+      return false;
+    });
+  });
+ 	*/
+</script>
+<div id="container_4col" style="float:left;">
+  <div class="search_results_bar">
+    <div id="sort_by_div">
+      <strong>Sort by:</strong>
+      <%= select_tag 'sort_by', options_for_select([
+              ['Most Recent', 'most_recent'],
+              ['Top Rated', 'top_rated'],
+              ['Most Viewed', 'most_popular'],
+              ['Most Discussed', 'most_discussed']
+          ], params[:sort_by]) %>
+      <%= observe_field 'sort_by', :url => { :action => 'search' }, :with => "$('#sort_by, #search_form').serialize()", :loading => "$('#search_message').show()" %>
+    </div>
+    <div id="page_count">          
+      <%= will_paginate @videos, :renderer => "SearchPaginationRenderer", :class => 'search_pagination', :params => {:search => @search_terms, :sort_by => @sorting, :keywords => @keywords} %>
+    </div>
+    <div class="display_results_options_nav">
+      <%# if we use don't put these on one line, we get whitespace problems. %>
+      <%= link_to image_tag(grid_image, :size => '30x18', :border => 0), current_url_for(:display => 'grid') -%><%= link_to image_tag(list_image, :size => '30x18', :border => 0), current_url_for(:display => 'list') -%>
+    </div>
+  </div>
+  <div style="color: #333333; font-size: 18px; padding-top: 10px;"><span id="search_message" style="display:none;">Searching <%= image_tag "search_spinner.gif" %></span></div>
+  <% unless @videos.empty? %>
+    <% if display_mode == 'list' %>
+      <%= render :partial => 'listing', :collection => @videos %>
+    <% elsif display_mode == 'grid' %>
+      <%= render :partial => 'grid_listing', :collection => @videos.in_groups_of(4) %>
+    <% end %>
+  <% else %>
+    <p>No videos found, please expand your search criteria.</p>
+  <% end %>
+  <div id="page_count_bottom">
+    <div id="page_count">
+      <%= will_paginate @videos %>
+    </div>
+  </div>
+</div>

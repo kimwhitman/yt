@@ -1,0 +1,41 @@
+<% title 'Reset password' %>
+<div id="main">
+
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("Reset Password") %>
+
+      <div class="arial18_green" id="main_title">Reset password</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <p>
+      <p>
+        To reset your password, enter the new password you'd like to use in the form below.  After submitting the form, you'll be asked to log in with the new password.
+      </p>
+      <% form_tag url_for(:action => 'reset', :token => params[:token]) do %>
+        <% if @user.errors.any? %>
+          <div class="errorExplanation" id="errorExplanation">
+            <h2>Some errors were encountered while updating your account</h2>
+            <ul>
+              <%= @user.errors.full_messages.map {|e| content_tag('li', e)} %>
+            </ul>
+          </div>
+        <% end %>
+        <table>
+          <tr>
+            <td><label for="password">Password:</label></td>
+            <td><%= password_field :user, :password %></td>
+          </tr>
+          <tr>
+            <td><label for="password_confirmation">Password Confirmation:</label></td>
+            <td><%= password_field :user, :password_confirmation %></td>
+          </tr>
+        </table>
+        <%= submit_tag 'Change password', :class => 'bigger_button' %>
+      <% end %>
+    </p>
+  </div>
+</div>
+

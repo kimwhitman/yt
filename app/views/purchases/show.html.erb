@@ -1,0 +1,56 @@
+<% title 'Thank you for your purchase' %>
+<div id="main">
+     <div id="page_container">
+      <div id="page_information">
+        <div id="main_title" class="arial20_green">Thank you for your purchase</div>
+      </div>
+    </div>		 
+		 <div id="container_6col">
+      <% if flash[:notice] %>
+        <p style='color:red'><%= flash[:notice] %></p>
+      <% end %>
+      <p style='color: Green'>
+        <strong>
+          You will receive an email at <span style="font-weight: bold; color: #666666"><%= @purchase.email %></span> with download instructions.
+        </strong>
+      </p>
+		 </div>
+    <div id="container_4col" style="float:left; padding-bottom: 25px;">      
+      <%= render :partial => 'purchased_item', :collection => @purchase.purchase_items %>       
+    </div>
+    <div style="float: right; margin-bottom: 15px;" id="container_2col">
+      	<div class="filter_options" style="">
+      		<h2 style="color: #333333; font-size: 16px; margin-top: 5px; padding-bottom: 5px; border-bottom: 1px solid #999999;">Your Account Information</h2>
+			<table id="account_info_table">
+				<tr>
+					<td>Member name</td>
+					<td><%= @purchase.first_name %> <%= @purchase.last_name %></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><%= @purchase.email %></td>
+				</tr>
+				<tr>
+					<td>Card Type</td>
+					<td><%= @purchase.card_type.titleize %></td>
+				</tr>
+				<tr>
+					<td>Card Number</td>
+					<td><%= @purchase.card_number.gsub("X","*").gsub("-","") %></td>
+				</tr>
+        <tr>
+					<td>Purchased on</td>
+					<td><%= @purchase.created_at.strftime "%m/%d/%Y" %></td>
+				</tr>
+        <tr>
+					<td>Order No</td>
+					<td><%= @purchase.invoice_no %></td>
+				</tr>
+        <tr>
+					<td>Total</td>
+					<td><%= number_to_currency(@purchase.total) %></td>
+				</tr>
+			</table>
+      	</div>
+     </div>
+</div>

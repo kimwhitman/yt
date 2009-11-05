@@ -1,0 +1,5 @@
+id = "video_#{params[:video_id]}_playlist"
+page.replace_html id, link_to("<strong >In Queue</strong>", playlist_path)
+page.show('playlist_link')
+page << "$('##{id}').attr('onclick', 'return false');"
+page.update_playlist

@@ -1,0 +1,185 @@
+<% can_has_js 'jquery.validate' %>
+<script type='text/javascript'>
+  $(document).ready(function() {
+    $('#billing_form').validate({
+      rules: {
+        'creditcard[number]': {
+          required: true,
+          creditcard: true
+        },
+        'creditcard[verification_value]': 'required',
+        'creditcard[first_name]': 'required',
+        'creditcard[last_name]': 'required',
+        'agree_to_terms': 'required'
+      },
+      messages: {
+        'creditcard[number]': "A valid credit card is required",
+        'creditcard[verification_value]': "A Verification Value is required",
+        'creditcard[first_name]': "Your First Name is required",
+        'creditcard[last_name]': "Your Last Name is required",
+        'agree_to_terms': 'You must agree to the terms'
+      }
+    });
+  });
+  function limitText(limitField, limitNum) {
+    if (limitField.value.length > limitNum)
+      limitField.value = limitField.value.substring(0, limitNum);
+  }
+</script>
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("My Account") %>
+      <div class="arial18_green" id="main_title">Payment Info</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <% if current_user.has_paying_subscription? %>
+      <h3>You are currently using card <%= current_account.subscription.card_number %> (expires on <%= current_account.subscription.card_expiration %>).</h3>
+      <p><strong><em>For security purposes, your personal information is not shown here.</em></strong></p>
+    <% else %>
+      <p>You are about to sign up for a monthly Yoga Today subscription. Please make sure you agree to the
+        <%= link_to 'Membership Terms and Details', membership_terms_user_path(current_user), :target => '_blank' %> before proceeding.
+      </p>
+    <% end %>
+    <%= flash[:notice] %>
+    <br />
+    <% if flash[:error_messages] %>
+      <div style="background-color: #fff5d9; margin-bottom: 20px; border: 1px solid #d7c3ac; font-size: 12px; color: #666; padding: 15px;">
+        I'm sorry. We were unable to obtain account authorization.<br>
+        Please try again, or enter billing information for a different account.
+      </div>
+    <% end %>
+    <div id="container_4col" style="float:left;">
+      <% form_tag billing_user_path(current_user), :id => 'billing_form' do %>
+        <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
+
+          <div class="form_title" id="card_type_title">
+            Select Card Type*
+          </div>
+
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col" id="card_type_field">
+            <select name="creditcard[type]" id="creditcard_type" >
+              <%= options_for_select [
+                ['American Express', 'american_express'],
+                ['Discover', 'discover'],
+                ['Mastercard', 'master'],
+                ['Visa', 'visa']
+              ]%>
+            </select>
+            <br>
+          <img src="/images/credit_cards.png" width="111" height="27">        </div>
+        </div>
+
+        <div class="form_row">
+          <div class="form_title" id="card_number_title">
+            Card Number*
+          </div>
+
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col" id="card_number_field">
+            <%= text_field :creditcard, :number, :size => 25, :onKeyDown => "limitText(this, 25);" %>
+          </div>
+        </div>
+        <div class="form_row">
+          <div class="form_title" id="card_cvv_title">
+            CVV, CVV2*
+          </div>
+
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col" id="card_cvv_field">
+            <%= text_field :creditcard, :verification_value, :size => 4, :onKeyDown => "limitText(this, 4);" %>
+          </div>
+        </div>
+
+        <div class="form_row">
+          <div class="form_title" id="expiration_date_title">
+            Expiration Date*:
+          </div>
+
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col" id="expiration_date_field">
+            <select name="creditcard[month]" id="creditcard_month" >
+              <option value='01'>January (01)</option>
+              <option value='02'>February (02)</option>
+              <option value='03'>March (03)</option>
+              <option value='04'>April (04)</option>
+              <option value='05'>May (05)</option>
+              <option value='06'>June (06)</option>
+              <option value='07'>July (07)</option>
+              <option value='08'>August (08)</option>
+              <option value='09'>September (09)</option>
+              <option value='10'>October (10)</option>
+              <option value='11'>November (11)</option>
+              <option value='12'>December (12)</option>
+            </select>
+            &nbsp;
+            <select name="creditcard[year]" id="creditcard_year">
+              <%= options_for_select ((DateTime.now.year..DateTime.now.year + 10).collect { |v| [v, v] }) %>
+            </select>
+          </div>
+        </div>
+        <div class="form_row">
+          <div class="form_title" id="billing_zip_title">
+            First Name*
+          </div>
+
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col" id="billing_zip_field">
+            <%= text_field :creditcard, :first_name, :onKeyDown => "limitText(this, 100);" %>
+          </div>
+        </div>
+        <div class="form_row">
+          <div class="form_title" id="billing_zip_title">
+            Last Name*
+          </div>
+
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col" id="billing_zip_field">
+            <%= text_field :creditcard, :last_name, :onKeyDown => "limitText(this, 100);" %>
+          </div>
+        </div>
+
+      <% unless current_user.has_paying_subscription? %>
+        <div class="form_row">
+          <div class="form_title">
+            &nbsp;
+          </div>
+      
+          <div class="grid_spacer">&nbsp;</div>
+
+          <div class="form_field_3col">
+            <%= check_box_tag 'agree_to_terms' %> I agree to the
+            <%= link_to 'Membership Terms and Details', membership_terms_user_path(current_user), :target => '_blank' %>.
+            <br />
+          </div>
+        </div>
+      <% end %>
+      <div class="form_row">
+        <div class="form_title">
+          &nbsp;
+        </div>
+
+        <div class="grid_spacer">&nbsp;</div>
+
+        <div class="form_field_3col">
+          <%= submit_tag 'Save', :class => 'smaller_button' %>
+          <%= button_to_function 'Cancel', "window.location = '#{profile_user_path(current_user)}'", :class => 'smaller_button' %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+  <div id="container_2col" style="float:right">
+    <%= render :partial => 'profile_sidebar' %>
+  </div>
+</div>
+</div>

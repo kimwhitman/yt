@@ -1,0 +1,20 @@
+if logged_in? # Success
+  page.replace_html "login_display", render(:partial => 'shared/header_link_nav')
+  page << "$('#new_comment, #new_review').find('input[type=submit]').val('Submit');"
+  page << "$('.sign_up_sign_in_call').hide();"
+  case params[:source]
+  when 'header'
+  when 'new_reply'
+    page.call 'transition_elements', '#discussion_registration_form_div', '#new_topic_form'
+  when 'new_review'
+    page.call 'transition_elements', '#review_registration_form_div', '#new_review_form'
+  end
+else # Failure
+  error_label = '<label for="password" generated="true" class="error">Username / password invalid.</label>'
+  case params[:source]
+  when 'new_reply'
+    page << "$('#discussion_login input[name=password]').after('#{escape_javascript(error_label)}')"
+  when 'new_review'
+    page << "$('#review_login input[name=password]').after('#{escape_javascript(error_label)}')"
+  end
+end

@@ -1,0 +1,18 @@
+<div style="text-align: left; width: 941px; margin: 0px auto 10px auto;">
+<% form_tag session_path do -%>
+<p><label for="email">Email</label><br/>
+<%= text_field_tag 'email' %></p>
+
+<p><label for="password">Password</label><br/>
+<%= password_field_tag 'password' %></p>
+
+<!-- Uncomment this if you want this functionality
+<p><label for="remember_me">Remember me:</label>
+<%= check_box_tag 'remember_me' %></p>
+-->
+
+<p><%= submit_tag 'Log in' %></p>
+<% end -%>
+
+<%= link_to('Forgot your password?', forgot_password_url) %>
+</div>

@@ -1,0 +1,16 @@
+<div id="main">  
+    <div id="page_container">
+      <div id="page_information">
+        <%= breadcrumb("My Yoga Queue") %>
+        <div id="main_title" class="arial18_green"><span id='playlist_title'>My Yoga Queue (<%= user_playlist.size %>)</span></div>
+      </div>
+      <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+    </div>
+         
+    <div id="main_content">
+      <%= render :partial => 'video', :collection => user_playlist.videos %>      
+    </div>
+  </div>

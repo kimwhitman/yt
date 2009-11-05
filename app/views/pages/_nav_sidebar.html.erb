@@ -1,0 +1,21 @@
+<%
+  links = [
+    ["FAQ's", "faqs"],
+    ["Advertising with Yoga Today", "advertising"],
+    ["Terms and Conditions", "terms-and-conditions"],
+    ["Privacy Policy", "privacy-policy"],
+    ["Press & News Coverage", "press-and-news"],
+    ["Media Downloads", "media-downloads"],
+    ["Promotions & Events", "promotions-and-events"],
+    ["Contact Us", "contact"]
+  ]
+%>
+<div style="float: right;" id="container_2col">
+  <div class="filter_options" id='nav_links'>
+    <% links.each do |link| %>
+      <div class="form_row2">
+        <span class="arial13_gray"><%= link_to_unless_current link.first, "/#{link.last}", :title => link.first %></span>
+      </div>
+    <% end %>
+  </div>
+</div>

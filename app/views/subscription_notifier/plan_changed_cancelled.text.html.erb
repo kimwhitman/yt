@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>
+      <%=  "Your Yoga Today Subscription has been cancelled." %>
+    </title>
+  </head>
+  <body>
+    <%= render :partial => "shared/email_header2",
+      :locals => { :headertitle => "Your Yoga Today Subscription has been cancelled." } %>
+    <div>
+      <br />
+      Hello <%= @user.name %> ,
+      <br />
+      This message is to confirm your request to cancel your Yoga Today subscription.
+      Your account has been removed from our billing database and you will no longer
+      be charged the recurring subscription fee.
+      <br />
+      Final Charge and Date: <%= number_to_currency(@last_payment.amount) %> on <%= @last_payment.created_at.to_s(:long_day).squeeze(' ') %>
+      <br />
+      Your Unlimited access to the Yoga Today Library will continue until the end of the term you have purchased.
+      <br />
+      Current Term: Valid through <%= @subscription.next_renewal_at.to_s(:long_day).squeeze(' ') %>.
+      <br />
+      To let us know how we could have done better, please send a note to
+      suggestions@yogatoday.com.
+      <br />
+      Thanks for being a part of the Yoga Today Community. We're sad to see you go and hope you'll be back someday.
+      <br />
+      Namaste :)
+      <br />
+      For details about the Yoga Today Terms of Service, visit
+      <a href="http://www.yogatoday.com/terms-and-conditions">
+        http://www.yogatoday.com/terms-and-conditions
+      </a>
+      <br />
+      If you require further assistance, please contact support@yogatoday.com
+      <br />
+    </div>
+  </body>
+</html>
+

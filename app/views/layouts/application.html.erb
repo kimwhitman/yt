@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= yield(:title) || 'Yoga Today' %></title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <%= stylesheet_link_tag 'yoga_main' %>
+    <%= stylesheet_link_tag 'yoga_type'  %>
+    <%= stylesheet_link_tag 'main' %>
+    <%= stylesheet_link_tag :can_has_assets %>
+
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'yoga' %>
+    <%= javascript_include_tag 'image_swap' %>
+    <%= javascript_include_tag :can_has_assets %>
+    <% javascript_tag do %>
+      $(document).ready(function() {
+      MM_preloadImages('/images/thumbnail_default.png', '/images/thumbnail_hover.png', '/images/button-bg-lg.png','/images/button-bg-lg-2.png','/images/button-bg-lg-3.png','/images/button-smaller.png','/images/videos_button.png','/images/videos_button_on.png','/images/about_yoga_today_button_on.png','/images/about_yoga_today_button.png','/images/blog_button.png','/images/blog_button_on.png')
+      });
+    <% end %>
+
+    <script type='text/javascript'>
+      jQuery(document).ready(function() {
+        $('form input').live('keypress', function (e) {
+          if ($(this).parents('form').find('button[type=submit].default, input[type=submit].default').length <= 0)
+            return true;
+
+          if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            $(this).parents('form').find('button[type=submit].default, input[type=submit].default').click();
+            return false;
+          } else {
+            return true;
+          }
+        });
+      });
+    </script>
+    <% if !request.ssl? %>
+      <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js">
+      </script>
+      <script type="text/javascript">
+        GS_googleAddAdSenseService("ca-pub-4324137112614859");
+        GS_googleEnableAllServices();
+      </script>
+      <script type="text/javascript">
+        GA_googleAddSlot("ca-pub-4324137112614859",
+        "YogaToday_SearchResults_Bottom_300x250");
+        GA_googleAddSlot("ca-pub-4324137112614859",
+        "YogaToday_VideoDetails_Bottom_300x250");
+      </script>
+      <script type="text/javascript">
+        GA_googleFetchAds();
+      </script>
+    <% end %>
+
+  </head>
+  <body>
+    <!-- preload images with hidden div -->
+    <div style="display:none;">
+      <%= image_tag "button-bg-lg.png" %>
+      <%= image_tag "button-bg-lg-2.png" %>
+      <%= image_tag "button-bg-lg-3.png" %>
+      <%= image_tag "button-smaller.png" %>
+      <%= image_tag "thumbnail_default.png" %>
+      <%= image_tag "thumbnail_hover.png" %>
+    </div>
+    <div id="container">
+      <div id="header">
+        <div id="special_message">
+        </div>
+
+        <div id="yoga_logo">
+          <a title="Yoga Today - Yoga videos delivered daily" href="<%= root_url  %> ">
+            <img height="70" border="0" width="170" src="/images/yogatoday-logo.gif"/>
+          </a>
+        </div>
+        <div id="menu">
+          <%= render :partial => 'shared/menu' %>
+        </div>
+        <div id="special_display">
+          <%= link_to_remote "<span style=\"font-weight: bold; color: #3a7a15;\">Special Message</span>", :update => 'special_message', :url => {:controller => 'users', :action => 'special_message'}, :class => 'bigger_button' %>
+        </div>
+        <div id="login_display">
+          <%= render :partial => 'shared/header_link_nav' %>
+        </div>
+      </div>
+
+      <%= yield %>
+    </div>
+    <div id="footer">
+      <div id="content">
+
+        <div class="footer_box">
+          <span class="verdana10_bold_gray">Help</span><br>
+          <span class="verdana10_gray">
+            <%= link_to 'Yoga Questions', faqs_path %>
+            <br>
+            <%= link_to 'Technical Questions', faqs_path(:type => 'technical') %>
+            <br>
+            <%= link_to 'Billing Questions', faqs_path(:type => 'billing') %>
+          </span>
+        </div>
+
+        <div class="grid_spacer" style="float: left;">&nbsp;</div>
+
+        <div class="footer_box">
+          <span class="verdana10_bold_gray">Yoga Today Users</span><br>
+          <span class="verdana10_gray">
+            <%= link_to "Promotions & Events", promotions_and_events_path %><br>
+            <%= link_to 'Tell Us Your Story', user_stories_path %><br>
+            <%= link_to "Contact Us", contact_path %><br>
+            <%= link_to 'News', press_and_news_path %></span><br>
+        </div>
+
+        <div class="grid_spacer" style="float: left;">&nbsp;</div>
+
+        <div class="footer_box">
+          <span class="verdana10_bold_gray">For The Press</span><br>
+          <span class="verdana10_gray">
+            <%= link_to 'Media Downloads', media_downloads_path %><br/>
+            <%= link_to "Contact Us", contact_path %><br>
+            <%= link_to 'News', press_and_news_path %></span><br>
+        </div>
+
+        <div class="grid_spacer" style="float: left;">&nbsp;</div>
+
+        <div class="footer_box">
+          <span class="verdana10_bold_gray">For Sponsors</span><br>
+          <span class="verdana10_gray">
+          <%= link_to 'Advertise with Yoga Today', advertising_path %></span>
+        </div>
+
+        <div class="grid_spacer" style="float: left;">&nbsp;</div>
+
+        <div class="footer_box">
+          <span class="verdana10_bold_gray">© <%= DateTime.now.year  %>  Yoga Today</span><br>
+          <span class="verdana10_gray">
+            <%= link_to 'Terms & Conditions', terms_and_conditions_path %><br>
+            <%= link_to 'Privacy Policy', privacy_policy_path %></span>
+        </div>
+
+        <div style="float: right; text-align: right;">
+          <a href="http://www.yogatoday.com/" title="Yoga Today - Yoga videos delivered daily"><img src="/images/yogatoday-logo-large.gif" border="0"></a>
+        </div>
+
+      </div>
+    </div>
+    <!-- The following TODO was added by the designer. I don't know what it fixes. -->
+    <script language="javascript">
+      //jQuery-ify original code in case we need more menu buttons... or something.
+      setInterval(setLeftCSSForMenu, 500);
+      $(window).load(function() {
+        setLeftCSSForMenu();
+      });
+      function setLeftCSSForMenu () {
+        var pos = ($('#classes_button').position().left - 1) + 'px';
+        $('.yoga_drop_down_menu').css('left', pos);
+      }
+    </script>
+    <% if %w(production).include? Rails.env %>
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :  "http://www.");
+        document.write(unescape("%3Cscript src='" +  gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        try { var pageTracker = _gat._getTracker("UA-6704453-2"); pageTracker._trackPageview();  } catch(err) {}
+      </script>
+    <% end %>
+  </body>
+</html>

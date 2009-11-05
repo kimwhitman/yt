@@ -1,0 +1,24 @@
+<% title 'Forgot your password?' %>
+<div id="main">
+
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("Forgotten Password") %>
+
+      <div class="arial18_green" id="main_title">Forgotten password</div>
+    </div>
+  </div>
+
+  
+
+  <div id="container_1col" style="float: left;">&nbsp;</div>
+  <div class="grid_spacer" style="float: left;">&nbsp;</div>
+  <div style="float: left;">
+    <p>An email with instructions on how to access Your Account has been sent to you at <%= @user.email %>.</p>
+    <p>To access Your Account</p>
+    <p>1. Check your email account</p>
+    <p>2. Click the link in the email</p>
+    <p>You will then be asked to change your password.</p>
+  </div>
+
+</div>

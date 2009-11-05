@@ -1,0 +1,7 @@
+<%# This file is called 'list.rhtml' due to a bug in ActiveScaffold. Don't rename it. Or else.%>
+Filter:
+<%= link_to_unless_current "All user stories", url_for(:story_type => 'all') %> |
+<%= link_to_unless_current "Published user stories", url_for(:story_type => 'published') %> |
+<%= link_to_unless_current "Unpublished user stories", url_for(:story_type => 'unpublished') %>
+
+<%= render :super %>

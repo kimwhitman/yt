@@ -1,0 +1,59 @@
+<div id="header_information">
+  <% unless logged_in? %>
+    <a href="#" onclick="$('#login_id').hide(); $('#header_login_form').show();" id="login_id">Login</a>
+    <%= link_to 'Sign Up', sign_up_path %>
+    <% if user_playlist.size > 0 %>
+      <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %>
+    <% else %>
+      <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link', :style => "display: none" %>
+    <% end %>
+    <% if shopping_cart.size > 0 %>
+      <%= link_to "Cart (#{shopping_cart.size})", cart_path, :id => 'cart_link' %>
+    <% else %>
+      <span id="not_cart_link" style="margin-left: 1em">Cart</span>
+      <%= link_to "Cart (#{shopping_cart.size})", cart_path, :id => 'cart_link', :style => "display:none" %>
+    <% end %>
+  <% else %>
+    Welcome, <%= current_user.name.split.first %>
+    <%= link_to 'My Profile', profile_user_path(current_user) %>
+    <% if user_playlist.size > 0 %>
+      <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %>
+    <% else %>
+      <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link', :style => "display: none" %>
+    <% end %>
+    <% if shopping_cart.size > 0 %>
+      <%= link_to "Cart (#{shopping_cart.size})", cart_path, :id => 'cart_link' %>
+    <% else %>
+      <span id="not_cart_link" style="margin-left: 1em">Cart</span>
+      <%= link_to "Cart (#{shopping_cart.size})", cart_path, :id => 'cart_link', :style => "display:none" %>
+    <% end %>
+    <% unless current_user.has_paying_subscription? %>
+      <%= link_to 'Subscribe', billing_user_path(current_user) %>
+    <% end %>
+    <%= link_to 'Logout', sign_out_path %>
+  <% end %>
+</div>
+<div id="header_login_form" style="margin-top: -3px;">
+  <% form_remote_tag :url => formatted_sign_in_url('js'),
+    :html => { :id => "yogatoday_login_form" } do %>    
+    <!--
+    <%= button_to_function 'X', "$('#header_login_form').hide(); $('#header_information').show();", :style => 'float: right' %>
+    -->
+    <%= submit_tag 'Login', :style => 'float: right; margin-right: 4px;', :class=>'smallest_button' %>
+
+    <div id="header_login_fields">
+      <%= text_field_tag 'email', "email", :onfocus => "if(this.value=='email'){this.value=''; document.getElementById('password').value='';} this.className='login_boxes_clicked';", :class => 'login_boxes_unclicked' %>
+      <%= password_field_tag 'password', 'password', :onfocus => "if(this.value=='password'){this.value=''; document.getElementById('login').value='';} this.className='login_boxes_clicked';", :class => 'login_boxes_unclicked' %>
+    </div>
+    <div id="header_login_waiting">
+
+    </div>
+    <div class="arial13_red" id="header_login_warning" style="display: none;">
+      Login is invalid
+    </div>
+    <div style="clear:both; padding-top: 5px; margin-right: 75px;"><%= link_to 'Forgot password?', forgot_password_path %>
+    </div>
+    <%= hidden_field_tag 'source', 'header' %>
+    <input type="hidden" value="login" id="action" name="action"/>
+  <% end %>
+</div>

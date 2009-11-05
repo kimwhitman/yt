@@ -1,0 +1,100 @@
+<style>
+	a.big_button {
+		background-image:url(<%=IMAGE_PATH%>/button-bg-lg.png);
+		background-position:center top;
+		background-repeat:no-repeat;
+		font-size:13px;
+		height:26px;
+		padding:6px 25px;
+		text-align:center;
+		color:#666666;
+		text-decoration:none;
+	}
+	a:hover {
+		color:#333333;
+		text-decoration:none;
+	}
+</style>
+
+
+
+
+<%= render :partial => "shared/email_header" %>
+<div style="color: #666666; font-family:arial;">
+	<h1 style="color: #488A1A; margin-bottom: 20px; font-size: 16px;">Yoga Today Video Download Instructions</h1>
+	<p>
+		Hi <%= @purchase.first_name %>
+	</p>
+  <p style="color: #488A1A">
+<b>Note:</b><br>
+    Classes you have purchased must be downloaded by <%= (Time.today + 10.days).strftime("%b %d, %Y") %>.  After this date, your Download links will expire.
+     <br />
+     Download purchases are non-refundable.
+    </p>
+
+
+<p style="color: #488A1A">
+<b>Download Instructions:</b><br>
+Click on the Download button for each class to begin the download process.<br>
+Download times will vary depending on your connection speed.<br>
+If you experience trouble downloading items, contact us at <br>support@yogatoday.com.
+    </p>
+
+	 <div style="clear:both;"></div>
+        <div style="height: 10px; border-bottom: 3px solid #cccccc;margin-bottom: 20px;"></div>
+
+	<div style="margin-bottom: 40px;">
+		<% @purchase.purchase_items.each do |item| %>
+			<div style="margin-bottom: 20px;">
+				<% if item.purchase_type == "Video" %>
+					<div style="float:left; width: 160px;">
+						<%= image_tag(item.product.thumbnail_url, :size => '140x78', :border => 0, :alt => "More about #{item.product.title}") %>
+					</div>
+					<div style="float:left; width: 40%;">
+						<div style="font-weight: bold; padding-bottom: 5px; font-size: 12pt;">
+							<%= item.product.title%>
+						</div>
+						<div style="font-size: 8pt; margin-bottom: 2px;">
+	        				<span title='<%= item.product.instructor_names.join(', ')%>'>
+	        					<%= item.product.instructor_names.first.split(" ")[0] == "No" ? "No Instr..." : truncate(item.product.instructor_names.first.split('')[0], 11) %>
+	    					</span>
+	        				| <%= item.product.skill_name %>
+	        				| <%= item.product.duration_to_minutes %>:<%= item.product.duration_seconds %>
+	      				</div>
+	      				<div>
+	      					<%= item.product.description%>
+	      				</div>
+					</div>
+					<div style="padding-bottom: 20px;"></div>
+					<div style="float:right;">
+						<%= link_to(image_tag("#{IMAGE_PATH}/email-download.png", :border => 0), purchase_item_url(:invoice_no => item.purchase.invoice_no, :id => item.id)) %>
+					</div>
+					<div style="clear:both;"></div>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+ <div style="clear:both;"></div>
+ <div>
+	<p>Order placed on <%= @purchase.created_at.strftime "%m/%d/%Y" %></p>
+	<p>Order total: <%= @purchase.total %></p>
+	<p>Invoice number: <%= @purchase.invoice_no %></p>
+ </div>
+  <div style="height: 10px; border-bottom: 3px solid #cccccc;margin-bottom: 20px;"></div>
+
+<div style="color: #666666; font-family:arial;">
+     For more information about your account, please visit<br>
+     <a href="http://www.yogatoday.com/faqs">http://www.yogatoday.com/faqs</a><br><br>
+     If you require further assistance, please contact<br>
+     support@yogatoday.com<br><br>
+     For details about the Yoga Today Terms of Service, visit<br>
+     <a href="http://www.yogatoday.com/terms-and-conditions">http://www.yogatoday.com/terms-and-conditions</a><br><br>
+Our privacy policy can be accessed at<br>
+<a href="http://www.yogatoday.com/privacy-policy">http://www.yogatoday.com/privacy-policy</a><br><br>
+
+    </div>
+    <div style="color: #999999; margin-bottom: 15px;">
+        Copyright 2008 Yoga Today.  All rights reserved.
+    </div>
+
+</div>

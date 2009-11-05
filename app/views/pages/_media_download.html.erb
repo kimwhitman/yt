@@ -1,0 +1,12 @@
+  <div class="form_row">
+    <div class="container_1col" style="float:left">
+      <%= image_tag media_download.image.url, :width => "100px" %>
+    </div>
+    <div class="grid_spacer" style="float:left">
+      <img src="images/spacer.gif" width="20" height="1" />
+    </div>
+    <div class="container 3_col" style="float:left">
+      <span style="font-size: 13px; font-weight: bold;"><%= media_download.name %></span><br />Dimensions: <%= media_download.dimensions %> (<%= (media_download.image_file_size / (1.megabyte * 1.0)).round(2) %> MB)<br />
+      File Format: <%= media_download.image_content_type.split("/").last.upcase %> (<%= link_to 'download image for print', media_downloads_path(:media_kit => media_download.image.url), :method => :post %>)
+    </div>
+  </div>

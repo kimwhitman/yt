@@ -1,0 +1,51 @@
+/* 
+    Document   : admin
+    Created on : Feb 21, 2009, 10:35:52 PM
+    Author     : arron
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.active-scaffold textarea {
+    height:150px;
+    width:600px;
+}
+
+.active-scaffold textarea .intro-input {
+	height: 50px;
+}
+.active-scaffold .rank-input {
+	width: 30px;
+}
+
+/* Sortables */
+#featured_videos_sortable, #videos_sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin-right: 10px;
+    min-height: 250px;
+}
+
+#featured_videos_sortable li, #videos_sortable li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 130px;
+}
+.highlight {
+    background-color: Blue;
+}
+#featured_videos_sortable {
+    margin-right: 15px;
+}
+
+#videos_sortable {
+    
+}

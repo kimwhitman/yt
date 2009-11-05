@@ -1,0 +1,41 @@
+<div id="main">
+    <div id="page_container">
+      <div id="page_information">
+        <%= breadcrumb("User Stories") %>
+        <div id="main_title" class="arial18_green">Words from the Community</div>
+      </div>      
+    </div>
+
+    <div id="main_content">
+	  <div style="clear: both; float: left;margin-bottom: 15px;" class="arial13_gray" id="container_6col">
+        <div style="float:left; width: 750px;">
+	  		Every day thousands of people practice with Yoga Today from all over the world. We'd love to hear from you and how you've made Yoga Today part of your lifestyle.
+	  	</div>
+        <%= link_to 'Submit Your Story', new_user_story_path, :class => 'bigger_button', :style=>"float:right;color:#666666" %>
+        <div style="clear:both;"></div>
+        <div style="margin-top: 20px;">
+        	<% if params[:all_stories] == true.to_s %>
+        		<div style="float:left; padding-right: 20px; padding-top: 3px;"><%= link_to "See stories in bunches", user_stories_path %></div>
+			<% else %>
+        		<div style="float:left;"><%= will_paginate @user_stories, :renderer => 'SearchPaginationRenderer', :class => 'search_pagination' %></div>
+        		<div style="float:left; padding: 3px 10px;"></div>
+				<div style="float:left; padding-top: 3px;"><%= link_to "All stories", user_stories_path(:all_stories => true) %></div>
+        		
+        	<% end %>
+        </div>
+      </div>
+      
+      <%= render :partial => 'user_story', :collection => @user_stories %>
+
+       <div class="story_row">
+         <div style="float: left;" id="container_2col">
+           
+         </div>
+
+         <div style="float: right; text-align: right;" id="container_2col">
+           <%= link_to 'Submit Your Story', new_user_story_path, :class => 'bigger_button', :style=>"float:right;color:#666666" %>
+         </div>
+      </div>
+
+    </div>
+  </div>

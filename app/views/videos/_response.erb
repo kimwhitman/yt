@@ -1,0 +1,30 @@
+	<% username = response.user.blank? ? "Anonymous" : response.user.name
+	city = response.user.blank? ? nil : response.user.city  
+	state = response.user.blank? ? nil : response.user.state
+  		country = response.user.blank? ? nil : response.user.country
+  		location = [city, state, country].delete_if{|item| (item == 'United States' || item.blank?)}.compact.join(', ')
+	
+	 %>
+	<div class="response_row">
+	  <div id="container_1col" style="float:left;">
+		  <div class="discussion_info"> 
+		  	<div class="avatar_wrap" style="float:left;padding-right:2px;">   
+		    	<%= user_photo_image response.user %>
+		    </div>
+		    <%= username  %> <br />
+		    <%= location %><br>
+		    <span class="arial11_black"><%= time_ago response.updated_at %> </span>  
+	      </div>
+	  </div>
+	  <div class="grid_spacer">	&nbsp;</div>
+	  <div id="container_3col"  style="float:left">
+	    <div class="content" style='padding-top: 0px;'>
+	      <%= response.content %> 
+	       <span id="offensive_flag_<%=response.id%>"><%= link_to_remote "Flag as offensive", :url => {:action => "mark_as_offensive", :id => response.id}, :html => {:style=>"text-decoration: underline;"}%></span>
+	      <% if logged_in? && current_user.id == response.user_id %>
+	       - 
+	      	<span><%= link_to_remote "Delete", :url => video_comment_path(response.video_id, response.id), :method => :delete, :html => {:style=>"text-decoration: underline;"}, :confirm => "This will delete your comment."%></span>
+	      <% end %>
+	    </div>
+	</div>
+</div>

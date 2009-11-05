@@ -1,0 +1,92 @@
+<div id="menu_content" style="z-index: 102;" onmouseout="displayDropDown('','','classes_menu;community_menu;learn_more_menu');">
+<a href="<%= videos_url %>" onmouseout="MM_swapImgRestore();" onmouseover="MM_swapImage('classes_button','','/images/nav-classes-hi.png',1);displayDropDown('classes_menu','block','community_menu;learn_more_menu');"><img src="/images/nav-classes-lo.png" name="classes_button" id="classes_button" width="81" border="0" height="25"></a><img src="/images/spacer.gif" width="5" height="10"><a href="http://blog.yogatoday.com" onmouseout="MM_swapImgRestore();" onmouseover="MM_swapImage('community_button','','/images/nav-community-hi.png',1);displayDropDown('community_menu','block','classes_menu;learn_more_menu');"><img src="/images/nav-community-lo.png" name="community_button" id="community_button" width="97" border="0" height="25"></a><img src="/images/spacer.gif" width="5" height="10"><a href="<%= get_started_today_url %>" onmouseout="MM_swapImgRestore();" onmouseover="MM_swapImage('learn_more_button','','/images/nav-learn-hi.png',1);displayDropDown('learn_more_menu','block','classes_menu;community_menu');"><img src="/images/nav-learn-lo.png" name="learn_more_button" id="learn_more_button"  width="102" border="0" height="25"></a>
+<script type='text/javascript'>
+  $(function() {
+    $('#menu_content').show();
+  });
+</script>
+<div id="show_no_menu" style="">
+<div style="display: none; left: 300px;" id="classes_menu" class="yoga_drop_down_menu" onmouseout="displayDropDown('classes_menu','none','');">
+  <div style="cursor: pointer; color: #999999;" id="menu_item" onmouseover="displayDropDown('classes_menu','block',''); this.style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999';" onclick="$('#sub_menu_01').toggle('blind');imageChange('/images/nav-plus.gif;/images/nav-minus.gif','menu_image_01');"><img id="menu_image_01" src="/images/nav-plus.gif" width="9" height="9"> Skill Level</div>
+  <div id="sub_menu_01" class="sub_menu_box" style="display: none; z-index: 102;">
+    <% SkillLevel.all.each do |skill_level| %>
+      <div style="cursor: pointer; color: #999999; z-index: 102;" id="sub_menu_item" onclick="window.location.href = '<%= search_videos_url(:skill_level => [skill_level.id])%>';" onmouseover="displayDropDown('classes_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('skill_level_<%= skill_level.id %>').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('skill_level_<%= skill_level.id %>').style.color='#999999';">
+        <%= link_to skill_level.name.titleize, search_videos_path(:skill_level => [skill_level.id]), :style => "color: inherit;", :id => "skill_level_#{skill_level.id}" %>
+      </div>
+    <% end %>
+    <div style="cursor: pointer; color: #999999; z-index: 102;" id="sub_menu_item" onclick="window.location.href ='<%= videos_url %>';" onmouseover="displayDropDown('classes_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333';  document.getElementById('skill_level_all').style.color='#333333';this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('skill_level_all').style.color='#999999';">
+      <%= link_to 'All Skill Levels', videos_path, :style => "color: inherit;", :id => "skill_level_all" %>
+    </div>
+  </div>
+
+  <div style="cursor: pointer; color: #999999;" id="menu_item" onmouseover="displayDropDown('classes_menu','block',''); this.style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999';" onclick="$('#instructor_sub_menu').toggle('blind');imageChange('/images/nav-plus.gif;/images/nav-minus.gif','menu_image_instructors');"><img id="menu_image_instructors" src="/images/nav-plus.gif" width="9" height="9"> Instructors</div>
+
+  <div id="instructor_sub_menu" class="sub_menu_box" style="display: none;">
+    <% Instructor.all(:order => "name asc").each do |instructor| %>
+      <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href = '<%= search_videos_url(:instructors => [instructor.id])%>';" onmouseover="displayDropDown('classes_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('instructor_<%= instructor.id %>').style.color='#333333';" this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('instructor_<%= instructor.id %>').style.color='#999999';">
+           <%= link_to instructor.name.titleize, search_videos_path(:instructors => [instructor.id]), :style => "color: inherit;", :id => "instructor_#{instructor.id}"  %>
+           </div>
+    <% end %>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= videos_url %>';" onmouseover="displayDropDown('classes_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('instructor_all').style.color='#333333';" this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('instructor_all').style.color='#999999';">
+         <%= link_to 'All Instructors', videos_path, :style => "color: inherit;", :id => "instructor_all" %>
+         </div>
+  </div>
+
+
+  <div style="cursor: pointer; color: #999999;" id="menu_item" onmouseover="displayDropDown('classes_menu','block',''); this.style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999';" onclick="$('#focus_sub_menu').toggle('blind');imageChange('/images/nav-plus.gif;/images/nav-minus.gif','menu_image_99');"><img id="menu_image_99" src="/images/nav-plus.gif" width="9" height="9"> Focus</div>
+  <div id="focus_sub_menu" class="sub_menu_box" style="display: none;">
+    <% VideoFocusCategory.find(:all, :order => 'name ASC').each do |vfs| %>
+      <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href = '<%= search_videos_url(:video_focus => vfs.video_focuses.collect { |vf| vf.id })%>';" onmouseover="displayDropDown('classes_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('vfs_<%= vfs.id %>').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('vfs_<%= vfs.id %>').style.color='#999999';">
+        <%# A TODO. %>
+        <%= link_to vfs.name.titleize, search_videos_path(:video_focus => vfs.video_focuses.collect { |vf| vf.id }), :style => "color: inherit;", :id => "vfs_#{vfs.id}"  %>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div style="cursor: pointer; color: #999999;" id="menu_item" onclick="window.location.href ='<%= videos_url %>';" onmouseover="displayIndexDropDown('classes_menu','block',''); this.style.color='#333333'; document.getElementById('show_all_classes').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('show_all_classes').style.color='#999999';">&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Show All Classes', videos_path, :style => "color: inherit", :id => "show_all_classes" %></div>
+
+
+
+  <div class="yoga_menu_bottom_box"><img src="/images/nav-menu-bg-bottom.gif" width="290" height="2" /></div>
+    </div>
+
+
+<div style="display: none; left: 300px;" id="community_menu" class="yoga_drop_down_menu" onmouseout="displayDropDown('community_menu','none','');">
+  <div id="menu_row1" onmouseover="displayDropDown('community_menu','block','');">
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='http://blog.yogatoday.com/';" onmouseover="displayDropDown('community_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('blog').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('blog').style.color='#999999';">
+      <%= link_to 'Blog', 'http://blog.yogatoday.com/', :style => "color: inherit;", :id => "blog" %>
+    </div>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= promotions_and_events_url %>';" onmouseover="displayDropDown('community_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('events').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('events').style.color='#999999';">
+      <%= link_to 'Events', promotions_and_events_path, :style => "color: inherit;", :id => "events" %>
+    </div>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= user_stories_url %>';" onmouseover="displayDropDown('community_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('story').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('story').style.color='#999999';">
+      <%= link_to 'Tell Us Your Story', user_stories_path, :style => "color: inherit;", :id => "story" %>
+    </div>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= contact_url %>';" onmouseover="displayDropDown('community_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('suggestions').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('suggestions').style.color='#999999';">
+      <%= link_to 'Suggestions', contact_path, :style => "color: inherit;", :id => "suggestions" %>
+    </div>
+  </div>
+  <div class="yoga_menu_bottom_box"><img src="/images/nav-menu-bg-bottom.gif" width="290" height="2" /></div>
+</div>
+
+
+<div style="display: none; left: 300px;" id="learn_more_menu" class="yoga_drop_down_menu" onmouseout="displayDropDown('learn_more_menu','none','');">
+  <div id="menu_row1" onmouseover="displayDropDown('learn_more_menu','block','');">
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= get_started_today_url %>';" onmouseover="displayDropDown('learn_more_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('get_started').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('get_started').style.color='#999999';">
+      <%= link_to 'Get Started Today', get_started_today_path, :style => "color: inherit;", :id => "get_started" %>
+    </div>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= instructors_url %>';" onmouseover="displayDropDown('learn_more_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('instructors').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('instructors').style.color='#999999';">
+      <%= link_to 'Instructor Biographies', instructors_path, :style => "color: inherit;", :id => "instructors" %>
+    </div>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= press_and_news_url %>';" onmouseover="displayDropDown('learn_more_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('press').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('press').style.color='#999999';">
+      <%= link_to 'Press & News', press_and_news_path, :style => "color: inherit;", :id => "press" %>
+    </div>
+    <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href ='<%= faqs_url %>';" onmouseover="displayDropDown('learn_more_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('faqs').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('faqs').style.color='#999999';">
+      <%= link_to 'Help', faqs_path, :style => "color: inherit;", :id => "faqs" %>
+    </div>
+  </div>
+  <div class="yoga_menu_bottom_box"><img src="/images/nav-menu-bg-bottom.gif" width="290" height="2" /></div>
+</div>
+  </div>
+</div>

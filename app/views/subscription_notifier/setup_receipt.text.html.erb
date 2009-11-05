@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Thank You</title>
+  </head>
+  <body>
+	<%= render :partial => "shared/email_header" %>
+<br />
+Thank you for using <%= AppConfig['app_name'] %>!
+<br />
+<br />
+Your credit card <%= @subscription.card_number %> has been charged 
+<br />
+<%= number_to_currency(@amount) %> for your <%= @subscription.subscription_plan.name %> plan. This charge covers 
+<br />
+setup and usage from <%= Time.now.to_s(:short_day).strip %> until <%= @subscription.next_renewal_at.to_s(:short_day).strip %>.
+<br />
+<br />
+The attached invoice is for your records.
+<br />
+<pre>
+INVOICE
+----------------------------------------------------------
+
+<%= AppConfig['app_name'] %>
+
+Bill to:
+<%= @subscription.account.admin.name %>
+
+Description                                          Price
+----------------------------------------------------------
+<%= (@subscription.subscription_plan.name + ' Plan setup and usage').ljust(36) %> <%= number_to_currency(@amount).rjust(21) %>
+From <%= Time.now.to_s(:short_day).strip %> to <%= @subscription.next_renewal_at.to_s(:short_day).strip %>
+
+Credit card billed: <%= @subscription.card_number %>
+
+
+</pre>
+If you have any questions about this invoice, please contact 
+<%= AppConfig['from_email'] %>.
+<br />
+<br />
+Thank you for your business!
+<br />
+  </body>
+</html>

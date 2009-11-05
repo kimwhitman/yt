@@ -1,0 +1,102 @@
+<% if ((!logged_in?) && video.free?) %>
+  <div><img height="3" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left" class="arial13_bold_green">
+    <span>Registration required</span>
+  </div>
+  <div style="float: right">
+    <%= image_tag 'xCloseButton.gif', :onclick => remote_function(:update => 'info_panel', :url => {:action => "info", :id => video.id}) %>
+  </div>
+  <br />
+  <div><img height="6" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left">
+    <%= image_tag 'freeMemberIcon.png' %>
+  </div>
+  <div vertical-align="top" class="arial16_bold_gray">Just one step to free yoga</div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <div float="left" class="arial13_gray">
+    Create a profile and enjoy access to Yoga Today's free weekly classes.
+    Be sure to opt-in for our weekly e-mail newsletter and to
+    receive special offers and annoucements.
+  </div>
+  <br />
+  <div><img height="8" width="1" src="/images/spacer.gif"/></div>
+  <div>
+    <%= link_to "<span>Sign Up</span>", "/sign-up", :class => 'smaller_button', :style => 'float:left' %>
+  </div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <div>
+    <%= link_to "<span>Learn more</span>", "/get-started-today", :class => 'arial13_gray', :style => 'float:right' %>
+  </div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+<% elsif (!logged_in?) %>
+  <div><img height="3" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left">
+    <span class="arial13_bold_blue">Subscription required</span>
+  </div>
+  <div style="float: right">
+    <%= image_tag 'xCloseButton.gif', :onclick => remote_function(:update => 'info_panel', :url => {:action => "info", :id => video.id}) %>
+  </div>
+  <br />
+  <div><img height="6" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left">
+    <%= image_tag 'unlimitedMemberIcon.png' %>
+  </div>
+  <div vertical-align="top" class="arial16_bold_gray">Subscribe</div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <div float="left" class="arial13_gray">
+    For just 9<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>
+    a month, Unlimited Members enjoy streaming access to the complete
+    Yoga Today library and a special download rate of
+    2<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>.
+  </div>
+  <br />
+  <div><img height="8" width="1" src="/images/spacer.gif"/></div>
+  <div>
+    <%= link_to "<span>Subscribe</span>", "/sign-up", :class => 'smaller_button', :style => 'float:left' %>
+  </div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <div>
+    <%= link_to "<span>Try this week's free class</span>", "#{video_url(free_video_of_week.video)}", :class => 'arial13_gray', :style => 'float:right' %>
+  </div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+<% else %>
+  <div><img height="3" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left">
+    <span class="arial13_bold_blue">Subscription required</span>
+  </div>
+  <div style="float: right">
+    <%= image_tag 'xCloseButton.gif', :onclick => remote_function(:update => 'info_panel', :url => {:action => "info", :id => video.id}) %>
+  </div>
+  <br />
+  <div><img height="6" width="1" src="/images/spacer.gif"/></div>
+  <div style="float: left">
+    <%= image_tag 'unlimitedMemberIcon.png' %>
+  </div>
+  <div vertical-align="top" class="arial16_bold_gray">Upgrade today</div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <div float="left" class="arial13_gray">
+    For just 9<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>
+    a month, Unlimited Members enjoy streaming access to the complete
+    Yoga Today library and a special download rate of
+    2<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>.
+  </div>
+  <br />
+  <div><img height="8" width="1" src="/images/spacer.gif"/></div>
+  <div>
+    <%= link_to "<span>Subscribe</span>", "/users/#{current_user.id}/billing", :class => 'smaller_button', :style => 'float:left' %>
+  </div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <div>
+    <%= link_to "<span>Try this week's free class</span>", "#{video_url(free_video_of_week.video)}", :class => 'arial13_gray', :style => 'float:right' %>
+  </div>
+  <br />
+  <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+<% end %>

@@ -1,0 +1,50 @@
+<% can_has_js 'search' %>
+<div class="focus filter_box hidden" id="focus_filter">
+  <div onclick="toggle_filter('#focus_filter'); $('#focus_apply_filter').toggle();">
+    <div class="filter_arrow">
+      <img src="/images/filter-arrow-close.png" />
+    </div>
+    <div id="focus_filter_title" class="filter_title" style="margin-top: 10px;">
+      Focus
+    </div>
+  </div>
+  <div class="filter_actions" style='display:none; margin-top: 10px;'>&nbsp;-&nbsp;<%= clear_or_show_all :context => '#focus_filter_options' %></div>
+    <div style="float: right; display:none;" id='focus_apply_filter'>
+  	<%= submit_tag "Apply Filters", :class => "button" %>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+<div class="filter_options" id='focus_filter_options' style='display:none;'>
+  <% VideoFocusCategory.find(:all, :order => 'name ASC').each do |vfc| %>
+  <% next if vfc.video_focuses.size == 0 %>
+  <% ready_name = vfc.name.downcase.gsub(" ","_") %>
+  <% div_class_style = params[:video_focus] == vfc.video_focuses.collect{|item| item.id.to_s} ? '' : 'hidden' %>
+    <div class="filter_option_box <%= div_class_style %>" id="<%= dom_id(vfc) %>">
+    	<% if div_class_style.blank? %>
+    		<%= check_box_tag 'vidda', :style => 'float:left', :class => 'header_checkbox', :onclick => "toggle_filter('##{dom_id(vfc)}'); $('##{dom_id(vfc)}').next().find('input:checkbox').click();", :checked => 'checked' %>
+    	<% else %>
+      		<%= check_box_tag 'vidda', :style => 'float:left', :class => 'header_checkbox', :onclick => "toggle_filter('##{dom_id(vfc)}'); $('##{dom_id(vfc)}').next().find('input:checkbox').click();" %>
+      	<% end %>
+      <div onclick="toggle_filter('#<%= dom_id(vfc) %>');" style='float:left;'>
+        <div class="filter_arrow" style="margin-top: 3px;">
+        	<% if div_class_style.blank? %>
+          		<img src="/images/filter-arrow-open.png" />
+        	<% else %>
+        		<img src="/images/filter-arrow-close.png" />
+        	<% end %>
+        </div>
+        <div class='filter_title' style='line-height: 18px; margin-bottom: 10px;'><h2><%= vfc.name.titleize %></h2></div>
+      </div>
+    </div>
+    <div class='filter_options nested' style='<%= "display:none;" unless div_class_style.blank? %>'>
+      <% vfc.video_focuses.sort_by { |vf| vf.rank }.each do |vf| %>
+      <div class='filter_option_box'>
+        <%= check_box_tag 'search[video_focus][]', vf.id, is_searched_for?(:video_focus, vf.id),                
+                :onclick => "toggle_header_check_status($(this));" %>
+        <%= vf.name %>
+      </div>
+      <% end %>
+    </div>    
+    <br />
+  <% end %>
+</div>

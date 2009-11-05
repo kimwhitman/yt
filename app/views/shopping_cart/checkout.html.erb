@@ -1,0 +1,191 @@
+<% title 'Payment Information' %>
+<% can_has_js 'jquery.validate', 'shopping_cart' %>
+<% can_has_js :card_validations do %>
+$(document).ready(function() {
+  validate_purchase_form('#purchase_form');
+});
+<% end %>
+<div id="main">
+    <div id="page_container">
+      <div id="page_information">
+        <div id="main_title" class="arial18_green">Payment Information</div>
+      </div>
+    </div>
+    <div id="main_content">
+    	<% if flash[:purchase_problem] %>
+        	<div style="background-color: #fff5d9; margin-bottom: 20px; border: 1px solid #d7c3ac; font-size: 12px; color: #666; padding: 15px;">
+        		I'm sorry. We were unable to obtain account authorization.<br>
+        		Please try again, or enter billing information for a different account.
+        	</div>
+        <% end %>
+      <div style="float: left;" id="container_4col">
+
+        <div id="new_topic_form">
+          <% form_for current_purchase, :url => confirm_purchase_path, :html => { :id => 'purchase_form' }, :method => "post" do |f| %>
+          <div class="form_row">
+            <div id="first_name_title" class="form_title">
+              First Name*              </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="first_name_field" class="form_field_3col">
+              <%= f.text_field :first_name %>
+                          
+            </div>
+          </div>
+            
+          <div class="form_row">
+            <div id="last_name_title" class="form_title">
+              Last Name*
+            </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="last_name_field" class="form_field_3col">
+              <%= f.text_field :last_name %>
+            </div>
+          </div>
+					<div class="form_row">
+            <div id="last_name_title" class="form_title">
+              Email*
+            </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="last_name_field" class="form_field_3col">
+              <%= f.text_field :email %>
+            </div>
+          </div>
+          
+          <div class="form_row">
+            <div id="card_type_title" class="form_title">
+              Select Card Type*              </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="card_type_field" class="form_field_3col">
+              <select id="purchase_card_type" name="purchase[card_type]">                
+                <option value="american_express">American Express</option>
+                <option value="discover">Discover</option>
+			   			  <option value="master">Mastercard</option>
+                <option value="visa">Visa</option>
+								<% unless %w(production).include? Rails.env %>
+                <option value="bogus">A Totally Bogus Card.</option>
+								<% end %>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form_row">
+            <div id="card_type_title" class="form_title">
+                           </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="card_type_field" class="form_field_3col">
+            <img height="27" width="111" src="/images/credit_cards.png"/>            </div>
+          </div>
+          
+          <div class="form_row">
+            <div id="card_number_title" class="form_title">
+              Card Number*              </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="card_number_field" class="form_field_3col">
+              <%= f.text_field :card_number, :value => '' %>              
+            </div>
+          </div>
+          <div class="form_row">
+            <div id="zip_code_title" class="form_title">
+              Card Verification Code*              </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="zip_code_field" class="form_field_3col">
+              <%= f.text_field :card_verification, :value => '' %>
+            </div>
+          </div>
+          <div class="form_row">
+            <div id="expiration_date_title" class="form_title">
+              Expiration Date*              </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="expiration_date_field" class="form_field_3col">
+              <%= f.date_select :card_expiration, :discard_day => true, :start_year => Time.now.year,
+                :end_year => Time.now.year + 10,
+                :use_month_number => true, :order => [:month, :year] %>              
+            </div>
+          </div>         
+          
+          <div class="form_row">
+            <div id="" class="form_field_3col" style="margin: 0px 50px 0px 160px;">
+Download purchases are non-refundable.<br>
+              I understand and agree that by clicking "Purchase" I am indicating that I have read and accept the Yoga Today terms of use. 
+            </div>
+          </div>
+          
+          
+          <div class="form_row">
+            <div id="agree_to_terms_title" class="form_title">
+                             </div>
+              
+            <div class="grid_spacer"> </div>
+              
+            <div id="last_name_field">              
+            </div>
+          </div>
+          
+          <div class="form_row"> 
+             <div id="last_name_field">
+              <div id="last_name_title" class="form_title">
+                
+                             </div>
+              
+            <div class="grid_spacer"> </div>
+             <%= submit_tag 'Purchase' %>            
+            </div>
+          </div>          
+          <% end %>
+        </div>
+        
+      </div>  
+      <div style="float: right;" id="container_2col">
+      	<div class="filter_options" style="">
+      		<h2 style="line-height: 14px; color: #333333; font-size: 16px; margin-top: 5px;">Cart Summary</h2>
+      		<span><%= pluralize (shopping_cart.cart_items.size, "item") %></span>
+      		<% shopping_cart.cart_items.each do |item| %>
+      			<div class="cart_item" style="border-top: solid 1px #dddddd; padding: 10px 0px; line-height: 16px;">
+      				<div style="float:left; font-weight: bold; font-size: 13px;">
+      					<%= item.product_name %>
+      				</div>
+      				<div style="float:right; font-weight: bold; font-size: 13px;">
+      					<%= number_to_currency(item.amount.to_dollars) %>
+      				</div>
+      				<div style="clear:both"></div>
+      				<div style="float:left; color: #999900; font-weight: bold;"><%= item.product_type %></div>
+      				<div style="clear:both"></div>
+      			</div>
+      		<% end %>
+      		<div style="border-top: solid 1px #dddddd; padding: 10px 0px; color: #00aa00;">
+	      		<div style="float:left">
+	      			<%= link_to "Edit cart", cart_path %>
+	      		</div>
+	      		<div class="arial13_bold_green" style="float:right;">
+	      			<%= number_to_currency(shopping_cart.subtotal.to_dollars)%>	
+	      		</div>
+	      		<div style="clear:both"></div>
+	      		<div class="arial13_bold_green" style="float:right;">
+	      			<%= number_to_currency(shopping_cart.taxes.to_dollars)%>	
+	      		</div>
+	      		<div style="clear:both"></div>
+	      		<div class="arial16_bold_green" style="float:right;">
+	      			<%= number_to_currency(shopping_cart.total.to_dollars)%>	
+	      		</div>
+	      		<div style="clear:both"></div>
+	      	</div>
+      	</div>
+      </div>
+    </div>   
+  </div>

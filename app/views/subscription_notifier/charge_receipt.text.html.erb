@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>
+      <%=  "Automatic Renewal Confirmation" %>
+    </title>
+  </head>
+  <body>
+    <%= render :partial => "shared/email_header2",
+      :locals => { :headertitle => "Automatic Renewal Confirmation"} %>
+    <div>
+      <br />
+      Hello <%= @subscription.account.users.first.name %> ,
+      <br />
+      This message is to let you know we've automatically renewed your
+      <%= @subscription.subscription_plan.name %>
+      subscription according to our agreement.
+      <br />
+      We have successfully billed the account saved in your profile for the
+      amount of
+      <%= number_to_currency(@subscription.amount) %>
+      to the card number
+      <%= @subscription.card_number %>.
+      <br />
+      Your
+      <%= @subscription.subscription_plan.name %>
+      to Yoga Today is valid through
+      <%= @subscription.next_renewal_at.to_s(:short_day).strip %>
+      and is scheduled to renew again on
+      <%= @subscription.next_renewal_at.to_s(:short_day).strip %>
+      .
+      <br />
+      <pre>
+Description                                          Price
+----------------------------------------------------------
+<%= (@subscription.subscription_plan.name + ' Plan').ljust(36) %> <%= number_to_currency(@amount).rjust(21) %>
+From <%= Time.now.to_s(:short_day).strip %> to <%= @subscription.next_renewal_at.to_s(:short_day).strip %>
+      </pre>
+      <br />
+      <b>Please do not reply to this email.</b>
+      <br />
+      Membership Terms:
+      <br />
+      You may cancel at any time by visiting http://www.yogatoday.com, logging into your account,
+      clicking on "My Profile" and selecting "Cancel Membership." Sorry, no refunds can be offered for
+      partial months.
+      <br />
+      For more information about your account, please visit
+      <a href="http://www.yogatoday.com/faqs">
+        http://www.yogatoday.com/faqs
+      </a>
+      <br />
+      If you require further assistance, please contact support@yogatoday.com
+      <br />
+      Our privacy policy can be accessed at
+      <a href="http://www.yogatoday.com/privacy-policy">
+        http://www.yogatoday.com/privacy-policy
+      </a>     For details about the Yoga Today Terms of Service, visit
+      <a href="http://www.yogatoday.com/terms-and-conditions">
+        http://www.yogatoday.com/terms-and-conditions
+      </a>
+      <br />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Trial Period Expiring</title>
+  </head>
+  <body>
+	<%= render :partial => "shared/email_header" %>
+<br />
+<%- if @subscription.needs_payment_info? -%>
+Your <%= AppConfig['app_name'] %> trial period will be ending soon. If you'd
+<br />
+like to continue to use your <%= AppConfig['app_name'] %> account, please log
+<br />
+in to your account and enter your billing information. Otherwise,
+<br />
+your account will be disabled when your trial period ends.
+<%- else -%>
+Your <%= AppConfig['app_name'] %> trial period will be ending soon. If your account remains
+<br />
+open beyond the trial expiration date, your credit card on file will
+<br />
+be charged <%= number_to_currency(@subscription.amount) %> monthly.  
+<%- end -%>
+<br />
+<br />
+Billing Information:
+http://<%= @subscription.account.full_domain %>/account/billing
+<br />
+<br />
+Trial Expiration Date:
+<br />
+<%= @subscription.next_renewal_at.to_s(:long_day).squeeze(' ') %>
+<br />
+<br />
+If you have any questions, please email <%= AppConfig['from_email'] %>.
+<br />
+  </body>
+</html>

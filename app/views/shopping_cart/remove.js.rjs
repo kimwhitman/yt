@@ -1,0 +1,2 @@
+page.visual_effect :fade, "video_#{params[:id]}"
+page.update_cart

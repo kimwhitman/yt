@@ -1,0 +1,42 @@
+<% title 'Media Downloads' %>
+<div id="main">
+
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("Media Downloads") %>
+    <div id="main_title" class="arial18_green" style="padding-bottom: 3px;">Media Downloads</div>      </div>
+    <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+  </div>
+
+  <div id="main_content">
+    <div style="float: left;" id="container_4col">
+    	
+      <a name="q_top" id="q_top"></a>
+      <div id="review_section">
+        <div id="review_header" class="arial16_bold_black">
+          <div class="review_option" id="for_print_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="mediaDownloadChange(this.id,'for_print_display');" style="background-color:#ffffff; border-bottom-color: #ffffff;"><h2 style="font-weight: normal;">For Print</h2></div>
+          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
+          <div class="review_option" id="for_web_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="mediaDownloadChange(this.id,'for_web_display');"><h2 style="font-weight: normal;">For Web</h2></div>
+        </div>
+      </div>
+      <!-- For Print -->
+      <div id="for_print_display" class="feedback" style="clear:both; display:block;">
+        <%= render :partial => 'media_download', :collection => @for_print_media_kits %>
+      </div>
+      <!-- For Web -->
+      <div id="for_web_display" class="feedback" style="clear:both; display:none;">
+        <%= render :partial => 'media_download', :collection => @for_web_media_kits %>
+      </div>
+    </div>
+
+    <%= render :partial => 'nav_sidebar' %>
+
+
+
+
+
+  </div>
+</div>

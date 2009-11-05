@@ -1,0 +1,200 @@
+<% title 'Tell Us Your Story' %>
+<% can_has_js 'jquery.validate', 'story' %>
+<% can_has_js :validate_story do %>
+  $(document).ready(function() {
+    validate_new_story_form('#new_user_story');
+  });
+<% end %>
+<script language="javascript" type="text/javascript">
+  function limitText(limitField, limitCount, limitNum) {
+    if (limitField.value.length > limitNum) {
+      limitField.value = limitField.value.substring(0, limitNum);
+      document.getElementById("limit_reached").style.display = '';
+    } else {
+      limitCount.value = limitNum - limitField.value.length;
+      document.getElementById("limit_reached").style.display = 'none';
+    }
+  }
+</script>
+<div id="main">
+    <div id="page_container">
+      <div id="page_information">
+        <%= breadcrumb(["User Stories", '/user_stories'], "Tell Us Your Story") %>
+        <div id="main_title" class="arial18_green">How has Yoga Today become a part of your life?</div>
+      </div>
+      <!--<div id="unlimited_videos">
+        <div class="arial13_bold_green" id="watch_videos">Watch Unlimited Yoga Videos</div>
+        <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
+      </div>-->
+    </div>
+
+    <div id="main_content">
+	  <div style="clear: both; float: left;" class="arial13_gray" id="container_6col">
+        Every day we receive words from members of the Yoga Today community, and we'd
+love to hear yours. The stories we receive are inspiring and deserve to be
+shared with others. You can submit words and pictures using the form below.
+<br><br> Required fields are asterisked* <br><br> It is not required
+that you submit a photograph, but it greatly increases your chance of being
+featured on the homepage. Your email address is required, but only as a means
+for us to contact you and will not be published with your story or shared in
+any way. However, please understand that by submitting this form you authorize
+Yoga Today to publish any information you have provided.<br><br>
+      </div>
+      <div style="clear:both;"></div>
+	  <%= error_message_on :user_story, :image, "<div style='padding: 20px 5px 10px 5px;'>Sorry, your ","</div>","warning" %>
+      <% form_for(@user_story, :html => { :multipart => true }) do |f| %>
+      
+      <div style="float: left;" id="container_4col">
+
+
+  <div class="form_row">
+
+    <div id="story_first_name" class="form_title">
+      First Name*
+    </div>
+
+    <div style="float: left;" class="grid_spacer"> </div>
+
+    <div style="float: left;" id="story_first_name_field" class="form_field">
+      <%= text_field_tag :first_name, :size => 40 %>
+      
+
+    </div>  
+
+  </div>
+  <div class="form_row">
+
+    <div id="story_last_name" class="form_title">
+      Last Name
+    </div>
+
+    <div style="float: left;" class="grid_spacer"> </div>
+
+    <div style="float: left;" id="story_last_name_field" class="form_field">
+      <%= text_field_tag :last_name, :size => 40 %>
+      
+
+    </div>  
+
+  </div>
+
+ <div class="form_row">
+
+    <div id="story_city" class="form_title">
+      City*
+    </div>
+
+    <div style="float: left;" class="grid_spacer"> </div>
+
+    <div style="float: left;" id="story_city_field" class="form_field">
+      <%= text_field_tag :city, :size => 40 %>
+
+    </div>
+
+  </div>
+      <div class="form_row">
+        <div id="email_title" class="form_title">
+          State:
+        </div>
+        <div class="grid_spacer"> </div>
+        <div id="state_field" class="form_field_3col" style="float:left">
+          <%= select_tag :state, options_for_select(states) %>
+        </div>
+        <div class="grid_spacer" style="width: 10px;"> </div>
+        <div id="country_title" class="form_title" style="width: 53px; clear: none;">
+          Country*:
+        </div>
+        <div class="grid_spacer" style="width: 10px;"> </div>
+        <div id="country_field" class="form_field_3col" style="float:left">
+          <%= select_tag :country, options_for_select(countries, "United States"), :onchange => "if(this.value != 'United States') { $('#state').val(''); $('#state').attr('disabled', true); } else { $('#state').removeAttr('disabled'); }" %>
+        </div>
+      </div>
+
+
+
+
+
+  <div class="form_row">
+
+    <div id="story_email" class="form_title">
+      Email*
+    </div>
+
+    <div class="grid_spacer"> </div>
+
+    <div style="float: left;" id="email_field" class="form_field">
+
+      <%= f.text_field :email, :size => 40 %>
+
+    </div>
+
+  </div>
+
+  <div class="form_row">
+
+    <div id="story_title" class="form_title">
+      Title*
+    </div>
+
+    <div class="grid_spacer"> </div>
+
+    <div style="float: left;" id="title_field" class="form_field">
+
+      <%= f.text_field :title, :size => 40 %>
+
+    </div>
+
+  </div>
+
+
+  <div class="form_row">
+
+    <div id="story_story" class="form_title">
+      Story*<br>
+      <font size="1">(Max. characters: 3500)
+        <input readonly type="hidden" name="countdown" size="3" value="3500">
+      </font>
+    </div>
+
+    <div class="grid_spacer"> </div>
+
+    <div style="float: left;" id="story_field" class="form_field">
+      <div style="display:none;" id="limit_reached">You have reached the character limit of 3500</div>
+      <%= f.text_area :story, :onkeydown => "limitText(this,this.form.countdown,3500);", :cols => 40 %>
+    </div>
+
+
+  </div>
+
+
+  <div class="form_row">
+
+    <div id="story_image" class="form_title">
+      Attach an image
+    </div>
+
+    <div class="grid_spacer"> </div>
+
+    <div style="float: left;" id="image_field" class="form_field">
+
+      <%= f.file_field :image  %><br/>
+      Image should be in JPG format and must be less than 1 MB.
+    </div>
+
+  </div>
+ </div>
+
+
+
+        <div style="clear: both; padding-top: 20px;" id="container_3col">
+          <div style="float: left;" id="container_1col"> </div>
+          <div class="grid_spacer"> </div>
+          <div class="form_field_3col">
+            <%= submit_tag 'Tell Us Your Story', :class=>'bigger_button' %>
+           </div>
+         </div>
+      <% end %>
+      </div>
+      
+      
+    </div>
