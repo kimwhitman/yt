@@ -10,6 +10,7 @@ class UserPlaylist
       @videos = pv.dup
     end
   end
+
   def add(video)
     return unless video
     if @user_id
@@ -19,6 +20,7 @@ class UserPlaylist
     	@videos << video.id
     end
   end
+
   def remove(video)
     return unless video
     if @user_id
@@ -26,13 +28,16 @@ class UserPlaylist
     end
     @videos.delete video.id
   end
+
   def has_video?(video)
     return false unless video
     @videos.include? video.id
   end    
+
   def size
     @videos.size
   end
+
   # Class methods
   def self.migrate_to_user(user_id, temp_playlist)
     if @user_id
@@ -45,6 +50,7 @@ class UserPlaylist
     end
     playlist
   end
+
   def videos
     ids = @videos
     if @user_id

@@ -9,7 +9,7 @@ class SubscriptionAddress
       h
     end
   end
-  
+
   def validate
     [:first_name, :last_name].each do |field|
       errors.add field, "cannot be blank" if self.send(field).blank?

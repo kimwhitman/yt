@@ -8,6 +8,7 @@ module Admin::UsersHelper
     html << link_to_remote("delete photo", :url => {:action => "remove_photo", :record => user}, :confirm => "Are you sure you would like to delete this photo?", :html => {:id => "delete_link"}) if user.photo?
     html
   end
+
   def photo_column(user)
     user.photo? ? (image_tag user.photo.url, :size => "50x50") : "No Photo"
   end

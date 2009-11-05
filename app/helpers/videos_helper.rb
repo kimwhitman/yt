@@ -1,5 +1,5 @@
 module VideosHelper
-  def select_all_or_cancel_links(opts = {})    
+  def select_all_or_cancel_links(opts = {})
     opts.reverse_merge! :clear_text => 'clear',
       :select_text => 'show all',
       :context => 'this'
@@ -9,6 +9,7 @@ module VideosHelper
     html << link_to_function(opts[:select_text], "$('input[type=checkbox]', #{opts[:context]}).attr('checked', true);")
     html
   end
+
   # This method looks identical to the above;
   # however, it is designed to work with the toggle_filter javascript
   # function on the search page (VideosController#index)
@@ -24,27 +25,30 @@ module VideosHelper
     html << "&nbsp;|&nbsp;"
     html << link_to_function(opts[:show_all_text], "#{set_check.call(true)} #{expand_nodes}" )
   end
+
   def is_searched_for?(name, value)
-    search = params[:search] || params.except(:action, :controller, :format)    
+    search = params[:search] || params.except(:action, :controller, :format)
     values = search[name]
     if values
       case values
-      when Array        
+      when Array
         values.include?(value) || values.include?(value.to_s)
-      else        
+      else
         values == value || values == value.to_s
       end
-    else      
+    else
       false
     end
   end
+
   def video_search_url(options = {})
     search_videos_path(options)
-  end  
+  end
+
   def link_to_video(video, options = {})
     opts = options.dup
     path = opts.delete(:url) || video_path(video)
-    opts.reverse_merge! :title => "More about #{video.title}"    
+    opts.reverse_merge! :title => "More about #{video.title}"
     unless opts[:dont_show_free].to_s == "true"
       link_content = opts.delete(:text) || <<-EOF
       #{content_tag(:div, image_tag('freeClassIcon_resultsThumbnail.png', :border => 0, :style => 'width:100%'), :id => 'free_video') if video.free?}

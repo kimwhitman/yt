@@ -7,6 +7,7 @@ module Admin::FaqsHelper
     end
     
   end
+
   def question_column(faq)    
     if params[:action] == 'show'
       h faq.question

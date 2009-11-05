@@ -2,6 +2,7 @@ module Admin::BaseHelper
   def title(page_title)
     content_for(:title) { "Yoga Today - #{page_title}" }    
   end
+
   def link_to_paperclip(paperclip, link_opts = {}, image_opts = {})
     link_opts.reverse_merge! :target => '_blank'
     image_opts.reverse_merge! :width => '64px'
@@ -15,7 +16,9 @@ module Admin::BaseHelper
       super(column, record)
     end
   end
+
   protected
+
   def show_all_text?
     true
   end

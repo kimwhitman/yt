@@ -1,6 +1,6 @@
 class CartItem < ActiveRecord::Base
   composed_of :amount, :class_name => "Money", :mapping => %w(amount amount)
-  
+
   belongs_to :cart
   belongs_to :product, :polymorphic => true
 

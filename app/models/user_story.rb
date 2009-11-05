@@ -12,10 +12,13 @@ class UserStory < ActiveRecord::Base
   named_scope :publishable, :conditions => 'user_stories.publish_at IS NOT NULL'
 
   before_save :publish_at_midnight
+
   def title
     super || story[0..16] + '...'
   end
+
   protected
+
   def publish_at_midnight
     self.publish_at = self.publish_at.at_midnight if self.publish_at
   end

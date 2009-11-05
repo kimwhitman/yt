@@ -12,6 +12,7 @@ module PlaylistsHelper
     }
     link_to_remote text, ajax_opts, html_opts
   end
+
   def update_playlist
     playlist = page.context.user_playlist
     page.replace_html 'playlist_title', "My Yoga Queue (#{playlist.size})"

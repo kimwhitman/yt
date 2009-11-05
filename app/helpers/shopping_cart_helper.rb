@@ -8,6 +8,7 @@ module ShoppingCartHelper
     page.replace_html 'cart_subtotal', number_to_currency(shopping_cart.subtotal.to_dollars)
     page.replace_html 'cart_total', number_to_currency(shopping_cart.total.to_dollars)
   end
+
   def add_video_to_cart_link(text, video, opts = {})    
     html_opts = opts.dup
     if !shopping_cart.has_video?(video.id)

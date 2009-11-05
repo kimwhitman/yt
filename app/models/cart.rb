@@ -3,7 +3,7 @@ class Cart < ActiveRecord::Base
   has_many :cart_items, :dependent => :destroy
 
   validates_associated :user, :unless => Proc.new { |c| c.user_id.blank? }
-  
+
   def add_video(video_id)
     video = Video.find_by_id video_id
     cart_items.reload

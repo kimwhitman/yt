@@ -6,6 +6,7 @@ module Admin::CommentsHelper
       "Unpublished"
     end
   end
+
   def content_column(record)
     h(truncate(record.content, 120))
   end

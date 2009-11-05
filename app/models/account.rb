@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  
+
   has_many :users
   has_one :admin, :class_name => "User", :conditions => { :admin => true }
   has_one :subscription, :dependent => :destroy

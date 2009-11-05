@@ -1,17 +1,21 @@
 class VideosController < ApplicationController
   before_filter :paging_defaults, :only => [:index, :search, :show]
+
   def index
     #@videos = Video.public.send("by_#{sorting}").paginate(:page => @page, :per_page => @per_page)
-    search    
+    search
   end
+
   def preview
     render :partial => 'player', :locals => { :video => Video.find(params[:id])}
   end
+
   def info
     render :partial => 'info', :locals => { :video => Video.find(params[:id])}
   end
+
   def show
-  	@sorting = sorting
+    @sorting = sorting
     @video = Video.find(params[:id])
     @preview = params['preview']
     session[:continue_shopping_to] = "show"
@@ -21,39 +25,41 @@ class VideosController < ApplicationController
     respond_to do |format|
       format.html
       format.js do
-        render(:update) do |page| 
+        render(:update) do |page|
           page.replace 'related_classes', :partial => 'related_videos'
           page << "$('#related_classes input[type=radio].star').rating();"
-        end        
+        end
       end
     end
   end
+
   def sort_related_videos
-  	@sorting = sorting
-  	@video = Video.find(params[:id])
-  	@related_videos = Video.related_videos_for(@video.id).send("by_#{@sorting}").paginate(:page => @page, :per_page => 8).uniq
-  	@display_mode = params[:display_mode]
-  	respond_to do |wants|
-  		wants.js {
-  			render(:update) do |page|
-  				page.replace 'related_classes', :partial => 'related_videos'
-  				page << "$('#related_classes input[type=radio].star').rating();"
-  			end
-  		}
-  	end
+    @sorting = sorting
+    @video = Video.find(params[:id])
+    @related_videos = Video.related_videos_for(@video.id).send("by_#{@sorting}").paginate(:page => @page, :per_page => 8).uniq
+    @display_mode = params[:display_mode]
+    respond_to do |wants|
+      wants.js {
+        render(:update) do |page|
+          page.replace 'related_classes', :partial => 'related_videos'
+          page << "$('#related_classes input[type=radio].star').rating();"
+        end
+      }
+    end
   end
+
   # Collection actions
   def search
-  	@sorting = sorting
-  	@keywords = (params[:keywords].blank? || params[:keywords].downcase == "keywords") ? nil : params[:keywords]
+    @sorting = sorting
+    @keywords = (params[:keywords].blank? || params[:keywords].downcase == "keywords") ? nil : params[:keywords]
     if request.post?
       @search_terms = params[:search] || {}
     else
       @search_terms = params.except :controller, :action, :format, :page, :per_page, :keywords
       # Terrible but gets the job done.
       unless params[:search].blank?
-      	@search_terms = params[:search]
-  	  end
+        @search_terms = params[:search]
+      end
     end
     session[:continue_shopping_to] = "search"
     session[:last_search_params] = @search_terms
@@ -66,38 +72,43 @@ class VideosController < ApplicationController
       # will_paginate + rails don't do counts right with any "group by" statements.
       total = Video.public.send("by_#{@sorting}").search(@search_terms).count(:group => 'videos.id').size
       @videos = Video.public.send("by_#{@sorting}").search(@search_terms).paginate(:page => @page, :per_page => @per_page, :total_entries => total)
-    end    
+    end
     respond_to do |wants|
-      	wants.html { render :action => 'index' }
-    	wants.js do
+        wants.html { render :action => 'index' }
+      wants.js do
         render(:update) do |page|
-        	page.replace_html "container_4col_wrap", :partial => "video_listings"
-          	page << "$('input[type=radio].star').rating();"
+          page.replace_html "container_4col_wrap", :partial => "video_listings"
+            page << "$('input[type=radio].star').rating();"
         end
       end
-    end    
+    end
   end
+
   def leave_suggestion
     @suggestion = Suggestion.new params[:suggestion]
     @suggestion.video_id = params[:id]
     AdminNotifier.deliver_video_suggestion(@suggestion, current_user)
   end
+
   def mark_as_offensive
-  	@comment = Comment.find(params[:id])
-  	@comment.update_attributes(:offensive => true)
-  	AdminNotifier.deliver_offensive_comment
-  	respond_to do |wants|
-  		wants.js {
-  		render(:update) do |page|
-  			page.replace_html "offensive_flag_#{@comment.id}", "<br><br><span style='font-weight: bold;'>Thank you. An Email has been sent to an admin to monitor this comment.</span>"
-  		end
-  		}
-  	end	
+    @comment = Comment.find(params[:id])
+    @comment.update_attributes(:offensive => true)
+    AdminNotifier.deliver_offensive_comment
+    respond_to do |wants|
+      wants.js {
+      render(:update) do |page|
+        page.replace_html "offensive_flag_#{@comment.id}", "<br><br><span style='font-weight: bold;'>Thank you. An Email has been sent to an admin to monitor this comment.</span>"
+      end
+      }
+    end
   end
+
   protected
-	def sorting
-		params[:sort_by] || 'most_recent'
-	end
+
+  def sorting
+    params[:sort_by] || 'most_recent'
+  end
+
   def paging_defaults
     @page = params[:page] || 1
     @per_page = params[:per_page] || 20

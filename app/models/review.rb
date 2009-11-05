@@ -9,7 +9,7 @@ class Review < ActiveRecord::Base
   validates_associated :video#, :user
   validates_length_of :content, :maximum => 1000
   validates_length_of :title, :maximum => 255
-  
+
   named_scope :public, :conditions => { :is_public => true }
   named_scope :positive_score, :conditions => ['score > 0']
 end

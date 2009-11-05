@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
       format.js
     end
   end
-  
+
   def destroy
   	@video = Video.find(params[:video_id])
   	@review = @video.reviews.find(params[:id])

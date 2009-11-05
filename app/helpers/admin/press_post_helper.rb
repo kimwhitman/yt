@@ -5,12 +5,15 @@ module Admin::PressPostHelper
     html << '<br/>' if press_post.photo?
     html << file_field_tag(name)
   end
+
   def photo_column(press_post)
     press_post.photo? ? link_to_paperclip(press_post.photo) : "No Photo"
   end
+
   def date_posted_form_column(press_post, name)
     calendar_date_select :record, :date_posted, :popup => 'force', :time => false
   end
+
   def date_posted_column(press_post)
     if press_post.date_posted
       "Posted on #{press_post.date_posted.strftime('%m/%d/%Y')}"
@@ -18,6 +21,7 @@ module Admin::PressPostHelper
       "No posted date set."
     end
   end
+
   def body_column(press_post)
     if params[:action] == 'show'
       press_post.body

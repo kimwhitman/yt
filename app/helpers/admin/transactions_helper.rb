@@ -2,9 +2,11 @@ module Admin::TransactionsHelper
   def transaction_type_column(transaction)
     transaction.billing_type
   end
+
   def amount_column(transaction)
     transaction.amount / 100.0
   end
+
   def items_purchased_column(transaction)
    case transaction.billing_type
       when 'Purchase'
@@ -13,6 +15,7 @@ module Admin::TransactionsHelper
         'None'
     end 
   end
+
   def videos_column(transaction)
     case transaction.billing_type
       when 'Purchase'
@@ -21,6 +24,7 @@ module Admin::TransactionsHelper
         'All'
     end
   end
+
   def person_name_column(transaction)
     case transaction.billing_type
       when 'Purchase'

@@ -8,10 +8,10 @@ class Admin::VideosController < Admin::BaseController
     config.columns[:preview_media_id].label = "Preview Video"
     config.columns[:downloadable_media_id].label = "Downloadable Video"
     config.columns[:instructors].form_ui = :select
-    config.columns[:yoga_types].form_ui = :select    
+    config.columns[:yoga_types].form_ui = :select
     config.columns[:video_focus].form_ui = :select
     #config.columns[:related_videos].form_ui = :select
-    create_or_update_columns = [:title, :friendly_name, :description, :skill_level_id, :is_public, 
+    create_or_update_columns = [:title, :friendly_name, :description, :skill_level_id, :is_public,
       :instructors, :yoga_types, :related_videos,
       :video_focus,
       :preview_media_id, :streaming_media_id, :downloadable_media_id]
@@ -21,12 +21,14 @@ class Admin::VideosController < Admin::BaseController
     config.columns[:instructors].search_sql = 'instructors.name'
   end
   before_filter :setup_media, :only => [:new, :edit, :create, :update]
-  
+
   def featured
     @featured_videos = FeaturedVideo.by_rank(:include => [:video])
     @videos = Video.by_title(:conditions => "videos.id NOT IN (SELECT video_id from featured_videos)")
   end
+
   protected
+
   def setup_media
     # This version of RestClient doesn't support timeout.
     # unfortunately we've patched it to support digest authentication.

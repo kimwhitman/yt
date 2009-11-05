@@ -5,14 +5,14 @@ class AccountsController < ApplicationController
   before_filter :build_plan, :only => [:new, :create]
   before_filter :load_billing, :only => [ :new, :create, :billing, :paypal ]
   before_filter :load_subscription, :only => [ :billing, :plan, :paypal ]
-  
+
   ssl_required :billing, :cancel, :new, :create
   ssl_allowed :plans, :thanks, :canceled, :paypal
-  
+
   def new
     # render :layout => 'public' # Uncomment if your "public" site has a different layout than the one used for logged-in users
   end
-  
+
   def create
     if @account.needs_payment_info?
       @address.first_name = @creditcard.first_name
@@ -20,7 +20,7 @@ class AccountsController < ApplicationController
       @account.address = @address
       @account.creditcard = @creditcard
     end
-    
+
     if @account.save
       flash[:domain] = @account.domain
       redirect_to :action => 'thanks'
@@ -28,12 +28,12 @@ class AccountsController < ApplicationController
       render :action => 'new'#, :layout => 'public' # Uncomment if your "public" site has a different layout than the one used for logged-in users
     end
   end
-  
+
   def plans
     @plans = SubscriptionPlan.find(:all, :order => 'amount desc')
     # render :layout => 'public' # Uncomment if your "public" site has a different layout than the one used for logged-in users
   end
-  
+
   def billing
     if request.post?
       if params[:paypal].blank?
@@ -52,7 +52,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-  
+
   # Handle the redirect return from PayPal
   def paypal
     if params[:token]
@@ -89,34 +89,34 @@ class AccountsController < ApplicationController
       redirect_to :action => "canceled"
     end
   end
-  
+
   def thanks
     redirect_to :action => "plans" and return unless flash[:domain]
     # render :layout => 'public' # Uncomment if your "public" site has a different layout than the one used for logged-in users
   end
-  
+
   def dashboard
     render :text => 'Dashboard action, engage!', :layout => true
   end
 
   protected
-  
+
     def load_object
       @obj = @account = current_account
     end
-    
+
     def build_user
       @account.user = @user = User.new(params[:user])
     end
-    
+
     def build_plan
       redirect_to :action => "plans" unless @account.plan = @plan = SubscriptionPlan.find_by_name(params[:plan])
     end
-    
+
     def redirect_url
       { :action => 'show' }
     end
-    
+
     def load_billing
       @creditcard = ActiveMerchant::Billing::CreditCard.new(params[:creditcard])
       @address = SubscriptionAddress.new(params[:address])
@@ -125,11 +125,11 @@ class AccountsController < ApplicationController
     def load_subscription
       @subscription = current_account.subscription
     end
-    
+
     def authorized?
-      %w(new create plans canceled thanks).include?(self.action_name) || 
+      %w(new create plans canceled thanks).include?(self.action_name) ||
       (self.action_name == 'dashboard' && logged_in?) ||
       admin?
-    end 
-    
+    end
+
 end

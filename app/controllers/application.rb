@@ -4,29 +4,29 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include SslRequirement
-  #include ExceptionNotifiable  
+  #include ExceptionNotifiable
   #before_filter :login_required
-  
+
   helper :all # include all helpers, all the time
   helper_method :current_account, :admin?, :shopping_cart, :current_purchase, :user_playlist, :free_video_of_week, :featured_video_of_week
-  
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '779a6e2f0fe7736f0a73da4a7d9f13d4'
-  
+
   filter_parameter_logging :password, :creditcard
 
   protected
-  
+
     def current_account
       @current_account ||= current_user.account
     end
-    
+
     def admin?
       logged_in? && current_user.admin?
     end
 
-    def shopping_cart      
+    def shopping_cart
       @cart ||= if session[:cart_id]
         Cart.find(session[:cart_id])
       elsif logged_in?
@@ -37,23 +37,29 @@ class ApplicationController < ActionController::Base
       session[:cart_id] = @cart.id
       @cart
     end
+
     def empty_cart!
       shopping_cart.cart_items.delete_all
       session[:cart_id] = nil
     end
+
     def current_purchase
       session[:purchase_record] ||= Purchase.new
     end
+
     def last_purchase
       @last_purchase ||= Purchase.find(session[:last_purchase_id])
     end
+
     def free_video_of_week
       @free_video_of_week ||= FeaturedVideo.free_videos.first
-      
+
     end
+
     def featured_video_of_week
-    	@featured_video_of_week ||= FeaturedVideo.find(:first)	
+      @featured_video_of_week ||= FeaturedVideo.find(:first)
     end
+
     def user_playlist(from_session = false)
       if logged_in? && !from_session
         current_user.playlist
@@ -61,28 +67,33 @@ class ApplicationController < ActionController::Base
         session[:temp_playlist] ||= UserPlaylist.new
       end
     end
+
     def migrate_playlist!
       UserPlaylist.migrate_to_user(current_user, user_playlist(true))
       session[:temp_playlist] = nil
     end
+
     def migrate_cart!
       current_user.reload
       shopping_cart.user = current_user
       shopping_cart.save
     end
+
     def destroy_current_purchase!
-      session[:last_purchase_id] = current_purchase.id     
-      session[:purchase_record] = nil      
-    end   
+      session[:last_purchase_id] = current_purchase.id
+      session[:purchase_record] = nil
+    end
+
     def rescue_action(ex)
       if ex.is_a?(CGI::Session::CookieStore::TamperedWithCookie)
         Rails.logger.info "Bad cookie; resetting session"
-        session.reset!        
+        session.reset!
         redirect_to '/'
       else
         super(ex)
       end
     end
+
     # This works around some fucked-up weird problem that only happens
     # in development mode.
     # When you reference 'User' in AuthenticatedSystem

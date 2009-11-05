@@ -1,5 +1,4 @@
 class UserMailer < ActionMailer::Base
-  
 
   def purchase_confirmation(purchase, sent_at = Time.now)
     subject    "Thank you for your recent purchase ##{purchase.invoice_no}"
@@ -15,5 +14,4 @@ class UserMailer < ActionMailer::Base
     from "no-reply@yogatoday.com"
     body :user_story => user_story
   end
-
 end

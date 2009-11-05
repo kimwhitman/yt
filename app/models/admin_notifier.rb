@@ -27,5 +27,4 @@ class AdminNotifier < ActionMailer::Base
     recipients "info@yogatoday.com"
     subject "Possible Offensive Comment"
   end
-
 end

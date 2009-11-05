@@ -7,6 +7,7 @@ class Suggestion
     @video_id = attribs[:video_id]
     @errors = []
   end
+
   def valid?
     @errors = []
     unless @title.blank?
@@ -21,6 +22,7 @@ class Suggestion
     end
     return @errors.blank?
   end
+
   def errors
     @errors.dup
   end

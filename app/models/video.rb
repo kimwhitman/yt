@@ -4,7 +4,7 @@ class Video < ActiveRecord::Base
   has_many :featured_videos, :dependent => :destroy
   has_many :comments, :order => 'updated_at DESC'
   has_many :reviews, :order => 'updated_at DESC'
-  
+
   has_and_belongs_to_many :video_focus, :join_table => 'video_video_focus'
   # Do _NOT_ use this assocation for pagination.
   # It doesn't work. Use the named_scope related_videos_for instead, supplying a Video ID.
@@ -15,7 +15,7 @@ class Video < ActiveRecord::Base
     :finder_sql => %q(
       SELECT videos.* FROM `videos` INNER JOIN `related_videos` ON `videos`.id = `related_videos`.related_video_id OR `videos`.id = `related_videos`.video_id WHERE (`related_videos`.video_id = #{id} OR `related_videos`.related_video_id = #{id}) AND videos.id <> #{id}
   )
-    
+
   has_and_belongs_to_many :instructors
   #has_and_belongs_to_many :yoga_poses
   has_and_belongs_to_many :yoga_types
@@ -26,9 +26,9 @@ class Video < ActiveRecord::Base
   validates_length_of :description, :maximum => 1000, :allow_blank => true
 
   before_validation :update_duration, :update_tags, :update_caches
-  
+
   # This association is just used for pagination.
-  named_scope :related_videos_for, lambda { |id| 
+  named_scope :related_videos_for, lambda { |id|
     {
       :conditions => "(`related_videos`.video_id = #{id} OR `related_videos`.related_video_id = #{id}) AND videos.id <> #{id}",
       :joins => "INNER JOIN `related_videos` ON `videos`.id = `related_videos`.related_video_id OR `videos`.id = `related_videos`.video_id"
@@ -54,7 +54,7 @@ class Video < ActiveRecord::Base
         :long => "(videos.duration >= #{30.minutes})"
       }.with_indifferent_access
       duration_range = opts[:time].collect { |t| ranges[t] }.join(' OR ')
-    end    
+    end
     conds.merge! "skill_level_id" => opts[:skill_level],
       "instructors.id" => opts[:instructors],
       "yoga_poses.id"  => opts[:yoga_poses],
@@ -71,7 +71,7 @@ class Video < ActiveRecord::Base
     # It's a little more complicated this way, but it makes the sql query
     # much less intensive.
     joins = [:instructors, :yoga_poses, :yoga_types, :video_focus]
-    joins.delete_if { |key_value| opts[key_value].blank? }    
+    joins.delete_if { |key_value| opts[key_value].blank? }
     {
       :select => "videos.*",
       :joins => joins,
@@ -80,7 +80,7 @@ class Video < ActiveRecord::Base
       :conditions => conds
     }
   }
-  named_scope :keywords, lambda { |keywords| 
+  named_scope :keywords, lambda { |keywords|
   	keywords ||= ''
   	conds = []
   	joins = "LEFT OUTER JOIN video_video_focus ON video_video_focus.video_id = videos.id LEFT OUTER JOIN video_focus ON video_focus.id = video_video_focus.video_focus_id"
@@ -119,20 +119,24 @@ class Video < ActiveRecord::Base
     :everyone => 3.99,
     :subscribers => 2.99
   }
+
   def score
     # We're only doing whole stars for now.
     # half-stars come later.
     if reviews.public.positive_score.count == 0
       return @score ||= 0
-    end    
+    end
     @score ||= reviews.public.positive_score.sum('score') / reviews.public.positive_score.count
   end
+
   def focus_name
     !video_focus.blank? ? video_focus.collect { |vf| vf.name }.join(', ') : "Unknown"
   end
+
   def skill_name
     skill_level ? skill_level.name : "Unknown"
   end
+
   def instructor_names
     unless instructors.empty?
       instructors.collect { |instructor| instructor.name }
@@ -140,6 +144,7 @@ class Video < ActiveRecord::Base
       ["No instructors listed"]
     end
   end
+
   def style_names
     unless yoga_types.empty?
       yoga_types.collect { |yoga_style| yoga_style.name }
@@ -147,16 +152,20 @@ class Video < ActiveRecord::Base
       ["No yoga styles listed"]
     end
   end
+
   def duration_to_minutes
     self.duration / 60
   end
+
   def duration_seconds
     "%0.2i" % (self.duration % 60)
   end
+
   def cart_name
     title
   end
   # See VIDEO_PRICES comment.
+
   def price(user_or_symbol = :everyone)
     case user_or_symbol
       when User
@@ -170,26 +179,31 @@ class Video < ActiveRecord::Base
         raise "Invalid parameter passed; expected User or Symbol, got #{user_or_symbol.class.name}"
     end
   end
+
   def free?
     fv = FeaturedVideo.find_by_video_id(self.id)
     !fv.blank? && fv.free?
   end
+
   # API-accessing functions
   def thumbnail_url
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do
       remote_properties['thumbnail_url']
     end
   end
+
   def tags
     Rails.cache.fetch("video_#{id}_remote_tags") do
       remote_properties['tags']
     end
   end
+
   def duration_in_milliseconds
     Rails.cache.fetch("video_#{id}_remote_duration") do
       remote_properties['duration_in_milliseconds']
     end
   end
+
   # Get an Amazon S3 download URL for this media.
   # :quality: us one of:
   # => :low, :medium, :high, or :hd
@@ -205,9 +219,9 @@ class Video < ActiveRecord::Base
       :http_verb => 'post',
       :resource_url => url,
       :quality => quality.to_s
-    }    
+    }
     # Koichi says this is a string. Just a string. So... let's hope it's just a string.
-    @download_url = ActiveSupport::JSON.decode(RestClient.post url, {})    
+    @download_url = ActiveSupport::JSON.decode(RestClient.post url, {})
     rescue RestClient::RequestFailed => rf
       Rails.logger.info "Could not retrieve download_url for #{self.id}; #{rf.response.body}"
       nil
@@ -215,23 +229,28 @@ class Video < ActiveRecord::Base
       Rails.logger.info "Could not retrieve download_url for #{self.id}; #{e.inspect}"
       nil
   end
+
   protected
+
   def remote_properties(media_id = nil)
-    media_id ||= streaming_media_id    
+    media_id ||= streaming_media_id
     @remote_properties ||= ActiveSupport::JSON.decode(RestClient.get "#{REMOTE_ORG_ENDPOINT}/media/#{media_id}/properties.json")
   rescue RestClient::ExceptionWithResponse => e
     Rails.logger.info "An error occured trying to retrieve media remote properties: #{e.message} || #{e.response.body}"
   end
-  def update_duration    
+
+  def update_duration
     if self.streaming_media_id_changed? || self.downloadable_media_id_changed?
       media_id = self.streaming_media_id || self.downloadable_media_id
       return unless media_id
       self.duration = remote_properties(media_id)['duration_in_milliseconds'].to_i / 1000
     end
   end
+
   def update_tags
     self.mds_tags = self.tags.to_s
   end
+
   def update_caches
     self.video_focus_cache = self.video_focus.collect(&:name).join(',')
   end

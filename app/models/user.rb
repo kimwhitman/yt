@@ -1,6 +1,7 @@
 require 'digest/sha1'
+
 class User < ActiveRecord::Base
-  belongs_to :account, :dependent => :destroy  
+  belongs_to :account, :dependent => :destroy
   has_many :playlist_videos, :dependent => :destroy
   has_many :purchases, :dependent => :destroy
   has_attached_file :photo,
@@ -60,7 +61,7 @@ class User < ActiveRecord::Base
   end
 
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at 
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end
 
   # These create and unset the fields required for remembering users between browser closes
@@ -88,7 +89,7 @@ class User < ActiveRecord::Base
       @playlist = UserPlaylist.new(self)
     else
       @playlist ||= UserPlaylist.new(self)
-    end    
+    end
   end
   # Does the user have a paying subscription right now?
   def has_paying_subscription?
@@ -110,6 +111,7 @@ class User < ActiveRecord::Base
       return false
     end
   end
+
   # Did the user at some point HAVE a paying subscription?
   def had_paying_subscription?
     self.account.subscription_payments.count > 0
@@ -131,24 +133,27 @@ class User < ActiveRecord::Base
   		end
   	end
   end
-  
-  
+
+
   protected
+
   def store_old_email
     if email_changed?
       @old_email = email_change.last
-    end    
+    end
   end
+
   # before filter
   def encrypt_password
     return if password.blank?
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
     self.crypted_password = encrypt(password)
   end
-      
+
   def password_required?
     crypted_password.blank? || !password.blank?
   end
+
   # After filter
   def setup_newsletter
     return unless @newsletter_changed || !@old_email.blank?
@@ -162,6 +167,7 @@ class User < ActiveRecord::Base
     # In case the CC API doesn't want to talk to us right now.
     Rails.logger.info "Could not contact CC api: #{e}, #{e.backtrace}"
   end
+
   def setup_free_account
     return unless self.account.nil?
     self.build_account :name => "#{self.name}'s Yoga Today account",
@@ -176,5 +182,4 @@ class User < ActiveRecord::Base
   def downcase_email
     self.email = self.email.downcase
   end
-    
 end

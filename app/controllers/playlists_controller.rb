@@ -1,9 +1,11 @@
 class PlaylistsController < ApplicationController
   verify :method => :put, :only => [:add]
+
   def add
     @video = Video.find_by_id params[:video_id]
     user_playlist.add(@video)    
   end
+
   def remove
     @video = Video.find_by_id params[:video_id]
     user_playlist.remove(@video)
@@ -16,6 +18,7 @@ class PlaylistsController < ApplicationController
       }
     end
   end
+
   def reset
     session[:temp_playlist] = nil
     if logged_in?

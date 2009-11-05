@@ -12,11 +12,12 @@ class CommentsController < ApplicationController
       format.js
     end
   end
+
   def destroy
   	@video = Video.find(params[:video_id])
   	@comment = @video.comments.find(params[:id])
   	if current_user.id == @comment.user_id
-  		@comment.destroy
+      @comment.destroy
   	end
   end
 end

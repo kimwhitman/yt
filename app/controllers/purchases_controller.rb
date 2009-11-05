@@ -3,6 +3,7 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.find_by_invoice_no params[:id]
     redirect_to root_url if @purchase.blank?
   end
+
   def download
     # Receiving a purchase_item id here.
     pi = PurchaseItem.find(params[:id])

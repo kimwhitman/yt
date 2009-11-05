@@ -35,7 +35,7 @@ class SubscriptionNotifier < ActionMailer::Base
     setup_email(subscription_payment.subscription.account.users.first, "Your YogaToday invoice")
     @body = { :subscription => subscription_payment.subscription, :amount => subscription_payment.amount }
   end
-  
+
   def charge_failure(subscription)
     setup_email(subscription.account.users.first, "Your YogaToday renewal failed")
     @bcc = 'sales@yogatoday.com'

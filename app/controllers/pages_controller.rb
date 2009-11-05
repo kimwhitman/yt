@@ -1,4 +1,5 @@
-class PagesController < ApplicationController  
+class PagesController < ApplicationController
+
   def home
     @user_story = UserStory.published.by_publish_at(:limit => 1).first
     @featured_videos = FeaturedVideo.by_rank(:include => [:video]).to_a * 10 # multiply by 10 to create the feel of infinite looping scroll
@@ -12,26 +13,31 @@ class PagesController < ApplicationController
       }
     end
   end
+
   def get_started_today
     @user_story = UserStory.published.by_publish_at(:limit => 1).first
   end
+
   def faqs
     # TODO
     @yoga_category = FaqCategory.find_by_name 'Yoga Questions'
     @technical_category = FaqCategory.find_by_name 'Technical Questions'
     @billing_category = FaqCategory.find_by_name 'Billing Questions'
   end
+
   def instructors
     @instructors = Instructor.all
   end
+
   def press_and_news
-  	unless params[:id]
-    	@posts = PressPost.paginate(:all, :order => 'rank DESC', :conditions => {:active => true}, :page => (params[:page] || 1), :per_page => 10)
+    unless params[:id]
+      @posts = PressPost.paginate(:all, :order => 'rank DESC', :conditions => {:active => true}, :page => (params[:page] || 1), :per_page => 10)
     else
-    	@post = PressPost.find(params[:id])
-    	render :action => "single_news_article"
+      @post = PressPost.find(params[:id])
+      render :action => "single_news_article"
     end
   end
+
   def contact
     return unless request.post?
     ce = ContactEmail.new params
@@ -42,6 +48,7 @@ class PagesController < ApplicationController
       flash[:contact_error] = "All fields required."
     end
   end
+
   def media_downloads
     @media_kits = MediaKit.find(:all, :order => 'rank DESC')
     @for_print_media_kits = MediaKit.find(:all, :order => 'rank DESC', :conditions => {:media_kit_type => "For Print"})

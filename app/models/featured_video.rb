@@ -18,21 +18,26 @@ class FeaturedVideo < ActiveRecord::Base
       FeaturedVideo.update id, :rank => index
     end
   end
+
   def could_be_free?
     !starts_free_at.blank? && !ends_free_at.blank?
   end
+
   def free?
     return false unless could_be_free?
     (starts_free_at..ends_free_at).include? Time.now
   end
+
   def thumbnail
     image? ? image.url : video.thumbnail_url    
   end
+
   # For active scaffold to display the correct label in "update"
   def to_label
     "Featured Video"
   end
   protected
+
   def free_range_validation
     if starts_free_at.blank? && !ends_free_at.blank?
       errors.add :starts_free_at, "must be provided when using an end date."
@@ -44,6 +49,7 @@ class FeaturedVideo < ActiveRecord::Base
       errors.add_to_base 'The start date range must be before the end date range.'
     end
   end
+
   def set_rank
     if self.rank.blank?
       self.rank = FeaturedVideo.count + 1
