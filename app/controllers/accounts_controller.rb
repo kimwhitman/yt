@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   include ModelControllerMethods
-  
+
   before_filter :build_user, :only => [:new, :create]
   before_filter :build_plan, :only => [:new, :create]
   before_filter :load_billing, :only => [ :new, :create, :billing, :paypal ]
