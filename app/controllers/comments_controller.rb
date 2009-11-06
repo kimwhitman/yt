@@ -14,10 +14,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-  	@video = Video.find(params[:video_id])
-  	@comment = @video.comments.find(params[:id])
-  	if current_user.id == @comment.user_id
+    @video = Video.find(params[:video_id])
+    @comment = @video.comments.find(params[:id])
+    if current_user.id == @comment.user_id
       @comment.destroy
-  	end
+    end
   end
 end

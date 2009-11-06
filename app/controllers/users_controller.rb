@@ -10,7 +10,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new params[:user]
-    if params[:email].blank? && @user.save #params[:email] is a negative captcha technique to catch bots.  Humans do not fill out the email field as it is displayed 500 px's to the left, bots see a field called "email" and try to fill it out.
+
+    #params[:email] is a negative captcha technique to catch bots.
+    # Humans do not fill out the email field as it is displayed 500 px's to the left,
+    # bots see a field called "email" and try to fill it out.
+    if params[:email].blank? && @user.save
       self.current_user = @user
       migrate_cart!
       if params[:remember_me] == 1
@@ -82,6 +86,7 @@ class UsersController < ApplicationController
           return
         end
       end
+
       if params[:creditcard][:number].length > 25
         flash[:notice] = "Your credit card must be less than or equal to 25 characters"
         return
@@ -95,10 +100,12 @@ class UsersController < ApplicationController
         flash[:notice] = "Your last name must be less than or equal to 100 characters"
         return
       end
+
       @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
       @address = SubscriptionAddress.new params[:address]
       @address.first_name = @creditcard.first_name
       @address.last_name = @creditcard.last_name
+
       if @creditcard.valid? & @address.valid?
         account_upgrade = !current_user.has_paying_subscription?
         current_user.account.subscription.upgrade_to_premium unless current_user.has_paying_subscription?
@@ -163,16 +170,15 @@ class UsersController < ApplicationController
 
   protected
 
-  def authorized?
-    logged_in? && current_user == User.find(params[:id])
-  end
+    def authorized?
+      logged_in? && current_user == User.find(params[:id])
+    end
 
-  def scoper
-    current_account.users
-  end
+    def scoper
+      current_account.users
+    end
 
-  def check_user_limit
-    redirect_to new_user_url if current_account.reached_user_limit?
-  end
-
+    def check_user_limit
+      redirect_to new_user_url if current_account.reached_user_limit?
+    end
 end

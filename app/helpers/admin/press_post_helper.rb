@@ -1,5 +1,5 @@
 module Admin::PressPostHelper
-  def photo_form_column(press_post, name)  
+  def photo_form_column(press_post, name)
     html = ''
     html << link_to_paperclip(press_post.photo) if press_post.photo?
     html << '<br/>' if press_post.photo?

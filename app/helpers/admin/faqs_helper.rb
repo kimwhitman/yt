@@ -5,14 +5,14 @@ module Admin::FaqsHelper
     else
       h(truncate(faq.answer, 47))
     end
-    
+
   end
 
-  def question_column(faq)    
+  def question_column(faq)
     if params[:action] == 'show'
       h faq.question
     else
       h(truncate(faq.question, 47))
     end
-  end  
+  end
 end

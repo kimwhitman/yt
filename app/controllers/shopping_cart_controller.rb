@@ -1,4 +1,5 @@
 require 'digest/sha1'
+
 class ShoppingCartController < ApplicationController
   verify :method => :put, :only => [:add]
   verify :method => :delete, :only => [:remove]
@@ -38,7 +39,7 @@ class ShoppingCartController < ApplicationController
   end
 
   def checkout
-  	#skip this step now, go right to confirm purchase
+    #skip this step now, go right to confirm purchase
     if request.post?
       current_purchase.reset_credit_card!
       current_purchase.card_expiration = DateTime.parse("#{params[:purchase].delete('card_expiration(2i)')}/#{params[:purchase].delete('card_expiration(1i)')}")
@@ -54,9 +55,9 @@ class ShoppingCartController < ApplicationController
   def confirm_purchase
     return unless request.post? || request.put?
     current_purchase.reset_credit_card!
-	current_purchase.card_expiration = DateTime.parse("#{params[:purchase].delete('card_expiration(2i)')}/#{params[:purchase].delete('card_expiration(1i)')}")
- 	params[:purchase].delete 'card_expiration(3i)'
-	current_purchase.attributes = params[:purchase]
+  current_purchase.card_expiration = DateTime.parse("#{params[:purchase].delete('card_expiration(2i)')}/#{params[:purchase].delete('card_expiration(1i)')}")
+  params[:purchase].delete 'card_expiration(3i)'
+  current_purchase.attributes = params[:purchase]
     if current_purchase.valid? && current_purchase.charge_card(shopping_cart)
       empty_cart!
       Rails.logger.info "** #{current_purchase.inspect}"

@@ -1,8 +1,8 @@
 class SubscriptionAddress
   include ActiveMerchant::Validateable
-  
+
   attr_accessor :address1, :address2, :city, :state, :zip, :country, :first_name, :last_name, :phone
-  
+
   def to_activemerchant
     [:address1, :address2, :city, :state, :zip, :country, :first_name, :last_name, :phone].inject({}) do |h, field|
       h[field] = self.send(field)

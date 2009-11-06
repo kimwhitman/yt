@@ -1,4 +1,4 @@
-class Suggestion    
+class Suggestion
   attr_accessor :title, :content, :video_id
 
   def initialize(attribs = {})

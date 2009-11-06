@@ -1,11 +1,11 @@
-class UserPlaylist  
+class UserPlaylist
   # Accepts a User instance or an array of video ids to prime the playlist with.
   def initialize(user_record_or_array = nil)
     @videos = []
     case user_record_or_array
     when User
       @user_id = user_record_or_array.id
-      user_record_or_array.playlist_videos.each { |pv|  @videos << pv.video_id }        
+      user_record_or_array.playlist_videos.each { |pv|  @videos << pv.video_id }
     when Array
       @videos = pv.dup
     end
@@ -17,7 +17,7 @@ class UserPlaylist
       PlaylistVideo.find_or_create_by_user_id_and_video_id(@user_id, video.id)
     end
     unless @videos.include?(video.id)
-    	@videos << video.id
+      @videos << video.id
     end
   end
 
@@ -32,7 +32,7 @@ class UserPlaylist
   def has_video?(video)
     return false unless video
     @videos.include? video.id
-  end    
+  end
 
   def size
     @videos.size
@@ -55,7 +55,7 @@ class UserPlaylist
     ids = @videos
     if @user_id
       ids = PlaylistVideo.find_all_by_user_id(@user_id).collect { |pv| pv.video_id }
-    end    
-    Video.find(:all, :conditions => { :id => ids })  
-  end  
+    end
+    Video.find(:all, :conditions => { :id => ids })
+  end
 end

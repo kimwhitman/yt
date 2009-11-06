@@ -118,20 +118,20 @@ class User < ActiveRecord::Base
   end
   #Set subscription price
   def cart_items_to_subscription_price
-  	carts = Cart.find(:all, :conditions => {:user_id => self.id})
-  	carts.each do |cart|
-  		cart.cart_items.each do |item|
-  			item.update_attributes(:amount => Money.new(299))
-  		end
-  	end
+    carts = Cart.find(:all, :conditions => {:user_id => self.id})
+    carts.each do |cart|
+      cart.cart_items.each do |item|
+        item.update_attributes(:amount => Money.new(299))
+      end
+    end
   end
   def cart_items_to_non_subscription_price
-  	carts = Cart.find(:all, :conditions => {:user_id => self.id})
-  	carts.each do |cart|
-  		cart.cart_items.each do |item|
-  			item.update_attributes(:amount => Money.new(399))
-  		end
-  	end
+    carts = Cart.find(:all, :conditions => {:user_id => self.id})
+    carts.each do |cart|
+      cart.cart_items.each do |item|
+        item.update_attributes(:amount => Money.new(399))
+      end
+    end
   end
 
 

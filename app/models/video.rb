@@ -38,11 +38,11 @@ class Video < ActiveRecord::Base
   named_scope :by_title, :order => 'title ASC'
   named_scope :by_most_recent, :order => 'videos.created_at DESC'
   named_scope :by_most_popular,
-  	:select => "videos.*, (SELECT COUNT(*) FROM playlist_videos where videos.id = playlist_videos.video_id) as pop_cnt", :order => 'pop_cnt desc'
+    :select => "videos.*, (SELECT COUNT(*) FROM playlist_videos where videos.id = playlist_videos.video_id) as pop_cnt", :order => 'pop_cnt desc'
   named_scope :by_most_discussed,
-		:select => "videos.*, (SELECT COUNT(*) FROM comments where videos.id = comments.video_id) as disc_cnt", :order => 'disc_cnt desc'
+    :select => "videos.*, (SELECT COUNT(*) FROM comments where videos.id = comments.video_id) as disc_cnt", :order => 'disc_cnt desc'
   named_scope :by_top_rated,
-		:select => "videos.*, (SELECT (SUM(reviews.score) / COUNT(reviews.score)) FROM reviews WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating", :order => 'avg_rating desc'
+    :select => "videos.*, (SELECT (SUM(reviews.score) / COUNT(reviews.score)) FROM reviews WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating", :order => 'avg_rating desc'
   named_scope :search, lambda { |opts|
     opts ||= {}
     conds = {}
@@ -81,35 +81,35 @@ class Video < ActiveRecord::Base
     }
   }
   named_scope :keywords, lambda { |keywords|
-  	keywords ||= ''
-  	conds = []
-  	joins = "LEFT OUTER JOIN video_video_focus ON video_video_focus.video_id = videos.id LEFT OUTER JOIN video_focus ON video_focus.id = video_video_focus.video_focus_id"
+    keywords ||= ''
+    conds = []
+    joins = "LEFT OUTER JOIN video_video_focus ON video_video_focus.video_id = videos.id LEFT OUTER JOIN video_focus ON video_focus.id = video_video_focus.video_focus_id"
     # There's a bug in Rails 2.1 concerning named_scope and "chaining" inner joins.
     # Hence, video_focus_cache
-  	#chain them so we can handle and's and or's in the future.
-  	keywords.downcase.gsub(/[,.'"]/, '').gsub(' and ', ' ').gsub(' or ', ' ').split.each do |keyword|
-  		conds << "LOWER(videos.title) LIKE '% #{keyword} %'"
-  		conds << "LOWER(videos.title) LIKE '#{keyword} %'"
-  		conds << "LOWER(videos.title) LIKE '% #{keyword}'"
+    #chain them so we can handle and's and or's in the future.
+    keywords.downcase.gsub(/[,.'"]/, '').gsub(' and ', ' ').gsub(' or ', ' ').split.each do |keyword|
+      conds << "LOWER(videos.title) LIKE '% #{keyword} %'"
+      conds << "LOWER(videos.title) LIKE '#{keyword} %'"
+      conds << "LOWER(videos.title) LIKE '% #{keyword}'"
       conds << "LOWER(videos.title) LIKE '%#{keyword}%'"
-  		conds << "LOWER(videos.description) LIKE '% #{keyword} %'"
-  		conds << "LOWER(videos.description) LIKE '#{keyword} %'"
-  		conds << "LOWER(videos.description) LIKE '% #{keyword}'"
+      conds << "LOWER(videos.description) LIKE '% #{keyword} %'"
+      conds << "LOWER(videos.description) LIKE '#{keyword} %'"
+      conds << "LOWER(videos.description) LIKE '% #{keyword}'"
       conds << "LOWER(videos.description) LIKE '%#{keyword}%'"
-  		conds << "LOWER(video_focus_cache) LIKE '% #{keyword} %'"
-  		conds << "LOWER(video_focus_cache) LIKE '#{keyword} %'"
-  		conds << "LOWER(video_focus_cache) LIKE '% #{keyword}'"
+      conds << "LOWER(video_focus_cache) LIKE '% #{keyword} %'"
+      conds << "LOWER(video_focus_cache) LIKE '#{keyword} %'"
+      conds << "LOWER(video_focus_cache) LIKE '% #{keyword}'"
       conds << "LOWER(video_focus_cache) LIKE '%#{keyword}%'"
       conds << "LOWER(videos.mds_tags) LIKE '%#{keyword}%'"
       conds << "LOWER(videos.mds_tags) LIKE '% #{keyword} %'"
-  		conds << "LOWER(videos.mds_tags) LIKE '#{keyword} %'"
-  		conds << "LOWER(videos.mds_tags) LIKE '% #{keyword}'"
-  	end
-  	{
-  		:select => "videos.*",
-  		#:joins => joins,
-  		:conditions => conds.join(' OR ')
-  	}
+      conds << "LOWER(videos.mds_tags) LIKE '#{keyword} %'"
+      conds << "LOWER(videos.mds_tags) LIKE '% #{keyword}'"
+    end
+    {
+      :select => "videos.*",
+      #:joins => joins,
+      :conditions => conds.join(' OR ')
+    }
   }
   # Constants
   # Yes, this is a bad idea.

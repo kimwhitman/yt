@@ -5,5 +5,5 @@ class CartItem < ActiveRecord::Base
   belongs_to :product, :polymorphic => true
 
   validates_presence_of :product_name, :amount
-  validates_associated :cart, :product  
+  validates_associated :cart, :product
 end

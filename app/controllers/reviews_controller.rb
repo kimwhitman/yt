@@ -15,10 +15,10 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-  	@video = Video.find(params[:video_id])
-  	@review = @video.reviews.find(params[:id])
-  	if current_user.id == @review.user_id
-  		@review.destroy
-  	end
+    @video = Video.find(params[:video_id])
+    @review = @video.reviews.find(params[:id])
+    if current_user.id == @review.user_id
+      @review.destroy
+    end
   end
 end

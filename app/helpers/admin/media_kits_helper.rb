@@ -13,5 +13,4 @@ module Admin::MediaKitsHelper
   def media_kit_type_form_column(media_kit, name)
     select_tag "record[media_kit_type]", options_for_select([["For Print"], ["For Web"]], media_kit.media_kit_type)
   end
-
 end

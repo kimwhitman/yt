@@ -4,8 +4,8 @@ class Admin::ReviewsController < Admin::BaseController
     config.actions.exclude :create
     display_columns = [:title, :content, :user, :video, :is_public, :created_at]
     config.list.columns = display_columns
-    config.show.columns = display_columns    
-    create_or_update_columns = [:title, :content, :is_public]    
+    config.show.columns = display_columns
+    create_or_update_columns = [:title, :content, :is_public]
     config.update.columns = create_or_update_columns
   end
 end

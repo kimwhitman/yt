@@ -131,5 +131,4 @@ class AccountsController < ApplicationController
       (self.action_name == 'dashboard' && logged_in?) ||
       admin?
     end
-
 end

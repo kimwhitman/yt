@@ -6,6 +6,7 @@ class AdminNotifier < ActionMailer::Base
     subject "New Contact Message"
     body :contact_email => contact_email
   end
+
   def video_suggestion(suggestion, user = nil)
     video = Video.find(suggestion.video_id)
     if user
@@ -16,12 +17,14 @@ class AdminNotifier < ActionMailer::Base
     subject "New Video Suggestion Message"
     body :suggestion => suggestion, :video => video, :user => user
   end
+
   def user_story_thank_you(user_story)
     from "no-reply@yogatoday.com"
     recipients user_story.email
     subject "Thank you for your story"
     body :user_story => user_story
   end
+
   def offensive_comment
     from "no-reply@yogatoday.com"
     recipients "info@yogatoday.com"

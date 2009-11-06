@@ -9,21 +9,21 @@ module ShoppingCartHelper
     page.replace_html 'cart_total', number_to_currency(shopping_cart.total.to_dollars)
   end
 
-  def add_video_to_cart_link(text, video, opts = {})    
+  def add_video_to_cart_link(text, video, opts = {})
     html_opts = opts.dup
     if !shopping_cart.has_video?(video.id)
-	    html_opts.reverse_merge! :class => 'button',
-	      :id => "#{dom_id(video)}_cart",
-	      :style => 'color:#488a1a;',
-	      :onmouseover => "this.style.color='#333333';",
-	      :onmouseout => "this.style.color='#488a1a';"
+      html_opts.reverse_merge! :class => 'button',
+        :id => "#{dom_id(video)}_cart",
+        :style => 'color:#488a1a;',
+        :onmouseover => "this.style.color='#333333';",
+        :onmouseout => "this.style.color='#488a1a';"
     else shopping_cart.has_video?(video.id)
-    	html_opts[:style] = "#{html_opts[:style]};color:#666666;"
-    	html_opts.reverse_merge! :class => 'button',
-	      :id => "#{dom_id(video)}_cart",
-	      :style => 'color:#666666;',
-	      :onmouseover => "this.style.color='#333333';",
-	      :onmouseout => "this.style.color='#666666';"
+      html_opts[:style] = "#{html_opts[:style]};color:#666666;"
+      html_opts.reverse_merge! :class => 'button',
+        :id => "#{dom_id(video)}_cart",
+        :style => 'color:#666666;',
+        :onmouseover => "this.style.color='#333333';",
+        :onmouseout => "this.style.color='#666666';"
       return link_to "<strong>In Cart</strong>", cart_path, html_opts
     end
     ajax_opts = {

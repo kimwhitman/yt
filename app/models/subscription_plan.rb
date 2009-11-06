@@ -1,6 +1,6 @@
 class SubscriptionPlan < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
-  
+
   # renewal_period is the number of months to bill at a time
   # default is 1
   validates_numericality_of :renewal_period, :only_integer => true, :greater_than => 0

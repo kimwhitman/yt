@@ -1,5 +1,5 @@
 class PurchaseItem < ActiveRecord::Base
-  belongs_to :purchase  
+  belongs_to :purchase
   validates_presence_of :name, :purchase_type, :purchase_id, :price_in_cents, :purchased_item_id
 
   def downloadable?

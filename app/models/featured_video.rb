@@ -1,7 +1,7 @@
 class FeaturedVideo < ActiveRecord::Base
-  has_attached_file :image  
-  belongs_to :video  
-  validates_presence_of :video_id, :rank  
+  has_attached_file :image
+  belongs_to :video
+  validates_presence_of :video_id, :rank
   validates_numericality_of :rank
   validates_uniqueness_of :video_id
   validate :free_range_validation
@@ -9,7 +9,7 @@ class FeaturedVideo < ActiveRecord::Base
   named_scope :free_videos,
     :conditions => "NOW() between featured_videos.starts_free_at AND featured_videos.ends_free_at"
   before_validation :set_rank
-  
+
   # Accepts an array of FeaturedVideo ID's.
   # Updates their rank to correspond with their position in the array.
   # [5, 3, 1] will give ID: 5 a rank of 0, ID: 3 a rank of 1, and ID: 1 a rank of 3
@@ -29,7 +29,7 @@ class FeaturedVideo < ActiveRecord::Base
   end
 
   def thumbnail
-    image? ? image.url : video.thumbnail_url    
+    image? ? image.url : video.thumbnail_url
   end
 
   # For active scaffold to display the correct label in "update"

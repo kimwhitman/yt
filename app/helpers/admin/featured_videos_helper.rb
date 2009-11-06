@@ -1,5 +1,4 @@
 module Admin::FeaturedVideosHelper
-
   def title_column(featured_video)
     featured_video.video.title
   end
@@ -22,9 +21,9 @@ module Admin::FeaturedVideosHelper
 
   def ends_free_at_form_column(featured_video, name)
     calendar_date_select :record, :ends_free_at, :popup => 'force', :time => false
-  end  
+  end
 
-  def image_form_column(featured_video, name)  
+  def image_form_column(featured_video, name)
     html = ''
     html << link_to_paperclip(featured_video.image) if featured_video.image?
     html << '<br/>' if featured_video.image?

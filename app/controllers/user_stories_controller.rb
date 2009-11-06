@@ -18,11 +18,11 @@ class UserStoriesController < ApplicationController
   end
 
   def index
-  	unless params[:all_stories] == true.to_s
-  		@user_stories = UserStory.published.paginate(:all, :order => 'publish_at DESC', :page => (params[:page] || 1), :per_page => 5)
-  	else
-  		@user_stories = UserStory.published.by_publish_at
-  	end
+    unless params[:all_stories] == true.to_s
+      @user_stories = UserStory.published.paginate(:all, :order => 'publish_at DESC', :page => (params[:page] || 1), :per_page => 5)
+    else
+      @user_stories = UserStory.published.by_publish_at
+    end
   end
 
   def show

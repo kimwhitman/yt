@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::BaseController
     config.update.multipart = true
     config.actions.exclude  :create
   end
-  
+
   def remove_photo
     user = User.find(params[:record])
     user.photo = nil

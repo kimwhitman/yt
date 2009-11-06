@@ -1,6 +1,6 @@
 module PlaylistsHelper
-  def add_video_to_playlist_link(text, video, opts = {})    
-    html_opts = opts.dup    
+  def add_video_to_playlist_link(text, video, opts = {})
+    html_opts = opts.dup
     html_opts.reverse_merge! :class => 'button',
       :id => "#{dom_id(video)}_playlist"
     if user_playlist.has_video?(video)

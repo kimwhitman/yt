@@ -15,7 +15,7 @@ module Admin::UserStoriesHelper
 
   def story_column(user_story)
     if params[:action] == 'show'
-      user_story.story      
+      user_story.story
     else
       truncate(user_story.story, 120)
     end
@@ -40,10 +40,10 @@ module Admin::UserStoriesHelper
   def is_public_form_column(user_story, name)
     check_box_tag(name, true)
   end
-  
+
   def publish_at_form_column(user_story, name)
     calendar_date_select :record, :publish_at, :popup => 'force', :time => false
-  end  
+  end
 
   def personal_message_column(user_story)
     message = user_story.personal_message || 'No Personal Message'
@@ -52,5 +52,5 @@ module Admin::UserStoriesHelper
     else
       h(truncate(message, 47))
     end
-  end  
+  end
 end

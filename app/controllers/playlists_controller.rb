@@ -3,7 +3,7 @@ class PlaylistsController < ApplicationController
 
   def add
     @video = Video.find_by_id params[:video_id]
-    user_playlist.add(@video)    
+    user_playlist.add(@video)
   end
 
   def remove
