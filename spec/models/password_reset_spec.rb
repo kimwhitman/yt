@@ -5,12 +5,12 @@ describe PasswordReset do
     @account = accounts(:localhost)
     @user = @account.users.first
   end
-  
+
   it "should get a token when created" do
     @pr = PasswordReset.create(:user => @user)
     @pr.token.should_not be_blank
   end
-  
+
   it "should send an email when created" do
     (@emails = ActionMailer::Base.deliveries).clear
     @pr = PasswordReset.create(:user => @user)

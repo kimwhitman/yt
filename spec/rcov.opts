@@ -1,2 +1,2 @@
---exclude "spec/*,gems/*,lib/authenticated_test_helper.rb" 
+--exclude "spec/*,gems/*,lib/authenticated_test_helper.rb"
 --rails

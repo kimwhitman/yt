@@ -7,7 +7,7 @@ require 'spec/rails'
 
 Spec::Runner.configure do |config|
   include AuthenticatedTestHelper
-  
+
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
@@ -38,7 +38,7 @@ Spec::Runner.configure do |config|
   config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  
+
   def valid_address(attributes = {})
     {
       :first_name => 'John',
@@ -50,22 +50,22 @@ Spec::Runner.configure do |config|
       :country => 'US'
     }.merge(attributes)
   end
-  
+
   def valid_card(attributes = {})
-    { :first_name => 'Joe', 
+    { :first_name => 'Joe',
       :last_name => 'Doe',
-      :month => 2, 
-      :year => Time.now.year + 1, 
-      :number => '1', 
-      :type => 'bogus', 
-      :verification_value => '123' 
+      :month => 2,
+      :year => Time.now.year + 1,
+      :number => '1',
+      :type => 'bogus',
+      :verification_value => '123'
     }.merge(attributes)
   end
-  
+
   def valid_user(attributes = {})
     { :name => 'Bubba',
       :login => 'foobar',
-      :password => 'foobar', 
+      :password => 'foobar',
       :password_confirmation => 'foobar',
       :email => "bubba@#{AppConfig['base_domain']}"
     }.merge(attributes)
