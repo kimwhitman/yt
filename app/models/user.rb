@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
   attr_accessor :old_email
+
+  validates_acceptance_of :agree_to_terms
+
   validates_presence_of     :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
@@ -26,7 +29,7 @@ class User < ActiveRecord::Base
   after_save :setup_newsletter
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :name, :email, :password, :password_confirmation, :wants_newsletter, :photo, :photo_file_name, :photo_content_type, :photo_file_size, :city, :state, :country
+  attr_accessible :name, :email, :password, :password_confirmation, :wants_newsletter, :photo, :photo_file_name, :photo_content_type, :photo_file_size, :city, :state, :country, :agree_to_terms
 
   def name
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
@@ -91,6 +94,7 @@ class User < ActiveRecord::Base
       @playlist ||= UserPlaylist.new(self)
     end
   end
+
   # Does the user have a paying subscription right now?
   def has_paying_subscription?
     if self.account.subscription.subscription_plan.name != 'Free'
@@ -112,10 +116,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_active_card?
+    has_paying_subscription? && !account.subscription.card_expired?
+  end
+
   # Did the user at some point HAVE a paying subscription?
   def had_paying_subscription?
     self.account.subscription_payments.count > 0
   end
+
   #Set subscription price
   def cart_items_to_subscription_price
     carts = Cart.find(:all, :conditions => {:user_id => self.id})
@@ -125,6 +134,7 @@ class User < ActiveRecord::Base
       end
     end
   end
+
   def cart_items_to_non_subscription_price
     carts = Cart.find(:all, :conditions => {:user_id => self.id})
     carts.each do |cart|
@@ -179,6 +189,7 @@ class User < ActiveRecord::Base
     self.account_id = self.account.id
     self.save
   end
+
   def downcase_email
     self.email = self.email.downcase
   end

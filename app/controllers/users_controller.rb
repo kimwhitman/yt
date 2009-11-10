@@ -1,12 +1,9 @@
 class UsersController < ApplicationController
   ssl_required :billing if RAILS_ENV == 'production'
-  #include ModelControllerMethods
 
-  #before_filter :check_user_limit, :only => :create
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
   before_filter :login_required,
     :only => [:profile, :membership_terms, :billing, :billing_history, :cancel_membership, :update]
-  # CRUD
 
   def create
     @user = User.new params[:user]
@@ -71,6 +68,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
     if logged_in?
       redirect_to profile_user_path(current_user)
     end
@@ -78,57 +76,71 @@ class UsersController < ApplicationController
 
   # Member actions
   def billing
-    if request.post?
-      unless current_user.has_paying_subscription?
-        unless params[:agree_to_terms] == "1"
-          flash[:notice] = "You must agree to the terms and services to continue."
-          render :action => 'billing'
-          return
-        end
-      end
+    @user = current_user
+    @user.attributes = params[:user]
 
-      if params[:creditcard][:number].length > 25
-        flash[:notice] = "Your credit card must be less than or equal to 25 characters"
-        return
-      elsif params[:creditcard][:verification_value].length > 4
-        flash[:notice] = "Your verification value must be less than or equal to 4 characters"
-        return
-      elsif params[:creditcard][:first_name].length > 100
-        flash[:notice] = "Your first name must be less than or equal to 100 characters"
-        return
-      elsif params[:creditcard][:last_name].length > 100
-        flash[:notice] = "Your last name must be less than or equal to 100 characters"
-        return
-      end
+    @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
 
-      @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
-      @address = SubscriptionAddress.new params[:address]
-      @address.first_name = @creditcard.first_name
-      @address.last_name = @creditcard.last_name
+    if !params[:billing_cycle].blank?
+      @billing_cycle = params[:billing_cycle]
+    elsif @user.has_paying_subscription?
+      @billing_cycle = @user.account.subscription.renewal_period.to_s
+    else
+      @billing_cycle = '1'
+    end
 
-      if @creditcard.valid? & @address.valid?
-        account_upgrade = !current_user.has_paying_subscription?
-        current_user.account.subscription.upgrade_to_premium unless current_user.has_paying_subscription?
+    begin
+      @date = Date.parse("#{@creditcard.month}/#{@creditcard.year}")
+    rescue ArgumentError
+      @date = Date.parse("Jan #{Date.today.year}")
+    end
+
+    if request.post? || request.put?
+
+      @address = SubscriptionAddress.new(:first_name => @creditcard.first_name,
+                  :last_name => @creditcard.last_name)
+
+      if valid_billing?
+        account_upgrade = !@user.has_paying_subscription?
+        @user.account.subscription.upgrade_to_premium(@billing_cycle.to_i)
+
         migrate_cart!
-        if current_user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
-          flash[:notice] = "Your billing information has been updated." unless account_upgrade
+
+        if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
+          flash[:notice] = "Your billing information has been updated."# unless account_upgrade
+
           if account_upgrade
-            current_user.reload # Out with the old, in with the new.
-            @current_account = current_user.account # EAE instance variable was not set to new account
-            # EAE was: SubscriptionNotifier.deliver_plan_changed(current_user, current_user.account.subscription)
-            SubscriptionNotifier.deliver_plan_changed_upgrade(current_user, current_user.account.subscription)
+            @user.reload # Out with the old, in with the new.
+            @current_account = @user.account # EAE instance variable was not set to new account
+            # EAE was: SubscriptionNotifier.deliver_plan_changed(@user, @user.account.subscription)
+            SubscriptionNotifier.deliver_plan_changed_upgrade(@user, @user.account.subscription)
             render :action => 'subscription_thank_you'
           else
-            redirect_to billing_user_url(current_user)
+            redirect_to billing_user_url(@user)
           end
+
         else
-          flash[:error_messages] = current_user.account.subscription.errors.full_messages.join('<br />')
-          current_user.account.subscription.reload
+          errors = @user.account.subscription.errors.full_messages
+          logger.info "Subscription Error: #{errors}"
+          flash[:error_messages] = errors.join("<br/>")
+          @user.account.subscription.reload
         end
+
       else
-        flash[:error_messages] = (@creditcard.errors.full_messages + @address.errors.full_messages + current_account.subscription.errors.full_messages).join('<br />')
+        errors = @creditcard.errors.full_messages + @address.errors.full_messages + current_account.subscription.errors.full_messages
+        logger.info "Subscription Error: #{errors}"
+        flash[:error_messages] = errors.join("<br/>")
         render :action => 'billing'
       end
+
+    end
+  end
+
+  def billing_history
+    @user = current_user
+
+    if @user.has_paying_subscription? && !@user.has_active_card?
+        flash[:notice] = "You credit card on file expired on #{@user.account.subscription.card_expiration}. Please update it in Payment info section"
     end
   end
 
@@ -180,5 +192,9 @@ class UsersController < ApplicationController
 
     def check_user_limit
       redirect_to new_user_url if current_account.reached_user_limit?
+    end
+
+    def valid_billing?
+      @user.valid? && @creditcard.valid? && @address.valid?
     end
 end

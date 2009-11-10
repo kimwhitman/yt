@@ -131,9 +131,10 @@ class Subscription < ActiveRecord::Base
     self.save
   end
 
-  def upgrade_to_premium
+  def upgrade_to_premium(_renewal_period = 1)
     self.saved_subscription_plan_id = self.subscription_plan_id
-    self.subscription_plan_id = SubscriptionPlan.find_by_name('Premium').id
+    self.subscription_plan_id = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period).id
+    self.renewal_period = _renewal_period
     self.save!
   end
 
@@ -184,18 +185,26 @@ class Subscription < ActiveRecord::Base
       # ...or downgrading their account. But downgrades don't trigger set_billing.
       # And even if they did, they wouldn't cause a credit card charge.
       # -- ARRON WASHINGTON
-      logger.info("ARRON WASHINGTON")
+
       if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight || amount_changed?
         self.amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : subscription_plan.amount
         logger.info("amount = #{amount.to_s}")
+
         # To test rejected charge
-        if ((gateway.options[:test] == 'true') && card_number.include?('1111'))
-          logger.debug("IN TEST REJECT")
-          restore_saved_plan
-          errors.add_to_base('invalid account')
-          return false
-        end
-        if amount == 0 || gateway.options[:test] == 'true' || (@response = gateway.purchase(amount_in_pennies, billing_id)).success?
+        # if ((gateway.options[:test] == 'true') && card_number.include?('1111'))
+        #   logger.debug("IN TEST REJECT")
+        #   restore_saved_plan
+        #   errors.add_to_base('invalid account')
+        #   return false
+        # end
+
+        logger.debug("Attempting to charge card")
+
+        @response = gateway.purchase(amount_in_pennies, billing_id)
+
+        logger.debug("Response is #{@response}")
+
+        if amount == 0 || gateway.options[:test] == 'true' || @response.success?
           self.state = 'active'
           self.next_renewal_at = Time.now.advance(:months => renewal_period)
           self.save!
@@ -242,5 +251,18 @@ class Subscription < ActiveRecord::Base
 
   def config_from_file(file)
     YAML.load_file(File.join(RAILS_ROOT, 'config', file))[RAILS_ENV].symbolize_keys
+  end
+
+  def card_expired?
+    if !card_expiration.blank?
+      begin
+        month, year = card_expiration.split('-')
+        date = Date.parse("#{year}-#{month}-#{01}")
+        return date < Date.today
+      rescue NoMethodError, ArgumentError
+        return false
+      end
+    end
+    false
   end
 end

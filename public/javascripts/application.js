@@ -43,3 +43,8 @@ function more_or_less(link, full) {
     p.find('.more_link').toggle();
     p.find('.less_link').toggle();
 }
+
+function limitText(limitField, limitNum) {
+  if (limitField.value.length > limitNum)
+    limitField.value = limitField.value.substring(0, limitNum);
+}
