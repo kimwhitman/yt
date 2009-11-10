@@ -13,6 +13,12 @@
     </div>
   <% end %>
 
+  <% if @user.has_paying_subscription? %>
+    <% subscription = @user.account.subscription %>
+
+    <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %></h3>
+  <% end %>
+
   <div id="main_content">
     <div id="container_4col" style="float:left;">
       <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
@@ -38,7 +44,7 @@
             <td><img height="1" width="20" src="images/spacer.gif"/></td>
             <td>Credit Card</td>
             <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td><%= sp.created_at.strftime '%d-%b-%y' %> - <%= (sp.created_at + 1.month - 1.day).strftime '%d-%b-%y' %></td>
+            <td><%= billing_period(sp) %></td>
             <td><img height="1" width="20" src="images/spacer.gif"/></td>
             <td><%= number_to_currency(sp.amount) %></td>
             <td><img height="1" width="20" src="images/spacer.gif"/></td>

@@ -64,9 +64,22 @@ class Subscription < ActiveRecord::Base
 
   def charge
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
-      update_attributes(:next_renewal_at => self.next_renewal_at.advance(:months => self.renewal_period), :state => 'active')
-      subscription_payments.create(:account => account, :amount => amount, :transaction_id => @response.authorization) unless amount == 0
+
+      # dates to be used by SubscriptionPayment
+      start_date = self.next_renewal_at
+      end_date   = self.next_renewal_at.advance(:months => self.renewal_period)
+
+      update_attributes(:next_renewal_at => end_date, :state => 'active')
+
+      logger.debug("Charge by adding new payment")
+
+      subscription_payments.create(:account => account, :amount => amount,
+        :transaction_id => @response.authorization,
+        :start_date => start_date,
+        :end_date => end_date) unless amount == 0
+
       billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
+
       true
     else
       errors.add_to_base(@response.message)
@@ -168,10 +181,23 @@ class Subscription < ActiveRecord::Base
         else
           charge_amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : amount
           if amount == 0 || gateway.options[:test] == 'true' || (@response = gateway.purchase(charge_amount * 100, billing_id)).success?
-            subscription_payments.build(:account => account, :amount => charge_amount, :transaction_id => @response.authorization, :setup => subscription_plan.setup_amount?)
+
+            # dates to be used by SubscriptionPayment
+            start_date = Time.now
+            end_date   = Time.now.advance(:months => renewal_period)
+
+            logger.debug("Set billing by adding new payment for new record")
+
+            subscription_payments.build(:account => account, :amount => charge_amount,
+              :transaction_id => @response.authorization,
+              :setup => subscription_plan.setup_amount?,
+              :start_date => start_date,
+              :end_date => end_date)
+
             billing_transactions.build(:authorization_code => @response.authorization, :amount => (charge_amount * 100))
+
             self.state = 'active'
-            self.next_renewal_at = Time.now.advance(:months => renewal_period)
+            self.next_renewal_at = end_date
           else
             restore_saved_plan
             errors.add_to_base(@response.message)
@@ -206,9 +232,21 @@ class Subscription < ActiveRecord::Base
 
         if amount == 0 || gateway.options[:test] == 'true' || @response.success?
           self.state = 'active'
-          self.next_renewal_at = Time.now.advance(:months => renewal_period)
+
+          # dates to be used by SubscriptionPayment
+          start_date = self.next_renewal_at
+          end_date   = Time.now.advance(:months => renewal_period)
+
+          logger.debug("Set billing by adding new payment for existing record")
+
+          self.next_renewal_at = end_date
           self.save!
-          subscription_payments.create(:account => account, :amount => amount, :transaction_id => @response.authorization)
+
+          subscription_payments.create(:account => account, :amount => amount,
+            :transaction_id => @response.authorization,
+            :start_date => start_date,
+            :end_date => end_date)
+
           billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100))
         else
           restore_saved_plan

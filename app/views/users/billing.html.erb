@@ -16,6 +16,7 @@
       <% subscription = @user.account.subscription %>
 
       <h3>You are currently using card <%= subscription.card_number %> (expires on <%= subscription.card_expiration %>).</h3>
+      <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %></h3>
 
       <p><strong><em>For security purposes, your personal information is not shown here.</em></strong></p>
     <% else %>
