@@ -11,9 +11,9 @@
       <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
        <p>Welcome to Yoga Today!</p>
        <p><%= link_to 'Click here', videos_path %> to begin enjoying your Yoga Today videos!</p>
-       <p>Order number: <%= current_account.subscription.id %></p> 
+       <p>Order number: <%= current_account.subscription.id %></p>
        <p>Order placed: <%= Time.now.strftime "%m/%d/%Y" %></p>
-       <p>Order total: <%= number_to_currency(current_account.subscription.amount) %></p>       
+       <p>Order total: <%= number_to_currency(current_account.subscription.amount) %></p>
       </div>
     </div>
     <div id="container_2col" style="float:right">

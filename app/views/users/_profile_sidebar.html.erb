@@ -12,7 +12,7 @@
     </span>
   </div>
   <% end %>
-  <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>    
+  <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>
   <div class="form_row">
     <span class="arial13_bold_gray">
       <%= link_to_unless_current 'Subscription Billing History', billing_history_user_path(current_user) %>

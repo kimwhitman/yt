@@ -1,28 +1,26 @@
 <%
-  remember_me ||= false
+  remember_me     ||= false
+  xhr             ||= false
+  choose_a_plan   ||= false
   cancel_callback ||= "history.back();"
-  xhr ||= false
-  choose_a_plan ||= false
-  if cancel_callback
-    cancel_callback << "$(this).parents('form').find('.form_row input').val('');"
-  end
+  cancel_callback << "$(this).parents('form').find('.form_row input').val('');" if cancel_callback
 %>
-<%= error_messages_for :user, 
+<%= error_messages_for :user,
   :id => "warning",
   :header_message => "There were problems with your registration."
 %>
 <div id="container_6col" style="float:left;">
   <div id="registration_form_div">
-  	<% if choose_a_plan %>
-  	<div class="form_row">    	
+    <% if choose_a_plan %>
+    <div class="form_row">
     <div class="form_title" id="login_form_new_username">
       &nbsp;
     </div>
     <div class="grid_spacer">&nbsp;</div>
     <div class="form_field" id="login_form_new_username_field" style="float:left">
-<%= radio_button_tag 'membership', 'paid', true %> Unlimited Membership (9.99/month, recurring billing, cancel anytime)	<br />
+<%= radio_button_tag 'membership', 'paid', true %> Unlimited Membership (9.99/month, recurring billing, cancel anytime) <br />
 <%= radio_button_tag 'membership', 'free' %> Free Membership (register and watch our free weekly class)
-		
+
     </div>
   </div>
   <% end %>
@@ -34,7 +32,7 @@
     <div class="form_field" id="login_form_new_email_field" style="float:left">
       <%= f.text_field :email  %>
     </div>
-  </div>  
+  </div>
   <div class="form_row">
     <div class="form_title" id="login_form_new_password">
       Password:
@@ -61,7 +59,7 @@
     <div class="form_field" id="login_form_new_name_field" style="float:left">
       <%= f.text_field :name  %>
     </div>
-  </div>  
+  </div>
   <div class="form_row">
     <div class="form_title" id="login_form_update_me">
       &nbsp;
@@ -84,7 +82,6 @@
   <% if remember_me %>
     <div class="form_row">
       <div id="review_login_form_remember_me" class="form_title">
-         
       </div>
 
       <div class="grid_spacer"> </div>

@@ -3,8 +3,8 @@
 <% can_has_js :profile_validation do %>
 $(document).ready(function () {
   $('.edit_user').validate({
-    rules: {      
-        "user[password]": {        
+    rules: {
+        "user[password]": {
           minlength: 5
         },
         "user[password_confirmation]": {
@@ -16,16 +16,16 @@ $(document).ready(function () {
           email: true
         }
       },
-      messages: {      
-        "user[password]": {          
+      messages: {
+        "user[password]": {
           minlength: "Your password must be at least 5 characters long"
         },
-        "user[password_confirmation]": {          
+        "user[password_confirmation]": {
           equalTo: "Please enter the same password as above"
         },
         "user[email]": "Please enter a valid email address"
       }
-    });  
+    });
   $('.edit_user').find("#user_password").blur(function() {
     $('.edit_user').find("#user_password_confirmation").valid();
   });
@@ -40,8 +40,8 @@ $(document).ready(function () {
   </div>
 
   <div id="main_content">
-  	<div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
-    <div id="container_4col" style="float:left;">      
+    <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
+    <div id="container_4col" style="float:left;">
       <% form_for(current_user, :html => {:multipart => true}) do |f| %>
       <div class="form_row">
         <div id="photo_title" class="form_title" style="padding-top: 20px;">
@@ -55,7 +55,7 @@ $(document).ready(function () {
       </div>
       <div class="form_row" style="display:none" id="photo_upload">
         <%= f.file_field :photo, :style=>"margin-left: 90px;" %>
-      </div>   
+      </div>
       <div class="form_row">
         <div id="first_name_title" class="form_title">
          Name:
@@ -64,7 +64,7 @@ $(document).ready(function () {
         <div id="first_name_field" class="form_field_3col">
           <%= f.text_field :name, :size => 40 %>
         </div>
-      </div>      
+      </div>
       <div class="form_row">
         <div id="email_title" class="form_title">
           Email:
@@ -138,7 +138,7 @@ $(document).ready(function () {
 
         <div class="form_field_3col">
           <%= submit_tag 'Save', :class => 'smaller_button' %>
-          <%= button_to_function 'Cancel', "history.back()", :class => 'smaller_button' %>         
+          <%= button_to_function 'Cancel', "history.back()", :class => 'smaller_button' %>
         </div>
       </div>
       <% end %>
