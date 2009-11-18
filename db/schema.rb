@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091118014037) do
+ActiveRecord::Schema.define(:version => 20091118160607) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -315,6 +315,7 @@ ActiveRecord::Schema.define(:version => 20091118014037) do
     t.string   "newsletter_format",                       :default => "html"
     t.boolean  "wants_promos",                            :default => false
     t.boolean  "email_confirmed",                         :default => false
+    t.string   "confirmation_token"
   end
 
   create_table "video_focus", :force => true do |t|

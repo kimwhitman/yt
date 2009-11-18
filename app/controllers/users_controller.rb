@@ -12,6 +12,9 @@ class UsersController < ApplicationController
     # Humans do not fill out the email field as it is displayed 500 px's to the left,
     # bots see a field called "email" and try to fill it out.
     if params[:email].blank? && @user.save
+
+      SubscriptionNotifier.deliver_email_confirmation(@user)
+
       self.current_user = @user
       migrate_cart!
       if params[:remember_me] == 1

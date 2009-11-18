@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Confirm Your Email</title>
+  </head>
+  <body>
+  <%= render :partial => "shared/email_header" %>
+<br />
+Welcome to <%= AppConfig['app_name'] %>!
+<br />
+<br />
+To confirm your account, please click on the following url:
+<br />
+
+<%= new_user_confirmation_url(
+      :user_id => @user,
+      :token   => @user.confirmation_token,
+      :encode  => false,
+      :host => @user.account.full_domain) %>
+
+<br />
+<br />
+If you have any questions about or problems with the service,
+<br />
+please don't hesitate to email <%= AppConfig['from_email'] %>.
+<br />
+  </body>
+</html>

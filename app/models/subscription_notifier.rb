@@ -15,6 +15,13 @@ class SubscriptionNotifier < ActionMailer::Base
     @body = { :account => account }
   end
 
+  def email_confirmation(user)
+    subject "Please confirm your email!"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user
+  end
+
   def trial_expiring(user, subscription)
     # EAE no trials for this site
     setup_email(user, 'Trial period expiring')

@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   before_save :store_old_email
   before_save :downcase_email
+  before_save :initialize_confirmation_token
   after_save :setup_free_account
   after_save :setup_newsletter
 
@@ -161,12 +162,27 @@ class User < ActiveRecord::Base
     end
   end
 
+  # confirm a user's email
+  def confirm_email!
+    self.email_confirmed    = true
+    self.confirmation_token = nil
+    save(false)
+  end
+
   protected
 
   def store_old_email
     if email_changed?
       @old_email = email_change.last
     end
+  end
+
+  def initialize_confirmation_token
+    generate_confirmation_token if new_record?
+  end
+
+  def generate_confirmation_token
+    self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--")
   end
 
   # before filter
