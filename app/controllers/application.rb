@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
 
   filter_parameter_logging :password, :creditcard
 
+  def signed_in?
+    ! current_user.nil?
+  end
+
   protected
 
     def current_account

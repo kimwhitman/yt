@@ -1213,3 +1213,50 @@ div.notice {
   color: #666;
   padding: 15px;"
 }
+
+.signup_banner {
+  margin-bottom: 30px;
+}
+
+#signup_section {
+  float: left;
+  width: 65%;
+  margin-bottom: 35px
+}
+
+#login_section {
+  float: right;
+  width: 30%;
+}
+
+.error {
+  padding: .8em;
+  margin-bottom: 1em;
+  border: 2px solid #dddddd;
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4; }
+
+.error a {
+  color: #8a1f11; }
+
+.notice {
+  padding: .8em;
+  margin-bottom: 1em;
+  border: 2px solid #dddddd;
+  background: #fff6bf;
+  color: #514721;
+  border-color: #ffd324; }
+  .notice a {
+    color: #514721; }
+
+.success {
+  padding: .8em;
+  margin-bottom: 1em;
+  border: 2px solid #dddddd;
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880; }
+
+.success a {
+  color: #264409; }

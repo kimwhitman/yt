@@ -1,104 +1,65 @@
-<%
-  remember_me     ||= false
-  xhr             ||= false
-  choose_a_plan   ||= false
-  cancel_callback ||= "history.back();"
-  cancel_callback << "$(this).parents('form').find('.form_row input').val('');" if cancel_callback
+<%= error_messages_for :user, :id => "warning",
+      :header_message => "There were problems with your registration."
 %>
-<%= error_messages_for :user,
-  :id => "warning",
-  :header_message => "There were problems with your registration."
-%>
-<div id="container_6col" style="float:left;">
-  <div id="registration_form_div">
-    <% if choose_a_plan %>
-    <div class="form_row">
-    <div class="form_title" id="login_form_new_username">
-      &nbsp;
-    </div>
-    <div class="grid_spacer">&nbsp;</div>
-    <div class="form_field" id="login_form_new_username_field" style="float:left">
-<%= radio_button_tag 'membership', 'paid', true %> Unlimited Membership (9.99/month, recurring billing, cancel anytime) <br />
-<%= radio_button_tag 'membership', 'free' %> Free Membership (register and watch our free weekly class)
 
-    </div>
-  </div>
-  <% end %>
-  <div class="form_row">
-    <div class="form_title" id="login_form_new_email">
-      Email address:
-    </div>
-    <div class="grid_spacer">&nbsp;</div>
-    <div class="form_field" id="login_form_new_email_field" style="float:left">
-      <%= f.text_field :email  %>
-    </div>
-  </div>
-  <div class="form_row">
-    <div class="form_title" id="login_form_new_password">
-      Password:
-    </div>
-    <div class="grid_spacer">&nbsp;</div>
-    <div class="form_field" id="login_form_password_field" style="float:left">
-      <%= f.password_field :password %>
-    </div>
-  </div>
-  <div class="form_row">
-    <div class="form_title" id="login_form_new_password_again">
-      Password again:
-    </div>
-    <div class="grid_spacer">&nbsp;</div>
-    <div class="form_field" id="login_form_new_password_again_field" style="float:left">
-      <%= f.password_field :password_confirmation %>
-    </div>
-  </div>
-  <div class="form_row">
-    <div class="form_title" id="login_form_new_name">
-      Name:
-    </div>
-    <div class="grid_spacer">&nbsp;</div>
-    <div class="form_field" id="login_form_new_name_field" style="float:left">
-      <%= f.text_field :name  %>
-    </div>
-  </div>
-  <div class="form_row">
-    <div class="form_title" id="login_form_update_me">
-      &nbsp;
-    </div>
-    <div class="grid_spacer">&nbsp;<br />&nbsp;</div>
+<h3>Unlimited Subscription Options</h3>
 
-    <div class="form_field" id="login_form_new_email_field">
-      <%= check_box_tag 'user[wants_newsletter]',1, true %> Yes, please keep me posted on news and updates related to Yoga Today's products and services
-    </div>
-  </div>
-  <div class="form_row">
-    <div class="form_title" id="login_form_new_verification">
-      &nbsp;
-    </div>
-    <div class="grid_spacer"><br/><br/></div>
-    <div class="form_field" id="login_form_new_verification_field" >
-      <span class="arial11_black">I understand and agree that by clicking &quot;Accept terms &amp; continue&quot; I am indicating that I have read and accept the <%= link_to 'Yoga Today Terms of Use', terms_and_conditions_path, :target => '_blank' %>.</span>
-    </div>
-  </div>
-  <% if remember_me %>
-    <div class="form_row">
-      <div id="review_login_form_remember_me" class="form_title">
-      </div>
-
-      <div class="grid_spacer"> </div>
-
-      <div style="float: left;" class="form_field">
-        <%= check_box_tag 'remember_me' %>Remember me on this computer
-      </div>
-
-    </div>
-  <% end %>
+<div class="form_row" style="margin-bottom: 15px">
+  <%= radio_button_tag 'membership', 'monthly', true %> <label for="membership_monthly">Subscription ($9.99/month, recurring billing, cancel anytime)</label><br />
+  <%= radio_button_tag 'membership', 'prepaid' %> <label for="membership_prepaid">Prepaid (A full year of Yoga Today for $99.95 saves you $19.93)</label><br />
 </div>
-<div id="container_3col" style="clear:both; padding-top:20px;">
-  <div id="container_1col" style="float:left;">&nbsp;</div>
-  <div class="grid_spacer">&nbsp;</div>
-  <div class="form_field_3col">
-    <%= submit_tag 'Accept terms & continue', :class=>'biggest_button' %>
-    <%= button_to_function 'Cancel', cancel_callback, :class=>'smaller_button'  %>
-  </div>
+
+<h3>Free Membership</h3>
+
+<div class="form_row" style="margin-bottom: 15px">
+  <%= radio_button_tag 'membership', 'free' %> <label for="membership_free">Free (Sign Up and enjoy Yoga Today's free weekly classes)</label>
 </div>
+
+<div class="form_row">
+    <%= f.text_field :name  %>
+    <%= f.label :name, 'Your name' %>
 </div>
+
+<div class="form_row">
+    <%= f.password_field :password %>
+    <%= f.label :password, 'Your Password' %>
+</div>
+
+<div class="form_row" style="margin-bottom: 20px">
+    <%= f.password_field :password_confirmation %>
+    <%= f.label :password_confirmation, 'Your Password Again' %>
+</div>
+
+<div class="form_row">
+  <%= f.text_field :email, :class => 'form_field'  %>
+  <%= f.label :email, 'Your Email' %>
+</div>
+
+<div class="form_row" style="margin-bottom: 10px">
+  <%= f.text_field :email_confirmation, :class => 'form_field'  %>
+  <%= f.label :email_confirmation, 'Your Email Again' %>
+</div>
+
+<div class="form_row">
+  <%= f.check_box :wants_newsletter %>
+  <%= f.label :wants_newsletter, 'Send me the weekly Yoga Today newsletter and weekly class update.' %>
+</div>
+
+<div class="form_row" style="margin-bottom: 10px">
+  <%= f.check_box :wants_promos %>
+  <%= f.label :wants_promos, 'Keep me informed of Yoga Today offers and special announcements.' %>
+</div>
+
+<div class="form_row" style="margin-bottom: 25px">
+  <%= f.radio_button :newsletter_format, 'html' %>
+  <%= f.label :newsletter_format_html, 'HTML E-mail' %>
+  <%= f.radio_button :newsletter_format, 'plain' %>
+  <%= f.label :newsletter_format_plain, 'Plain Text E-mail' %>
+</div>
+
+<hr size="3" noshade />
+
+<%= button_to_function 'Cancel', "history.back(); $(this).parents('form').find('.form_row input').val('');"  %>
+<%= submit_tag 'Sign Up' %>
+
+<hr size="1" noshade />

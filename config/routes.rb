@@ -32,8 +32,11 @@ ActionController::Routing::Routes.draw do |map|
   map.thanks '/signup/thanks', :controller => 'accounts', :action => 'thanks'
   map.resource :account, :collection => { :dashboard => :get, :thanks => :get, :plans => :get, :billing => :any, :paypal => :any, :plan => :any, :cancel => :any, :canceled => :get }
   map.new_account '/signup/:plan', :controller => 'accounts', :action => 'new', :plan => nil
-  
-  map.resources :users, 
+
+  map.login  '/login',  :controller => 'Sessions', :action => 'new'
+  map.logout '/logout', :controller => 'Sessions', :action => 'destroy'
+
+  map.resources :users,
     :collection => { :check_email => :post },
     :member => { :profile => :any, :billing => :any,
       :billing_history => :get, :membership_terms => :get, :cancel_membership => :any
@@ -47,7 +50,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot-password', :controller => 'sessions', :action => 'forgot'
   map.reset_password '/reset-password/:token', :controller => 'sessions', :action => 'reset'
   # admin-level stuff
-  
+
   # Root-level routes.
   map.with_options :controller => 'sessions' do |sessions|
     sessions.sign_out '/sign-out', :action => 'destroy'
@@ -55,9 +58,9 @@ ActionController::Routing::Routes.draw do |map|
 
     sessions.sign_in '/sign-in', :action => 'create',
       :conditions => { :method => :post }
-    sessions.sign_in '/sign-in', :action => 'new', 
+    sessions.sign_in '/sign-in', :action => 'new',
       :conditions => { :method => :get }
-    sessions.formatted_sign_in '/sign-in.:format', :action => 'create', 
+    sessions.formatted_sign_in '/sign-in.:format', :action => 'create',
       :conditions => { :method => :post }
   end
   map.with_options :controller => 'users' do |users|
@@ -68,10 +71,10 @@ ActionController::Routing::Routes.draw do |map|
     root_pages = ['about', 'advertising', 'contact', 'faqs', 'home',
       'instructors', 'news',
       'media-downloads', 'press-and-news', 'privacy-policy',
-      'promotions-and-events', 'terms-and-conditions', 'get-started-today']    
+      'promotions-and-events', 'terms-and-conditions', 'get-started-today']
     root_pages.each do |root_page|
       eval "pages.#{root_page.underscore} '/#{root_page}', :action => root_page.underscore"
-    end    
+    end
   end
   # Da blog redirector
   #map.connect '*blog', :controller => 'blog', :action => 'index'

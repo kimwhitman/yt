@@ -3,29 +3,38 @@ class SessionsController < ApplicationController
   skip_before_filter :login_required, :except => :destroy
   skip_before_filter :verify_authenticity_token, :only => :create
 
+
   def create
-    self.current_user = User.authenticate(params[:email], params[:password])
-    if logged_in?
-      if params[:remember_me] == "1"
-        self.current_user.remember_me
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
-      end
-      flash[:notice] = "Logged in successfully"
-      # Migrate over the user playlist from session --> DB
-      migrate_playlist!
-      migrate_cart!
+    @user = User.authenticate(params[:session][:email], params[:session][:password])
+
+    if @user.nil?
+      flash_failure_after_create
+
       respond_to do |format|
-        format.html { redirect_back_or_default('/') }
+        format.html { render :action => 'new', :status => :unauthorized }
         format.js
       end
     else
-      flash.now[:error] = 'Invalid login credentials'
+      if @user.email_confirmed?
+        self.current_user = @user
 
-      respond_to do |format|
-        format.html { render :action => 'new' }
-        format.js
+        if params[:remember_me] == "1"
+          self.current_user.remember_me
+          cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+        end
+
+        # Migrate over the user playlist from session --> DB
+        migrate_playlist!
+        migrate_cart!
+
+        flash_success_after_create
+        redirect_back_or_default(root_url)
+      else
+        flash_notice_after_create
+        redirect_to(new_session_url)
       end
     end
+
   end
 
   def destroy
@@ -65,5 +74,20 @@ class SessionsController < ApplicationController
         render :action => 'successful_reset'
       end
     end
+  end
+
+
+  private
+
+  def flash_failure_after_create
+    flash.now[:failure] = "Bad email or password"
+  end
+
+  def flash_success_after_create
+    flash[:success] = "Signed in."
+  end
+
+  def flash_notice_after_create
+    flash[:notice] = "User has not confirmed email"
   end
 end

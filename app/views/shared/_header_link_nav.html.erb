@@ -1,6 +1,6 @@
 <div id="header_information">
   <% unless logged_in? %>
-    <a href="#" onclick="$('#login_id').hide(); $('#header_login_form').show();" id="login_id">Login</a>
+    <%= link_to 'Login', login_path %>
     <%= link_to 'Sign Up', sign_up_path %>
     <% if user_playlist.size > 0 %>
       <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %>
@@ -33,12 +33,9 @@
     <%= link_to 'Logout', sign_out_path %>
   <% end %>
 </div>
-<div id="header_login_form" style="margin-top: -3px;">
+<!-- <div id="header_login_form" style="margin-top: -3px;">
   <% form_remote_tag :url => formatted_sign_in_url('js'),
-    :html => { :id => "yogatoday_login_form" } do %>    
-    <!--
-    <%= button_to_function 'X', "$('#header_login_form').hide(); $('#header_information').show();", :style => 'float: right' %>
-    -->
+    :html => { :id => "yogatoday_login_form" } do %>
     <%= submit_tag 'Login', :style => 'float: right; margin-right: 4px;', :class=>'smallest_button' %>
 
     <div id="header_login_fields">
@@ -56,4 +53,4 @@
     <%= hidden_field_tag 'source', 'header' %>
     <input type="hidden" value="login" id="action" name="action"/>
   <% end %>
-</div>
+</div> -->

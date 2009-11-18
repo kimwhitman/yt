@@ -7,7 +7,7 @@ function hovered_images(selector) {
       $(this).attr('src', $(this).attr('hoverable'));
     },
     function() {
-      $(this).attr('src', $(this).data('orig_img'));      
+      $(this).attr('src', $(this).data('orig_img'));
   });
 }
 function toggle_visibility(selector_to_show, selector_to_hide) {
@@ -26,12 +26,12 @@ function transition_elements(selector_to_hide, selector_to_show) {
     var height = $(selector_to_hide).parent().height();
     $(selector_to_hide).parent().height(height);
     $(selector_to_hide).hide('slide', {
-        callback: function() {            
+        callback: function() {
             $(selector_to_show).show('slide', { callback: function() {
                     $(selector_to_show).parent().animate({ height: "100%"});
                 }
             });
-            
+
         }
     });
 }
