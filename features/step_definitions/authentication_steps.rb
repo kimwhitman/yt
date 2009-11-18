@@ -4,7 +4,7 @@ Then /^I should see error messages$/ do
   assert_match /error(s)? prohibited/m, response.body
 end
 
-# database
+# Database
 
 Given /^no user exists with an email of "([^\"]*)"$/ do |email|
   assert_nil User.find_by_email(email)
@@ -26,7 +26,7 @@ Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user
 end
 
-# session
+# Session
 
 Then /^I should be signed out$/ do
   assert ! controller.signed_in?
@@ -41,7 +41,7 @@ When /^session is cleared$/ do
   controller.instance_variable_set(:@current_user, nil)
 end
 
-# actions
+# Actions
 
 When /^I sign in( with "remember me")? as "(.*)\/(.*)"$/ do |remember, email, password|
   When %{I go to the sign in page}
@@ -60,6 +60,18 @@ When /^I return next time$/ do
   And %{I go to the homepage}
 end
 
+When /^I request password reset link to be sent to "(.*)"$/ do |email|
+  When %{I go to the forgot password page}
+  And %{I fill in "Email" with "#{email}"}
+  And %{I press "Reset password"}
+end
+
+When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
+  And %{I fill in "Password" with "#{password}"}
+  And %{I fill in "Password Confirmation" with "#{confirmation}"}
+  And %{I press "Change password"}
+end
+
 # Emails
 
 Then /^a confirmation message should be sent to "(.*)"$/ do |email|
@@ -74,5 +86,24 @@ end
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
   visit new_user_confirmation_path(:user_id => user, :token => user.confirmation_token)
+end
+
+Then /^a password reset message should be sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  pr = PasswordReset.find_by_user_id(user.id)
+
+  sent = ActionMailer::Base.deliveries.first
+  assert_equal [user.email], sent.to
+  assert_match /password reset/i, sent.subject
+  assert !pr.token.blank?
+  assert_match /#{pr.token}/, sent.body
+end
+
+When /^I follow the password reset link sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  reset = PasswordReset.find_by_user_id(user.id)
+  assert reset
+  token = reset.token
+  visit reset_password_path(:token => token)
 end
 

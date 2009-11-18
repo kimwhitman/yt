@@ -25,11 +25,11 @@
         <% end %>
         <table>
           <tr>
-            <td><label for="password">Password:</label></td>
+            <td><%= label_tag 'user_password', 'Password' %>:</td>
             <td><%= password_field :user, :password %></td>
           </tr>
           <tr>
-            <td><label for="password_confirmation">Password Confirmation:</label></td>
+            <td><%= label_tag 'user_password_confirmation', 'Password Confirmation' %>:</td>
             <td><%= password_field :user, :password_confirmation %></td>
           </tr>
         </table>

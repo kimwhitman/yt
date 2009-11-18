@@ -16,6 +16,8 @@ module NavigationHelpers
       login_path
     when /the sign up page/
       sign_up_path
+    when /the forgot password page/
+      forgot_password_path
 
     # Add more mappings here.
     # Here is a more fancy example:

@@ -72,6 +72,10 @@ class SessionsController < ApplicationController
         @password_reset.destroy
         flash[:notice] = "Your password has been updated.  Please log in with your new password."
         render :action => 'successful_reset'
+      else
+        self.current_user = nil
+        flash[:error] = 'Your password was not reset. Please try the email link again and provide a new password'
+        render :action => 'failed_reset'
       end
     end
   end
