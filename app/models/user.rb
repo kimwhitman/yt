@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
     :default_url => "/images/user_yogi.png",
     :styles => { :small => '48x48#' },
     :default_style => :small
+
   # Virtual attribute for the unencrypted password
   attr_accessor :password
   attr_accessor :old_email
@@ -22,14 +23,22 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
 
+  validates_inclusion_of :newsletter_format, :in => %w(html plain)
+
+  validates_confirmation_of :email, :on => :create
+
   before_save :encrypt_password
   before_save :store_old_email
   before_save :downcase_email
   after_save :setup_free_account
   after_save :setup_newsletter
+
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :name, :email, :password, :password_confirmation, :wants_newsletter, :photo, :photo_file_name, :photo_content_type, :photo_file_size, :city, :state, :country, :agree_to_terms
+  attr_accessible :name, :email, :password, :password_confirmation,
+    :wants_newsletter, :wants_promos, :photo, :photo_file_name,
+    :photo_content_type, :photo_file_size, :city, :state, :country,
+    :agree_to_terms
 
   def name
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
@@ -144,6 +153,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def newsletter_format=(format)
+    if format.to_s == 'plain'
+      self.newsletter_format = 'plain'
+    else
+      self.newsletter_format = 'html'
+    end
+  end
 
   protected
 
