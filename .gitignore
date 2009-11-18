@@ -4,7 +4,9 @@ db/*.db
 db/*.sqlite3
 tmp/**/*
 .DS_Store
+coverage
 doc/api
 doc/app
+doc/specs.*
 config/database.yml
 public/system
