@@ -25,3 +25,5 @@ config.gem 'rspec',       :lib => false,        :version => '>=1.2.9' unless Fil
 config.gem 'rspec-rails', :lib => false,        :version => '>=1.2.9' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
 IMAGE_PATH = "http://test/images"
+
+config.action_mailer.default_url_options = { :host => "test", :only_path => false }
