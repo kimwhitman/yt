@@ -21,9 +21,13 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+# config.gem 'rspec',       :lib => false, :version => '>=1.2.9' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
+# config.gem 'rspec-rails', :lib => false, :version => '>=1.2.9' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+
 config.after_initialize do
-  #ActiveMerchant::Billing::Base.gateway_mode = :test
+  ActiveMerchant::Billing::Base.mode = :test
 end
 
 DELVE_API_ACCESS_KEY = 'xUIk6ov+S6UoeaW6B9NExEx9hGE=';
 DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
+
