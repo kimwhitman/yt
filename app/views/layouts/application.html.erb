@@ -7,11 +7,15 @@
     <%= stylesheet_link_tag 'yoga_main' %>
     <%= stylesheet_link_tag 'yoga_type'  %>
     <%= stylesheet_link_tag 'main' %>
+    <%= stylesheet_link_tag 'jqModal/jqModal' %>
     <%= stylesheet_link_tag :can_has_assets %>
+
 
     <%= javascript_include_tag :defaults %>
     <%= javascript_include_tag 'yoga' %>
     <%= javascript_include_tag 'image_swap' %>
+    <%= javascript_include_tag 'jqModal/jqModal' %>
+    <%= javascript_include_tag 'jquery.form' %>
     <%= javascript_include_tag :can_has_assets %>
     <% javascript_tag do %>
       $(document).ready(function() {
@@ -35,20 +39,23 @@
       });
     </script>
     <% if !request.ssl? %>
-      <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js">
-      </script>
+      <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
       <script type="text/javascript">
-        GS_googleAddAdSenseService("ca-pub-4324137112614859");
-        GS_googleEnableAllServices();
-      </script>
-      <script type="text/javascript">
-        GA_googleAddSlot("ca-pub-4324137112614859",
-        "YogaToday_SearchResults_Bottom_300x250");
-        GA_googleAddSlot("ca-pub-4324137112614859",
-        "YogaToday_VideoDetails_Bottom_300x250");
-      </script>
-      <script type="text/javascript">
-        GA_googleFetchAds();
+        if(typeof GS_googleAddAdSenseService != 'undefined') {
+            GS_googleAddAdSenseService("ca-pub-4324137112614859");
+        }
+        if(typeof GS_googleEnableAllServices != 'undefined') {
+            GS_googleEnableAllServices();
+        }
+        if(typeof GA_googleAddSlot != 'undefined') {
+            GA_googleAddSlot("ca-pub-4324137112614859",
+            "YogaToday_SearchResults_Bottom_300x250");
+            GA_googleAddSlot("ca-pub-4324137112614859",
+            "YogaToday_VideoDetails_Bottom_300x250");
+        }
+        if(typeof GA_googleFetchAds != 'undefined') {
+            GA_googleFetchAds();
+        }
       </script>
     <% end %>
 

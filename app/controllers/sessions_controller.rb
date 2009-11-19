@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
       respond_to do |format|
         format.html { render :action => 'new', :status => :unauthorized }
-        format.js
+        format.js { render :text => "Could not authenticate your account", :status => :unauthorized }
       end
     else
       if @user.email_confirmed?
@@ -27,11 +27,16 @@ class SessionsController < ApplicationController
         migrate_playlist!
         migrate_cart!
 
-        flash_success_after_create
-        redirect_back_or_default(root_url)
+        respond_to do |format|
+          format.html { flash_success_after_create; redirect_back_or_default(root_url) }
+          format.js   { render :text => "Authorized", :status => :ok }
+        end
       else
-        flash_notice_after_create
-        redirect_to(new_session_url)
+
+        respond_to do |format|
+          format.html { flash_notice_after_create; redirect_to(new_session_url) }
+          format.js   { render :text => "Please confirm your email addres", :status => :unauthorized }
+        end
       end
     end
 
@@ -50,11 +55,19 @@ class SessionsController < ApplicationController
 
     if !params[:email].blank? && @user = User.find_by_email(params[:email])
       PasswordReset.create(:user => @user, :remote_ip => request.remote_ip)
-      render :action => 'forgot_complete'
-    else
-      flash[:error] = "That account wasn't found."
-    end
 
+      respond_to do |format|
+        format.html { render :action => 'forgot_complete' }
+        format.js   { render :text => "An email to reset your password has been sent", :status => :ok }
+      end
+    else
+      error = "Sorry, we couldn't find any information for that account"
+      respond_to do |format|
+        format.html { flash[:error] = error }
+        format.js   { render :text => error, :status => :not_found }
+      end
+
+    end
   end
 
   def reset

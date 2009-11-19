@@ -1,6 +1,8 @@
+<%= render :partial => 'shared/authentication_modals' unless ['users','sessions'].include? controller.controller_name %>
+
 <div id="header_information">
   <% unless logged_in? %>
-    <%= link_to 'Login', login_path %>
+    <%= link_to 'Login', login_path, :id => 'login_h' %>
     <%= link_to 'Sign Up', sign_up_path %>
     <% if user_playlist.size > 0 %>
       <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %>
@@ -33,24 +35,5 @@
     <%= link_to 'Logout', sign_out_path %>
   <% end %>
 </div>
-<!-- <div id="header_login_form" style="margin-top: -3px;">
-  <% form_remote_tag :url => formatted_sign_in_url('js'),
-    :html => { :id => "yogatoday_login_form" } do %>
-    <%= submit_tag 'Login', :style => 'float: right; margin-right: 4px;', :class=>'smallest_button' %>
 
-    <div id="header_login_fields">
-      <%= text_field_tag 'email', "email", :onfocus => "if(this.value=='email'){this.value=''; document.getElementById('password').value='';} this.className='login_boxes_clicked';", :class => 'login_boxes_unclicked' %>
-      <%= password_field_tag 'password', 'password', :onfocus => "if(this.value=='password'){this.value=''; document.getElementById('login').value='';} this.className='login_boxes_clicked';", :class => 'login_boxes_unclicked' %>
-    </div>
-    <div id="header_login_waiting">
-
-    </div>
-    <div class="arial13_red" id="header_login_warning" style="display: none;">
-      Login is invalid
-    </div>
-    <div style="clear:both; padding-top: 5px; margin-right: 75px;"><%= link_to 'Forgot password?', forgot_password_path %>
-    </div>
-    <%= hidden_field_tag 'source', 'header' %>
-    <input type="hidden" value="login" id="action" name="action"/>
-  <% end %>
-</div> -->
+<%= javascript_include_tag 'modals/authentication' %>
