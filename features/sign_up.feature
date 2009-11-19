@@ -23,6 +23,7 @@ Feature: Sign up
       And I press "Sign Up"
       Then I should see "Instructions have been emailed to you"
       And a confirmation message should be sent to "email@person.com"
+      And I should be signed out
 
     Scenario: User confirms his account
       Given I signed up with "email@person.com/password"

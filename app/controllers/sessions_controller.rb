@@ -61,7 +61,7 @@ class SessionsController < ApplicationController
         format.js   { render :text => "An email to reset your password has been sent", :status => :ok }
       end
     else
-      error = "Sorry, we couldn't find any information for that account"
+      error = "That account wasn't found."
       respond_to do |format|
         format.html { flash[:error] = error }
         format.js   { render :text => error, :status => :not_found }
