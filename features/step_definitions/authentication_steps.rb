@@ -1,7 +1,7 @@
 # General
 
 Then /^I should see error messages$/ do
-  assert_match /error(s)? prohibited/m, response.body
+  assert_match /(error(s)? prohibited)|(errorExplanation)/m, response.body
 end
 
 # Database
