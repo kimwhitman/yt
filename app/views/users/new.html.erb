@@ -7,7 +7,7 @@
     <div id="signup_section">
       <h1 class="arial20_bold_green signup_banner">Sign Up</h1>
       <hr size="3" noshade />
-      <h2 >Sign Up <span><small>Already a member?</small></span></h2>
+      <h2>Sign Up <span><small><%= link_to 'Already a member?', login_path, :id => 'nu_login_modal' %></small></span></h2>
       <hr size="1" noshade />
 
       <% form_for @user do |f| -%>
@@ -38,6 +38,6 @@
 
 <% javascript_tag do -%>
   $(document).ready(function() {
-//    validate_new_user_form("#new_user")
+    //validate_new_user_form("#new_user");
   });
 <% end -%>

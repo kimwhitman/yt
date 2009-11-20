@@ -1,11 +1,20 @@
 
 <div style="text-align: left; width: 941px; margin: 0px auto 10px auto;">
+
+  <h1 class="arial20_bold_green signup_banner">Login</h1>
+  <hr size="3" noshade />
+  <h2><small>Returning Members Login</small></h2>
+  <hr size="1" noshade />
+
   <% form_for :session, :url => session_path do |f| -%>
 
     <%= render :partial => 'sessions/form', :locals => {:f => f} %>
+
+  <hr size="3" noshade />
 
     <p><%= f.submit 'Log in' %></p>
   <% end -%>
 
   <%= link_to('Forgot your password?', forgot_password_url) %>
+  <hr size="1" noshade />
 </div>
