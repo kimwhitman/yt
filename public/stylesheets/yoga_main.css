@@ -1224,6 +1224,10 @@ div.notice {
   margin-bottom: 35px
 }
 
+#signup_section small {
+  font-weight: normal;
+}
+
 #login_section {
   float: right;
   width: 30%;
@@ -1239,6 +1243,11 @@ div.notice {
 
 .error a {
   color: #8a1f11; }
+
+input.error {
+  padding: 0;
+  margin: 0 0;
+}
 
 .notice {
   padding: .8em;

@@ -141,7 +141,9 @@
           <div class="form_title">&nbsp;</div>
           <div class="grid_spacer">&nbsp;</div>
           <div class="form_field_3col">
-            <%= f.check_box :agree_to_terms %> I agree to the
+            <%= f.check_box :agree_to_terms %>
+
+            <%= f.label :agree_to_terms, "I agree" %> to the
             <%= link_to 'Membership Terms and Details', membership_terms_user_path(@user), :target => '_blank' %>.
             <br />
           </div>
