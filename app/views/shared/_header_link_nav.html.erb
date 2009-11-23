@@ -36,4 +36,4 @@
   <% end %>
 </div>
 
-<%= javascript_include_tag 'modals/authentication' %>
+<%= javascript_include_tag 'modals/authentication' unless ['users','sessions'].include? controller.controller_name %>
