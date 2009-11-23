@@ -1,6 +1,0 @@
----
-port: 9500
-pid_file: /tmp/yogatoday-mongrel.pid
-servers: 4
-environment: production
-address: 127.0.0.1

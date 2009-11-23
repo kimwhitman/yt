@@ -1,9 +1,9 @@
 <?xml version='1.0'?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
-<service_bundle type='manifest' name='mongrel/<%= service_name %>-production'>
-  <service name='network/mongrel/<%= service_name %>-production' type='service' version='0'>
+<service_bundle type='manifest' name='mongrel/<%= service_name %>'>
+  <service name='network/mongrel/<%= service_name %>' type='service' version='0'>
     <create_default_instance enabled='true'/>
-    <single_instance/>    
+    <single_instance/>
     <dependency name='fs' grouping='require_all' restart_on='none' type='service'>
       <service_fmri value='svc:/system/filesystem/local'/>
     </dependency>
@@ -12,7 +12,7 @@
       <!-- uncomment the following line if you are on an L+ Accelerator since /home is mounted through nfs -->
       <!--<service_fmri value='svc:/network/nfs/client'/>-->
     </dependency>
-    <dependent name='mongrel_multi-user_<%= service_name %>' restart_on='none' grouping='optional_all'>
+    <dependent name='mongrel_multi-user_<%= application %>' restart_on='none' grouping='optional_all'>
       <service_fmri value='svc:/milestone/multi-user'/>
     </dependent>
     <!--><exec_method name='start' type='method' exec='/opt/csw/bin/mongrel_rails cluster::start' timeout_seconds='60'>-->
