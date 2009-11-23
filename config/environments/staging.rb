@@ -29,4 +29,4 @@ config.after_initialize do
   #ActiveMerchant::Billing::Base.gateway_mode = :test
 end
 
-
+IMAGE_PATH = "http://staging.yogatoday.com/images"
