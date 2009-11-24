@@ -1,5 +1,5 @@
 <% title 'Sign Up' -%>
-<% can_has_js 'registration', 'jquery.validate', 'jquery.form' -%>
+<% can_has_js 'yoga/registration', 'jquery.validate', 'jquery.form' -%>
 
 <div id="main">
   <div id="page_container">
@@ -38,6 +38,6 @@
 
 <% javascript_tag do -%>
   $(document).ready(function() {
-    //validate_new_user_form("#new_user");
+    validateRegistration("#new_user");
   });
 <% end -%>

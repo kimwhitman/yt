@@ -1269,3 +1269,29 @@ input.error {
 
 .success a {
   color: #264409; }
+
+
+
+/* User Registration */
+/* TODO: refactor so other forms can use this*/
+
+#new_user li.error {
+  list-style: none;
+  border: 0;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+#new_user .error {
+  background-color: #ebebeb;
+  color: #ce1e2c;
+}
+
+#new_user input.error {
+  border-color: #ce1e2c;
+}
+
+#new_user ul#errors {
+  padding: 0 0;
+  margin: 0 0;
+}

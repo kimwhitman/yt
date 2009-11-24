@@ -2,63 +2,71 @@
       :header_message => "There were problems with your registration."
 %>
 
+<ul id="errors">
+</ul>
+
 <p>You are about to sign up for a Yoga Today Unlimited Membership.
 Please make sure you agree to the Membership Terms and Details before proceeding.</p>
 
 <h3>Subscription Options</h3>
 
-<div class="form_row" style="margin-bottom: 15px">
-  <%= radio_button_tag 'membership', 'monthly', true %> <label for="membership_monthly">Subscription ($9.99/month, recurring billing, cancel anytime)</label><br />
-  <%= radio_button_tag 'membership', 'prepaid' %> <label for="membership_prepaid">Prepaid (A full year of Yoga Today for $99.95 saves you $19.93)</label><br />
-</div>
+<p style="margin-bottom: 15px">
+  <%= radio_button_tag 'membership', 'monthly', true %>
+  <label for="membership_monthly">Subscription ($9.99/month, recurring billing, cancel anytime)</label>
+  <br />
+  <%= radio_button_tag 'membership', 'prepaid' %>
+  <label for="membership_prepaid">Prepaid (A full year of Yoga Today for $99.95 saves you $19.93)</label>
+  <br />
+</p>
 
 <h3>Free Membership</h3>
 
-<div class="form_row" style="margin-bottom: 15px">
-  <%= radio_button_tag 'membership', 'free' %> <label for="membership_free">Free (Sign Up and enjoy Yoga Today's free weekly classes)</label>
-</div>
+<p style="margin-bottom: 15px">
+  <%= radio_button_tag 'membership', 'free' %>
+  <label for="membership_free">Free (Sign Up and enjoy Yoga Today's free weekly classes)</label>
+</p>
 
-<div class="form_row">
+<p>
     <%= f.text_field :name  %>
     <%= f.label :name, 'Your name' %>
-</div>
+</p>
 
-<div class="form_row">
+<p>
     <%= f.password_field :password %>
     <%= f.label :password, 'Your Password' %>
-</div>
+</p>
 
-<div class="form_row" style="margin-bottom: 20px">
+<p style="margin-bottom: 20px">
     <%= f.password_field :password_confirmation %>
     <%= f.label :password_confirmation, 'Your Password Again' %>
-</div>
+</p>
 
-<div class="form_row">
+<p>
   <%= f.text_field :email, :class => 'form_field'  %>
   <%= f.label :email, 'Your Email' %>
-</div>
+</p>
 
-<div class="form_row" style="margin-bottom: 10px">
+<p style="margin-bottom: 10px">
   <%= f.text_field :email_confirmation, :class => 'form_field'  %>
   <%= f.label :email_confirmation, 'Your Email Again' %>
-</div>
+</p>
 
-<div class="form_row">
+<p>
   <%= f.check_box :wants_newsletter %>
   <%= f.label :wants_newsletter, 'Send me the weekly Yoga Today newsletter and weekly class update.' %>
-</div>
+</p>
 
-<div class="form_row" style="margin-bottom: 10px">
+<p style="margin-bottom: 10px">
   <%= f.check_box :wants_promos %>
   <%= f.label :wants_promos, 'Keep me informed of Yoga Today offers and special announcements.' %>
-</div>
+</p>
 
-<div class="form_row" style="margin-bottom: 25px">
+<p style="margin-bottom: 25px">
   <%= f.radio_button :newsletter_format, 'html' %>
   <%= f.label :newsletter_format_html, 'HTML E-mail' %>
   <%= f.radio_button :newsletter_format, 'plain' %>
   <%= f.label :newsletter_format_plain, 'Plain Text E-mail' %>
-</div>
+</p>
 
 <hr size="3" noshade />
 
