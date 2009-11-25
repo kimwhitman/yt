@@ -1,0 +1,6 @@
+---
+port: 9600
+pid_file: /tmp/yogatoday-mongrel-staging.pid
+servers: 2
+environment: staging
+address: 127.0.0.1

@@ -74,7 +74,7 @@ Rico.Color.createFromHex = function(hexCode) {
 Rico.Color.createColorFromBackground = function(elem) {
 
    //var actualColor = RicoUtil.getElementsComputedStyle($(elem), "backgroundColor", "background-color"); // Changed to prototype style
-	var actualColor = $(elem).getStyle('backgroundColor');
+  var actualColor = $(elem).getStyle('backgroundColor');
 
    if ( actualColor == "transparent" && elem.parentNode )
       return Rico.Color.createColorFromBackground(elem.parentNode);
@@ -99,47 +99,47 @@ Rico.Color.createColorFromBackground = function(elem) {
 
 /* next two functions changed to mootools color.js functions */
 Rico.Color.HSBtoRGB = function(hue, saturation, brightness) {
-			
-			var br = Math.round(brightness / 100 * 255);
-			if (this[1] == 0){
-				return [br, br, br];
-			} else {
-				var hue = this[0] % 360;
-				var f = hue % 60;
-				var p = Math.round((brightness * (100 - saturation)) / 10000 * 255);
-				var q = Math.round((brightness * (6000 - saturation * f)) / 600000 * 255);
-				var t = Math.round((brightness * (6000 - saturation * (60 - f))) / 600000 * 255);
-				switch(Math.floor(hue / 60)){
-					case 0: return { r : br, g : t, b : p };
-					case 1: return { r : q, g : br, b : p };
-					case 2: return { r : p, g : br, b : t };
-					case 3: return { r : p, g : q, b : br };
-					case 4: return { r : t, g : p, b : br };
-					case 5: return { r : br, g : p, b : q };
-				}
-			}
-			return false;
-		}
+
+      var br = Math.round(brightness / 100 * 255);
+      if (this[1] == 0){
+        return [br, br, br];
+      } else {
+        var hue = this[0] % 360;
+        var f = hue % 60;
+        var p = Math.round((brightness * (100 - saturation)) / 10000 * 255);
+        var q = Math.round((brightness * (6000 - saturation * f)) / 600000 * 255);
+        var t = Math.round((brightness * (6000 - saturation * (60 - f))) / 600000 * 255);
+        switch(Math.floor(hue / 60)){
+          case 0: return { r : br, g : t, b : p };
+          case 1: return { r : q, g : br, b : p };
+          case 2: return { r : p, g : br, b : t };
+          case 3: return { r : p, g : q, b : br };
+          case 4: return { r : t, g : p, b : br };
+          case 5: return { r : br, g : p, b : q };
+        }
+      }
+      return false;
+    }
 
 Rico.Color.RGBtoHSB = function(red, green, blue) {
-		var hue, saturation, brightness;
-		var max = Math.max(red, green, blue), min = Math.min(red, green, blue);
-		var delta = max - min;
-		brightness = max / 255;
-		saturation = (max != 0) ? delta / max : 0;
-		if (saturation == 0){
-			hue = 0;
-		} else {
-			var rr = (max - red) / delta;
-			var gr = (max - green) / delta;
-			var br = (max - blue) / delta;
-			if (red == max) hue = br - gr;
-			else if (green == max) hue = 2 + rr - br;
-			else hue = 4 + gr - rr;
-			hue /= 6;
-			if (hue < 0) hue++;
-		}
-		return { h : Math.round(hue * 360), s : Math.round(saturation * 100), b : Math.round(brightness * 100)};
+    var hue, saturation, brightness;
+    var max = Math.max(red, green, blue), min = Math.min(red, green, blue);
+    var delta = max - min;
+    brightness = max / 255;
+    saturation = (max != 0) ? delta / max : 0;
+    if (saturation == 0){
+      hue = 0;
+    } else {
+      var rr = (max - red) / delta;
+      var gr = (max - green) / delta;
+      var br = (max - blue) / delta;
+      if (red == max) hue = br - gr;
+      else if (green == max) hue = 2 + rr - br;
+      else hue = 4 + gr - rr;
+      hue /= 6;
+      if (hue < 0) hue++;
+    }
+    return { h : Math.round(hue * 360), s : Math.round(saturation * 100), b : Math.round(brightness * 100)};
 }
 
 
