@@ -10,3 +10,4 @@ doc/app
 doc/specs.*
 config/database.yml
 public/system
+vendor/
