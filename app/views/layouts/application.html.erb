@@ -10,7 +10,6 @@
     <%= stylesheet_link_tag 'jqModal/jqModal' %>
     <%= stylesheet_link_tag :can_has_assets %>
 
-
     <%= javascript_include_tag :defaults %>
     <%= javascript_include_tag 'yoga' %>
     <%= javascript_include_tag 'image_swap' %>
@@ -166,12 +165,10 @@
         $('.yoga_drop_down_menu').css('left', pos);
       }
     </script>
-    <% if %w(production).include? Rails.env %>
+    <% if Rails.env == 'production' %>
       <script type="text/javascript">
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :  "http://www.");
         document.write(unescape("%3Cscript src='" +  gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      </script>
-      <script type="text/javascript">
         try { var pageTracker = _gat._getTracker("UA-6704453-2"); pageTracker._trackPageview();  } catch(err) {}
       </script>
     <% end %>
