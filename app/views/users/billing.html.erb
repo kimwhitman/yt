@@ -52,15 +52,25 @@
     <div id="container_4col" style="float:left;">
 
         <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
-          <div class="form_title" id="card_type_title">
-            <%= label_tag :billing_cycle, "Billing Cycle*" %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col">
-            <select name="billing_cycle" id="billing_cycle">
-              <%= options_for_select [['Monthly', '1'] , ['Annually', '12']], @billing_cycle %>
-            </select>
-          </div>
+
+          <h3>Subscription Options</h3>
+
+          <p style="margin-bottom: 15px">
+            <%= radio_button_tag 'membership', '1', @billing_cycle == '1' %>
+            <label for="membership_monthly">Subscription ($9.99/month, recurring billing, cancel anytime)</label>
+            <br />
+            <%= radio_button_tag 'membership', '12', @billing_cycle == '12' %>
+            <label for="membership_prepaid">Prepaid (A full year of Yoga Today for $99.95 saves you $19.93)</label>
+            <br />
+          </p>
+
+          <h3>Free Membership</h3>
+
+          <p style="margin-bottom: 15px">
+            <%= radio_button_tag 'membership', 'free' %>
+            <label for="membership_free">Free (Enjoy Yoga Today's free weekly classes)</label>
+          </p>
+
         </div>
 
         <% fields_for :creditcard do |cc| %>

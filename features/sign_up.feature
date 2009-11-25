@@ -25,8 +25,33 @@ Feature: Sign up
       And a confirmation message should be sent to "email@person.com"
       And I should be signed out
 
+    Scenario: User signs up for a monthly account with valid data
+      When I go to the sign up page
+      And I choose "Subscription"
+      And I fill in "Your name" with "test user"
+      And I fill in "Your Email" with "email@person.com"
+      And I fill in "Your Email Again" with "email@person.com"
+      And I fill in "Your Password" with "password"
+      And I fill in "Your Password Again" with "password"
+      And I press "Sign Up"
+      Then I should be on "email@person.com"'s billing page
+      And a confirmation message should be sent to "email@person.com"
+
+    Scenario: User signs up for a prepaid account with valid data
+      When I go to the sign up page
+      And I choose "Prepaid"
+      And I fill in "Your name" with "test user"
+      And I fill in "Your Email" with "email@person.com"
+      And I fill in "Your Email Again" with "email@person.com"
+      And I fill in "Your Password" with "password"
+      And I fill in "Your Password Again" with "password"
+      And I press "Sign Up"
+      Then I should be on "email@person.com"'s billing page
+      And a confirmation message should be sent to "email@person.com"
+
     Scenario: User confirms his account
       Given I signed up with "email@person.com/password"
       When I follow the confirmation link sent to "email@person.com"
       Then I should see "Confirmed email and signed in"
       And I should be signed in
+
