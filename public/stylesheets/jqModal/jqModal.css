@@ -16,17 +16,72 @@
 
     background-color: white;
     color: #333;
-    border: 1px solid black;
+    border: 2px solid #BFC0C3;
+    border-right-color:  #828282;
+    border-bottom-color: #62615F;
+
     padding: 5px 5px 0 0;
 
     text-align: left;
+
+    box-shadow: 10px 10px 5px #888; padding: 5px 5px 5px 15px;
+    -webkit-box-shadow: 5px 5px 10px #4e4f4f;
+    -moz-box-shadow: 5px 5px 10px #4e4f4f;
+    -ms-filter: "progid:DXImageTransform.Microsoft.dropShadow(color=#4e4f4f, offX=5, offY=5, positive=true)";
+}
+
+.jqmClose {
+  float: right;
+}
+
+.jqmClose img {
+  border: 0;
 }
 
 .jqmWindow .container {
   padding: 0px 32px 20px 20px;
 }
 
-.jqmOverlay { background-color: #000; }
+.jqmWindow .container > p {
+  float: right;
+  margin: 47px 0 0 0;
+}
+
+.container hr[size="3"] {
+  margin-top: 60px;
+}
+
+.container hr input {
+  float: left;
+  margin-bottom: 7px;
+}
+
+.container hr hr {
+  clear: both;
+  margin-top: 0;
+}
+
+.jqmWindow .container img {
+   float: left;
+ }
+
+.jqmOverlay { background-color: white; }
+
+.jqmWindow .messages {
+  margin: 10px 0px 30px 0px;
+  min-height: 20px;
+}
+
+#ajax_login, #ajax_forgot {
+  clear: both;
+}
+
+#ajax_login a, #ajax_forgot a {
+  text-decoration: underline;
+  float: right;
+  line-height: 28px;
+}
+
 
 /* Background iframe styling for IE6. Prevents ActiveX bleed-through (<select> form elements, etc.) */
 * iframe.jqm {position:absolute;top:0;left:0;z-index:-1;

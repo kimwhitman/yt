@@ -1,52 +1,55 @@
 <div class="jqmWindow" id="login_modal">
-  <div style="text-align: right">
-    <a href="#" class="jqmClose">Close</a>
-  </div>
+  <a href="#" class="jqmClose"><%= image_tag('xCloseButton.gif') %></a>
 
   <div class="container">
-    <div style="float: left">
-      <%= image_tag 'yogatoday-logo.gif' %>
-    </div>
+    <%= image_tag 'yogatoday-logo.gif' %>
 
-    <div style="clear: both"></div>
+    <p>New user? <%= link_to("Sign up!", sign_up_path) %></p>
 
     <% form_for :session, :url => session_path, :html => { :id => 'ajax_login' } do |f| -%>
-      <div class='messages' style="margin-top: 10px;"></div>
+
+      <div class='messages'></div>
+
       <%= render :partial => 'sessions/form', :locals => {:f => f} %>
-      <p><%= f.submit 'Log in' %></p>
+
+      <hr size="3" noshade />
+      <%= f.submit 'Log in' %>
+      <%= link_to('Help. I forgot my password', '#', :id => 'forgot_h') %>
+      <hr size="1" noshade />
+
       <% end -%>
 
-      <%= link_to('Forgot your password?', '#', :id => 'forgot_h') %>
   </div>
 </div>
 
 <div class="jqmWindow" id="forgot_password_modal">
-  <div style="text-align: right">
-    <a href="#" class="jqmClose">Close</a>
-  </div>
+  <a href="#" class="jqmClose"><%= image_tag('xCloseButton.gif') %></a>
 
   <div class="container">
-    <div style="float: left">
-      <%= image_tag 'yogatoday-logo.gif' %>
-    </div>
 
-    <div style="clear: both"></div>
+    <%= image_tag 'yogatoday-logo.gif' %>
 
-    <p>Forgot your password? That's okay, it happens to the best of us.
-       Submit your registered e-mail address and we'll send you simple
-       instructions for getting Logged in.</p>
+    <p>New user? <%= link_to("Sign up!", sign_up_path) %></p>
 
     <% form_for :session, :url => forgot_password_path, :html => { :id => 'ajax_forgot' }do |f| -%>
-    <div class='messages' style="margin-top: 10px;"></div>
-    <p style="margin-top: 20px; margin-bottom: 30px">
-      <%= text_field_tag :email %>
-      <%= label_tag :email, 'Email'%>
-    </p>
 
-    <hr size="3" noshade />
-      <%= f.submit 'Submit' %>
-      <%= link_to('Need more help? Email help@yogatoday.com', 'mailto: help@yogatoday.com', :style => 'text-align: right') %>
-    <hr size="1" noshade />
+      <div class='messages'></div>
+
+      <p>Forgot your password? That's okay, it happens to the best of us.
+        Submit your registered e-mail address and we'll send you simple
+        instructions for getting Logged in.</p>
+
+      <p>
+        <%= text_field_tag :email %>
+        <%= label_tag :email, 'Email'%>
+      </p>
+
+      <hr size="3" noshade />
+        <%= f.submit 'Submit' %>
+        <%= link_to('Need more help? Email help@yogatoday.com', 'mailto: help@yogatoday.com') %>
+      <hr size="1" noshade />
+
     <% end -%>
+
   </div>
 </div>
