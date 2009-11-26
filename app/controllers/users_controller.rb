@@ -2,27 +2,26 @@ class UsersController < ApplicationController
   ssl_required :billing if RAILS_ENV == 'production'
 
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
+
   before_filter :login_required,
-    :only => [:profile, :membership_terms, :billing, :billing_history, :cancel_membership, :update]
+    :except => [:create, :new, :special_message, :no_special_message, :check_email]
 
   def create
     @user = User.new params[:user]
 
-    #params[:email] is a negative captcha technique to catch bots.
-    # Humans do not fill out the email field as it is displayed 500 px's to the left,
-    # bots see a field called "email" and try to fill it out.
-    if params[:email].blank? && @user.save
-
+    if @user.save
       SubscriptionNotifier.deliver_email_confirmation(@user)
 
       self.current_user = @user
       migrate_cart!
+
       if params[:remember_me] == 1
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
+
       respond_to do |format|
-        format.html {
+        format.html do
           if params[:membership].blank? || params[:membership] == 'free'
             self.current_user = nil
             # EAE this is my way of sending the free subscription welcomes
@@ -31,9 +30,10 @@ class UsersController < ApplicationController
           else
             redirect_to billing_user_url(current_user)
           end
-        }
+        end
         format.js
       end
+
     else
       respond_to do |format|
         format.html { render :action => "new" }
@@ -47,13 +47,15 @@ class UsersController < ApplicationController
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
+
     current_user.attributes = params[:user]
+
     if current_user.save
       respond_to do |format|
-        format.html {
+        format.html do
           flash[:user_notice] = "<span style='font-size: 14px; color: #488A1A'>Your changes have been saved.</span>"
           redirect_to profile_user_url(current_user)
-        }
+        end
       end
     else
       respond_to do |format|
@@ -114,7 +116,6 @@ class UsersController < ApplicationController
           if account_upgrade
             @user.reload # Out with the old, in with the new.
             @current_account = @user.account # EAE instance variable was not set to new account
-            # EAE was: SubscriptionNotifier.deliver_plan_changed(@user, @user.account.subscription)
             SubscriptionNotifier.deliver_plan_changed_upgrade(@user, @user.account.subscription)
             render :action => 'subscription_thank_you'
           else
@@ -157,7 +158,6 @@ class UsersController < ApplicationController
     current_user.cart_items_to_non_subscription_price
     sub.destroy_gateway_record!
     sub.save!
-    # EAE was: SubscriptionNotifier.deliver_plan_changed(current_user, sub)
     SubscriptionNotifier.deliver_plan_changed_cancelled(current_user, sub)
     render :action => 'subscription_cancelled'
   end
@@ -192,10 +192,7 @@ class UsersController < ApplicationController
       current_account.users
     end
 
-    def check_user_limit
-      redirect_to new_user_url if current_account.reached_user_limit?
-    end
-
+  private
     def valid_billing?
       @user.valid? && @creditcard.valid? && @address.valid?
     end
