@@ -5,7 +5,7 @@
   $(document).ready(function() { $('.timeago').timeago(); });
 <% end %>
 <% can_has_js :jcarousel do %>
-  var jCarousel = 
+  var jCarousel =
   $(window).ready(function() {
     jQuery('#featured_videos_carousel').jcarousel({
       scroll: 1,
@@ -37,8 +37,8 @@
   var video_details = <%= @featured_videos_data.to_json %>;
 </script>
 <div id="main">
-  <%= render :partial => 'videos/featured_video_overlay', :locals => { :size => '940x526' } %>  
-  
+  <%= render :partial => 'videos/featured_video_overlay', :locals => { :size => '940x526' } %>
+
   <% cache "pages/home/carousel" do %>
     <div>
       <ul id="featured_videos_carousel" class="jcarousel-skin-tango">
@@ -49,25 +49,20 @@
   <% end %>
 
   <div id="main_content">
-    <div style="float: left;" class="container_8col2">	
-    <a href="<%= get_started_today_path  %> "><img height="250" border="0" width="220" src="images/home_box1.png"/></a> 
-	</div>
+    <div style="float: left;" class="container_8col2">
+    <a href="<%= get_started_today_path  %> "><img height="250" border="0" width="220" src="images/home_box1.png"/></a>
+  </div>
 
-    <div style="float: left;" class="grid_spacer">
-       
-    </div>
+    <div style="float: left;" class="grid_spacer"></div>
 
     <div style="float: left;" class="container_8col2">
     <a href="<%= get_started_today_path  %>"><img height="250" border="0" width="220" src="images/home_box2.png"/></a> </div>
 
-    <div style="float: left;" class="grid_spacer">
-       
-    </div>
-	<% subscription_advert_path = !logged_in? ? get_started_today_path : billing_user_path(current_user) %>		
-	<div style="float: left;" class="container_8col2">
-    	<a href="<%= subscription_advert_path  %>"><img height="250" border="0" width="220" src="images/home_box3.png"/></a> 
-	</div>
-    
+    <div style="float: left;" class="grid_spacer"></div>
+  <% subscription_advert_path = !logged_in? ? get_started_today_path : billing_user_path(current_user) %>
+  <div style="float: left;" class="container_8col2">
+      <a href="<%= subscription_advert_path  %>"><img height="250" border="0" width="220" src="images/home_box3.png"/></a>
+  </div>
 
   <% unless @user_story.blank? %>
     <div style="border: 1px solid rgb(218, 218, 215); float: right; overflow:hidden;" class="container_8col2" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= user_stories_path(:anchor => dom_id(@user_story)) %>';">
@@ -76,20 +71,20 @@
           <%= image_tag "wordsFromTheCommunity.png", :style => "margin-left: -15px; margin-top: -10px;" %>
         </div>
         <% unless @user_story.image_file_name.blank? %>
-	        <div id="community_image">
-	          <%= image_tag(@user_story.image.url, :style => "border:none;max-width:190px;max-height:119px;") if @user_story.image? %>          
-	        </div>
-	    <% end %>
-        <div style="line-height: 14px;margin-top: 4px;">        	
-        		<span class="arial11_lt_green"><%= truncate(@user_story.title, 82) %></span>        	
-        		<br/>
+          <div id="community_image">
+            <%= image_tag(@user_story.image.url, :style => "border:none;max-width:190px;max-height:119px;") if @user_story.image? %>
+          </div>
+      <% end %>
+        <div style="line-height: 14px;margin-top: 4px;">
+            <span class="arial11_lt_green"><%= truncate(@user_story.title, 82) %></span>
+            <br/>
           <div class="arial11_gray" style="margin-top: 5px;">Posted <%= time_ago(@user_story.publish_at, :mf => false) %></div>
             <div style="margin-top: 3px;">By <%= @user_story.name.split.first  %>, <%= @user_story.location.gsub(', United States', '')  %></div>
             <% if @user_story.image_file_name.blank? %>
-          		<div style="margin-top: 3px;"><%= truncate(@user_story.story, 330) %></div>
-          	<% else %>
-          		<div style="margin-top: 3px;"><%= truncate(@user_story.story, 65) %></div>
-          	<% end %>
+              <div style="margin-top: 3px;"><%= truncate(@user_story.story, 330) %></div>
+            <% else %>
+              <div style="margin-top: 3px;"><%= truncate(@user_story.story, 65) %></div>
+            <% end %>
         </div>
       </div>
     </div>

@@ -1,13 +1,20 @@
 class FeaturedVideo < ActiveRecord::Base
-  has_attached_file :image
+  has_attached_file :image,
+    :styles => {
+      :thumb => '106x59'
+    }
+
   belongs_to :video
+
   validates_presence_of :video_id, :rank
   validates_numericality_of :rank
   validates_uniqueness_of :video_id
   validate :free_range_validation
+
   named_scope :by_rank, :order => "rank ASC"
   named_scope :free_videos,
     :conditions => "NOW() between featured_videos.starts_free_at AND featured_videos.ends_free_at"
+
   before_validation :set_rank
 
   # Accepts an array of FeaturedVideo ID's.

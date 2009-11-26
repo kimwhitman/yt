@@ -10,6 +10,7 @@
       <img src="/images/featured-thumb-free.png" width="106" height="16" />
     </div>
     <% end %>
-    <%= image_tag(carousel_item.thumbnail, :size => '106x59', :alt => video.title) %>
+
+    <%= image_tag(carousel_item.image.url(:thumb)) %>
   </div>
 </li>
