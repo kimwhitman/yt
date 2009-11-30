@@ -1,8 +1,10 @@
 <% title 'Sign Up' -%>
-<% can_has_js 'yoga/registration', 'jquery.validate', 'jquery.form' -%>
+<% can_has_js 'yoga/registration', 'jquery.validate', 'jquery.form', 'jquery.defaultvalue' -%>
 
 <div id="main">
   <div id="page_container">
+
+    <%= render :partial => 'shared/flashes' %>
 
     <div id="signup_section">
       <h1 class="arial20_bold_green signup_banner">Sign Up</h1>
@@ -26,7 +28,7 @@
 
       <hr size="3" noshade />
 
-      <%= submit_tag 'Login' %>
+      <%= submit_tag 'Login', :class => 'button_confirm' %>
       <%= link_to "Help. I forgot my password", forgot_password_path, :class => 'underline' %>
 
       <hr size="1" noshade />
@@ -36,8 +38,23 @@
   </div>
 </div>
 
-<% javascript_tag do -%>
+<script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
+
     validateRegistration("#new_user");
+
+    $("#user_name ~ label").css('display', 'none');
+    $("#user_password ~ label").css('display', 'none');
+    $("#user_password_confirmation ~ label").css('display', 'none');
+    $("#user_email ~ label").css('display', 'none');
+    $("#user_email_confirmation ~ label").css('display', 'none');
+
+    $("#user_name").defaultValue('Screen name');
+    $("#user_email").defaultValue('E-mail address');
+    $("#user_email_confirmation").defaultValue('Retype E-mail address');
+    $("#user_password").defaultValue('Password');
+    $("#user_password_confirmation").defaultValue('Retype Password');
+
+    $("#new_user input[type='text']").addClass('default_value');
   });
-<% end -%>
+</script>

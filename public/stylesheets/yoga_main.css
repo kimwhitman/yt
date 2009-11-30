@@ -639,13 +639,13 @@ input, textarea, select {
 
 
 #warning {
-  background-color: #FF0000;
   clear: both;
   width: 960;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #D53F12;
+  background-color: #EBEBEB;
   padding: 10px;
 }
 
@@ -1234,15 +1234,44 @@ div.notice {
 }
 
 .error {
-  padding: .8em;
+  padding: .6em;
   margin-bottom: 1em;
-  border: 2px solid #dddddd;
-  background: #fbe3e4;
-  color: #8a1f11;
-  border-color: #fbc2c4; }
+  background: #ebebeb;
+  color: #D53F12;
+}
+
+#flash .error {
+  padding: .7em;
+  margin-bottom: 1em;
+  background: #ebebeb;
+  color: #D53F12;
+  font-size: 22px;
+}
+
+
+label.form_error {
+  margin-bottom: 1em;
+  padding-left: 0;
+  color: #D53F12;
+  min-width: 200px;
+  padding: 5px 0 0 30px;
+  background-image: url(../images/error_field.png);
+  background-repeat: no-repeat;
+}
+
+label.checked {
+  margin-bottom: 1em;
+  padding: 5px 0 0 30px;
+  color: #D53F12;
+  min-width: 200px;
+  background-repeat: no-repeat;
+  background: url(../images/valid_field.png) no-repeat 0 0;
+}
+
 
 .error a {
-  color: #8a1f11; }
+  color: #8a1f11;
+}
 
 input.error {
   padding: 0;
@@ -1284,6 +1313,7 @@ input.error {
 
 #new_user .error {
   background-color: #ebebeb;
+
   color: #ce1e2c;
 }
 
@@ -1295,3 +1325,19 @@ input.error {
   padding: 0 0;
   margin: 0 0;
 }
+
+
+#new_user input.button_confirm, #login_section input.button_confirm {
+  text-align: center;
+  background-image: url(../images/button-bg-lg-green.png);
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+#new_user input.button_cancel {
+  text-align: center;
+  background-image: url(../images/button-bg-lg-grey.png);
+  background-repeat: no-repeat;
+  background-position: top;
+}
+

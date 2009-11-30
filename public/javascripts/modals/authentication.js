@@ -2,7 +2,7 @@
 YT_Authentication = {
 
   handleError: function(selector, request, errorType) {
-    var msg = '<div class="notice">' + request.responseText + '</div>';
+    var msg = '<div class="error">' + request.responseText + '</div>';
     selector.html(msg);
   },
 
@@ -38,6 +38,7 @@ YT_Authentication = {
         },
         error: function(request, textStatus, errorThrown) {
           YT_Authentication.handleError($('#ajax_login .messages'), request, textStatus);
+          $("#session_email").defaultValue('E-mail address');
         }
       });
 
@@ -45,25 +46,48 @@ YT_Authentication = {
     });
   },
 
+  emptyErrors: function() {
+    $('#login_modal .messages').empty();
+  },
+
+  setupStyles: function() {
+    $("#ajax_login input[type='text']").addClass('default_value');
+    $("#ajax_forgot input[type='text']").addClass('default_value');
+
+    $("#session_email ~ label").css('display', 'none');
+    $("#session_password ~ label").css('display', 'none');
+    $("#email ~ label").css('display', 'none');
+  },
+
+  setupDefaults: function() {
+    $("#session_email").defaultValue('E-mail address');
+    $("#session_password").defaultValue('Password');
+    $("#email").defaultValue('E-mail address');
+  },
+
   setupModals: function() {
     $('#login_modal').jqm({
-      modal: true
+      modal: false
     });
 
     $('#forgot_password_modal').jqm({
-      modal: true
+      modal: false
     });
 
     $('#login_h').click(function() {
+      YT_Authentication.emptyErrors();
         $('#login_modal').jqmShow();
         // remove any flash messages so they don't confuse the user
         $('#flash').empty();
+        $("#session_email").blur();
         return false;
       });
 
     $('#forgot_h').click(function() {
+        YT_Authentication.emptyErrors();
         $('#login_modal').jqmHide();
         $('#forgot_password_modal').jqmShow();
+        $("#email").blur();
         return false;
       });
   }
@@ -71,6 +95,8 @@ YT_Authentication = {
 
 $(document).ready(function() {
   YT_Authentication.setupModals();
+  YT_Authentication.setupStyles();
+  YT_Authentication.setupDefaults();
   YT_Authentication.submitLogin();
   YT_Authentication.submitForgotPassword();
 });

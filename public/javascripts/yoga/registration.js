@@ -1,9 +1,11 @@
 function validateRegistration(selector, options) {
   settings = {
-    errorPlacement: function(label, element) {
-      $('ul#errors').append(label);
+
+    success: function(label) {
+      // set &nbsp; as text for IE
+      label.html("&nbsp;").addClass("checked");
     },
-    errorElement: "li",
+    errorClass: 'form_error',
     onkeyup: false,
     rules: {
       "user[name]": {
@@ -47,21 +49,25 @@ function validateRegistration(selector, options) {
         minlength: "Your password must be at least 5 characters long"
       },
       "user[password_confirmation]": {
-        required: "Please confirm your password",
+        required: "Please retype your password",
         minlength: "Your password must be at least 5 characters long",
         equalTo: "Please enter the same password as above"
       },
       "user[email_confirmation]": {
-        required: "Please confirm your email",
+        required: "Please retype your email",
         minlength: "Your email must be at least 5 characters long",
         equalTo: "Please enter the same email as above"
       }
     }
   }
+
   $.extend(settings, options);
   $(selector).validate(settings);
+
+
+
   // check if confirm password is still valid after password changed
   $(selector).find("#user_password").blur(function() {
-    $(selector).find("#user_password_confirmation").valid();
+  $(selector).find("#user_password_confirmation").valid();
   });
 }

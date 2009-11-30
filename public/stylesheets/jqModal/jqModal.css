@@ -68,12 +68,17 @@
 .jqmOverlay { background-color: white; }
 
 .jqmWindow .messages {
-  margin: 10px 0px 30px 0px;
-  min-height: 20px;
+/*  margin: 10px 0px 30px 0px;*/
+/*  min-height: 20px;*/
+  margin-top: 0;
 }
 
 #ajax_login, #ajax_forgot {
   clear: both;
+}
+
+#login_modal img.logo, #forgot_password_modal img.logo {
+  margin: 31px 0 0 0;
 }
 
 #ajax_login a, #ajax_forgot a {

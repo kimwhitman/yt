@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : main
     Created on : Dec 22, 2008, 8:29:40 PM
     Author     : arron
@@ -17,66 +17,66 @@
 }
 /* button styles */
 /* doesn't work in IE */
-input[type="button"]:hover, input[type="submit"]:hover {   
+input[type="button"]:hover, input[type="submit"]:hover {
     color: #333333;
     cursor: pointer;
 }
 input[type="button"], input[type="submit"] {
     background-image:url(/images/button-bg-lg.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     width: 103px;
     height: 26px;
     color: #666666;
     border: none;
 }
-input.bigger_button:hover {   
+input.bigger_button:hover {
     color: #333333;
     cursor: pointer;
 }
 input.bigger_button {
     background-image:url(/images/button-bg-lg-2.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     width: 143px;
     height: 26px;
     color: #666666;
     border: none;
 }
-input.smaller_button:hover {   
+input.smaller_button:hover {
     color: #333333;
     cursor: pointer;
 }
 input.smaller_button {
     background-image:url(/images/button-smaller.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     width: 65px;
     height: 26px;
     color: #666666;
     border: none;
 }
-input.smallest_button:hover {   
+input.smallest_button:hover {
     color: #333333;
     cursor: pointer;
 }
 input.smallest_button {
     background-image:url(/images/button-smallest.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     width: 65px;
     height: 20px;
     color: #666666;
     border: none;
 }
-input.biggest_button:hover {   
+input.biggest_button:hover {
     color: #333333;
     cursor: pointer;
 }
 input.biggest_button {
     background-image:url(/images/button-bg-lg-3.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     width: 165px;
     height: 26px;
     color: #666666;
@@ -102,19 +102,19 @@ a.button {
 }
 a.button:hover {
     background-image: url(/images/thumbnail_hover.png);
-	color:#333333;
+  color:#333333;
 }
 a.big_button {
     background-image:url(/images/button-bg-lg.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     font-family:Arial,Helvetica,sans-serif;
-    font-size:13px;    
+    font-size:13px;
     overflow:visible;
     padding: 6px;
     width: 103px;
     height: 23px;
-    text-align:center;    
+    text-align:center;
     color: #488A1A;
 }
 a.biga_button {
@@ -150,33 +150,33 @@ a.smaller_button {
     color: #488A1A;
 }
 a.bigger_button:hover {
-    background-image:url(/images/button-bg-lg-2.png);     
+    background-image:url(/images/button-bg-lg-2.png);
 }
 a.bigger_button {
     background-image:url(/images/button-bg-lg-2.png);
     background-position:center top;
-    background-repeat:no-repeat;    
+    background-repeat:no-repeat;
     font-family:Arial,Helvetica,sans-serif;
-    font-size:13px;    
+    font-size:13px;
     overflow:visible;
     padding: 6px;
     width: 143px;
     height: 23px;
-    text-align:center;    
+    text-align:center;
     color: #488A1A;
 }
 a.big_button:hover {
-    background-image:url(/images/button-bg-lg.png);     
+    background-image:url(/images/button-bg-lg.png);
 }
 /* end button styles */
 form label.error {
-	background-color:#FFF5D9;
-	border:1px solid #D7C3AC;
-	color:#333333;
-	display:block;
-	font-size:10px;
-	height:18px;
-	padding:0 10px;
+  background-color:#FFF5D9;
+  border:1px solid #D7C3AC;
+  color:#333333;
+  display:block;
+  font-size:10px;
+  height:18px;
+  padding:0 10px;
 }
 #main #main_content {
     overflow: hidden;
@@ -196,7 +196,7 @@ form label.error {
 /* deal with featured video overlay fade */
 #video_banner {
     position: relative;
-	padding: 0;
+  padding: 0;
 
 }
 
@@ -210,23 +210,23 @@ form label.error {
 
 /* featured video overlay -- making the info box flow */
 #featured-video-info {
-	height: auto;
-	position: relative;
-	padding-bottom: 10px;
+  height: auto;
+  position: relative;
+  padding-bottom: 10px;
 }
 /* added for ease */
 #featured-video-info-container {
-	max-width: 83%;
-	padding-left: 10px;
+  max-width: 83%;
+  padding-left: 10px;
 }
 #feature-video-info-play {
-	/* ignore the following */
-	float: none;
-	padding-right: 0px;
-	/* added */
-	position: absolute;
-	top: 0px;
-	left: 87%;
+  /* ignore the following */
+  float: none;
+  padding-right: 0px;
+  /* added */
+  position: absolute;
+  top: 0px;
+  left: 87%;
 }
 
 /* user stories */
@@ -237,13 +237,13 @@ form label.error {
 }
 /* header links */
 #header_information a {
-	margin-left: 1em;
+  margin-left: 1em;
 }
 
 /* jquery.rating or some css mode I did doesn't work quite right (no height) */
 .grid_video_rating {
-	min-height: 16px; /* height of actual pixels */
-	margin: 6px 0px 10px 0px;
+  min-height: 16px; /* height of actual pixels */
+  margin: 6px 0px 10px 0px;
 }
 #community_image {
   text-align: center;
@@ -292,8 +292,8 @@ h3 {
 }
 
 #instructor_photo {
-  width: 84px; 
-  height: 121px;  
+  width: 84px;
+  height: 121px;
 }
 #instructor_stats {
   float: none;
@@ -314,7 +314,7 @@ h3 {
   margin-right: 94px;
 }
 #page_count {
-  float: left;  
+  float: left;
   margin-right: 94px;
 }
 .search_header {
@@ -338,7 +338,7 @@ h3 {
   padding-left: 16px;
   /* center align vertically */
   /* Again. */
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 
 .display_results_options_nav {
@@ -352,7 +352,7 @@ h3 {
 .display_results_options_nav a {
   display: block;
   float: left;
-  
+
 }
 .display_results_options_nav a img {
   border: 1px solid #CCCCCC
@@ -372,10 +372,10 @@ h3 {
   background-repeat: no-repeat;
 }
 .search_pagination .prev_page img {
-	margin-right: 5px;
+  margin-right: 5px;
 }
 .search_pagination .next_page img {
-	margin-left: 5px;
+  margin-left: 5px;
 }
 /* Advertising */
 input.star {
@@ -407,4 +407,8 @@ input.star {
 
 #menu_content {
   display: none;
+}
+
+.default_value {
+  color: #D5D5D5;
 }

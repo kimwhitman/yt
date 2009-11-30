@@ -15,6 +15,7 @@
     <%= javascript_include_tag 'image_swap' %>
     <%= javascript_include_tag 'jqModal/jqModal' %>
     <%= javascript_include_tag 'jquery.form' %>
+    <%= javascript_include_tag 'jquery.defaultvalue' %>
     <%= javascript_include_tag :can_has_assets %>
     <% javascript_tag do %>
       $(document).ready(function() {
@@ -90,7 +91,8 @@
         </div>
       </div>
 
-      <%= render :partial => 'shared/flashes' %>
+      <%# commenting partial out until I incorporate it into the template better %>
+      <%#= render :partial => 'shared/flashes' %>
 
       <%= yield %>
 
