@@ -40,16 +40,25 @@ namespace :videos do
   namespace :featured do
     desc 'Update Featured Video thumbnails with those from Delve'
     task :update_thumbnails => [:environment] do
+      require 'open-uri'
+
       featured_videos = FeaturedVideo.by_rank(:include => [:video])
+
       featured_videos.each do |featured_video|
         video = featured_video.video
         if video && video.thumbnail_url != ''
-          featured_video.image = video.thumbnail_url
-          if featured_video.save!
-            puts "Updated [#{featured_video.id}] thumbnail from: #{video.thumbnail_url}"
+          begin
+            io = open(URI.parse(video.thumbnail_url))
+            featured_video.image = io
+            if featured_video.save!
+              puts "Updated [#{featured_video.id}] thumbnail from: #{video.thumbnail_url}"
+            end
+          rescue Exception => e
+            puts "Couldn't connect to URL: #{e}"
           end
         end
       end
+
     end
   end
 end
