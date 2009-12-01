@@ -18,14 +18,14 @@ namespace :videos do
       puts
       puts formatted
       puts
-    end    
+    end
   end
   desc "Import default YogaToday video focus category"
   task :import_video_focus => [:environment] do
     [:physical_fitness, :mental_conditioning, :pose_specific, :specialty].each do |name|
       vfs = VideoFocusCategory.find_or_create_by_name name.to_s.titleize
       vfs.save
-    end    
+    end
   end
   desc "Import default tags from API"
   task :import_tags => [:environment] do
@@ -33,6 +33,22 @@ namespace :videos do
       Video.all.each do |video|
         video.mds_tags = video.tags
         video.save
+      end
+    end
+  end
+
+  namespace :featured do
+    desc 'Update Featured Video thumbnails with those from Delve'
+    task :update_thumbnails => [:environment] do
+      featured_videos = FeaturedVideo.by_rank(:include => [:video])
+      featured_videos.each do |featured_video|
+        video = featured_video.video
+        if video && video.thumbnail_url != ''
+          featured_video.image = video.thumbnail_url
+          if featured_video.save!
+            puts "Updated [#{featured_video.id}] thumbnail from: #{video.thumbnail_url}"
+          end
+        end
       end
     end
   end
