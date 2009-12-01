@@ -21,3 +21,5 @@ config.action_mailer.default_url_options = { :host => "yogatoday.com", :only_pat
 
 # Used in emails
 IMAGE_PATH = "http://gnsj4faa.joyent.us/images"
+
+Paperclip.options[:command_path] = '/opt/local/bin/'

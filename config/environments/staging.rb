@@ -30,3 +30,5 @@ config.after_initialize do
 end
 
 IMAGE_PATH = "http://staging.yogatoday.com/images"
+
+Paperclip.options[:command_path] = '/opt/local/bin/'
