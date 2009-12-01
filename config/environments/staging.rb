@@ -20,10 +20,10 @@ config.action_view.cache_template_loading            = true
 config.action_mailer.default_url_options = { :host => "staging.yogatoday.com", :only_path => false }
 
 # Delve Platform Values
-ENV['organization_id'] = '59b93524ab7c4d62b53d7553360c2b87'
-ENV['api_domain'] = 'staging-api.delvenetworks.com/rest'
-DELVE_API_ACCESS_KEY = 'xUIk6ov+S6UoeaW6B9NExEx9hGE=';
-DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
+# ENV['organization_id'] = '59b93524ab7c4d62b53d7553360c2b87'
+# ENV['api_domain'] = 'staging-api.delvenetworks.com/rest'
+# DELVE_API_ACCESS_KEY = 'xUIk6ov+S6UoeaW6B9NExEx9hGE=';
+# DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
 
 config.after_initialize do
   #ActiveMerchant::Billing::Base.gateway_mode = :test
