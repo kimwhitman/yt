@@ -20,6 +20,6 @@ config.action_view.cache_template_loading            = true
 config.action_mailer.default_url_options = { :host => "yogatoday.com", :only_path => false }
 
 # Used in emails
-IMAGE_PATH = "http://gnsj4faa.joyent.us/images"
+IMAGE_PATH = "http://www.yogatoday.com/images"
 
 Paperclip.options[:command_path] = '/opt/local/bin/'
