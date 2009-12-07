@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation,
     :wants_newsletter, :wants_promos, :photo, :photo_file_name,
     :photo_content_type, :photo_file_size, :city, :state, :country,
-    :agree_to_terms
+    :agree_to_terms, :newsletter_format, :email_confirmation
 
   def name
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
