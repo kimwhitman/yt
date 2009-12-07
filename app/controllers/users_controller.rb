@@ -9,7 +9,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new params[:user]
 
-    if @user.save
+    valid = simple_captcha_valid?
+
+    if !valid
+      @user.errors.add_to_base "Captcha is invalid"
+    end
+
+    if valid && @user.save
       SubscriptionNotifier.deliver_email_confirmation(@user)
 
       self.current_user = @user

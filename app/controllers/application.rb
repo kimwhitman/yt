@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include SslRequirement
+  include SimpleCaptcha::ControllerHelpers
   #include ExceptionNotifiable
   #before_filter :login_required
 

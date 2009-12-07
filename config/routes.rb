@@ -13,6 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   map.login  '/login',  :controller => 'Sessions', :action => 'new'
   map.logout '/logout', :controller => 'Sessions', :action => 'destroy'
 
+  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
+
   map.resources :users,
     :collection => { :check_email => :post },
     :member => { :profile => :any, :billing => :any,
