@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
       respond_to do |format|
         format.html do
-          flash[:error] = "Could not authenticate your account"
+          flash[:error] = "Bad email or password"
           render :action => 'new', :status => :unauthorized
         end
         format.js do

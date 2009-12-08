@@ -37,6 +37,9 @@
   var video_details = <%= @featured_videos_data.to_json %>;
 </script>
 <div id="main">
+
+  <%= render :partial => 'shared/flashes' %>
+
   <%= render :partial => 'videos/featured_video_overlay', :locals => { :size => '940x526' } %>
 
   <% cache "pages/home/carousel" do %>
