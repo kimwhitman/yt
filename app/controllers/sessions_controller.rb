@@ -3,16 +3,20 @@ class SessionsController < ApplicationController
   skip_before_filter :login_required, :except => :destroy
   skip_before_filter :verify_authenticity_token, :only => :create
 
-
   def create
     @user = User.authenticate(params[:session][:email], params[:session][:password])
 
     if @user.nil?
-      flash_failure_after_create
 
       respond_to do |format|
-        format.html { render :action => 'new', :status => :unauthorized }
-        format.js { render :text => "Could not authenticate your account", :status => :unauthorized }
+        format.html do
+          flash[:error] = "Could not authenticate your account"
+          render :action => 'new', :status => :unauthorized
+        end
+        format.js do
+          flash_failure_after_create
+          render :text => "Could not authenticate your account", :status => :unauthorized
+        end
       end
     else
       if @user.email_confirmed?

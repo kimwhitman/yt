@@ -1,29 +1,30 @@
-<div id="main">
-  <div id="page_container">
-
-
-  <%= render :partial => 'shared/flashes' %>
-
+<div id="login_section">
   <h1 class="arial20_bold_green signup_banner">Login</h1>
   <hr size="3" noshade />
+  <% if controller.controller_name == 'users' && controller.action_name == 'new' %>
   <h2>Returning Members Login</h2>
+  <% else %>
+  <h2>Returning Members Login <span><small><%= link_to("New user?  Sign up!", sign_up_path) %></small></span></h2>
+  <% end %>
+
   <hr size="1" noshade />
 
-  <% form_for :session, :url => session_path do |f| -%>
+  <% form_for :session, :url => session_path, :html => { :id => 'sidebar_login' } do |f| -%>
 
     <%= render :partial => 'sessions/form', :locals => {:f => f} %>
 
   <hr size="3" noshade />
 
-  <%= f.submit 'Log in', :class => 'button_confirm' %> <%= link_to "Help. I forgot my password", forgot_password_path, :class => 'underline' %>
+  <%= submit_tag 'Login', :class => 'button_confirm' %>
 
-  <% end -%>
+  <% unless controller.controller_name == 'sessions' && controller.action_name == 'forgot' %>
+    <%= link_to "Help. I forgot my password", forgot_password_path, :class => 'underline' %>
+  <% end %>
 
   <hr size="1" noshade />
-
-  </div>
-
+  <% end %>
 </div>
+
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {

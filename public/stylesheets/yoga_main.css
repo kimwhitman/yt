@@ -1218,19 +1218,25 @@ div.notice {
   margin-bottom: 30px;
 }
 
-#signup_section {
+#signup_section, #forgot_section {
   float: left;
   width: 65%;
   margin-bottom: 35px
 }
 
-#signup_section small {
+#signup_section small, #login_section small, #forgot_section small {
   font-weight: normal;
 }
 
+#signup_section h2, #login_section h2, #forgot_section h2 {
+  margin: 10px 0 10px 0;
+  font-size: 14px;
+}
+
+
 #login_section {
   float: right;
-  width: 30%;
+  width: 33%;
 }
 
 .error {
@@ -1245,7 +1251,7 @@ div.notice {
   margin-bottom: 1em;
   background: #ebebeb;
   color: #D53F12;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 
@@ -1327,7 +1333,10 @@ input.error {
 }
 
 
-#new_user input.button_confirm, #login_section input.button_confirm {
+#new_user input.button_confirm, #login_section input.button_confirm,
+#forgot_section input.button_confirm,
+input#session_submit.button_confirm
+ {
   text-align: center;
   background-image: url(../images/button-bg-lg-green.png);
   background-repeat: no-repeat;

@@ -1,37 +1,45 @@
 <% title 'Forgot your password?' %>
+
 <div id="main">
-
   <div id="page_container">
-    <div id="page_information">
-      <%= breadcrumb("Forgotten Password") %>
 
-      <div class="arial18_green" id="main_title">Forgotten password</div>
+    <%= render :partial => 'shared/flashes' %>
+
+    <div id="forgot_section">
+      <h1 class="arial20_bold_green signup_banner">Recover your password</h1>
+      <hr size="3" noshade />
+      <h2>Forgot your password?</h2>
+      <hr size="1" noshade />
+
+      <p>
+        That's ok. It happens to all of us.<br/>
+        Submit your registered e-mail address and we'll send you simple <br/>
+        instructions for getting logged in.
+      </p>
+
+      <% form_tag :action => 'forgot' do %>
+
+        <%= text_field_tag :email, '', :style => 'margin-bottom: 10px;' %>
+        <%= label_tag :email, 'E-mail'%>
+
+        <hr size="3" noshade />
+        <%= submit_tag 'Submit', :class => 'button_confirm' %>
+        <%= link_to "Need More help? Email help@yogatoday.com", 'mailto:help@yogatoay.com', :class => 'underline' %>
+
+        <hr size="1" noshade />
+      <% end %>
     </div>
-  </div>
 
-  <div id="main_content">
-    <% form_tag :action => 'forgot' do %>
-      <div id="container_1col" style="float: left;">&nbsp;</div>
-      <div class="grid_spacer" style="float: left;">&nbsp;</div>
-      <div id="container_4col" style="float: left;">
-        <p>Please enter the e-mail address you gave us when you registered and we'll email you your password.</p>
-
-        <div style="float: left;">
-          <% if flash[:error] %>
-            <div>
-              <%= flash[:error] %>
-            </div>
-          <% end %>
-
-          <%= label_tag :email, 'Email'%>
-          <%= text_field_tag :email %>
-          <div class="grid_spacer" style="float: left;">&nbsp;</div>
-          <%= submit_tag 'Reset password' %>
-      </div>
-
-    </div>
-    <% end %>
-
+    <%= render :partial => "sessions/login" %>
 
   </div>
 </div>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $("#email").addClass('default_value');
+    $("#email ~ label").css('display', 'none');
+    $("#email").defaultValue('E-mail address');
+  });
+</script>

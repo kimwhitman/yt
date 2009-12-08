@@ -9,7 +9,7 @@
     <div id="signup_section">
       <h1 class="arial20_bold_green signup_banner">Sign Up</h1>
       <hr size="3" noshade />
-      <h2>Sign Up <span><small><%= link_to 'Already a member?', login_path, :id => 'nu_login_modal' %></small></span></h2>
+      <h2>Sign Up <span><small><%= link_to 'Already a member?', login_path %></small></span></h2>
       <hr size="1" noshade />
 
       <% form_for @user do |f| -%>
@@ -17,23 +17,7 @@
       <% end -%>
     </div>
 
-    <div id="login_section">
-      <h1 class="arial20_bold_green signup_banner">Login</h1>
-      <hr size="3" noshade />
-      <h2><small>Returning Members Login</small></h2>
-      <hr size="1" noshade />
-
-      <% form_for :session, :url => session_path do |f| -%>
-        <%= render :partial => 'sessions/form', :locals => {:f => f} %>
-
-      <hr size="3" noshade />
-
-      <%= submit_tag 'Login', :class => 'button_confirm' %>
-      <%= link_to "Help. I forgot my password", forgot_password_path, :class => 'underline' %>
-
-      <hr size="1" noshade />
-      <% end %>
-    </div>
+    <%= render :partial => "sessions/login" %>
 
   </div>
 </div>

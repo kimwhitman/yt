@@ -156,9 +156,9 @@ class User < ActiveRecord::Base
 
   def newsletter_format=(format)
     if format.to_s == 'plain'
-      self.newsletter_format = 'plain'
+      self[:newsletter_format] = 'plain'
     else
-      self.newsletter_format = 'html'
+      self[:newsletter_format] = 'html'
     end
   end
 
