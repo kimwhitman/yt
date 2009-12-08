@@ -17,47 +17,6 @@
     <%= javascript_include_tag 'jquery.form' %>
     <%= javascript_include_tag 'jquery.defaultvalue' %>
     <%= javascript_include_tag :can_has_assets %>
-    <% javascript_tag do %>
-      $(document).ready(function() {
-      MM_preloadImages('/images/thumbnail_default.png', '/images/thumbnail_hover.png', '/images/button-bg-lg.png','/images/button-bg-lg-2.png','/images/button-bg-lg-3.png','/images/button-smaller.png','/images/videos_button.png','/images/videos_button_on.png','/images/about_yoga_today_button_on.png','/images/about_yoga_today_button.png','/images/blog_button.png','/images/blog_button_on.png')
-      });
-    <% end %>
-
-    <script type='text/javascript'>
-      jQuery(document).ready(function() {
-        $('form input').live('keypress', function (e) {
-          if ($(this).parents('form').find('button[type=submit].default, input[type=submit].default').length <= 0)
-            return true;
-
-          if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-            $(this).parents('form').find('button[type=submit].default, input[type=submit].default').click();
-            return false;
-          } else {
-            return true;
-          }
-        });
-      });
-    </script>
-    <% if !request.ssl? %>
-      <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
-      <script type="text/javascript">
-        if(typeof GS_googleAddAdSenseService != 'undefined') {
-            GS_googleAddAdSenseService("ca-pub-4324137112614859");
-        }
-        if(typeof GS_googleEnableAllServices != 'undefined') {
-            GS_googleEnableAllServices();
-        }
-        if(typeof GA_googleAddSlot != 'undefined') {
-            GA_googleAddSlot("ca-pub-4324137112614859",
-            "YogaToday_SearchResults_Bottom_300x250");
-            GA_googleAddSlot("ca-pub-4324137112614859",
-            "YogaToday_VideoDetails_Bottom_300x250");
-        }
-        if(typeof GA_googleFetchAds != 'undefined') {
-            GA_googleFetchAds();
-        }
-      </script>
-    <% end %>
 
   </head>
   <body>
@@ -155,6 +114,39 @@
 
       </div>
     </div>
+
+    <script type='text/javascript'>
+    jQuery(document).ready(function() {
+        MM_preloadImages('/images/thumbnail_default.png', '/images/thumbnail_hover.png',
+            '/images/button-bg-lg.png',   '/images/button-bg-lg-2.png',
+            '/images/button-bg-lg-3.png', '/images/button-smaller.png',
+            '/images/videos_button.png',  '/images/videos_button_on.png',
+            '/images/about_yoga_today_button_on.png','/images/about_yoga_today_button.png',
+            '/images/blog_button.png','/images/blog_button_on.png');
+      });
+    </script>
+
+    <% if !request.ssl? %>
+      <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+      <script type="text/javascript">
+        if(typeof GS_googleAddAdSenseService != 'undefined') {
+            GS_googleAddAdSenseService("ca-pub-4324137112614859");
+        }
+        if(typeof GS_googleEnableAllServices != 'undefined') {
+            GS_googleEnableAllServices();
+        }
+        if(typeof GA_googleAddSlot != 'undefined') {
+            GA_googleAddSlot("ca-pub-4324137112614859",
+            "YogaToday_SearchResults_Bottom_300x250");
+            GA_googleAddSlot("ca-pub-4324137112614859",
+            "YogaToday_VideoDetails_Bottom_300x250");
+        }
+        if(typeof GA_googleFetchAds != 'undefined') {
+            GA_googleFetchAds();
+        }
+      </script>
+    <% end %>
+
     <!-- The following TODO was added by the designer. I don't know what it fixes. -->
     <script language="javascript">
       //jQuery-ify original code in case we need more menu buttons... or something.
