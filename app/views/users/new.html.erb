@@ -12,6 +12,8 @@
       <h2>Sign Up <span><small><%= link_to 'Already a member?', login_path %></small></span></h2>
       <hr size="1" noshade />
 
+      <br/>
+
       <% form_for @user do |f| -%>
         <%= render :partial => "form", :locals => { :f => f } %>
       <% end -%>

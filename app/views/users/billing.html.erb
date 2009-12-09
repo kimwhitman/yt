@@ -53,14 +53,14 @@
 
         <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
 
-          <h3>Subscription Options</h3>
+          <h3>Unlimited Subscription Options</h3>
 
           <p style="margin-bottom: 15px">
             <%= radio_button_tag 'membership', '1', @billing_cycle == '1' %>
             <label for="membership_monthly">Subscription ($9.99/month, recurring billing, cancel anytime)</label>
             <br />
             <%= radio_button_tag 'membership', '12', @billing_cycle == '12' %>
-            <label for="membership_prepaid">Prepaid (A full year of Yoga Today for $99.95 saves you $19.93)</label>
+            <label for="membership_prepaid">Prepaid ($89.95/year, Yoga Today 365, Saves you $19.93)</label>
             <br />
           </p>
 
