@@ -1167,6 +1167,7 @@ input.error {
   font-weight: bold;
 }
 
+
 #new_user .error {
   background-color: #ebebeb;
 
@@ -1182,10 +1183,7 @@ input.error {
   margin: 0 0;
 }
 
-#new_user input.button_confirm, #login_section input.button_confirm,
-#forgot_section input.button_confirm,
-input#session_submit.button_confirm
- {
+input[type='submit'].button_confirm {
   text-align: center;
   background-image: url(../images/button-bg-lg-green.png);
   font-size: 14px;
@@ -1194,7 +1192,7 @@ input#session_submit.button_confirm
   background-position: top;
 }
 
-#new_user input.button_cancel {
+input[type="button"].button_cancel {
   text-align: center;
   background-image: url(../images/button-bg-lg-grey.png);
   background-repeat: no-repeat;

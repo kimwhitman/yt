@@ -6,7 +6,7 @@ Feature: Password reset
     Scenario: User is not signed up
       Given no user exists with an email of "email@person.com"
       When I request password reset link to be sent to "email@person.com"
-      Then I should see "That account wasn't found"
+      Then I should see "The e-mail address you submitted was not found"
 
     Scenario: User is signed up and requests password reset
       Given I am signed up and confirmed as "email@person.com/password"

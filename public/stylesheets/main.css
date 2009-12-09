@@ -21,6 +21,7 @@ input[type="button"]:hover, input[type="submit"]:hover {
     color: #333333;
     cursor: pointer;
 }
+
 input[type="button"], input[type="submit"] {
     background-image:url(/images/button-bg-lg.png);
     background-position:center top;
@@ -30,6 +31,7 @@ input[type="button"], input[type="submit"] {
     color: #666666;
     border: none;
 }
+
 input.bigger_button:hover {
     color: #333333;
     cursor: pointer;

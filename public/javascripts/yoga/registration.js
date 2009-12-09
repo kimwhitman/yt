@@ -10,7 +10,7 @@ function validateRegistration(selector, options) {
     rules: {
       "user[name]": {
         required: true,
-        minlength: 5,
+        minlength: 1
       },
       "user[email]": {
         required: true,
@@ -37,7 +37,7 @@ function validateRegistration(selector, options) {
     messages: {
       "user[name]": {
         required: "Please provide a name",
-        minlength: "Your name must be at least 5 characters long"
+        minlength: "Your name must be at least 1 character long"
       },
       "user[email]": {
         required: "Please enter your email address",
