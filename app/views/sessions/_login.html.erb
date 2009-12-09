@@ -18,7 +18,7 @@
   <%= submit_tag 'Login', :class => 'button_confirm' %>
 
   <% unless controller.controller_name == 'sessions' && controller.action_name == 'forgot' %>
-    <%= link_to "Help. I forgot my password", forgot_password_path, :class => 'underline' %>
+    <%= link_to "Help, I forgot my password", forgot_password_path, :class => 'underline' %>
   <% end %>
 
   <hr size="1" noshade />
@@ -30,7 +30,6 @@
   $(document).ready(function() {
     $("#session_email ~ label").css('display', 'none');
     $("#session_password ~ label").css('display', 'none');
-    $("#sidebar_login input").addClass('default_value');
     $("#session_email").defaultValue('E-mail address');
     $("#session_password").defaultValue('Password');
   });

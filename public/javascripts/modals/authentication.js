@@ -51,9 +51,6 @@ YT_Authentication = {
   },
 
   setupStyles: function() {
-    $("#ajax_login input[type='text']").addClass('default_value');
-    $("#ajax_forgot input[type='text']").addClass('default_value');
-
     $("#session_email ~ label").css('display', 'none');
     $("#session_password ~ label").css('display', 'none');
     $("#email ~ label").css('display', 'none');

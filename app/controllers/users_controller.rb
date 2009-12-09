@@ -80,6 +80,8 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.wants_newsletter = true
+    @user.wants_promos = true
 
     redirect_to profile_user_path(current_user) if logged_in?
   end

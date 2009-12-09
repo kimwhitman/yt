@@ -15,7 +15,9 @@
     width: 450px;
 
     background-color: white;
-    color: #333;
+
+    color: #A7A7A7;
+
     border: 2px solid #BFC0C3;
     border-right-color:  #828282;
     border-bottom-color: #62615F;
@@ -28,6 +30,11 @@
     -webkit-box-shadow: 5px 5px 10px #4e4f4f;
     -moz-box-shadow: 5px 5px 10px #4e4f4f;
     -ms-filter: "progid:DXImageTransform.Microsoft.dropShadow(color=#4e4f4f, offX=5, offY=5, positive=true)";
+}
+
+.jqmWindow a {
+  color: #A7A7A7;;
+  text-decoration: underline;
 }
 
 .jqmClose {
@@ -68,8 +75,6 @@
 .jqmOverlay { background-color: white; }
 
 .jqmWindow .messages {
-/*  margin: 10px 0px 30px 0px;*/
-/*  min-height: 20px;*/
   margin-top: 0;
 }
 
@@ -86,7 +91,6 @@
   float: right;
   line-height: 28px;
 }
-
 
 /* Background iframe styling for IE6. Prevents ActiveX bleed-through (<select> form elements, etc.) */
 * iframe.jqm {position:absolute;top:0;left:0;z-index:-1;

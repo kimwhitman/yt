@@ -4,7 +4,7 @@
   <div class="container">
     <%= image_tag 'member_login.gif', :class => 'logo' %>
 
-    <p>New user? <%= link_to("Sign up!", sign_up_path) %></p>
+    <p>New? <%= link_to("Sign up!", sign_up_path) %></p>
 
     <% form_for :session, :url => session_path, :html => { :id => 'ajax_login' } do |f| -%>
 
@@ -15,8 +15,8 @@
       <%= render :partial => 'sessions/form', :locals => {:f => f} %>
 
       <hr size="3" noshade />
-      <%= f.submit 'Log in', :class => 'button_confirm default_value' %>
-      <%= link_to('Help. I forgot my password', '#', :id => 'forgot_h') %>
+      <%= f.submit 'Login', :class => 'button_confirm' %>
+      <%= link_to('Help, I forgot my password', '#', :id => 'forgot_h') %>
       <hr size="1" noshade />
 
       <% end -%>
@@ -31,7 +31,7 @@
 
     <%= image_tag 'retrieve_password.gif', :class => 'logo' %>
 
-    <p>New user? <%= link_to("Sign up!", sign_up_path) %></p>
+    <p>New? <%= link_to("Sign up!", sign_up_path) %></p>
 
     <% form_for :session, :url => forgot_password_path, :html => { :id => 'ajax_forgot' }do |f| -%>
 
@@ -48,7 +48,7 @@
       </p>
 
       <hr size="3" noshade />
-        <%= f.submit 'Submit' %>
+        <%= f.submit 'Submit', :class => 'button_confirm'%>
         <%= link_to('Need more help? Email help@yogatoday.com', 'mailto: help@yogatoday.com') %>
       <hr size="1" noshade />
 

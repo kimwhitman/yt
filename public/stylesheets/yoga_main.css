@@ -26,35 +26,32 @@ a:hover {/*UPDATED 2009-03-06*/
   color: #333333;
 }
 
-#login_display a {
-  color: #666666;
-  text-decoration: none;
-}
-
-#login_display a:hover {/*UPDATED 2009-03-06*/
-  color: #333333;
-}
-
-#login_display .login_boxes_unclicked {
-  color: #999999;
-  font-style: italic;
-  width: 80px;
-}
-
-#login_display .login_boxes_clicked {
-  color: #333333;
-  font-style: normal;
-  width: 80px;
+hr {
+  background-color: #CCC;
+  border-color: #CCC;
 }
 
 input, textarea, select {
-  border: 1px solid #dadad5;
+  border: 1px solid #A8A8A8;
   background-image: url(../images/drop_down_bkg.png);
   background-repeat: repeat-x;
   background-position: top;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  color: #000000;
+  font-size: 11px;
+  color: #666;
+}
+
+input[type=text], input[type=password] {
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+input:focus {
+  outline-color: #A8A8A8;
+}
+
+input.empty {
+  color: #D5D5D5;
 }
 
 .ads {
@@ -88,8 +85,6 @@ input, textarea, select {
   text-align: right;
   padding-right: 10px;
 }
-
-
 
 #container {
   text-align: center;
@@ -265,12 +260,9 @@ input, textarea, select {
   padding-bottom: 5px;
 }
 
-
-
 .dropdown {
   float: left;
 }
-
 
 .get-started-item {
   padding: 15px 0px;
@@ -300,7 +292,6 @@ input, textarea, select {
   margin: 0px auto;
 }
 
-
 #footer {/*UPDATED 2009-03-06*/
   width: 100%;
   text-align: center;
@@ -317,7 +308,6 @@ input, textarea, select {
   text-decoration: none;
 }
 
-
 #footer  a:hover {/*UPDATED 2009-03-06*/
   color: #333333;
 }
@@ -332,7 +322,7 @@ input, textarea, select {
   padding-top: 10px;
 }
 
-.footer_box {/*UPDATED 2009-03-06*/
+.footer_box {
   float: left;
   height: 100px;
   padding-bottom: 10px;
@@ -340,61 +330,13 @@ input, textarea, select {
   text-align: left;
 }
 
-#footer #content #box1 {
-  float: left;
-  height: 100px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-#footer #content #box2 {
-  float: left;
-  height: 100px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-#footer #content #box3 {
-  float: left;
-  height: 100px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-#footer #content #box4 {
-  float: left;
-  height: 100px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-#footer #content #box5 {
-  float: left;
-  height: 100px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
 #footer #content .spacer {
   text-align: center;
   float: left;
   width: 20px;
   height: 100px;
 }
-#footer #content #box1 #footer_logo #footer_logo_text {
-  position: relative;
-  z-index: 4;
-  left: 35px;
-  top: -20px;
-}
-#footer_logo   {
-  position:relative;
-  width:350px;
-  height:32px;
-  z-index:4;
-  left: 0px;
-  top: 20px;
-}
+
 .yoga_field {
   background-image: url(../images/form_field_bkg.png);
   background-repeat: repeat-x;
@@ -428,6 +370,7 @@ input, textarea, select {
   padding-right: 9px;
   z-index: 0;
 }
+
 #header_2col {
   background-image: url(../images/header-bg.png);
   background-repeat: repeat-x;
@@ -440,6 +383,7 @@ input, textarea, select {
   padding-right: 9px;
   z-index: 0;
 }
+
 .video_list_thumb {
   float: left;
   overflow: visible;
@@ -499,57 +443,6 @@ input, textarea, select {
   background-position: top;
   overflow: visible;
 }
-#buy_to_download_div {
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-top-color: #dadad5;
-  border-bottom-color: #dadad5;
-  clear: both;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: 20px;
-}
-
-.community_thumb     {
-  float: left;
-  border: 1px solid #000000;
-  align: left;
-  margin-right: 10px;
-}
-.community_text {
-  float: left;
-  width: 235px;
-}
-
-.main_button {
-  border: 1px solid #dadad5;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  color: #000000;
-  text-align: center;
-  background-image: url(../images/button-bg.gif);
-  background-repeat: repeat-x;
-  background-position: top;
-  overflow: visible;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-
-.login_button {
-  border: 1px solid #dadad5;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  color: #000000;
-  text-align: center;
-  background-image: url(../images/button-hi-bg.gif);
-  background-repeat: repeat-x;
-  background-position: top;
-  overflow: visible;
-  padding-right: 10px;
-  padding-left: 10px;
-}
 
 .bottom_spacer {
   clear: both;
@@ -586,7 +479,6 @@ input, textarea, select {
   float: left;
   padding-right: 10px;
 }
-
 
 .filter_options {
   padding: 10px;
@@ -637,7 +529,6 @@ input, textarea, select {
   height: 250px;
 }
 
-
 #warning {
   clear: both;
   width: 960;
@@ -678,8 +569,6 @@ input, textarea, select {
 .discussion_info {
   text-align: right;
 }
-
-
 
 .filter_arrow {
   float: left;
@@ -744,9 +633,6 @@ input, textarea, select {
   padding-bottom: 10px;
 }
 
-
-
-
 .grid_spacer {
   float: left;
   width: 20px;
@@ -755,8 +641,6 @@ input, textarea, select {
   float: left;
   width: 140px;
 }
-
-
 
 /* rop down menus */
 .gray_dropdown_menu {
@@ -790,7 +674,6 @@ input, textarea, select {
 
   float: left;
 }
-
 
 #page_information   {
   width: 500px;
@@ -839,8 +722,6 @@ input, textarea, select {
 .form_field_3col {
   float: left;
 }
-
-
 
 .review_option {
   background-color: #f0f0f0;
@@ -961,10 +842,6 @@ input, textarea, select {
 #header_information {
   float: right;
 }
-#header_login_fields {
-  float: right;
-  padding-right: 4px;
-}
 #header_login_warning {
   float: right;
   padding-right: 10px;
@@ -974,8 +851,6 @@ input, textarea, select {
   padding-bottom: 20px;
   text-align: left;
 }
-
-
 
 /*----------------*/
 /* NEW 2009-03-06 */
@@ -992,7 +867,6 @@ input, textarea, select {
   background-position: top;
   overflow: visible;
 }
-
 
 .faq-title {
   float:left;
@@ -1042,7 +916,6 @@ input, textarea, select {
   padding: 0px;
 }
 
-
 #featured-video-ad{
   padding-top: 10px;
 }
@@ -1065,8 +938,6 @@ input, textarea, select {
   padding-top: 8px;
   padding-right: 20px;
 }
-
-
 
 #featured-video-box {
   padding-top: 200px;
@@ -1105,7 +976,6 @@ input, textarea, select {
   color: #999999;
 }
 
-
 /*----------------*/
 /* NEW 2009-03-10 */
 #advert-free {
@@ -1119,22 +989,6 @@ input, textarea, select {
   padding-right: 15px;
   padding-left: 15px;
   padding-bottom: 15px;
-}
-
-/*-------------------*/
-/* NEW 2009-03-16    */
-.login_button {
-  border: 1px solid #dadad5;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  color: #000000;
-  text-align: center;
-  background-image: url(../images/button-hi-bg.gif);
-  background-repeat: repeat-x;
-  background-position: top;
-  overflow: visible;
-  padding-right: 10px;
-  padding-left: 10px;
 }
 
 /*---------------------*/
@@ -1233,7 +1087,6 @@ div.notice {
   font-size: 14px;
 }
 
-
 #login_section {
   float: right;
   width: 33%;
@@ -1254,13 +1107,12 @@ div.notice {
   font-size: 18px;
 }
 
-
 label.form_error {
   margin-bottom: 1em;
   padding-left: 0;
   color: #D53F12;
   min-width: 200px;
-  padding: 5px 0 0 30px;
+  padding: 5px 0 0 10px;
   background-image: url(../images/error_field.png);
   background-repeat: no-repeat;
 }
@@ -1273,7 +1125,6 @@ label.checked {
   background-repeat: no-repeat;
   background: url(../images/valid_field.png) no-repeat 0 0;
 }
-
 
 .error a {
   color: #8a1f11;
@@ -1305,8 +1156,6 @@ input.error {
 .success a {
   color: #264409; }
 
-
-
 /* User Registration */
 /* TODO: refactor so other forms can use this*/
 
@@ -1332,13 +1181,14 @@ input.error {
   margin: 0 0;
 }
 
-
 #new_user input.button_confirm, #login_section input.button_confirm,
 #forgot_section input.button_confirm,
 input#session_submit.button_confirm
  {
   text-align: center;
   background-image: url(../images/button-bg-lg-green.png);
+  font-size: 14px;
+  width: 65px;
   background-repeat: no-repeat;
   background-position: top;
 }
@@ -1348,5 +1198,6 @@ input#session_submit.button_confirm
   background-image: url(../images/button-bg-lg-grey.png);
   background-repeat: no-repeat;
   background-position: top;
+  font-size: 14px;
+  width: 65px;
 }
-
