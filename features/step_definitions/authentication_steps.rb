@@ -1,4 +1,9 @@
+
 # General
+
+# avoid external api calls
+ConstantContact.stubs(:subscribe).returns(nil)
+ConstantContact.stubs(:unsubscribe).returns(nil)
 
 Then /^I should see error messages$/ do
   assert_match /(error(s)? prohibited)|(errorExplanation)/m, response.body
