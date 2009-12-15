@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         format.html do
-          if params[:membership].blank? || params[:membership] == 'free'
+          if (params[:membership].blank?) || (params[:membership] == 'free')
             self.current_user = nil
             render :action => 'welcome'
           else
