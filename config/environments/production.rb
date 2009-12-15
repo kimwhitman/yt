@@ -19,7 +19,6 @@ config.action_view.cache_template_loading            = true
 # config.action_mailer.raise_delivery_errors = false
 config.action_mailer.default_url_options = { :host => "yogatoday.com", :only_path => false }
 
-# Used in emails
-IMAGE_PATH = "http://www.yogatoday.com/images"
+ActionController::Base.asset_host = "http://www.yogatoday.com"
 
 Paperclip.options[:command_path] = '/opt/local/bin/'

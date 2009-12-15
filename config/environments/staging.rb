@@ -28,7 +28,6 @@ config.action_mailer.default_url_options = { :host => "staging.yogatoday.com", :
 config.after_initialize do
   #ActiveMerchant::Billing::Base.gateway_mode = :test
 end
-
-IMAGE_PATH = "http://staging.yogatoday.com/images"
+ActionController::Base.asset_host = "http://staging.yogatoday.com"
 
 Paperclip.options[:command_path] = '/opt/local/bin/'

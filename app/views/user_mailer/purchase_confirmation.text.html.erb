@@ -1,6 +1,6 @@
 <style>
   a.big_button {
-    background-image:url(<%=IMAGE_PATH%>/button-bg-lg.png);
+    background-image:url(<%= root_url %>images/button-bg-lg.png);
     background-position:center top;
     background-repeat:no-repeat;
     font-size:13px;
@@ -15,9 +15,6 @@
     text-decoration:none;
   }
 </style>
-
-
-
 
 <%= render :partial => "shared/email_header" %>
 <div style="color: #666666; font-family:arial;">
@@ -67,7 +64,7 @@ If you experience trouble downloading items, contact us at <br>support@yogatoday
           </div>
           <div style="padding-bottom: 20px;"></div>
           <div style="float:right;">
-            <%= link_to(image_tag("#{IMAGE_PATH}/email-download.png", :border => 0), purchase_item_url(:invoice_no => item.purchase.invoice_no, :id => item.id)) %>
+            <%= link_to(image_tag("email-download.png", :border => 0), purchase_item_url(:invoice_no => item.purchase.invoice_no, :id => item.id)) %>
           </div>
           <div style="clear:both;"></div>
         <% end %>

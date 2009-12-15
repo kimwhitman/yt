@@ -28,6 +28,8 @@ config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :test
 end
 
+ActionController::Base.asset_host = "http://test"
+
 DELVE_API_ACCESS_KEY = 'xUIk6ov+S6UoeaW6B9NExEx9hGE=';
 DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
 
