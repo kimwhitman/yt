@@ -30,8 +30,6 @@ class UsersController < ApplicationController
         format.html do
           if params[:membership].blank? || params[:membership] == 'free'
             self.current_user = nil
-            # EAE this is my way of sending the free subscription welcomes
-            SubscriptionNotifier.deliver_plan_changed_free(@user)
             render :action => 'welcome'
           else
             redirect_to billing_user_url(current_user)

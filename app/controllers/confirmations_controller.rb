@@ -12,6 +12,8 @@ class ConfirmationsController < ApplicationController
 
     self.current_user = @user
 
+    SubscriptionNotifier.deliver_welcome(@user)
+
     flash_success_after_create
     redirect_to(root_url)
   end
