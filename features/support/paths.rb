@@ -20,7 +20,10 @@ module NavigationHelpers
       forgot_password_path
     when /^"(.*)"'s billing page$/i
       billing_user_path(User.find_by_email($1))
-
+    when /the shopping cart page/
+      cart_path
+    when /the checkout page/
+      checkout_path
 
     # Add more mappings here.
     # Here is a more fancy example:
