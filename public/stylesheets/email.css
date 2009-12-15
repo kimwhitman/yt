@@ -1,0 +1,123 @@
+/* @override
+  http://yoga.local/stylesheets/email.css?1260901297
+  http://yoga.local/stylesheets/email.css?1260901482
+*/
+
+h1 {
+    color: #cccccc;
+    float: right;
+    margin-top: 64px;
+  font: 18px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+p, a, table {
+    color: #878787;
+    text-decoration: none;
+}
+
+p {
+  font: 11px Arial, Helvetica;
+}
+
+a:hover {
+  text-decoration: underline
+}
+
+.clear {
+  clear: both;
+}
+
+.border_bottom {
+  border-bottom: 2px solid #cccccc;
+}
+
+.container {
+  width: 600px;
+  margin: 0px 0px 0px 10px;
+}
+
+img#logo {
+  float:left;
+}
+
+#header {
+  margin-bottom: 21px;
+  margin-top: 10px;
+}
+
+
+#footer {
+  color: #959595;
+}
+
+
+table th {
+  padding: 7px;
+  background-color: #f8f8f8;
+  color: #545454;
+  font: bold 12px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+td.right {
+  text-align: right;
+}
+
+table td, table th {
+  border-bottom: 1px solid #afafaf;
+}
+
+table td {
+  font-weight: bold;
+  color: #7e7e7e;
+  font-size: 11px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+}
+
+td.no_bottom {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  border-bottom: none;
+}
+
+td.taxes {
+  margin-top: 0;
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+
+td.subtotal {
+  border: none;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding-top: 7px;
+}
+
+table th:last-child {
+  text-align: left;
+  width: 55px;
+  margin: 0;
+  padding: 0;
+}
+
+table,th, td
+{
+  text-align: left;
+}
+
+table {
+  width: 607px;
+  margin: 20px 0;
+  padding: 0 0;
+  font: 11px "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+#footer {
+  margin-top:  40px;
+
+}
+
+.disclaimer p, #footer p {
+  font-size: 10px;
+}

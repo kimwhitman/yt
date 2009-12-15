@@ -1,29 +1,25 @@
 <html>
   <head>
-    <title>Thank You</title>
+    <title><%= @title %></title>
+    <%= stylesheet_link_tag 'email' %>
   </head>
   <body>
-	<%= render :partial => "shared/email_header" %>
-<br />
-Welcome to <%= AppConfig['app_name'] %>!
-<br />
-<br />
-You signed up for the <%= @account.subscription.subscription_plan.name %> plan with the email address <%= @account.admin.email %>.
-<br />
-<br />
-To sign in again in the future, please return to the following
-<br />
-URL and use the email address and password you used to create 
-<br />
-your account:
-<br />
-<br />
-http://<%= @account.full_domain %> 
-<br />
-<br />
-If you have any questions about or problems with the service, 
-<br />
-please don't hesitate to email <%= AppConfig['from_email'] %>. 
-<br />
+    <div class="container">
+      <%= render :partial => 'header', :locals => {:header_title => 'Welcome to Yoga Today'} %>
+      <div id="main">
+        <p>Hello <%= @user.name %></p>
+
+        <p>Welcome to the Yoga Today Community! Your Free Membership has been created and you now have on-line streaming access to our free weekly classes.</p>
+
+        <p>Be sure to visit your Profile page to upload a photo so that other members will recognize you when you rate, review and discuss classes.</p>
+
+        <p>Classes added to your Yoga Queue will be saved for your return when you log out.</p>
+
+        <p>Thanks and Love from everyone at Yoga Today:)</p>
+
+        <p><%= link_to root_url.sub('http:', '').gsub('/', ''), root_url %></p>
+      </div>
+      <%= render :partial => 'footer', :locals => {:follow => 'true'} %>
+    </div>
   </body>
 </html>

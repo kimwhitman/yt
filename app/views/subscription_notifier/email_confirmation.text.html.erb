@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title><%= @title %></title>
+    <%= stylesheet_link_tag 'email' %>
+  </head>
+  <body>
+    <div class="container">
+      <%= render :partial => 'header', :locals => {:header_title => 'Please Confirm Your Email'} %>
+      <div id="main">
+
+        <p>Welcome to the Yoga Today Community!</p>
+
+        <p>To confirm your account, please click on the following url:</p>
+
+        <%= new_user_confirmation_url(
+              :user_id => @user,
+              :token   => @user.confirmation_token,
+              :encode  => false) %>
+
+        <p>If you have any questions about or problems with the service,<br />
+        please don't hesitate to email <%= AppConfig['from_email'] %>.</p>
+      </div>
+      <%= render :partial => 'footer', :locals => {:follow => 'true'} %>
+    </div>
+  </body>
+</html>

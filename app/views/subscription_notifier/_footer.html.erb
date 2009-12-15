@@ -1,0 +1,23 @@
+<div class="disclaimer" id="footer">
+  <p>To follow us online:</p>
+
+  <%= link_to image_tag('emails/facebook.jpg', :alt => "YogaToday Facebook Page"), 'http://www.facebook.com/pages/Yoga-Today/37437463401', :title => 'YogaToday Facebook Page' %>
+  <%= link_to image_tag('emails/twitter.jpg', :alt => "Twitter"), "http://twitter.com/yogatoday", :title => 'YogaToday Twitter Account' %>
+  <%= link_to image_tag('emails/rss.jpg', :alt => "RSS"), "http://blog.yogatoday.com", :title => 'YogaToday Blog' %>
+
+  <p>For details about the Yoga Today Terms of Service, visit <br/>
+    <%= link_to terms_and_conditions_url, terms_and_conditions_url %><br/>
+  </p>
+
+  <p>Our privacy policy can be accessed at <br/>
+    <%= link_to privacy_policy_url, privacy_policy_url %>
+  </p>
+
+  <p>This email was sent to you as part of your Yoga Today membership. If you would like to stop receiving these emails please visit your Profile page,
+  uncheck "Yes, send me news from YogaToday.com," and save your changes.</p>
+
+  <p><b>Please do not reply to this email.</b></p>
+  <p>For more information about your account, please visit <%= link_to faqs_url, faqs_url%><br/>
+  If you require further assistance, please contact <%= mail_to("support@yogatoday.com") %><br/></p>
+
+</div>

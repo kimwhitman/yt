@@ -20,6 +20,7 @@ Feature: Sign up
       And I fill in "Your Email Again" with "email@person.com"
       And I fill in "Your Password" with "password"
       And I fill in "Your Password Again" with "password"
+      And I choose "Plain Text E-mail"
       And I press "Sign Up"
       Then I should see "Instructions have been emailed to you"
       And a confirmation message should be sent to "email@person.com"
@@ -53,5 +54,6 @@ Feature: Sign up
       Given I signed up with "email@person.com/password"
       When I follow the confirmation link sent to "email@person.com"
       Then I should see "Confirmed email and signed in"
+      And a welcome message should be sent to "email@person.com"
       And I should be signed in
 

@@ -8,17 +8,15 @@ class SubscriptionNotifier < ActionMailer::Base
     @from = from.respond_to?(:email) ? from.email : from
   end
 
-  def welcome(account)
-    # EAE added error log - not sure if this email is used
-    logger.error("welcome email")
-    setup_email(account.admin, "Welcome to #{AppConfig['app_name']}!")
-    @body = { :account => account }
+  def welcome(user)
+    setup_email("#{user.name} <#{user.email}>", "Welcome to Yoga Today!", "YogaToday <info@yogatoday.com>")
+    set_content_type(user)
+    body :user => user
   end
 
   def email_confirmation(user)
-    subject "Please confirm your email!"
-    recipients "#{user.name} <#{user.email}>"
-    from "YogaToday <info@yogatoday.com>"
+    setup_email("#{user.name} <#{user.email}>", "Please confirm your email!", "YogaToday <info@yogatoday.com>")
+    set_content_type(user)
     body :user => user
   end
 
@@ -69,9 +67,10 @@ class SubscriptionNotifier < ActionMailer::Base
 
   def plan_changed_free(user)
     logger.debug("plan_changed_free email")
-    subject "Welcome to Yoga Today!"
-    recipients "#{user.name} <#{user.email}>"
-    from "YogaToday <info@yogatoday.com>"
+    setup_email("#{user.name} <#{user.email}>", "Welcome to Yoga Today!", "YogaToday <info@yogatoday.com>")
+
+    set_content_type(user)
+
     body :user => user
   end
 
@@ -90,4 +89,9 @@ class SubscriptionNotifier < ActionMailer::Base
     setup_email(reset.user, 'Password Reset Request')
     @body = { :reset => reset }
   end
+
+  private
+    def set_content_type(user)
+      @content_type = (user.newsletter_format == 'html') ? 'text/html' : 'text/plain'
+    end
 end
