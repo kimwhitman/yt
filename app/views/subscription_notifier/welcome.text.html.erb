@@ -9,7 +9,7 @@
       <div id="main">
         <p>Hello <%= @user.name %></p>
 
-        <p>Welcome to the Yoga Today Community! Your Free Membership has been created and you now have on-line streaming access to our free weekly classes.</p>
+        <p>Welcome to the Yoga Today Community! Your <%= @user.account.subscription.subscription_plan.name %> Membership has been created and you now have on-line streaming access to our free weekly classes.</p>
 
         <p>Be sure to visit your Profile page to upload a photo so that other members will recognize you when you rate, review and discuss classes.</p>
 
