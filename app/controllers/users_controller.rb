@@ -18,23 +18,10 @@ class UsersController < ApplicationController
     if valid && @user.save
       SubscriptionNotifier.deliver_email_confirmation(@user)
 
-      self.current_user = @user
-      migrate_cart!
-
-      if params[:remember_me] == 1
-        self.current_user.remember_me
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
-      end
+      self.current_user = nil
 
       respond_to do |format|
-        format.html do
-          if (params[:membership].blank?) || (params[:membership] == 'free')
-            self.current_user = nil
-            render :action => 'welcome'
-          else
-            redirect_to billing_user_url(current_user)
-          end
-        end
+        format.html { render :action => 'welcome' }
         format.js
       end
 

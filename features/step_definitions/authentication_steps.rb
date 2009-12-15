@@ -17,13 +17,15 @@ end
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
   user = User.create! :email => email,
     :password                => password,
-    :password_confirmation   => password
+    :password_confirmation   => password,
+    :name => 'Test User'
 end
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user = User.new :email => email,
     :password                => password,
-    :password_confirmation   => password
+    :password_confirmation   => password,
+    :name => 'Test User'
 
   user.email_confirmed = true
   user.save
@@ -86,6 +88,16 @@ Then /^a confirmation message should be sent to "(.*)"$/ do |email|
   assert !user.confirmation_token.blank?
   assert_match /#{user.confirmation_token}/, sent.body
 end
+
+Then /^a welcome message should be sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+
+  sent = ActionMailer::Base.deliveries.first
+  assert_equal [user.email], sent.to
+  assert_match /welcome/i, sent.subject
+  assert_match /welcome/i, sent.body
+end
+
 
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)

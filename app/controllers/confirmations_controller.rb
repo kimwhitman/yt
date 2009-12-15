@@ -15,7 +15,12 @@ class ConfirmationsController < ApplicationController
     SubscriptionNotifier.deliver_welcome(@user)
 
     flash_success_after_create
-    redirect_to(root_url)
+
+    if User.first.account.subscription.subscription_plan.name.downcase != 'free'
+      redirect_to billing_user_url(current_user)
+    else
+      redirect_to(root_url)
+    end
   end
 
   private

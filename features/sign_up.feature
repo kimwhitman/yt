@@ -20,7 +20,6 @@ Feature: Sign up
       And I fill in "Your Email Again" with "email@person.com"
       And I fill in "Your Password" with "password"
       And I fill in "Your Password Again" with "password"
-      And I choose "Plain Text E-mail"
       And I press "Sign Up"
       Then I should see "Instructions have been emailed to you"
       And a confirmation message should be sent to "email@person.com"
@@ -35,7 +34,6 @@ Feature: Sign up
       And I fill in "Your Password" with "password"
       And I fill in "Your Password Again" with "password"
       And I press "Sign Up"
-      Then I should be on "email@person.com"'s billing page
       And a confirmation message should be sent to "email@person.com"
 
     Scenario: User signs up for a prepaid account with valid data
@@ -47,7 +45,6 @@ Feature: Sign up
       And I fill in "Your Password" with "password"
       And I fill in "Your Password Again" with "password"
       And I press "Sign Up"
-      Then I should be on "email@person.com"'s billing page
       And a confirmation message should be sent to "email@person.com"
 
     Scenario: User confirms his account
@@ -56,4 +53,3 @@ Feature: Sign up
       Then I should see "Confirmed email and signed in"
       And a welcome message should be sent to "email@person.com"
       And I should be signed in
-
