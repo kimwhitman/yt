@@ -16,11 +16,7 @@ class ConfirmationsController < ApplicationController
 
     flash_success_after_create
 
-    if User.first.account.subscription.subscription_plan.name.downcase != 'free'
-      redirect_to billing_user_url(current_user)
-    else
-      redirect_to(root_url)
-    end
+    redirect_to billing_user_url(current_user)
   end
 
   private

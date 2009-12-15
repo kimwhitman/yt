@@ -50,6 +50,8 @@ Feature: Sign up
     Scenario: User confirms his account
       Given I signed up with "email@person.com/password"
       When I follow the confirmation link sent to "email@person.com"
-      Then I should see "Confirmed email and signed in"
+      Then I should be on "email@person.com"'s billing page
+      And I should see "Confirmed email and signed in"
       And a welcome message should be sent to "email@person.com"
       And I should be signed in
+

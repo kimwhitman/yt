@@ -25,6 +25,8 @@
       </p>
     <% end %>
 
+    <%= render :partial => 'shared/flashes' %>
+
     <% if flash[:notice ]%>
       <div class="notice">
         <%= flash[:notice] %>
