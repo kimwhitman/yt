@@ -19,4 +19,4 @@ Scenario: Non-account holder submits story
 
 Scenario: A submitted story gets approved
   Given A User Story has been submitted and approved from "test@domain.local"
-  And a story submission approval should be sent to "test@domain.local"
+  Then a story submission approval should be sent to "test@domain.local"
