@@ -16,7 +16,9 @@ class ConfirmationsController < ApplicationController
 
     self.current_user = @user
 
-    UserMailer.deliver_welcome(@user)
+    if @user.account.subscription.subscription_plan.name.downcase == 'free'
+      UserMailer.deliver_welcome(@user)
+    end
 
     flash_success_after_create
 
