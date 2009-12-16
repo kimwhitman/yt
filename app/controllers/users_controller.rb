@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     end
 
     if valid && @user.save
-      SubscriptionNotifier.deliver_email_confirmation(@user)
+      UserMailer.deliver_email_confirmation(@user)
 
       self.current_user = nil
 

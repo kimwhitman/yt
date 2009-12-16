@@ -8,6 +8,6 @@ class PasswordReset < ActiveRecord::Base
   protected
 
     def send_email
-      SubscriptionNotifier.deliver_password_reset(self)
+      UserMailer.deliver_password_reset(self)
     end
 end

@@ -13,8 +13,6 @@ class Account < ActiveRecord::Base
   attr_accessible :name, :user, :plan, :plan_start, :creditcard, :address
   attr_accessor :user, :plan, :plan_start, :creditcard, :address
 
-  #after_create :send_welcome_email
-
   acts_as_paranoid
 
   def needs_payment_info?
@@ -65,9 +63,4 @@ class Account < ActiveRecord::Base
         return false
       end
     end
-
-    def send_welcome_email
-      SubscriptionNotifier.deliver_welcome(self)
-    end
-
 end

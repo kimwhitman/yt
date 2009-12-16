@@ -109,6 +109,7 @@ Then /^a password reset message should be sent to "(.*)"$/ do |email|
   pr = PasswordReset.find_by_user_id(user.id)
 
   sent = ActionMailer::Base.deliveries.first
+
   assert_equal [user.email], sent.to
   assert_match /password reset/i, sent.subject
   assert !pr.token.blank?

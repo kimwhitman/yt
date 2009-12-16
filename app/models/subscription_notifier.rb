@@ -1,27 +1,6 @@
 class SubscriptionNotifier < ActionMailer::Base
   include ActionView::Helpers::NumberHelper
 
-  @bcc = 'user@domain.local' if Rails.env == 'cucumber'
-
-  def setup_email(to, subject, from = AppConfig['from_email'])
-    @sent_on = Time.now
-    @subject = subject
-    @recipients = to.respond_to?(:email) ? to.email : to
-    @from = from.respond_to?(:email) ? from.email : from
-  end
-
-  def welcome(user)
-    setup_email("#{user.name} <#{user.email}>", "Welcome to Yoga Today!", "YogaToday <info@yogatoday.com>")
-    set_content_type(user)
-    body :user => user
-  end
-
-  def email_confirmation(user)
-    setup_email("#{user.name} <#{user.email}>", "Please confirm your email!", "YogaToday <info@yogatoday.com>")
-    set_content_type(user)
-    body :user => user
-  end
-
   def trial_expiring(user, subscription)
     # EAE no trials for this site
     setup_email(user, 'Trial period expiring')
@@ -87,20 +66,16 @@ class SubscriptionNotifier < ActionMailer::Base
     body :user => user, :subscription => subscription, :last_payment => last_payment
   end
 
-  def password_reset(reset)
-    setup_email(reset.user, 'Password Reset Request')
-    set_content_type(reset.user)
-    @body = { :reset => reset }
-  end
-
-  def password_reset_confirmation(user)
-    setup_email(user, 'Password Reset Confirmation')
-    set_content_type(user)
-    @body = { :user => user }
-  end
-
   private
+
     def set_content_type(user)
       @content_type = (user.newsletter_format == 'html') ? 'text/html' : 'text/plain'
+    end
+
+    def setup_email(to, subject, from = AppConfig['from_email'])
+      @sent_on = Time.now
+      @subject = subject
+      @recipients = to.respond_to?(:email) ? to.email : to
+      @from = from.respond_to?(:email) ? from.email : from
     end
 end

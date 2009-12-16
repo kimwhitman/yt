@@ -22,8 +22,8 @@ Feature: Sign up
       And I fill in "Your Password Again" with "password"
       And I press "Sign Up"
       Then I should see "Instructions have been emailed to you"
-      And a confirmation message should be sent to "email@person.com"
       And I should be signed out
+      And a confirmation message should be sent to "email@person.com"
 
     Scenario: User signs up for a monthly account with valid data
       When I go to the sign up page
@@ -52,6 +52,6 @@ Feature: Sign up
       When I follow the confirmation link sent to "email@person.com"
       Then I should be on "email@person.com"'s billing page
       And I should see "Confirmed email and signed in"
-      And a welcome message should be sent to "email@person.com"
       And I should be signed in
+      And a welcome message should be sent to "email@person.com"
 

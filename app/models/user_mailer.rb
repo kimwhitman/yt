@@ -1,6 +1,31 @@
 class UserMailer < ActionMailer::Base
 
-  @bcc = 'user@domain.local' if Rails.env == 'cucumber'
+  def email_confirmation(user)
+    subject "Please confirm your email!"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user
+
+    set_content_type(user)
+  end
+
+  def password_reset(reset)
+    subject 'Password Reset Request'
+    recipients reset.user.email
+    from "no-reply@yogatoday.com"
+    body :reset => reset
+
+    set_content_type(reset.user)
+  end
+
+  def password_reset_confirmation(user)
+    subject 'Password Reset Confirmation'
+    recipients user.email
+    from "no-reply@yogatoday.com"
+    body :user => user
+
+    set_content_type(user)
+  end
 
   def purchase_confirmation(purchase, sent_at = Time.now)
     subject    "Thank you for your recent purchase ##{purchase.invoice_no}"
@@ -15,7 +40,6 @@ class UserMailer < ActionMailer::Base
     recipients "#{user_story.name} <#{user_story.email}>"
     from "no-reply@yogatoday.com"
     body :user_story => user_story
-    @content_type = 'text/html'
   end
 
   def user_story_submitted(user_story)
@@ -23,10 +47,19 @@ class UserMailer < ActionMailer::Base
     recipients "#{user_story.name} <#{user_story.email}>"
     from "no-reply@yogatoday.com"
     body :user_story => user_story
-    @content_type = 'text/html'
+  end
+
+  def welcome(user)
+    subject "Welcome to Yoga Today!"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user
+
+    set_content_type(user)
   end
 
   private
+
     def set_content_type(user)
       @content_type = (user.newsletter_format == 'html') ? 'text/html' : 'text/plain'
     end
