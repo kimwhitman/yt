@@ -15,6 +15,12 @@ class UserMailer < ActionMailer::Base
     body :user_story => user_story
   end
 
+  def user_story_submitted(user_story)
+    subject "Your user story has been submitted"
+    recipients "#{user_story.name} <#{user_story.email}>"
+    from "no-reply@yogatoday.com"
+    body :user_story => user_story
+  end
 
   private
     def set_content_type(user)

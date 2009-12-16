@@ -10,7 +10,9 @@ class UserStoriesController < ApplicationController
     @user_story.location = location.join(', ')
     name = params[:last_name].empty? ? params[:first_name] : params[:first_name] + " " + params[:last_name]
     @user_story.name = name
+
     if @user_story.save
+      UserMailer.deliver_user_story_submitted(@user_story)
       render :action => 'thank_you'
     else
       render :action => 'new'

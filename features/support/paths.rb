@@ -24,6 +24,9 @@ module NavigationHelpers
       cart_path
     when /the checkout page/
       checkout_path
+    when /user stories page/
+      user_stories_path
+
 
     # Add more mappings here.
     # Here is a more fancy example:
