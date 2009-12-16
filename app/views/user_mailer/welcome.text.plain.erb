@@ -12,4 +12,5 @@ Thanks and Love from everyone at Yoga Today:)
 
 <%= root_url.sub('http:', '').gsub('/', '') %>
 
-<%= render :partial => 'footer.plain.erb', :locals => {:follow => 'true'} %>
+<%= render :partial => 'footer.plain.erb',
+    :locals => {:follow => true, :tos => true, :privacy => true, :unsubscribe => true, :no_reply => true } %>

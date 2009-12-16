@@ -78,6 +78,19 @@ When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
   And %{I press "Change password"}
 end
 
+When /^I follow the confirmation link sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  visit new_user_confirmation_path(:user_id => user, :token => user.confirmation_token)
+end
+
+When /^I follow the password reset link sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  reset = PasswordReset.find_by_user_id(user.id)
+  assert reset
+  token = reset.token
+  visit reset_password_path(:token => token)
+end
+
 # Emails
 
 Then /^a confirmation message should be sent to "(.*)"$/ do |email|
@@ -98,10 +111,14 @@ Then /^a welcome message should be sent to "(.*)"$/ do |email|
   assert_match /welcome/i, sent.body
 end
 
-
-When /^I follow the confirmation link sent to "(.*)"$/ do |email|
+Then /^a password reset confirmation should be sent to "([^\"]*)"$/ do |email|
   user = User.find_by_email(email)
-  visit new_user_confirmation_path(:user_id => user, :token => user.confirmation_token)
+
+  sent = ActionMailer::Base.deliveries.last
+
+  assert_equal [user.email], sent.to
+  assert_match /password reset confirmation/i, sent.subject
+  assert_match /successfully reset/, sent.body
 end
 
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
@@ -115,12 +132,3 @@ Then /^a password reset message should be sent to "(.*)"$/ do |email|
   assert !pr.token.blank?
   assert_match /#{pr.token}/, sent.body
 end
-
-When /^I follow the password reset link sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
-  reset = PasswordReset.find_by_user_id(user.id)
-  assert reset
-  token = reset.token
-  visit reset_password_path(:token => token)
-end
-

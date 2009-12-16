@@ -33,3 +33,4 @@ Feature: Password reset
       Then I should be signed out
       And I sign in as "email@domain.local/newpassword"
       Then I should be signed in
+      And a password reset confirmation should be sent to "email@domain.local"

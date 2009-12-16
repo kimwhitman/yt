@@ -1,11 +1,10 @@
 <html>
   <head>
     <title><%= @title %></title>
-    <%= stylesheet_link_tag 'email' %>
   </head>
   <body>
     <div class="container">
-      <%= render :partial => 'header', :locals => {:header_title => 'Welcome to Yoga Today'} %>
+      <%= render :partial => '/shared/email_header', :locals => {:header_title => 'Welcome to Yoga Today'} %>
       <div id="main">
         <p>Hello <%= @user.name %></p>
 
@@ -19,7 +18,9 @@
 
         <p><%= link_to root_url.sub('http:', '').gsub('/', ''), root_url %></p>
       </div>
-      <%= render :partial => 'footer', :locals => {:follow => 'true'} %>
+
+      <%= render :partial => 'footer',
+        :locals => { :follow => true, :tos => true, :privacy => true, :unsubscribe => true, :no_reply => true } %>
     </div>
   </body>
 </html>
