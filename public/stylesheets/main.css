@@ -414,3 +414,7 @@ input.star {
 .default_value {
   color: #D5D5D5;
 }
+
+#container_4col h3, #new_user h3 {
+  color: #666;
+}
