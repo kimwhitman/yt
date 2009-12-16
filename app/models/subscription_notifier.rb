@@ -87,7 +87,14 @@ class SubscriptionNotifier < ActionMailer::Base
 
   def password_reset(reset)
     setup_email(reset.user, 'Password Reset Request')
+    set_content_type(user)
     @body = { :reset => reset }
+  end
+
+  def password_reset_confirmation(user)
+    setup_email(reset.user, 'Password Reset Confirmation')
+    set_content_type(user)
+    @body = { :user => user }
   end
 
   private

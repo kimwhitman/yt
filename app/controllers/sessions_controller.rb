@@ -87,6 +87,9 @@ class SessionsController < ApplicationController
       if @user.update_attributes(:password => params[:user][:password],
         :password_confirmation => params[:user][:password_confirmation])
         @password_reset.destroy
+
+        SubscriptionNotifier.deliver_password_reset_confirmation(@user)
+
         flash[:notice] = "Your password has been updated.  Please log in with your new password."
         render :action => 'successful_reset'
       else
