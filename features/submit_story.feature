@@ -3,7 +3,7 @@ Feature: Story submission
   As a user
   I should be able to submit their stories for approval
 
-Scenario: Anonymous User submits story
+Scenario: Non-account holder submits story
   Given I am on the user stories page
   And I follow "Submit Your Story"
   And I fill in "first_name" with "Test"
@@ -16,3 +16,7 @@ Scenario: Anonymous User submits story
   And I press "Tell Us Your Story"
   Then I should see "Thanks for submitting your story"
   And a story submission message should be sent to "test@domain.local"
+
+Scenario: A submitted story gets approved
+  Given A User Story has been submitted and approved from "test@domain.local"
+  And a story submission approval should be sent to "test@domain.local"
