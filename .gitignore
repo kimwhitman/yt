@@ -11,3 +11,4 @@ doc/specs.*
 config/database.yml
 public/system
 vendor/
+mkmf.log
