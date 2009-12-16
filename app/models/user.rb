@@ -199,10 +199,13 @@ class User < ActiveRecord::Base
   # After filter
   def setup_newsletter
     return unless @newsletter_changed || !@old_email.blank?
-    if wants_newsletter
-      ConstantContact.subscribe(self)
-    else
-      ConstantContact.unsubscribe(self)
+
+    unless Rails.env == 'production'
+      if wants_newsletter
+        ConstantContact.subscribe(self)
+      else
+        ConstantContact.unsubscribe(self)
+      end
     end
     @newsletter_changed = false
   rescue Exception => e
