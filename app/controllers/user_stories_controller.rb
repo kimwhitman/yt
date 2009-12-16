@@ -29,7 +29,6 @@ class UserStoriesController < ApplicationController
   def show
     @user_story = UserStory.published.find_by_id(params[:id])
     render(:action => 'not_found') and return unless @user_story
-    params[:all_stories] == true
     @user_stories = [@user_story]
     render :action => 'index'
   end
