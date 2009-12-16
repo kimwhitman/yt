@@ -1,5 +1,7 @@
 class UserMailer < ActionMailer::Base
 
+  @bcc = 'user@domain.local' if Rails.env == 'cucumber'
+
   def purchase_confirmation(purchase, sent_at = Time.now)
     subject    "Thank you for your recent purchase ##{purchase.invoice_no}"
     recipients purchase.email
@@ -13,6 +15,7 @@ class UserMailer < ActionMailer::Base
     recipients "#{user_story.name} <#{user_story.email}>"
     from "no-reply@yogatoday.com"
     body :user_story => user_story
+    @content_type = 'text/html'
   end
 
   def user_story_submitted(user_story)
@@ -20,6 +23,7 @@ class UserMailer < ActionMailer::Base
     recipients "#{user_story.name} <#{user_story.email}>"
     from "no-reply@yogatoday.com"
     body :user_story => user_story
+    @content_type = 'text/html'
   end
 
   private

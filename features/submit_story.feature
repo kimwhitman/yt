@@ -15,7 +15,6 @@ Scenario: Non-account holder submits story
   And I fill in "user_story[story]" with "is very short"
   And I press "Tell Us Your Story"
   Then I should see "Thanks for submitting your story"
-  And a story submission message should be sent to "test@domain.local"
 
 Scenario: A submitted story gets approved
   Given A User Story has been submitted and approved from "test@domain.local"

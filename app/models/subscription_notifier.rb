@@ -1,6 +1,8 @@
 class SubscriptionNotifier < ActionMailer::Base
   include ActionView::Helpers::NumberHelper
 
+  @bcc = 'user@domain.local' if Rails.env == 'cucumber'
+
   def setup_email(to, subject, from = AppConfig['from_email'])
     @sent_on = Time.now
     @subject = subject

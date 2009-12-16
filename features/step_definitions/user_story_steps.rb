@@ -14,18 +14,10 @@ end
 
 # Emails
 
-Then /^a story submission message should be sent to "([^\"]*)"$/ do |email|
-  sent = ActionMailer::Base.deliveries.first
-
-  assert_equal [email], sent.to
-  assert_match /submitted/i, sent.subject
-  assert_match /tell us your story/, sent.body
-end
-
 Given /^a story submission approval should be sent to "([^\"]*)"$/ do |email|
   sent = ActionMailer::Base.deliveries.first
 
   assert_equal [email], sent.to
   assert_match /published/i, sent.subject
-  assert_match /has been published/, sent.body
+  assert_match /published your story/, sent.body
 end

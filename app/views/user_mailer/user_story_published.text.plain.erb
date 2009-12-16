@@ -1,10 +1,14 @@
 Hello <%= @user_story.name.split(' ').first %>,
 
-Your user story has been published on Yoga Today!
-<% unless @user_story.personal_message.blank? %>
-Message from Yoga Today Team: <%= @user_story.personal_message %>
-<% end %>
+Thank you for sharing your kind words on Yoga Today's "tell us your story" page. We published your story today and wanted to give you the heads up to look for it.
 
-To see it, visit <%= user_story_url(@user_story) %>!
+It was so nice of you to take the time to get in touch. We are glad to that yoga is having a positive influence on your life as well as the lives of so many all over the world. Our hope is that collectively, we all grow our practices together and spread the good energy to as many people as we possibly can!
 
--- Yoga Today Team
+We are honored to have you in our audience and sincerely thank you for the complements.
+
+Namaste,
+
+Kim, Neesha, Adi, Sarah and the whole crew
+
+View your story here: <%= user_story_url(@user_story) %>
+
