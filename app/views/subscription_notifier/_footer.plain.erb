@@ -1,4 +1,4 @@
-<% if follow %>
+<% if defined?(follow) && follow -%>
 =================================
 To follow us online:
 =================================
@@ -8,27 +8,27 @@ YogaToday Twitter Account - http://twitter.com/yogatoday
 YogaToday Blog - http://blog.yogatoday.com
 <% end %>
 
-<% if tos %>
+<% if defined?(tos) && tos -%>
 For details about the Yoga Today Terms of Service, visit
 <%= terms_and_conditions_url %>
-<% end %>
+<% end -%>
 
-<% if privacy %>
+<% if defined?(privacy) && privacy -%>
 Our privacy policy can be accessed at
 <%= privacy_policy_url %>
-<% end %>
+<% end -%>
 
-<% if unsubscribe %>
+<% if defined?(unsubscribe) && unsubscribe -%>
 This email was sent to you as part of your Yoga Today membership. If you would
 like to stop receiving these emails please visit your Profile page, uncheck
 "Yes, send me news from YogaToday.com," and save your changes.
-<% end %>
+<% end -%>
 
-<% if no_reply %>
+<% if defined?(no_reply) && no_reply -%>
 =================================
 Please do not reply to this email
 =================================
 
 For more information about your account, please visit <%= faqs_url %>
 If you require further assistance, please contact "support@yogatoday.com"
-<% end %>
+<% end -%>

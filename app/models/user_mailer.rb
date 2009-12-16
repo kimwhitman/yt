@@ -14,4 +14,10 @@ class UserMailer < ActionMailer::Base
     from "no-reply@yogatoday.com"
     body :user_story => user_story
   end
+
+
+  private
+    def set_content_type(user)
+      @content_type = (user.newsletter_format == 'html') ? 'text/html' : 'text/plain'
+    end
 end
