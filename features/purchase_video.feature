@@ -16,7 +16,7 @@ Scenario: purchase a single video
   Then I should see "1 item"
   And I fill in "purchase[first_name]" with "Anonymous"
   And I fill in "purchase[last_name]" with "User"
-  And I fill in "purchase[email]" with "email@domain.org"
+  And I fill in "purchase[email]" with "email@person.com"
   And I select "A Totally Bogus Card." from "purchase[card_type]"
   And I fill in "purchase[card_number]" with "4111111111111111"
   And I fill in "purchase[card_verification]" with "112"
@@ -24,7 +24,7 @@ Scenario: purchase a single video
   And I select "2019" from "purchase[card_expiration(1i)]"
   And I press "Purchase"
   Then I should see "Thank you for your purchase"
-  And a receipt should be emailed to "email@domain.org"
+  And a receipt should be emailed to "email@person.com"
 
 Scenario: purchase a single video with a bad credit card
   Given the following videos:
@@ -39,7 +39,7 @@ Scenario: purchase a single video with a bad credit card
   Then I should see "1 item"
   And I fill in "purchase[first_name]" with "Anonymous"
   And I fill in "purchase[last_name]" with "User"
-  And I fill in "purchase[email]" with "email@domain.org"
+  And I fill in "purchase[email]" with "email@person.com"
   And I select "Discover" from "purchase[card_type]"
   And I fill in "purchase[card_number]" with "4111"
   And I fill in "purchase[card_verification]" with "112"

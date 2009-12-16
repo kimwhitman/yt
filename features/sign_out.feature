@@ -4,16 +4,16 @@ Feature: Sign out
   Should be able to sign out
 
   Scenario: User signs out
-    Given I am signed up and confirmed as "email@person.com/password"
-    When I sign in as "email@person.com/password"
+    Given I am signed up and confirmed as "email@domain.local/password"
+    When I sign in as "email@domain.local/password"
     Then I should be signed in
     And I sign out
     Then I should see "logged out"
     And I should be signed out
 
   Scenario: User who was remembered signs out
-    Given I am signed up and confirmed as "email@person.com/password"
-    When I sign in with "remember me" as "email@person.com/password"
+    Given I am signed up and confirmed as "email@domain.local/password"
+    When I sign in with "remember me" as "email@domain.local/password"
     Then I should be signed in
     And I sign out
     Then I should see "logged out"
