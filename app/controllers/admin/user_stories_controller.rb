@@ -63,9 +63,9 @@ class Admin::UserStoriesController < Admin::BaseController
   def announce_published
     user_story = UserStory.find(params[:id])
     if (!user_story.has_announced_publish && user_story.is_public)
-      AdminNotifier.deliver_user_story_thank_you(user_story)
       user_story.has_announced_publish = true
       user_story.save
+      UserMailer.deliver_user_story_published(user_story)
     end
   end
 

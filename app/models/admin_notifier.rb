@@ -18,13 +18,6 @@ class AdminNotifier < ActionMailer::Base
     body :suggestion => suggestion, :video => video, :user => user
   end
 
-  def user_story_thank_you(user_story)
-    from "no-reply@yogatoday.com"
-    recipients user_story.email
-    subject "Thank you for your story"
-    body :user_story => user_story
-  end
-
   def offensive_comment
     from "no-reply@yogatoday.com"
     recipients "info@yogatoday.com"
