@@ -29,7 +29,7 @@
     </div>
 
     <div id="main_content">
-	  <div style="clear: both; float: left;" class="arial13_gray" id="container_6col">
+    <div style="clear: both; float: left;" class="arial13_gray" id="container_6col">
         Every day we receive words from members of the Yoga Today community, and we'd
 love to hear yours. The stories we receive are inspiring and deserve to be
 shared with others. You can submit words and pictures using the form below.
@@ -41,9 +41,9 @@ any way. However, please understand that by submitting this form you authorize
 Yoga Today to publish any information you have provided.<br><br>
       </div>
       <div style="clear:both;"></div>
-	  <%= error_message_on :user_story, :image, "<div style='padding: 20px 5px 10px 5px;'>Sorry, your ","</div>","warning" %>
+    <%= error_message_on :user_story, :image, "<div style='padding: 20px 5px 10px 5px;'>Sorry, your ","</div>","warning" %>
       <% form_for(@user_story, :html => { :multipart => true }) do |f| %>
-      
+
       <div style="float: left;" id="container_4col">
 
 
@@ -56,10 +56,10 @@ Yoga Today to publish any information you have provided.<br><br>
     <div style="float: left;" class="grid_spacer"> </div>
 
     <div style="float: left;" id="story_first_name_field" class="form_field">
-      <%= text_field_tag :first_name, :size => 40 %>
-      
+      <%= text_field_tag :first_name, '', :size => 40 %>
 
-    </div>  
+
+    </div>
 
   </div>
   <div class="form_row">
@@ -71,10 +71,10 @@ Yoga Today to publish any information you have provided.<br><br>
     <div style="float: left;" class="grid_spacer"> </div>
 
     <div style="float: left;" id="story_last_name_field" class="form_field">
-      <%= text_field_tag :last_name, :size => 40 %>
-      
+      <%= text_field_tag :last_name, '', :size => 40 %>
 
-    </div>  
+
+    </div>
 
   </div>
 
@@ -87,7 +87,7 @@ Yoga Today to publish any information you have provided.<br><br>
     <div style="float: left;" class="grid_spacer"> </div>
 
     <div style="float: left;" id="story_city_field" class="form_field">
-      <%= text_field_tag :city, :size => 40 %>
+      <%= text_field_tag :city, '', :size => 40 %>
 
     </div>
 
@@ -195,6 +195,6 @@ Yoga Today to publish any information you have provided.<br><br>
          </div>
       <% end %>
       </div>
-      
-      
+
+
     </div>
