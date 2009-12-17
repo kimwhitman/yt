@@ -5,7 +5,12 @@
   size ||= nil
   width ||= nil
 %>
-<div id="video_banner" onmouseover="$('#featured_video_image_fade').toggle();" onmouseout="$('#featured_video_image_fade').toggle();" style="margin-bottom: 0px; padding-bottom: 0px; overflow:hidden;">
+
+<div id="homepage_intro_promo" style="background: #FFF; height: 526px;">
+  <p>TODO: This is the new section</p>
+</div>
+
+<div id="video_banner" onmouseover="$('#featured_video_image_fade').toggle();" onmouseout="$('#featured_video_image_fade').toggle();" style="margin-bottom: 0px; padding-bottom: 0px; overflow:hidden; display: none;">
     <% if size.nil? %>
       <div id="featured_video_image_fade" style="display:none; overflow: hidden; ">
     <% else %>
@@ -14,35 +19,35 @@
       <!-- BEGIN FEATURED VIDEO FADE -->
       <div id="featured-video-box">
         <% if controls %>
-				
+
         <div id="featured-video-previous">
           <span id='featured-video-previous' onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';"><img src="/images/overlay-previous.png" width="11" height="23" border="0" /></span>
         </div>
-        
+
         <div id="featured-video-next">
           <span id='featured-video-next' onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';"><img src="/images/overlay-next.png" width="11" height="23" border="0" /></span>
         </div>
-        
+
         <% end %>
         <div id="featured-video-content">
           <div id="feature-video-info-free-class" style="<%= free_video_of_week ? '' : 'display: none' %>">
             <img src="/images/overlay-free-class-header.png" width="355" height="39" />
           </div>
-		  <div id="feature-video-info-featured-class" style="<%= (featured_video_of_week && !free_video_of_week) ? '' : 'display: none' %>">
+      <div id="feature-video-info-featured-class" style="<%= (featured_video_of_week && !free_video_of_week) ? '' : 'display: none' %>">
             <img src="/images/overlay-featured-class-header.png" width="355" height="39" />
           </div>
-            
+
           <div id="featured-video-info" onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';" onclick="window.location.href='<%= video_url(video.id) if video %>'">
             <div style="" id='featured-video-info-container'>
               <div id="feature-video-info-class-title">
                 <%= video.title if video %>
               </div>
-            
+
               <div id="feature-video-info-class-text">
                 <span id='featured-video-skill'><%= video.skill_name if video %></span> | <span id='featured-video-yoga-type'> <%= video.style_names.join(', ') if video %></span> | <span id='featured-video-instructor'><%= video.instructor_names.join(', ') if video %></span> | <span id='featured-video-time'><%= video.duration_to_minutes if video %>:<%= video.duration_seconds if video%></span>
               </div>
             </div>
-            
+
             <div id="feature-video-info-play">
               <a href="<%= video_path(video) if video %>" title="video details" id='featured-videos-link'><img src="/images/overlay-round-play-arrow.png" width="39" height="40" border="0" style="margin-top: 5px;" /></a>
             </div>
