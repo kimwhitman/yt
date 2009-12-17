@@ -143,9 +143,33 @@ input.empty {
 
 #container #menu {
   text-align: left;
-  width: 290px;
-  float:left;
-  padding-top: 40px;
+  clear: left;
+  margin: 10px 0;
+  position: relative;
+}
+
+#container #menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#container #menu ul li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+#container #menu ul li.margin_left { margin-left: 5px; }
+
+#container #menu ul li a {
+  border: 0;
+  text-decoration: none;
+  outline: none;
+}
+
+#container #menu ul li a img {
+  border: none;
 }
 
 #container #test {
@@ -156,11 +180,10 @@ input.empty {
 }
 
 #container #menu a {
-  color: #999999;
-  text-decoration: none;
+
 }
 #container  #menu  a:hover {/*UPDATED 2009-03-24*/
-  color: #333333;
+
 }
 
 
@@ -231,24 +254,27 @@ input.empty {
   position: absolute;
   width: 290px;
   z-index: 41;
-  top: 65px;
+  top: 25px;
   left: 0px;
+  border-top: 3px solid #fff;
 }
 
 #community_menu {
   position: absolute;
   width: 290px;
   z-index: 41;
-  top: 65px;
-  left: 0px;
+  top: 25px;
+  left: 86px;
+  border-top: 3px solid #fff;
 }
 
 #learn_more_menu {
   position: absolute;
   width: 290px;
   z-index: 41;
-  top: 65px;
-  left: 0px;
+  top: 25px;
+  left: 187px;
+  border-top: 3px solid #fff;
 }
 
 #main #main_content {
