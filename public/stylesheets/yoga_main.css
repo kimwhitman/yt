@@ -257,17 +257,21 @@ input.empty {
   float: left;
 }
 
-#main_content .YT365 a {
+#main .YT365_promo {
+  position: relative;
+}
+
+#main .YT365_promo a {
   position: absolute;
   left: 15px;
   top: 200px;
 }
 
-#main_content .YT365 a img {
+#main .YT365_promo a img {
   border: none;
 }
 
-#main_content .YT365 a.subscribe_link {
+#main .YT365_promo a.subscribe_link {
   left: 100px;
 }
 
