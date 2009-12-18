@@ -6,21 +6,23 @@
   width ||= nil
 %>
 
-<% unless logged_in? -%>
-<div id="homepage_intro_promo">
-  <%= image_tag 'home_hero_photo.jpg' -%>
-  <div>
-    <%= image_tag 'home_hero_signup.png', :class => 'signup' -%>
-    <%= link_to(image_tag( 'button_homepromo_signup.png'), sign_up_path, {:class => 'signup_link', :title => 'Sign up today'}) -%>
-    <%= image_tag 'home_hero_promo.png', :alt => 'Welcome to Yoga Today' -%>
-    <%= link_to image_tag( 'button_homepromo_learnmore.png'), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
-    <%= link_to image_tag( 'button_homepromo_subscribe.png'), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
-    <%= link_to image_tag( 'home_hero_freeclass.png' ), this_weeks_free_video_videos_path, {:title => "Watch this week's free video"} -%>
-  </div>
-</div>
+<% if controller.action_name == 'home' %>
+  <% unless logged_in? -%>
+    <div id="homepage_intro_promo">
+      <%= image_tag 'home_hero_photo.jpg' -%>
+      <div>
+        <%= image_tag 'home_hero_signup.png', :class => 'signup' -%>
+        <%= link_to(image_tag( 'button_homepromo_signup.png'), sign_up_path, {:class => 'signup_link', :title => 'Sign up today'}) -%>
+        <%= image_tag 'home_hero_promo.png', :alt => 'Welcome to Yoga Today' -%>
+        <%= link_to image_tag( 'button_homepromo_learnmore.png'), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
+        <%= link_to image_tag( 'button_homepromo_subscribe.png'), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
+        <%= link_to image_tag( 'home_hero_freeclass.png' ), this_weeks_free_video_videos_path, {:title => "Watch this week's free video"} -%>
+      </div>
+    </div>
+  <% end -%>
 <% end -%>
 
-<div id="video_banner" onmouseover="$('#featured_video_image_fade').toggle();" onmouseout="$('#featured_video_image_fade').toggle();" style="margin-bottom: 0px; padding-bottom: 0px; overflow:hidden; <%= 'display: none;' unless logged_in? -%>">
+<div id="video_banner" onmouseover="$('#featured_video_image_fade').toggle();" onmouseout="$('#featured_video_image_fade').toggle();" style="margin-bottom: 0px; padding-bottom: 0px; overflow:hidden; <%= 'display: none;' if @home_page and !logged_in? -%>">
     <% if size.nil? %>
       <div id="featured_video_image_fade" style="display:none; overflow: hidden; ">
     <% else %>

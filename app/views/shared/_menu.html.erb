@@ -31,8 +31,11 @@
         :onmouseover => "MM_swapImage('nav_share','','/images/nav_share_on.png',1);" }) -%>
       <script type="text/javascript">a2a_linkname=document.title;a2a_linkurl=location.href;</script><script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
     </li>
-
+    <% if logged_in? -%>
+    <li class="margin_left"><%= link_to(image_tag('nav_logout.png', :alt => 'Logout' ), logout_path, {:title => 'Logout of Yoga Today'}) -%></li>
+    <% else -%>
     <li class="margin_left"><%= link_to(image_tag('nav_login.png', :alt => 'Login' ), login_path, {:id => 'login_h', :title => 'Login to Yoga Today'}) -%></li>
+    <% end -%>
     <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), subscription_users_path, {:title => 'Sign Up'}) -%></li>
     <li><%= link_to(image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%>
     <span class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
