@@ -12,3 +12,4 @@ config/database.yml
 public/system
 vendor/
 mkmf.log
+rerun.txt
