@@ -58,10 +58,12 @@
   <% end %>
 
   <div id="main_content" class="">
-    <div class="home_promo">
+    <div class="home_promo YT365">
       <%= image_tag 'home_promo_365.png' -%>
+      <%= link_to image_tag( 'button_homepromo_learnmore.png'), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
+      <%= link_to image_tag( 'button_homepromo_subscribe.png'), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
     </div>
-    <div class="home_promo">
+    <div class="home_promo get_started">
       <%= image_tag 'home_promo_getstarted_top.png' -%>
       <%= image_tag 'home_promo_getstarted_free.png' -%>
       <%= image_tag 'home_promo_getstarted_download.png' -%>

@@ -107,6 +107,7 @@ input.empty {
   width: 170px;
   float: left;
   padding-right: 4px;
+  top: -10px;
 }
 
 #container #header #special_display {
@@ -221,19 +222,19 @@ input.empty {
 
 #homepage_intro_promo a.signup_link {
   position: absolute;
-  top: 205px;
+  top: 210px;
   left: 30px;
 }
 
 #homepage_intro_promo a.learn_more_link {
   position: absolute;
-  top: 445px;
+  top: 450px;
   left: 30px;
 }
 
 #homepage_intro_promo a.subscribe_link {
   position: absolute;
-  top: 445px;
+  top: 450px;
   left: 115px;
 }
 
@@ -249,10 +250,25 @@ input.empty {
   width: 300px;
   float: left;
   margin-right: 20px;
+  position: relative;
 }
 
 #main_content .home_promo img {
   float: left;
+}
+
+#main_content .YT365 a {
+  position: absolute;
+  left: 15px;
+  top: 200px;
+}
+
+#main_content .YT365 a img {
+  border: none;
+}
+
+#main_content .YT365 a.subscribe_link {
+  left: 100px;
 }
 
 #main_content .community_promo {
