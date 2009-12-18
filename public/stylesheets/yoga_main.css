@@ -99,6 +99,7 @@ input.empty {
   margin-bottom: 0;
   margin-left: auto;
   text-align: right;
+  position: relative;
 }
 #container #header #yoga_logo {
   position: relative;
@@ -109,21 +110,21 @@ input.empty {
 }
 
 #container #header #special_display {
-  float: right;
   height: 20px;
   width: 475px;
   top: 16px;
-  position: relative;
+  position: absolute;
   color: #666666;
+  right: 0;
 }
 
 #container #header #login_display {
-  float: right;
   height: 20px;
   width: 475px;
-  top: 26px;
-  position: relative;
+  top: 36px;
+  position: absolute;
   color: #666666;
+  right: 0;
 }
 #container #header #yoga_slogan {
   width: 200px;
@@ -220,6 +221,27 @@ input.empty {
   color: #000000;
 }
 
+#menu_item img.bullet {
+  position: relative;
+  top: -2px;
+  padding: 0 2px;
+}
+
+.free_class {
+  border-top: 1px solid #c1c1c1;
+  width: 83%;
+  padding: 5px 0;
+  position: relative;
+  left: 17px;
+  padding-left: 0;
+}
+
+.free_class img, .free_class a {
+  vertical-align: middle;
+  position: relative;
+  left: -17px;
+}
+
 .sub_menu_box {
   text-align: left;
   background-color: #e7e7e7;
@@ -256,7 +278,6 @@ input.empty {
   z-index: 41;
   top: 25px;
   left: 0px;
-  border-top: 3px solid #fff;
 }
 
 #community_menu {
@@ -265,7 +286,7 @@ input.empty {
   z-index: 41;
   top: 25px;
   left: 86px;
-  border-top: 3px solid #fff;
+
 }
 
 #learn_more_menu {
@@ -274,7 +295,6 @@ input.empty {
   z-index: 41;
   top: 25px;
   left: 187px;
-  border-top: 3px solid #fff;
 }
 
 #main #main_content {
