@@ -160,6 +160,7 @@ input.empty {
   padding: 0;
   margin: 0;
   float: left;
+  display: relative;
 }
 #container #menu ul li.margin_left { margin-left: 5px; }
 
@@ -171,6 +172,13 @@ input.empty {
 
 #container #menu ul li a img {
   border: none;
+}
+
+#container #menu ul li .cart_count {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-size: 11px;
 }
 
 #container #test {
