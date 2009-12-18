@@ -257,17 +257,21 @@ input.empty {
   float: left;
 }
 
-#main_content .YT365 a {
+#main .YT365_promo {
+  position: relative;
+}
+
+#main .YT365_promo a {
   position: absolute;
   left: 15px;
   top: 200px;
 }
 
-#main_content .YT365 a img {
+#main .YT365_promo a img, #main .promo_yt365_wide a img {
   border: none;
 }
 
-#main_content .YT365 a.subscribe_link {
+#main .YT365_promo a.subscribe_link {
   left: 100px;
 }
 
@@ -278,9 +282,45 @@ input.empty {
   height: 248px;
 } 
 
+#main_content .community_promo ul {
+  list-style: none;
+  font-size: 11px;
+  margin: 10px 15px;
+  padding: 0;
+}
+
+#main_content .community_promo ul li {
+  line-height: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+#main_content .community_promo ul li.title {
+  color: #3A7A15;
+  font-weight: bold;
+}
+
 #main_content .community_promo div {
   border-top: 1px solid #c1c1c1;
   padding: 15px;
+}
+
+#main .promo_yt365_wide {
+  padding-top: 10px;
+  width: 620px;
+  margin: 20px 0;
+  position: relative;
+  clear: left;
+}
+
+#main .promo_yt365_wide a {
+  position: absolute;
+  top: 28px;
+  left: 440px;
+}
+
+#main .promo_yt365_wide a.subscribe_link {
+  left: 525px;
 }
 
 #join_2col {
