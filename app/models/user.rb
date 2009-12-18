@@ -169,6 +169,11 @@ class User < ActiveRecord::Base
     save(false)
   end
 
+
+  def first_name
+    self.name.split.first || ''
+  end
+
   protected
 
   def store_old_email
