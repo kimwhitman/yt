@@ -36,7 +36,7 @@
     <li class="margin_left"><%= link_to(image_tag('nav_login.png', :alt => 'Login' ), login_path, {:id => 'login_h', :title => 'Login to Yoga Today'}) -%></li>
     <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), sign_up_path, {:title => 'Sign Up'}) -%></li>
     <li><%= link_to(image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%>
-    <%= "(#{shopping_cart.size})" -%></li>
+    <span class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
   </ul>
 
 
