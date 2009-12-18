@@ -51,9 +51,7 @@
   <% cache "pages/home/carousel" do %>
     <div>
       <ul id="featured_videos_carousel" class="jcarousel-skin-tango">
-        <%= render :partial => 'videos/temp_featured_videos' -%>
-
-        <% render :partial => 'videos/carousel_item', :collection => @featured_videos %>
+        <%= render :partial => 'videos/carousel_item', :collection => @featured_videos %>
       </ul>
     </div>
     <div><img src="/images/spacer.gif" width="1" height="10" /></div>

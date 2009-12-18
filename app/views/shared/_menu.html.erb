@@ -22,19 +22,18 @@
         -%>
     </li>
 
-    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), '#', {:title => 'Newsletter'}) -%></li>
-    <li><%= link_to(image_tag('nav_freeclass.png', :alt => "This week' free class" ), '#', {:title => "This week's free class"}) -%></li>
+    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), subscription_users_path, {:title => 'Newsletter'}) -%></li>
+    <li><%= link_to(image_tag('nav_freeclass.png', :alt => "This week' free class" ), this_weeks_free_video_videos_path, {:title => "This week's free class"}) -%></li>
     <li>
-      <%= link_to( image_tag('nav_share.png', :alt => 'Share Yoga Today', :name => 'nav_share', :id => 'nav_share', :class => "a2a_dd" ), 'http://www.addtoany.com/share_save', {
+      <%= link_to(image_tag('nav_share.png', :alt => 'Share Yoga Today', :name => 'nav_share', :id => 'nav_share', :class => "a2a_dd" ), 'http://www.addtoany.com/share_save', {
         :title => 'Share Yoga Today',
         :onmouseout => "MM_swapImgRestore();",
-        :onmouseover => "MM_swapImage('nav_share','','/images/nav_share_on.png',1);" } )
-        -%>
+        :onmouseover => "MM_swapImage('nav_share','','/images/nav_share_on.png',1);" }) -%>
       <script type="text/javascript">a2a_linkname=document.title;a2a_linkurl=location.href;</script><script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
     </li>
 
     <li class="margin_left"><%= link_to(image_tag('nav_login.png', :alt => 'Login' ), login_path, {:id => 'login_h', :title => 'Login to Yoga Today'}) -%></li>
-    <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), sign_up_path, {:title => 'Sign Up'}) -%></li>
+    <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), subscription_users_path, {:title => 'Sign Up'}) -%></li>
     <li><%= link_to(image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%>
     <span class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
   </ul>
@@ -101,7 +100,7 @@
       </div>
 
       <div style="cursor: pointer; color: #999999;" id="menu_item" class="free_class" onclick="window.location.href ='<%= videos_url %>';" onmouseover="displayIndexDropDown('classes_menu','block',''); this.style.color='#333333'; document.getElementById('show_all_classes').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('show_all_classes').style.color='#999999';">
-        <%= image_tag 'icon_logo.gif' -%> <%= link_to "This week's free class", '#' %>
+        <%= image_tag 'icon_logo.gif' -%> <%= link_to "This week's free class", this_weeks_free_video_videos_path %>
       </div>
 
       <div class="yoga_menu_bottom_box"><img src="/images/nav-menu-bg-bottom.gif" width="290" height="2" /></div>
