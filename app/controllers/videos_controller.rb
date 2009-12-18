@@ -14,6 +14,17 @@ class VideosController < ApplicationController
     render :partial => 'info', :locals => { :video => Video.find(params[:id])}
   end
 
+
+  def this_weeks_free_video
+    if free_video_of_week.nil? || free_video_of_week.video.nil?
+      flash[:notice] = "We're sorry, it appears that our free video of the week has expired. Please check back soon."
+    else
+      @video = free_video_of_week.video
+      render :action => 'show'
+    end
+  end
+
+
   def show
     @sorting = sorting
     @video = Video.find(params[:id])

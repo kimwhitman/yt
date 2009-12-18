@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
 
     def free_video_of_week
       @free_video_of_week ||= FeaturedVideo.free_videos.first
-
     end
 
     def featured_video_of_week
