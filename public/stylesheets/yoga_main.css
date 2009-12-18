@@ -267,7 +267,7 @@ input.empty {
   top: 200px;
 }
 
-#main .YT365_promo a img {
+#main .YT365_promo a img, #main .promo_yt365_wide a img {
   border: none;
 }
 
@@ -303,6 +303,24 @@ input.empty {
 #main_content .community_promo div {
   border-top: 1px solid #c1c1c1;
   padding: 15px;
+}
+
+#main .promo_yt365_wide {
+  padding-top: 10px;
+  width: 620px;
+  margin: 20px 0;
+  position: relative;
+  clear: left;
+}
+
+#main .promo_yt365_wide a {
+  position: absolute;
+  top: 28px;
+  left: 440px;
+}
+
+#main .promo_yt365_wide a.subscribe_link {
+  left: 525px;
 }
 
 #join_2col {
