@@ -1,37 +1,42 @@
 <div id="menu_content" style="z-index: 102;" onmouseout="displayDropDown('','','classes_menu;community_menu;learn_more_menu');">
   <ul>
     <li>
-      <%= link_to( image_tag('nav_classes.png', :alt => 'Classes', :name => 'nav_classes', :id => 'nav_classes' ), videos_url, { 
-        :onmouseout => "MM_swapImgRestore();", 
-        :onmouseover =>"MM_swapImage('nav_classes','','/images/nav_classes_on.png',1);displayDropDown('classes_menu','block','community_menu;learn_more_menu');" } ) 
+      <%= link_to( image_tag('nav_classes.png', :alt => 'Classes', :name => 'nav_classes', :id => 'nav_classes' ), videos_url, {
+        :title => 'Classes',
+        :onmouseout => "MM_swapImgRestore();",
+        :onmouseover => "MM_swapImage('nav_classes','','/images/nav_classes_on.png',1);displayDropDown('classes_menu','block','community_menu;learn_more_menu');" } )
         -%>
     </li>
     <li class="margin_left">
       <%= link_to( image_tag('nav_community.png', :alt => 'Community', :name => 'nav_community', :id => 'nav_community' ), 'http://blog.yogatoday.com', {
-        :onmouseout => "MM_swapImgRestore();", 
-        :onmouseover =>"MM_swapImage('nav_community','','/images/nav_community_on.png',1);displayDropDown('community_menu','block','classes_menu;learn_more_menu');" } )
+        :title => 'Community',
+        :onmouseout => "MM_swapImgRestore();",
+        :onmouseover => "MM_swapImage('nav_community','','/images/nav_community_on.png',1);displayDropDown('community_menu','block','classes_menu;learn_more_menu');" } )
         -%>
     </li>
     <li class="margin_left">
       <%= link_to( image_tag('nav_learn.png', :alt => 'Learn More', :name => 'nav_learn', :id => 'nav_learn' ), get_started_today_url, {
-        :onmouseout => "MM_swapImgRestore();", 
-        :onmouseover =>"MM_swapImage('nav_learn','','/images/nav_learn_on.png',1);displayDropDown('learn_more_menu','block','classes_menu;community_menu');" } )
+        :title => 'Learn More',
+        :onmouseout => "MM_swapImgRestore();",
+        :onmouseover => "MM_swapImage('nav_learn','','/images/nav_learn_on.png',1);displayDropDown('learn_more_menu','block','classes_menu;community_menu');" } )
         -%>
     </li>
-    
-    <li class="margin_left"><%= link_to image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), '#' -%></li>
-    <li><%= link_to image_tag('nav_freeclass.png', :alt => 'This week free class' ), '#' -%></li>
+
+    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), '#', {:title => 'Newsletter'}) -%></li>
+    <li><%= link_to(image_tag('nav_freeclass.png', :alt => "This week' free class" ), '#', {:title => "This week's free class"}) -%></li>
     <li>
       <%= link_to( image_tag('nav_share.png', :alt => 'Share Yoga Today', :name => 'nav_share', :id => 'nav_share', :class => "a2a_dd" ), 'http://www.addtoany.com/share_save', {
-        :onmouseout => "MM_swapImgRestore();", 
-        :onmouseover =>"MM_swapImage('nav_share','','/images/nav_share_on.png',1);" } )
+        :title => 'Share Yoga Today',
+        :onmouseout => "MM_swapImgRestore();",
+        :onmouseover => "MM_swapImage('nav_share','','/images/nav_share_on.png',1);" } )
         -%>
       <script type="text/javascript">a2a_linkname=document.title;a2a_linkurl=location.href;</script><script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
     </li>
-    
-    <li class="margin_left"><%= link_to image_tag('nav_login.png', :alt => 'Login' ), login_path, :id => 'login_h' -%></li>
-    <li><%= link_to image_tag('nav_signup.png', :alt => 'Sign Up' ), sign_up_path -%></li>
-    <li><%= link_to image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, :id => 'cart_link' -%></li>
+
+    <li class="margin_left"><%= link_to(image_tag('nav_login.png', :alt => 'Login' ), login_path, {:id => 'login_h', :title => 'Login to Yoga Today'}) -%></li>
+    <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), sign_up_path, {:title => 'Sign Up'}) -%></li>
+    <li><%= link_to(image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%>
+    <%= "(#{shopping_cart.size})" -%></li>
   </ul>
 
 
@@ -42,14 +47,14 @@
     });
   </script>
   <div id="show_no_menu" style="">
-    
+
     <!-- Classes SubMenu -->
     <div style="display: none;" id="classes_menu" class="yoga_drop_down_menu" onmouseout="displayDropDown('classes_menu','none','');">
-      
+
       <div style="cursor: pointer; color: #999999;" id="menu_item" onmouseover="displayDropDown('classes_menu','block',''); this.style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999';" onclick="$('#sub_menu_01').toggle('blind');imageChange('/images/nav-plus.gif;/images/nav-minus.gif','menu_image_01');">
         <img id="menu_image_01" src="/images/nav-plus.gif" width="9" height="9"> Skill Level
       </div>
-      
+
       <!-- Classes > Skill Level SubMenu -->
       <div id="sub_menu_01" class="sub_menu_box" style="display: none; z-index: 102;">
       <% SkillLevel.all.each do |skill_level| %>
@@ -65,7 +70,7 @@
       <div style="cursor: pointer; color: #999999;" id="menu_item" onmouseover="displayDropDown('classes_menu','block',''); this.style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999';" onclick="$('#instructor_sub_menu').toggle('blind');imageChange('/images/nav-plus.gif;/images/nav-minus.gif','menu_image_instructors');">
         <img id="menu_image_instructors" src="/images/nav-plus.gif" width="9" height="9"> Instructors
       </div>
-      
+
       <!-- Classes > Instructor SubMenu -->
       <div id="instructor_sub_menu" class="sub_menu_box" style="display: none;">
         <% Instructor.all(:order => "name asc").each do |instructor| %>
@@ -81,7 +86,7 @@
       <div style="cursor: pointer; color: #999999;" id="menu_item" onmouseover="displayDropDown('classes_menu','block',''); this.style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999';" onclick="$('#focus_sub_menu').toggle('blind');imageChange('/images/nav-plus.gif;/images/nav-minus.gif','menu_image_99');">
         <img id="menu_image_99" src="/images/nav-plus.gif" width="9" height="9"> Focus
       </div>
-      
+
       <div id="focus_sub_menu" class="sub_menu_box" style="display: none;">
         <% VideoFocusCategory.find(:all, :order => 'name ASC').each do |vfs| %>
           <div style="cursor: pointer; color: #999999;" id="sub_menu_item" onclick="window.location.href = '<%= search_videos_url(:video_focus => vfs.video_focuses.collect { |vf| vf.id })%>';" onmouseover="displayDropDown('classes_menu','block',''); this.style.backgroundColor='#dcddde';this.style.color='#333333'; document.getElementById('vfs_<%= vfs.id %>').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('vfs_<%= vfs.id %>').style.color='#999999';">
@@ -139,7 +144,7 @@
       </div>
       <div class="yoga_menu_bottom_box"><img src="/images/nav-menu-bg-bottom.gif" width="290" height="2" /></div>
     </div>
-    
+
   </div>
 
 </div>
