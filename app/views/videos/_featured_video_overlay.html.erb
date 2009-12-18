@@ -11,9 +11,9 @@
   <div>
     <%= image_tag 'home_hero_signup.png', :class => 'signup' -%>
     <%= link_to image_tag( 'button_homepromo_signup.png'), sign_up_path, :class => 'signup_link' -%>
-    <%= image_tag 'home_hero_promo.png' -%>
+    <%= image_tag 'home_hero_promo.png', :alt => 'Welcome to Yoga Today' -%>
     <%= link_to image_tag( 'button_homepromo_learnmore.png'), get_started_today_url, :class => 'learn_more_link' -%>
-    <%= link_to image_tag( 'button_homepromo_subscribe.png'), '#', :class => 'subscribe_link' -%>
+    <%= link_to image_tag( 'button_homepromo_subscribe.png'), subscription_users_path, :class => 'subscribe_link' -%>
     <%= link_to image_tag( 'home_hero_freeclass.png' ), this_weeks_free_video_videos_path -%>
   </div>
 </div>

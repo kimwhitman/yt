@@ -22,7 +22,7 @@
         -%>
     </li>
 
-    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), (logged_in? ? profile_user_path(current_user) : sign_up_path), {:title => 'Newsletter'}) -%></li>
+    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), subscription_users_path, {:title => 'Newsletter'}) -%></li>
     <li><%= link_to(image_tag('nav_freeclass.png', :alt => "This week' free class" ), this_weeks_free_video_videos_path, {:title => "This week's free class"}) -%></li>
     <li>
       <%= link_to(image_tag('nav_share.png', :alt => 'Share Yoga Today', :name => 'nav_share', :id => 'nav_share', :class => "a2a_dd" ), 'http://www.addtoany.com/share_save', {
@@ -33,7 +33,7 @@
     </li>
 
     <li class="margin_left"><%= link_to(image_tag('nav_login.png', :alt => 'Login' ), login_path, {:id => 'login_h', :title => 'Login to Yoga Today'}) -%></li>
-    <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), sign_up_path, {:title => 'Sign Up'}) -%></li>
+    <li><%= link_to(image_tag('nav_signup.png', :alt => 'Sign Up' ), subscription_users_path, {:title => 'Sign Up'}) -%></li>
     <li><%= link_to(image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%>
     <span class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
   </ul>

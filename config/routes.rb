@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   map.resources :users,
-    :collection => { :check_email => :post },
+    :collection => { :check_email => :post, :subscription => :get },
     :member => { :profile => :any, :billing => :any,
       :billing_history => :get, :membership_terms => :get, :cancel_membership => :any
     }
