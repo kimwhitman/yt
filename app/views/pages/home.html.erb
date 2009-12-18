@@ -59,20 +59,22 @@
     <div><img src="/images/spacer.gif" width="1" height="10" /></div>
   <% end %>
 
-  <div id="main_content">
-    <div style="float: left;" class="container_8col2">
-    <a href="<%= get_started_today_path  %> "><img height="250" border="0" width="220" src="images/home_box1.png"/></a>
-  </div>
-
-    <div style="float: left;" class="grid_spacer"></div>
-
-    <div style="float: left;" class="container_8col2">
-    <a href="<%= get_started_today_path  %>"><img height="250" border="0" width="220" src="images/home_box2.png"/></a> </div>
-
-    <div style="float: left;" class="grid_spacer"></div>
-  <% subscription_advert_path = !logged_in? ? get_started_today_path : billing_user_path(current_user) %>
-  <div style="float: left;" class="container_8col2">
-      <a href="<%= subscription_advert_path  %>"><img height="250" border="0" width="220" src="images/home_box3.png"/></a>
+  <div id="main_content" class="">
+    <div class="home_promo">
+      <%= image_tag 'home_promo_365.png' -%>
+    </div>
+    <div class="home_promo">
+      <%= image_tag 'home_promo_getstarted_top.png' -%>
+      <%= image_tag 'home_promo_getstarted_free.png' -%>
+      <%= image_tag 'home_promo_getstarted_download.png' -%>
+      <%= image_tag 'home_promo_getstarted_unlimited.png' -%>
+    </div>
+    <div class="home_promo community_promo">
+      Words from the Community
+      image
+      details
+      <div>quote</div>
+    </div>
   </div>
 
   <% unless @user_story.blank? %>

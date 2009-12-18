@@ -240,6 +240,29 @@ input.empty {
 #video_banner   {
 
 }
+
+#main_content .home_promo {
+  width: 300px;
+  float: left;
+  margin-right: 20px;
+}
+
+#main_content .home_promo img {
+  float: left;
+}
+
+#main_content .community_promo {
+  border: 1px solid #c1c1c1;
+  margin-right: 0;
+  width: 298px;
+  height: 248px;
+} 
+
+#main_content .community_promo div {
+  border-top: 1px solid #c1c1c1;
+  padding: 15px;
+}
+
 #join_2col {
   height: 55px;
   width: 270px;
