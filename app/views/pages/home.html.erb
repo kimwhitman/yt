@@ -59,48 +59,32 @@
 
   <div id="main_content" class="">
     <div class="home_promo YT365">
-      <%= image_tag 'home_promo_365.png' -%>
-      <%= link_to image_tag( 'button_homepromo_learnmore.png'), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
-      <%= link_to image_tag( 'button_homepromo_subscribe.png'), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
+      <%= image_tag 'home_promo_365.png', :alt => 'Save 25% with Yoga Today 365' -%>
+      <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
+      <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
     </div>
     <div class="home_promo get_started">
-      <%= image_tag 'home_promo_getstarted_top.png' -%>
-      <%= image_tag 'home_promo_getstarted_free.png' -%>
-      <%= image_tag 'home_promo_getstarted_download.png' -%>
-      <%= image_tag 'home_promo_getstarted_unlimited.png' -%>
+      <%= image_tag 'home_promo_getstarted_top.png', :alt => 'Three easy ways to get started with Yoga Today' -%>
+      <%= image_tag 'home_promo_getstarted_free.png', :alt => 'Free Membership' -%>
+      <%= image_tag 'home_promo_getstarted_download.png', :alt => 'Download Classes' -%>
+      <%= image_tag 'home_promo_getstarted_unlimited.png', :alt => 'Unlimited Membership' -%>
     </div>
     <div class="home_promo community_promo">
-      Words from the Community
-      image
-      details
-      <div>quote</div>
+      <%= image_tag 'home_promo_community.png' -%>
+      <% unless @user_story.image_file_name.blank? %>
+        <%= image_tag(@user_story.image.url, :style => "border:none;max-width:190px;max-height:119px;") if @user_story.image? %>
+      <% end %>
+      <ul class="details">
+        <li class="title"><%= truncate(@user_story.title, 82) %></li>
+        <li>Posted <%= time_ago(@user_story.publish_at, :mf => false) %></li>
+        <li>By <%= @user_story.name.split.first  %>, <%= @user_story.location.gsub(', United States', '')  %></li>
+      </ul>
+      <% if @user_story.image_file_name.blank? %>
+        <div><%= truncate(@user_story.story, 330) %></div>
+      <% else %>
+        <div><%= truncate(@user_story.story, 65) %></div>
+      <% end %>
     </div>
   </div>
 
-  <% unless @user_story.blank? %>
-    <div style="border: 1px solid rgb(218, 218, 215); float: right; overflow:hidden;" class="container_8col2" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= user_stories_path(:anchor => dom_id(@user_story)) %>';">
-      <div style="padding: 15px;">
-        <div class="arial16_green">
-          <%= image_tag "wordsFromTheCommunity.png", :style => "margin-left: -15px; margin-top: -10px;" %>
-        </div>
-        <% unless @user_story.image_file_name.blank? %>
-          <div id="community_image">
-            <%= image_tag(@user_story.image.url, :style => "border:none;max-width:190px;max-height:119px;") if @user_story.image? %>
-          </div>
-      <% end %>
-        <div style="line-height: 14px;margin-top: 4px;">
-            <span class="arial11_lt_green"><%= truncate(@user_story.title, 82) %></span>
-            <br/>
-          <div class="arial11_gray" style="margin-top: 5px;">Posted <%= time_ago(@user_story.publish_at, :mf => false) %></div>
-            <div style="margin-top: 3px;">By <%= @user_story.name.split.first  %>, <%= @user_story.location.gsub(', United States', '')  %></div>
-            <% if @user_story.image_file_name.blank? %>
-              <div style="margin-top: 3px;"><%= truncate(@user_story.story, 330) %></div>
-            <% else %>
-              <div style="margin-top: 3px;"><%= truncate(@user_story.story, 65) %></div>
-            <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  </div>
 </div>

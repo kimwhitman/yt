@@ -278,6 +278,24 @@ input.empty {
   height: 248px;
 } 
 
+#main_content .community_promo ul {
+  list-style: none;
+  font-size: 11px;
+  margin: 10px 15px;
+  padding: 0;
+}
+
+#main_content .community_promo ul li {
+  line-height: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+#main_content .community_promo ul li.title {
+  color: #3A7A15;
+  font-weight: bold;
+}
+
 #main_content .community_promo div {
   border-top: 1px solid #c1c1c1;
   padding: 15px;
