@@ -201,6 +201,10 @@ input.empty {
   text-align: left;
 }
 
+#homepage_intro_promo {
+  height: 530px;
+}
+
 #homepage_intro_promo img {
   float: left;
 }
