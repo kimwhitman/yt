@@ -192,6 +192,43 @@ input.empty {
   margin:0 auto;
   text-align: left;
 }
+
+#homepage_intro_promo img {
+  float: left;
+}
+
+#homepage_intro_promo div {
+  float: left;
+  width: 417px;
+  position: relative;
+}
+
+#homepage_intro_promo div .signup {
+  border-bottom: 1px solid #fff;
+}
+
+#homepage_intro_promo a.signup_link {
+  position: absolute;
+  top: 205px;
+  left: 30px;
+}
+
+#homepage_intro_promo a.learn_more_link {
+  position: absolute;
+  top: 445px;
+  left: 30px;
+}
+
+#homepage_intro_promo a.subscribe_link {
+  position: absolute;
+  top: 445px;
+  left: 115px;
+}
+
+#homepage_intro_promo a img {
+  border: none;
+}
+
 #video_banner   {
 
 }

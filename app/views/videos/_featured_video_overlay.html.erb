@@ -7,7 +7,15 @@
 %>
 
 <div id="homepage_intro_promo" style="background: #FFF; height: 526px;">
-  <p>TODO: This is the new section</p>
+  <%= image_tag 'home_hero_photo.jpg' -%>
+  <div>
+    <%= image_tag 'home_hero_signup.png', :class => 'signup' -%>
+    <%= link_to image_tag( 'button_homepromo_signup.png'), '#', :class => 'signup_link' -%>
+    <%= image_tag 'home_hero_promo.png' -%>
+    <%= link_to image_tag( 'button_homepromo_learnmore.png'), '#', :class => 'learn_more_link' -%>
+    <%= link_to image_tag( 'button_homepromo_subscribe.png'), '#', :class => 'subscribe_link' -%>
+    <%= link_to image_tag( 'home_hero_freeclass.png' ), '#' -%>
+  </div>
 </div>
 
 <div id="video_banner" onmouseover="$('#featured_video_image_fade').toggle();" onmouseout="$('#featured_video_image_fade').toggle();" style="margin-bottom: 0px; padding-bottom: 0px; overflow:hidden; display: none;">
