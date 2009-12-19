@@ -19,6 +19,13 @@ config.action_view.cache_template_loading            = true
 # config.action_mailer.raise_delivery_errors = false
 config.action_mailer.default_url_options = { :host => "yogatoday.com", :only_path => false }
 
-ActionController::Base.asset_host = "http://www.yogatoday.com"
+# temporary fix for mixed content messages
+ActionController::Base.asset_host = Proc.new { |source, request|
+  if request.ssl?
+    "#{request.protocol}#{request.host_with_port}"
+  else
+    "#{request.protocol}www.yogatoday.com"
+  end
+}
 
 Paperclip.options[:command_path] = '/opt/local/bin/'
