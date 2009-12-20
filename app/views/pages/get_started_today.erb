@@ -13,29 +13,62 @@
     </div>
 
 
-    <div id="main_content">
+    <div id="main_content" style="overflow: visible;">
 
       <div id="container_6col" class="get_started_infoboxes" style="float: left;">
         <div class="get_started_free">
           <%= image_tag( 'gettingstarted_free.png', :alt => 'Free Membership' ) -%>
-          <%= link_to_function 'Show Details', "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <ul>
+            <li>Watch our weekly Free Class</li>
+            <li>Discuss, rate, and review classes</li>
+            <li>Receive our E-mail Newsletter</li>
+            <li>Save your lineup in My Yoga Queue</li>
+          </ul>
+          <%= link_to_function image_tag('getstarted_free_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <div>            
+              <p>Every week, Yoga Today delivers a free, one-hour, streaming yoga class. If you're new to Yoga Today, this is a great first-step and an easy way to get started.</p>
+              <p>It takes about 30 seconds to become a Free Member, and all we ask is that you sign up using your email address to create a basic user profile.</p>
+              <p>Because Yoga Today is a community, we ask that you to share your thoughts. Post discussion topics, rate and review classes, and offer suggestions to help others.</p>
+              <p>Listening to your feedback is how we make Yoga Today better for everyone! When you find a class you like, add it to your shopping cart and it's yours to download for only $3.99. Sign Up today!</p>
+            </div>
           </div>
+          <%= link_to image_tag('button_getstarted_free.png', :alt => 'Sign Up'), '#', :class => 'getstarted_button' %>
         </div>
         <div class="get_started_download">
           <%= image_tag( 'gettingstarted_download.png', :alt => 'Free Membership' ) -%>
-          <%= link_to_function 'Show Details', "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <ul>
+            <li>Save full one-hour classes on your computer or mobile device in MP4 format.</li>
+            <li>Free Member rate $3.99</li>
+            <li>Unlimited Member rate $2.99</li>
+          </ul>
+          <%= link_to_function image_tag('getstarted_download_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <div>            
+              <p>In response to your feedback, we've compiled an entire library of outdoor classes and made them available for searching and downloading.</p>
+              <p>Our class search engine delivers results based on your preferences and allows you to narrow your selection by level, instructor, focus, and style.</p>
+              <p>When you find a favorite, add it to your Yoga Queue. As a Free or Unlimited Member your Queue is saved, so you can continually add classes and return to them at any time.</p>
+              <p>If you find a favorite, you can download any class for $3.99 ($2.99 if you’re an Unlimited Member), so you can practice yoga anywhre without the need of an Internet connection.</p>
+            </div>
           </div>
+          <%= link_to image_tag('button_getstarted_download.png', :alt => 'Sign Up'), '#', :class => 'getstarted_button' %>
         </div>
         <div class="get_started_unlimited">
           <%= image_tag( 'gettingstarted_unlimited.png', :alt => 'Free Membership' ) -%>
-          <%= link_to_function 'Show Details', "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <ul>
+            <li>Watch any class any time on our streaming player</li>
+            <li>Totally ad-free</li>
+            <li>Special download rate $2.99</li>
+          </ul>
+          <%= link_to_function image_tag('getstarted_unlimited_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <div>            
+              <p>The Unlimited Membership was designed for those who make yoga practice a part of everyday life. Subscribers enjoy ad-free streaming access to the entire Yoga Today library of over 200 one-hour classes</p>
+              <p>As an Unlimited Member, you can practice with Adi, Neesha, and Sarah, as often as you like using our full-screen, streaming player. For subscribers, the Yoga Queue is especially useful. As you search the library, add classes to your Queue to build your own lineup of one-hour workouts.</p>
+              <p>Subscribe at $9.99/month or save 25% when you opt for a full year of Yoga Today at $89.95. Subscribers enjoy a discounted download rate of only $2.99 per class.</p>
+            </div>        
           </div>
+          <%= link_to image_tag('button_getstarted_unlimited.png', :alt => 'Sign Up'), '#', :class => 'getstarted_button' %>
         </div>
       </div>
 

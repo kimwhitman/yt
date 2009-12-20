@@ -492,6 +492,9 @@ input.empty {
 
 .get_started_infoboxes {
   clear: both;
+  overflow: visible;
+  background: transparent;
+  margin-bottom: 20px;
 }
 
 .get_started_infoboxes div {
@@ -506,18 +509,75 @@ input.empty {
   margin-right: 0;
 }
 
+.get_started_infoboxes div ul {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  margin-left: 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #222;
+  padding-left: 15px;
+}
+
+.get_started_infoboxes div.get_started_unlimited ul {
+  color: #4F8CFF;
+}
+
+.get_started_infoboxes div ul li {
+  line-height: 13px;
+}
+
 .get_started_infoboxes div a {
   display: block;
+  position: absolute;
+  right: 10px;
+  bottom: 64px;
+  z-index: 1200;
+}
+
+.get_started_infoboxes div a.getstarted_button {
+  bottom: 20px;
 }
 
 .get_started_infoboxes div div.popup {
   margin: 0;
   position: absolute;
-  bottom: 70px;
+  bottom: 60px;
   left: 0;
+  z-index: 1000;
+  padding-top: 40px;
+  width: 300px;
+}
+
+.get_started_infoboxes div div.popup div {
   background: #fff;
-  padding: 10px;
-  border: 2px solid red;
+  border: 2px solid #fff;
+  padding: 0 10px 20px 10px;
+  width: 276px;
+}
+
+.get_started_infoboxes div.get_started_free div.popup {
+  background: #fff url('/images/gettingstarted_free_top.png') left top no-repeat;
+}
+.get_started_infoboxes div.get_started_free div.popup div {
+  border-color: #ddd;
+}
+.get_started_infoboxes div.get_started_download div.popup {
+  background: #fff url('/images/gettingstarted_download_top.png') left top no-repeat;
+}
+.get_started_infoboxes div.get_started_download div.popup div {
+  border-color: #469918;
+}
+.get_started_infoboxes div.get_started_unlimited div.popup {
+  background: #fff url('/images/gettingstarted_unlimited_top.png') left top no-repeat;
+}
+.get_started_infoboxes div.get_started_unlimited div.popup div {
+  border-color: #1849AF;
+}
+
+.get_started_infoboxes div a img {
+  border: none;
 }
 
 #get-started-box {
