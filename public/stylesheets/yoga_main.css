@@ -448,8 +448,34 @@ input.empty {
   float: left;
 }
 
-.get-started-item {
-  padding: 15px 0px;
+.get_started_infoboxes {
+  clear: both;
+}
+
+.get_started_infoboxes div {
+  float: left;
+  margin-right: 19px;
+  margin-top: 20px;
+  position: relative;
+  overflow: visible;
+}
+
+.get_started_infoboxes div.get_started_unlimited {
+  margin-right: 0;
+}
+
+.get_started_infoboxes div a {
+  display: block;
+}
+
+.get_started_infoboxes div div.popup {
+  margin: 0;
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  background: #fff;
+  padding: 10px;
+  border: 2px solid red;
 }
 
 #get-started-box {
