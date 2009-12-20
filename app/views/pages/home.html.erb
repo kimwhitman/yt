@@ -63,9 +63,9 @@
     </div>
     <div class="home_promo get_started">
       <%= image_tag 'home_promo_getstarted_top.png', :alt => 'Three easy ways to get started with Yoga Today' -%>
-      <%= image_tag 'home_promo_getstarted_free.png', :alt => 'Free Membership' -%>
-      <%= image_tag 'home_promo_getstarted_download.png', :alt => 'Download Classes' -%>
-      <%= image_tag 'home_promo_getstarted_unlimited.png', :alt => 'Unlimited Membership' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_free.png', :alt => 'Free Membership' ), sign_up_path, :title => 'Sign up today' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_download.png', :alt => 'Download Classes' ), videos_url, :title => 'Download classes' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_unlimited.png', :alt => 'Unlimited Membership' ), subscription_users_path, :title => 'Subscribe to Yoga Today' -%>
     </div>
     <div class="home_promo community_promo">
       <%= image_tag 'home_promo_community.png' -%>

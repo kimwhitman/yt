@@ -100,6 +100,8 @@ input.empty {
   margin-left: auto;
   text-align: right;
   position: relative;
+  z-index: 500;
+  overflow: visible;
 }
 #container #header #yoga_logo {
   position: relative;
@@ -146,8 +148,11 @@ input.empty {
 #container #menu {
   text-align: left;
   clear: left;
-  margin: 10px 0;
+  margin: 0;
   position: relative;
+  float: left;
+  width: 100%;
+  height: 30px;
 }
 
 #container #menu ul {
@@ -262,8 +267,12 @@ input.empty {
   position: relative;
 }
 
-#main_content .home_promo img {
+#main_content .home_promo a {
   float: left;
+}
+
+#main_content .home_promo a img {
+  border: none;
 }
 
 #main .YT365_promo {
@@ -339,20 +348,21 @@ input.empty {
 #main .freeclass_promo dl {
   position: absolute;
   left: 15px;
-  top: 30px;
+  top: 28px;
   color: #fff;
 }
 
 #main .freeclass_promo dl dt {
-  font-size: 18px;
+  font-size: 17px;
   margin-bottom: 5px;
+  margin-right: 7px;
 }
 
 #main .freeclass_promo dl dd {
   float: left;
   margin: 0;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 10px;
   margin-right: 3px;
 }
 
@@ -494,15 +504,18 @@ input.empty {
   clear: both;
   overflow: visible;
   background: transparent;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
 }
 
 .get_started_infoboxes div {
   float: left;
-  margin-right: 19px;
+  margin-right: 20px;
   margin-top: 20px;
   position: relative;
   overflow: visible;
+  width: 300px;
+  height: 200px;
 }
 
 .get_started_infoboxes div.get_started_unlimited {
@@ -511,13 +524,13 @@ input.empty {
 
 .get_started_infoboxes div ul {
   position: absolute;
-  top: 40px;
+  top: 55px;
   left: 10px;
-  margin-left: 0;
+  margin: 0;
   font-size: 11px;
   font-weight: bold;
   color: #222;
-  padding-left: 15px;
+  padding: 0 0 0 15px;
 }
 
 .get_started_infoboxes div.get_started_unlimited ul {
@@ -543,18 +556,20 @@ input.empty {
 .get_started_infoboxes div div.popup {
   margin: 0;
   position: absolute;
-  bottom: 60px;
+  bottom: 63px;
   left: 0;
   z-index: 1000;
   padding-top: 40px;
   width: 300px;
+  height: auto;
 }
 
 .get_started_infoboxes div div.popup div {
   background: #fff;
   border: 2px solid #fff;
-  padding: 0 10px 20px 10px;
+  padding: 0 10px 25px 10px;
   width: 276px;
+  height: auto;
 }
 
 .get_started_infoboxes div.get_started_free div.popup {
