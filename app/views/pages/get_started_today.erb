@@ -26,7 +26,7 @@
           </ul>
           <%= link_to_function image_tag('getstarted_free_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
-            <div>            
+            <div>
               <p>Every week, Yoga Today delivers a free, one-hour, streaming yoga class. If you're new to Yoga Today, this is a great first-step and an easy way to get started.</p>
               <p>It takes about 30 seconds to become a Free Member, and all we ask is that you sign up using your email address to create a basic user profile.</p>
               <p>Because Yoga Today is a community, we ask that you to share your thoughts. Post discussion topics, rate and review classes, and offer suggestions to help others.</p>
@@ -44,7 +44,7 @@
           </ul>
           <%= link_to_function image_tag('getstarted_download_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
-            <div>            
+            <div>
               <p>In response to your feedback, we've compiled an entire library of outdoor classes and made them available for searching and downloading.</p>
               <p>Our class search engine delivers results based on your preferences and allows you to narrow your selection by level, instructor, focus, and style.</p>
               <p>When you find a favorite, add it to your Yoga Queue. As a Free or Unlimited Member your Queue is saved, so you can continually add classes and return to them at any time.</p>
@@ -62,11 +62,11 @@
           </ul>
           <%= link_to_function image_tag('getstarted_unlimited_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
-            <div>            
+            <div>
               <p>The Unlimited Membership was designed for those who make yoga practice a part of everyday life. Subscribers enjoy ad-free streaming access to the entire Yoga Today library of over 200 one-hour classes</p>
               <p>As an Unlimited Member, you can practice with Adi, Neesha, and Sarah, as often as you like using our full-screen, streaming player. For subscribers, the Yoga Queue is especially useful. As you search the library, add classes to your Queue to build your own lineup of one-hour workouts.</p>
               <p>Subscribe at $9.99/month or save 25% when you opt for a full year of Yoga Today at $89.95. Subscribers enjoy a discounted download rate of only $2.99 per class.</p>
-            </div>        
+            </div>
           </div>
           <%= link_to image_tag('button_getstarted_unlimited.png', :alt => 'Sign Up'), '#', :class => 'getstarted_button' %>
         </div>
@@ -79,15 +79,19 @@
 
 
 <script type="text/javascript">
-jQuery.fn.toggleText = function(a, b) {
-  return this.each(function() {
-    jQuery(this).text(jQuery(this).text() == a ? b : a);
-  });
-};
-
-
   function togglePopup(link_element) {
     jQuery(link_element).parent().children('.popup').toggle();
-    jQuery(link_element).toggleText('Show Details', 'Hide Details');
+    var current_image = jQuery(link_element).children()[0];
+    var current_image_path = current_image.src.split('/');
+    var current_image_name = current_image_path[current_image_path.length-1];
+
+    if (current_image_name == 'getstarted_free_showdetails.png') {
+      current_image.src = '/images/getstarted_free_hidedetails.png';
+    } else if (current_image_name == 'getstarted_free_hidedetails.png') {
+      current_image.src = '/images/getstarted_free_showdetails.png';
+    } else {
+      current_image.src = '/images/getstarted_free_hidedetails.png';
+    }
+
   }
 </script>
