@@ -332,6 +332,48 @@ input.empty {
   left: 525px;
 }
 
+#main .freeclass_promo {
+  position: relative;
+}
+
+#main .freeclass_promo dl {
+  position: absolute;
+  left: 15px;
+  top: 30px;
+  color: #fff;
+}
+
+#main .freeclass_promo dl dt {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+#main .freeclass_promo dl dd {
+  float: left;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-right: 3px;
+}
+
+#main .freeclass_promo dl dd:after {
+  content: ' | ';
+}
+
+#main .freeclass_promo dl dd.last:after {
+  content: none;
+}
+
+#main .freeclass_promo a {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+}
+
+#main .freeclass_promo a img {
+  border: none;
+}
+
 #join_2col {
   height: 55px;
   width: 270px;
