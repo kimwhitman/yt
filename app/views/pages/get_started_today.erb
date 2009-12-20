@@ -24,7 +24,7 @@
             <li>Receive our E-mail Newsletter</li>
             <li>Save your lineup in My Yoga Queue</li>
           </ul>
-          <%= link_to_function image_tag('getstarted_free_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <%= link_to_function image_tag('getstarted_free_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this, 'free')", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
             <div>
               <p>Every week, Yoga Today delivers a free, one-hour, streaming yoga class. If you're new to Yoga Today, this is a great first-step and an easy way to get started.</p>
@@ -42,7 +42,7 @@
             <li>Free Member rate $3.99</li>
             <li>Unlimited Member rate $2.99</li>
           </ul>
-          <%= link_to_function image_tag('getstarted_download_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <%= link_to_function image_tag('getstarted_download_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this, 'download')", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
             <div>
               <p>In response to your feedback, we've compiled an entire library of outdoor classes and made them available for searching and downloading.</p>
@@ -60,7 +60,7 @@
             <li>Totally ad-free</li>
             <li>Special download rate $2.99</li>
           </ul>
-          <%= link_to_function image_tag('getstarted_unlimited_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <%= link_to_function image_tag('getstarted_unlimited_showdetails.png', :alt => 'Show Details', :class => 'getstarted_details'), "togglePopup(this, 'unlimited')", {:class => 'toggle_link'} -%>
           <div class="popup" style="display: none;">
             <div>
               <p>The Unlimited Membership was designed for those who make yoga practice a part of everyday life. Subscribers enjoy ad-free streaming access to the entire Yoga Today library of over 200 one-hour classes</p>
@@ -79,18 +79,18 @@
 
 
 <script type="text/javascript">
-  function togglePopup(link_element) {
+  function togglePopup(link_element, option) {
     jQuery(link_element).parent().children('.popup').toggle();
     var current_image = jQuery(link_element).children()[0];
     var current_image_path = current_image.src.split('/');
     var current_image_name = current_image_path[current_image_path.length-1];
 
-    if (current_image_name == 'getstarted_free_showdetails.png') {
-      current_image.src = '/images/getstarted_free_hidedetails.png';
-    } else if (current_image_name == 'getstarted_free_hidedetails.png') {
-      current_image.src = '/images/getstarted_free_showdetails.png';
+    if (current_image_name == 'getstarted_'+ option +'_showdetails.png') {
+      current_image.src = '/images/getstarted_'+ option +'_hidedetails.png';
+    } else if (current_image_name == 'getstarted_'+ option +'_hidedetails.png') {
+      current_image.src = '/images/getstarted_'+ option +'_showdetails.png';
     } else {
-      current_image.src = '/images/getstarted_free_hidedetails.png';
+      current_image.src = '/images/getstarted_'+ option +'_hidedetails.png';
     }
 
   }
