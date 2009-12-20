@@ -1,10 +1,10 @@
   <div id="main">
-  	<div id="container_4col" style="float:left;">
+    <div id="container_4col" style="float:left;">
       <div id="video_banner">
         <object width="622" height="400" id="delve_player827411o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/><param name="wmode" value="opaque"/><param name="allowScriptAccess" value="always"/><param name="allowFullScreen" value="true"/><param name="flashvars" value="playerForm=f2dfe9b43972411ca10826cb5779f82b&amp;channelId=2bc02e0995ee4e6e9fb62512a41af408"/><embed src="http://assets.delvenetworks.com/player/loader.swf" name="delve_player827411e" wmode="opaque" width="622" height="400" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="playerForm=f2dfe9b43972411ca10826cb5779f82b&amp;channelId=2bc02e0995ee4e6e9fb62512a41af408"></embed></object>
       </div>
     </div>
-    
+
     <div id="get-started-box">
       <p id="get-started-title">Get Started Today</p>
       <p>Discover a new way to do yoga.  So much more than a convenient practice, this is a growing community where you can immerse yourself in a lifestyle of health and wellbeing.</p>
@@ -12,34 +12,49 @@
       <p>Interact with our expert instructors expand your practice online and discover the place where yoga lives today and everyday.</p>
     </div>
 
-     
+
     <div id="main_content">
-      
+
       <div id="container_6col" class="get_started_infoboxes" style="float: left;">
         <div class="get_started_free">
           <%= image_tag( 'gettingstarted_free.png', :alt => 'Free Membership' ) -%>
-          <%= link_to 'Show Details', '#' -%>
-          <div class="popup">
+          <%= link_to_function 'Show Details', "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <div class="popup" style="display: none;">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </div>
         </div>
         <div class="get_started_download">
           <%= image_tag( 'gettingstarted_download.png', :alt => 'Free Membership' ) -%>
-          <%= link_to 'Show Details', '#' -%>
-          <div class="popup">
+          <%= link_to_function 'Show Details', "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <div class="popup" style="display: none;">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </div>
         </div>
         <div class="get_started_unlimited">
           <%= image_tag( 'gettingstarted_unlimited.png', :alt => 'Free Membership' ) -%>
-          <%= link_to 'Show Details', '#' -%>
-          <div class="popup">
+          <%= link_to_function 'Show Details', "togglePopup(this)", {:class => 'toggle_link'} -%>
+          <div class="popup" style="display: none;">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </div>
         </div>
       </div>
-       
+
     </div>
-      
+
   </div>
 </div>
+
+
+<script type="text/javascript">
+jQuery.fn.toggleText = function(a, b) {
+  return this.each(function() {
+    jQuery(this).text(jQuery(this).text() == a ? b : a);
+  });
+};
+
+
+  function togglePopup(link_element) {
+    jQuery(link_element).parent().children('.popup').toggle();
+    jQuery(link_element).toggleText('Show Details', 'Hide Details');
+  }
+</script>
