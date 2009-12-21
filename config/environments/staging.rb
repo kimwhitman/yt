@@ -1,5 +1,7 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
+HOST = 'staging.yogatoday.com'
+
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
@@ -17,7 +19,7 @@ config.action_view.cache_template_loading            = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
-config.action_mailer.default_url_options = { :host => "staging.yogatoday.com", :only_path => false }
+config.action_mailer.default_url_options = { :host => HOST, :only_path => false }
 
 # Delve Platform Values
 # ENV['organization_id'] = '59b93524ab7c4d62b53d7553360c2b87'
@@ -28,6 +30,13 @@ config.action_mailer.default_url_options = { :host => "staging.yogatoday.com", :
 config.after_initialize do
   #ActiveMerchant::Billing::Base.gateway_mode = :test
 end
-ActionController::Base.asset_host = "http://staging.yogatoday.com"
+
+ActionController::Base.asset_host = Proc.new { |source, request|
+  if request && request.ssl?
+    "#{request.protocol}#{request.host_with_port}"
+  else
+    "http://#{HOST}"
+  end
+}
 
 Paperclip.options[:command_path] = '/opt/local/bin/'

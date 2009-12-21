@@ -1,6 +1,8 @@
 # Edit at your own peril - it's recommended to regenerate this file
 # in the future when you upgrade to a newer version of Cucumber.
 
+HOST = 'yoga.local'
+
 # IMPORTANT: Setting config.cache_classes to false is known to
 # break Cucumber's use_transactional_fixtures method.
 # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
@@ -27,6 +29,14 @@ config.gem 'webrat',           :lib => false, :version => '>=0.6.0' unless File.
 config.gem 'rspec',            :lib => false, :version => '>=1.2.9' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
 config.gem 'rspec-rails',      :lib => false, :version => '>=1.2.9' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
-ActionController::Base.asset_host = "http://yoga.local"
+# pretend we have an asset host
+ActionController::Base.asset_host = Proc.new { |source, request|
 
-config.action_mailer.default_url_options = { :host => "yoga.local", :only_path => false }
+  if request && request.ssl?
+    "#{request.protocol}#{request.host_with_port}"
+  else
+    "http://#{HOST}"
+  end
+}
+
+config.action_mailer.default_url_options = { :host => HOST, :only_path => false }

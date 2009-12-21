@@ -1,5 +1,7 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
+HOST = 'yogatoday.com'
+
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
@@ -17,14 +19,13 @@ config.action_view.cache_template_loading            = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
-config.action_mailer.default_url_options = { :host => "yogatoday.com", :only_path => false }
+config.action_mailer.default_url_options = { :host => HOST, :only_path => false }
 
-# temporary fix for mixed content messages
 ActionController::Base.asset_host = Proc.new { |source, request|
-  if request.ssl?
+  if request && request.ssl?
     "#{request.protocol}#{request.host_with_port}"
   else
-    "#{request.protocol}www.yogatoday.com"
+    "http://#{HOST}"
   end
 }
 
