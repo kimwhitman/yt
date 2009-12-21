@@ -3,16 +3,8 @@ require 'config/accelerator/accelerator_tasks'
 
 set :application, "yogatoday_staging"
 set :domain, 'staging.yogatoday.com'
-set :scm, :git
 
-set :repository,  "git@github.com:kimwhitman/YogaToday.git"
-
-set :rake, "/opt/local/bin/rake"
 set :deploy_to, "/var/www/apps/#{application}"
-set :user, 'yoga'
-set :password, "y0g4"
-set :runner, 'yoga'
-set :use_sudo, false
 
 role :app, domain
 role :web, domain

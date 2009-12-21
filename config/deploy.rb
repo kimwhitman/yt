@@ -9,6 +9,16 @@
 set :stages, %w(production staging)
 set :default_stage, "staging"
 
+set :rake, "/opt/local/bin/rake"
+set :repository,  "git@github.com:kimwhitman/YogaToday.git"
+set :scm, :git
+set :branch, "master" # or whatever branch/tag/SHA1
+
+set :user, 'yoga'
+set :password, "y0g4"
+set :runner, 'yoga'
+set :use_sudo, false
+
 begin
   require 'capistrano/ext/multistage'
 rescue LoadError => e
