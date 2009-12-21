@@ -70,7 +70,7 @@
     <div class="home_promo community_promo">
       <%= image_tag 'home_promo_community.png' -%>
       <% unless @user_story.image_file_name.blank? %>
-        <%= image_tag(@user_story.image.url, :style => "border:none;max-width:190px;max-height:119px;") if @user_story.image? %>
+        <%= image_tag(@user_story.image.url, :style => "border:none;max-width:135px;max-height:90px;") if @user_story.image? %>
       <% end %>
       <ul class="details">
         <li class="title"><%= truncate(@user_story.title, 82) %></li>
