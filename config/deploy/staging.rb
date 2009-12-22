@@ -28,4 +28,8 @@ deploy.task :stop do
   accelerator.restart_apache
 end
 
+namespace :deploy do
+  %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
+end
+
 after :deploy, 'deploy:cleanup'

@@ -10,7 +10,7 @@ set :stages, %w(production staging)
 set :default_stage, "staging"
 
 set :rake, "/opt/local/bin/rake"
-set :repository,  "git@github.com:kimwhitman/YogaToday.git"
+set :repository, "git@github.com:kimwhitman/YogaToday.git"
 set :scm, :git
 set :branch, "master" # or whatever branch/tag/SHA1
 
@@ -32,6 +32,15 @@ namespace :config do
     ['database.yml', 'mongrel_cluster.yml'].each do |name|
       run "ln -nfs #{shared_path}/#{name} #{release_path}/config/#{name}"
     end
+  end
+end
+
+namespace :mod_rails do
+  desc <<-DESC
+  Restart the application altering tmp/restart.txt for mod_rails.
+  DESC
+  task :restart, :roles => :app do
+    run "touch #{release_path}/tmp/restart.txt"
   end
 end
 
