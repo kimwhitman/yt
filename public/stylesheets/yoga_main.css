@@ -297,7 +297,16 @@ input.empty {
   margin-right: 0;
   width: 298px;
   height: 248px;
+  overflow: hidden;
 } 
+
+#main_content .community_promo .photo {
+  border:none;
+  max-width:135px;
+  max-height:90px;
+  float: left;
+  margin: 0 10px 10px 10px;
+}
 
 #main_content .community_promo ul {
   list-style: none;
@@ -320,6 +329,7 @@ input.empty {
 #main_content .community_promo div {
   border-top: 1px solid #c1c1c1;
   padding: 15px;
+  clear: left;
 }
 
 #main .promo_yt365_wide {
