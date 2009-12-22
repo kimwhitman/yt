@@ -30,6 +30,10 @@
     -webkit-box-shadow: 5px 5px 10px #4e4f4f;
     -moz-box-shadow: 5px 5px 10px #4e4f4f;
     -ms-filter: "progid:DXImageTransform.Microsoft.dropShadow(color=#4e4f4f, offX=5, offY=5, positive=true)";
+
+    background-image: url(/images/yogatoday_watermark.gif);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .jqmWindow a {
