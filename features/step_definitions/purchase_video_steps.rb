@@ -5,6 +5,11 @@ Given /^the following videos:$/ do |videos|
   videos.hashes.each do |hash|
     Video.create!(hash)
   end
+
+  FeaturedVideo.create(:rank => 1,
+    :starts_free_at => Time.now,
+    :ends_free_at => 7.days.since,
+    :video_id => Video.last.id)
 end
 
 Then /^I add "([^\"]*)" to the cart$/ do |video_title|

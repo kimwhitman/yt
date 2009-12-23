@@ -3,6 +3,7 @@ Feature: Purchase Video
   A user
   Should be able to purchase videos for offline viewing
 
+@wip
 Scenario: purchase a single video
   Given the following videos:
     |title|duration|is_public|friendly_name|description|streaming_media_id|
@@ -14,7 +15,6 @@ Scenario: purchase a single video
   Then I should see "Cart (1)"
   And I go to the checkout page
   Then I should see "1 item"
-
   And I fill in "purchase[first_name]" with "Anonymous"
   And I fill in "purchase[last_name]" with "User"
   And I fill in "purchase[email]" with "email@person.com"
@@ -27,6 +27,7 @@ Scenario: purchase a single video
   Then I should see "Thank you for your purchase"
   And a receipt should be emailed to "email@person.com"
 
+@wip
 Scenario: purchase a single video with a bad credit card
   Given the following videos:
     |title|duration|is_public|friendly_name|description|streaming_media_id|
