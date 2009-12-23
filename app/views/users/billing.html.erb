@@ -53,6 +53,12 @@
     <div id="container_4col" style="float:left;">
 
         <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
+          <h3>Free Membership</h3>
+
+          <p style="margin-bottom: 15px">
+            <%= radio_button_tag 'membership', 'free' %>
+            <label for="membership_free">Free (Enjoy Yoga Today's free weekly classes)</label>
+          </p>
 
           <h3>Unlimited Membership Options</h3>
 
@@ -66,14 +72,6 @@
             <label for="membership_12">Yoga Today 365 ($89.95/year) - Saves you 25%</label>
             <br />
           </p>
-
-          <h3>Free Membership</h3>
-
-          <p style="margin-bottom: 15px">
-            <%= radio_button_tag 'membership', 'free' %>
-            <label for="membership_free">Free (Enjoy Yoga Today's free weekly classes)</label>
-          </p>
-
         </div>
 
         <% fields_for :creditcard do |cc| %>

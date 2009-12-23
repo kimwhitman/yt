@@ -2,6 +2,13 @@
       :header_message => "There were problems with your registration."
 %>
 
+<h3>Free Membership</h3>
+
+<p style="margin-bottom: 15px">
+  <%= radio_button_tag 'membership', 'free' %>
+  <label for="membership_free">Free (Sign Up and enjoy Yoga Today's free weekly classes)</label>
+</p>
+
 <h3>Unlimited Membership Options</h3>
 
 <p>All memberships: recurring billing, cancel anytime</p>
@@ -13,13 +20,6 @@
   <%= radio_button_tag 'membership', 'prepaid' %>
   <label for="membership_prepaid">Yoga Today 365 ($89.95/year) - Saves you 25%</label>
   <br />
-</p>
-
-<h3>Free Membership</h3>
-
-<p style="margin-bottom: 15px">
-  <%= radio_button_tag 'membership', 'free' %>
-  <label for="membership_free">Free (Sign Up and enjoy Yoga Today's free weekly classes)</label>
 </p>
 
 <p>
