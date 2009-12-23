@@ -36,11 +36,9 @@
         I'm sorry. We were unable to obtain account authorization.<br>
         Please try again, or enter billing information for a different account.
 
+        <% errors = (@user.errors.full_messages + @creditcard.errors.full_messages).uniq %>
         <ul>
-        <% @user.errors.full_messages.each do |error| %>
-          <li><%= error %></li>
-        <% end %>
-        <% @creditcard.errors.full_messages.each do |error| %>
+        <% errors.each do |error| %>
           <li><%= error %></li>
         <% end %>
         </ul>
