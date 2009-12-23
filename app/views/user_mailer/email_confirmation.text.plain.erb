@@ -5,7 +5,8 @@ To confirm your account, please click on the following url:
   <%= new_user_confirmation_url(
         :user_id => @user,
         :token   => @user.confirmation_token,
-        :encode  => false) %>
+        :encode  => false,
+        :membership => @membership) %>
 
 If you have any questions about or problems with the service,
 please don't hesitate to email <%= AppConfig['from_email'] %>

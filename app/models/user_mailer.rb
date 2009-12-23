@@ -1,10 +1,10 @@
 class UserMailer < ActionMailer::Base
 
-  def email_confirmation(user)
+  def email_confirmation(user, membership)
     subject "Please confirm your email!"
     recipients "#{user.name} <#{user.email}>"
     from "YogaToday <info@yogatoday.com>"
-    body :user => user
+    body :user => user, :membership => membership
 
     set_content_type(user)
   end

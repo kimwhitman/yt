@@ -56,7 +56,7 @@
           <h3>Free Membership</h3>
 
           <p style="margin-bottom: 15px">
-            <%= radio_button_tag 'membership', 'free' %>
+            <%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %>
             <label for="membership_free">Free (Enjoy Yoga Today's free weekly classes)</label>
           </p>
 

@@ -10,6 +10,8 @@ Feature: Sign in
     Then I should see "Bad email or password"
     And I should be signed out
 
+  # still deciding on how to confirm users
+  @wip
   Scenario: User is not confirmed
     Given I signed up with "email@domain.local/password"
     When I go to the sign in page

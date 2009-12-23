@@ -14,7 +14,8 @@
         <%= new_user_confirmation_url(
               :user_id => @user,
               :token   => @user.confirmation_token,
-              :encode  => false) %>
+              :encode  => false,
+              :membership => @membership) %>
 
         <p>If you have any questions about or problems with the service,<br />
         please don't hesitate to email <%= AppConfig['from_email'] %>.</p>

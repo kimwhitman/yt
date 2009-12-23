@@ -22,7 +22,7 @@ class ConfirmationsController < ApplicationController
 
     flash_success_after_create
 
-    redirect_to billing_user_url(current_user)
+    redirect_to billing_user_url(current_user, :membership => params[:membership])
   end
 
   private

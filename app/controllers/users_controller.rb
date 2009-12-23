@@ -16,12 +16,19 @@ class UsersController < ApplicationController
     end
 
     if valid && @user.save
-      UserMailer.deliver_email_confirmation(@user)
 
-      self.current_user = nil
+      if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
+        billing_cycle = params[:membership]
+      else
+        billing_cycle = nil
+      end
+
+      UserMailer.deliver_email_confirmation(@user, billing_cycle)
+
+      self.current_user = @user
 
       respond_to do |format|
-        format.html { render :action => 'welcome' }
+        format.html { redirect_to billing_user_path(@user, :membership => params[:membership]) }
         format.js
       end
 
@@ -78,7 +85,7 @@ class UsersController < ApplicationController
 
     @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
 
-    if !params[:membership].blank?
+    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     elsif @user.has_paying_subscription?
       @billing_cycle = @user.account.subscription.renewal_period.to_s

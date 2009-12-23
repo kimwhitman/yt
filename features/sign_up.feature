@@ -21,13 +21,12 @@ Feature: Sign up
       And I fill in "Your Password" with "password"
       And I fill in "Your Password Again" with "password"
       And I press "Sign Up"
-      Then I should see "Instructions have been emailed to you"
-      And I should be signed out
+      Then I should be signed in
       And a confirmation message should be sent to "email@domain.local"
 
     Scenario: User signs up for a monthly account with valid data
       When I go to the sign up page
-      And I choose "Subscription"
+      And I choose "membership_1"
       And I fill in "Your name" with "test user"
       And I fill in "Your Email" with "email@domain.local"
       And I fill in "Your Email Again" with "email@domain.local"
@@ -38,7 +37,7 @@ Feature: Sign up
 
     Scenario: User signs up for a prepaid account with valid data
       When I go to the sign up page
-      And I choose "Subscription"
+      And I choose "membership_12"
       And I fill in "Your name" with "test user"
       And I fill in "Your Email" with "email@domain.local"
       And I fill in "Your Email Again" with "email@domain.local"
