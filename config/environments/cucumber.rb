@@ -40,3 +40,7 @@ ActionController::Base.asset_host = Proc.new { |source, request|
 }
 
 config.action_mailer.default_url_options = { :host => HOST, :only_path => false }
+
+config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :test
+end

@@ -14,11 +14,12 @@ Scenario: purchase a single video
   Then I should see "Cart (1)"
   And I go to the checkout page
   Then I should see "1 item"
+
   And I fill in "purchase[first_name]" with "Anonymous"
   And I fill in "purchase[last_name]" with "User"
   And I fill in "purchase[email]" with "email@person.com"
-  And I select "A Totally Bogus Card." from "purchase[card_type]"
-  And I fill in "purchase[card_number]" with "4111111111111111"
+  And I select "Bogus" from "purchase[card_type]"
+  And I fill in "purchase[card_number]" with "1"
   And I fill in "purchase[card_verification]" with "112"
   And I select "January" from "purchase[card_expiration(2i)]"
   And I select "2019" from "purchase[card_expiration(1i)]"

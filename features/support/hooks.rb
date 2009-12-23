@@ -1,9 +1,9 @@
 Before do
   # create subscription plans
   plans = [
-    { 'name' => 'Free',    'amount' => 0,  'user_limit' => 2 },
-    { 'name' => 'Basic',   'amount' => 10, 'user_limit' => 5 },
-    { 'name' => 'Premium', 'amount' => 30, 'user_limit' => nil }
+    { :name => 'Free',    :amount => 0,   :renewal_period => 1 },
+    { :name => 'Premium', :amount => 10,  :renewal_period => 1 },
+    { :name => 'Premium', :amount => 100, :renewal_period => 12 }
   ]
   plans.each { |plan| SubscriptionPlan.create(plan) }
 end

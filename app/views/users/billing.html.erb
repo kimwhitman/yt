@@ -13,10 +13,21 @@
 
   <div id="main_content">
     <% if @user.has_paying_subscription? %>
-      <% subscription = @user.account.subscription %>
+      <%
+        subscription = @user.account.subscription
+        plan         = subscription.subscription_plan
+      %>
 
       <h3>You are currently using card <%= subscription.card_number %> (expires on <%= subscription.card_expiration %>).</h3>
       <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %></h3>
+
+      <% if plan.name == 'Premium' && plan.renewal_period == 12 %>
+      <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
+      <% elsif plan.name == 'Premium' && plan.renewal_period == 1 %>
+      <h3>You are signed up for monthly billing</h3>
+      <% else %>
+      <h3>You are signed up for a free account</h3>
+      <% end %>
 
       <p><strong><em>For security purposes, your personal information is not shown here.</em></strong></p>
     <% end %>

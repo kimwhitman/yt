@@ -38,7 +38,7 @@ Feature: Sign up
 
     Scenario: User signs up for a prepaid account with valid data
       When I go to the sign up page
-      And I choose "Prepaid"
+      And I choose "Subscription"
       And I fill in "Your name" with "test user"
       And I fill in "Your Email" with "email@domain.local"
       And I fill in "Your Email Again" with "email@domain.local"
