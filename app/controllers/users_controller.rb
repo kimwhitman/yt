@@ -78,8 +78,8 @@ class UsersController < ApplicationController
 
     @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
 
-    if !params[:billing_cycle].blank?
-      @billing_cycle = params[:billing_cycle]
+    if !params[:membership].blank?
+      @billing_cycle = params[:membership]
     elsif @user.has_paying_subscription?
       @billing_cycle = @user.account.subscription.renewal_period.to_s
     else

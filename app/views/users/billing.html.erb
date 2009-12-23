@@ -23,12 +23,6 @@
 
     <%= render :partial => 'shared/flashes' %>
 
-    <% if flash[:notice ]%>
-      <div class="notice">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-
     <br />
 
     <% if flash[:error_messages] || @user.errors.count > 0 || @creditcard.errors.count > 0 %>
@@ -55,10 +49,10 @@
 
           <p style="margin-bottom: 15px">
             <%= radio_button_tag 'membership', '1', @billing_cycle == '1' %>
-            <label for="membership_monthly">Subscription ($9.99/month)</label>
+            <label for="membership_1">Subscription ($9.99/month)</label>
             <br />
             <%= radio_button_tag 'membership', '12', @billing_cycle == '12' %>
-            <label for="membership_prepaid">Yoga Today 365 ($89.95/year) - Saves you 25%</label>
+            <label for="membership_12">Yoga Today 365 ($89.95/year) - Saves you 25%</label>
             <br />
           </p>
 
@@ -79,11 +73,17 @@
           </div>
           <div class="grid_spacer">&nbsp;</div>
           <div class="form_field_3col" id="card_type_field">
-            <%= cc.select :type, [['American Express', 'american_express'],
+            <%
+            card_types = [['American Express', 'american_express'],
                   ['Discover', 'discover'],
                   ['Mastercard', 'master'],
                   ['Visa', 'visa']]
-            %>
+
+              if Rails.env != 'production'
+                card_types << ['Bogus', 'bogus']
+              end %>
+
+            <%= cc.select :type, card_types %>
             <br>
             <%= image_tag 'credit_cards.png', :size => '111x27' %>
           </div>
