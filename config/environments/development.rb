@@ -23,8 +23,9 @@ config.action_mailer.default_url_options = { :host => HOST, :only_path => false 
 config.action_mailer.delivery_method = :test
 
 config.after_initialize do
-  #ActiveMerchant::Billing::Base.gateway_mode = :test
+  ActiveMerchant::Billing::Base.gateway_mode = :test
 end
+
 # Delve Platform Values
 #ENV['organization_id'] = '59b93524ab7c4d62b53d7553360c2b87'
 #ENV['api_domain'] = 'staging-api.delvenetworks.com/rest'

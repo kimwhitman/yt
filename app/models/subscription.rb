@@ -34,7 +34,11 @@ class Subscription < ActiveRecord::Base
   def store_card(creditcard, gw_options = {})
     # Clear out payment info if switching to CC from PayPal
     destroy_gateway_record(paypal) if paypal?
+
     Rails.logger.info "Attempting to store credit card details for Account ID: #{self.account_id}"
+    Rails.logger.debug gateway.class
+    Rails.logger.debug "Gateway options: #{gateway.options.inspect}"
+
     @response = if billing_id.blank?
       gateway.store(creditcard, gw_options)
     else
@@ -47,7 +51,7 @@ class Subscription < ActiveRecord::Base
     if @response.success?
       Rails.logger.info "Successfully set credit card details for Account ID: #{self.account_id}"
       Rails.logger.info "MESSAGE: #{@response.message}; TOKEN: #{@response.token}"
-      if set_billing
+      if set_billing(creditcard)
         true
       else
         Rails.logger.info "An error occured setting billing: #{errors.full_messages.join(',')}"
@@ -63,6 +67,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
+
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
 
       # dates to be used by SubscriptionPayment
@@ -170,7 +175,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def set_billing
+  def set_billing(cc = nil)
     self.billing_id = @response.token unless @response.token.blank?
 
     if new_record?
@@ -226,11 +231,21 @@ class Subscription < ActiveRecord::Base
 
         logger.debug("Attempting to charge card")
 
-        @response = gateway.purchase(amount_in_pennies, billing_id)
+        # support using BogusGateway when testing (based on config.yml)
+        # transaction_id is calculated differently between gateways, so
+        # this will get us a valid one
+        if gateway.class == ActiveMerchant::Billing::BogusGateway
+          logger.info "Using BogusGateway"
+          @response = gateway.purchase(amount_in_pennies, cc)
+          trans_id = @response.success? ? 1 : 'err'
+        else
+          @response = gateway.purchase(amount_in_pennies, billing_id)
+          trans_id = @response.authorization
+        end
 
         logger.debug("Response is #{@response}")
 
-        if amount == 0 || gateway.options[:test] == 'true' || @response.success?
+        if amount == 0 || @response.success? || gateway.options[:test] == 'true'
           self.state = 'active'
 
           # dates to be used by SubscriptionPayment
@@ -243,11 +258,11 @@ class Subscription < ActiveRecord::Base
           self.save!
 
           subscription_payments.create(:account => account, :amount => amount,
-            :transaction_id => @response.authorization,
+            :transaction_id => trans_id,
             :start_date => start_date,
             :end_date => end_date)
 
-          billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100))
+          billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
         else
           restore_saved_plan
           errors.add_to_base(@response.message)
@@ -256,6 +271,7 @@ class Subscription < ActiveRecord::Base
       else
         self.state = 'active'
       end
+
       self.save!
     end
 
@@ -280,7 +296,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def cc
-    @cc ||= ActiveMerchant::Billing::Base.gateway(AppConfig['gateway']).new(config_from_file('gateway.yml'))
+    @cc ||= ActiveMerchant::Billing::Base.gateway(AppConfig[RAILS_ENV]['gateway']).new(config_from_file('gateway.yml'))
   end
 
   def card_storage

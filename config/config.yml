@@ -9,4 +9,14 @@ base_domain: example.com
 require_payment_info_for_trials: false
 
 # Credit card gateway: One of brain_tree, authorize_net_cim, payment_express, or trust_commerce
-gateway: authorize_net_cim
+
+development:
+  gateway: bogus
+test:
+  gateway: bogus
+cucumber:
+  gateway: bogus
+staging:
+  gateway: bogus
+production:
+  gateway: authorize_net_cim

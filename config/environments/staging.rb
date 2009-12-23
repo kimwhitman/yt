@@ -28,7 +28,7 @@ config.action_mailer.default_url_options = { :host => HOST, :only_path => false 
 # DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
 
 config.after_initialize do
-  #ActiveMerchant::Billing::Base.gateway_mode = :test
+  ActiveMerchant::Billing::Base.gateway_mode = :test
 end
 
 ActionController::Base.asset_host = Proc.new { |source, request|
