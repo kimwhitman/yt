@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
         end
       end
     else
-      if @user.email_confirmed?
+      # if @user.email_confirmed?
         self.current_user = @user
 
         if params[:remember_me] == "1"
@@ -35,13 +35,13 @@ class SessionsController < ApplicationController
           format.html { flash_success_after_create; redirect_back_or_default(root_url) }
           format.js   { render :text => "Authorized", :status => :ok }
         end
-      else
-
-        respond_to do |format|
-          format.html { flash_notice_after_create; redirect_to(new_session_url) }
-          format.js   { render :text => "Please confirm your email addres", :status => :unauthorized }
-        end
-      end
+      # else
+      #
+      #   respond_to do |format|
+      #     format.html { flash_notice_after_create; redirect_to(new_session_url) }
+      #     format.js   { render :text => "Please confirm your email addres", :status => :unauthorized }
+      #   end
+      # end
     end
 
   end
