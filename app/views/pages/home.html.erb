@@ -1,0 +1,99 @@
+<% title 'Yoga Delivered Daily' %>
+<% can_has_js 'jquery.jcarousel.pack', 'jquery.timeago', 'home' %>
+<% can_has_css 'jquery.jcarousel', 'yoga_carousel_skin' %>
+<% can_has_js :time_ago_again do %>
+  $(document).ready(function() { $('.timeago').timeago(); });
+<% end %>
+<% can_has_js :jcarousel do %>
+
+  function toggle_homepage_promo() {
+    jQuery('#homepage_intro_promo').hide();
+    jQuery('#video_banner').show();
+  }
+
+  var jCarousel =
+  $(window).ready(function() {
+    jQuery('#featured_videos_carousel').jcarousel({
+      scroll: 1,
+      wrap: 'both',
+      initCallback: function(carousel) {
+        jCarousel = carousel;
+        $('#featured-video-previous').click(function() { prev_featured_video(carousel); });
+        $('#featured-video-next').click(function() { next_featured_video(carousel); });
+      }
+    });
+    // Select 1st free featured video... or just the first featured video.
+    free_elements = $("#featured_videos_carousel .slider_item_box[free='true']")
+    first = null;
+    if (free_elements.length >= 1)
+      first = free_elements[(free_elements.length / 2 - 1)];
+    else {
+      non_free_elements = $("#featured_videos_carousel .slider_item_box")
+      first = non_free_elements[(non_free_elements.length / 2)];
+    }
+    sliderSelect(first);
+    if (first) {
+      var index = parseInt($(first).parent().attr('jcarouselindex'));
+      jCarousel.scroll(index);
+      featured_video_details(index);
+    }
+  });
+<% end %>
+<script type='text/javascript'>
+  var video_details = <%= @featured_videos_data.to_json %>;
+</script>
+<div id="main">
+
+  <%= render :partial => 'shared/flashes' %>
+
+  <%= render :partial => 'videos/featured_video_overlay', :locals => { :size => '940x526' } %>
+
+  <% cache "pages/home/carousel" do %>
+    <div>
+      <ul id="featured_videos_carousel" class="jcarousel-skin-tango">
+        <%= render :partial => 'videos/carousel_item', :collection => @featured_videos %>
+      </ul>
+    </div>
+    <div><img src="/images/spacer.gif" width="1" height="10" /></div>
+  <% end %>
+
+  <div id="main_content" class="">
+    <div class="home_promo YT365_promo">
+      <%= render :partial => 'shared/promo_yt365' %>
+    </div>
+    <div class="home_promo get_started">
+      <%= image_tag 'home_promo_getstarted_top.png', :alt => 'Three easy ways to get started with Yoga Today' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_free.png', :alt => 'Free Membership' ), sign_up_path, :title => 'Sign up today' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_download.png', :alt => 'Download Classes' ), videos_url, :title => 'Download classes' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_unlimited.png', :alt => 'Unlimited Membership' ), subscription_users_path, :title => 'Subscribe to Yoga Today' -%>
+    </div>
+    <div class="home_promo community_promo">
+      <%= image_tag 'home_promo_community.png' -%>
+      <% unless @user_story.image_file_name.blank? %>
+        <%= image_tag(@user_story.image.url, :class => "photo") if @user_story.image? %>
+      <% end %>
+      <ul class="details">
+        <li class="title"><%= truncate(@user_story.title, 82) %></li>
+        <li>Posted <%= time_ago(@user_story.publish_at, :mf => false) %></li>
+        <li>By <%= @user_story.name.split.first  %>, <%= @user_story.location.gsub(', United States', '')  %></li>
+      </ul>
+      <% if @user_story.image_file_name.blank? %>
+        <div><%= truncate(@user_story.story, 330) %></div>
+      <% else %>
+        <div><%= truncate(@user_story.story, 65) %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @featured_videos %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url}'" } * ',' %>];
+  for(i = 0; i < imgUrls.length; i++) {
+    var img = new Image();
+    img.src = imgUrls[i];
+  }
+});
+</script>
+<% end %>
