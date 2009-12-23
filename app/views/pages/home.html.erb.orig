@@ -84,6 +84,7 @@
       <% end %>
     </div>
   </div>
+<<<<<<< HEAD
 </div>
 
 <% if @featured_videos %>
@@ -97,3 +98,7 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
+=======
+
+</div>
+>>>>>>> remotes/origin/ITER-001-YT365

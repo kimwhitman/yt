@@ -1,29 +1,11 @@
 <%= render :partial => 'shared/authentication_modals' unless ['users','sessions'].include? controller.controller_name %>
 
 <div id="header_information">
-  <% unless logged_in? %>
-    <%= link_to 'Login', login_path, :id => 'login_h' %>
-    <%= link_to 'Sign Up', sign_up_path %>
-    <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' if user_playlist.size > 0 %>
-    <% if shopping_cart.size > 0 %>
-      <%= link_to "Cart (#{shopping_cart.size})", cart_path, :id => 'cart_link' %>
-    <% else %>
-      <span id="not_cart_link" style="margin-left: 1em">Cart</span>
-    <% end %>
-  <% else %>
-    Welcome, <%= current_user.name.split.first %>
-    <%= link_to 'My Profile', profile_user_path(current_user) %>
-    <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' if user_playlist.size > 0 %>
-    <% if shopping_cart.size > 0 %>
-      <%= link_to "Cart (#{shopping_cart.size})", cart_path, :id => 'cart_link' %>
-    <% else %>
-      <span id="not_cart_link" style="margin-left: 1em">Cart</span>
-    <% end %>
-    <% unless current_user.has_paying_subscription? %>
-      <%= link_to 'Subscribe', billing_user_path(current_user) %>
-    <% end %>
-    <%= link_to 'Logout', sign_out_path %>
-  <% end %>
+  <% if logged_in? -%>
+     <span>Welcome, <%= current_user.first_name -%></span>
+     <%= link_to 'My Profile', profile_user_path(current_user) %>
+     <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %>
+  <% end -%>
 </div>
 
 <%= javascript_include_tag 'modals/authentication' unless ['users','sessions'].include? controller.controller_name %>

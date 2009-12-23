@@ -99,6 +99,8 @@ input.empty {
   margin-bottom: 0;
   margin-left: auto;
   text-align: right;
+  position: relative;
+  overflow: visible;
 }
 #container #header #yoga_logo {
   position: relative;
@@ -106,24 +108,25 @@ input.empty {
   width: 170px;
   float: left;
   padding-right: 4px;
+  top: -10px;
 }
 
 #container #header #special_display {
-  float: right;
   height: 20px;
   width: 475px;
   top: 16px;
-  position: relative;
+  position: absolute;
   color: #666666;
+  right: 0;
 }
 
 #container #header #login_display {
-  float: right;
   height: 20px;
   width: 475px;
-  top: 26px;
-  position: relative;
+  top: 36px;
+  position: absolute;
   color: #666666;
+  right: 0;
 }
 #container #header #yoga_slogan {
   width: 200px;
@@ -143,9 +146,53 @@ input.empty {
 
 #container #menu {
   text-align: left;
-  width: 290px;
-  float:left;
-  padding-top: 40px;
+  clear: left;
+  margin: 0;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 30px;
+}
+
+#container #menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#container #menu ul li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+  display: relative;
+}
+#container #menu ul li.margin_left { margin-left: 5px; }
+
+#container #menu ul li a {
+  border: 0;
+  text-decoration: none;
+  outline: none;
+}
+
+#container #menu ul li a img {
+  border: none;
+}
+
+#container #menu ul li .cart_count {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-size: 11px;
+}
+
+#container #menu ul li.cart_logged_in .cart_count {
+  right: 130px;
+  font-size: 11px;
+}
+
+#container #header_information span {
+  color: #3A7A15;
 }
 
 #container #test {
@@ -156,11 +203,10 @@ input.empty {
 }
 
 #container #menu a {
-  color: #999999;
-  text-decoration: none;
+
 }
 #container  #menu  a:hover {/*UPDATED 2009-03-24*/
-  color: #333333;
+
 }
 
 
@@ -168,9 +214,185 @@ input.empty {
   margin:0 auto;
   text-align: left;
 }
+
+#homepage_intro_promo {
+  height: 530px;
+}
+
+#homepage_intro_promo img {
+  float: left;
+}
+
+#homepage_intro_promo div {
+  float: left;
+  width: 417px;
+  position: relative;
+}
+
+#homepage_intro_promo div .signup {
+  border-bottom: 1px solid #fff;
+}
+
+#homepage_intro_promo a.signup_link {
+  position: absolute;
+  top: 210px;
+  left: 30px;
+}
+
+#homepage_intro_promo a.learn_more_link {
+  position: absolute;
+  top: 450px;
+  left: 30px;
+}
+
+#homepage_intro_promo a.subscribe_link {
+  position: absolute;
+  top: 450px;
+  left: 115px;
+}
+
+#homepage_intro_promo a img {
+  border: none;
+}
+
 #video_banner   {
 
 }
+
+#main_content .home_promo {
+  width: 300px;
+  float: left;
+  margin-right: 20px;
+  position: relative;
+}
+
+#main_content .home_promo a {
+  float: left;
+}
+
+#main_content .home_promo a img {
+  border: none;
+}
+
+#main .YT365_promo {
+  position: relative;
+}
+
+#main .YT365_promo a {
+  position: absolute;
+  left: 15px;
+  top: 200px;
+}
+
+#main .YT365_promo a img, #main .promo_yt365_wide a img {
+  border: none;
+}
+
+#main .YT365_promo a.subscribe_link {
+  left: 100px;
+}
+
+#main_content .community_promo {
+  border: 1px solid #c1c1c1;
+  margin-right: 0;
+  width: 298px;
+  height: 248px;
+  overflow: hidden;
+} 
+
+#main_content .community_promo .photo {
+  border:none;
+  max-width:135px;
+  max-height:90px;
+  float: left;
+  margin: 0 10px 10px 10px;
+}
+
+#main_content .community_promo ul {
+  list-style: none;
+  font-size: 11px;
+  margin: 10px 15px;
+  padding: 0;
+}
+
+#main_content .community_promo ul li {
+  line-height: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+#main_content .community_promo ul li.title {
+  color: #3A7A15;
+  font-weight: bold;
+}
+
+#main_content .community_promo div {
+  border-top: 1px solid #c1c1c1;
+  padding: 15px;
+  clear: left;
+}
+
+#main .promo_yt365_wide {
+  padding-top: 10px;
+  width: 620px;
+  margin: 20px 0;
+  position: relative;
+  clear: left;
+}
+
+#main .promo_yt365_wide a {
+  position: absolute;
+  top: 28px;
+  left: 440px;
+}
+
+#main .promo_yt365_wide a.subscribe_link {
+  left: 525px;
+}
+
+#main .freeclass_promo {
+  position: relative;
+}
+
+#main .freeclass_promo dl {
+  position: absolute;
+  left: 15px;
+  top: 28px;
+  color: #fff;
+}
+
+#main .freeclass_promo dl dt {
+  font-size: 17px;
+  margin-bottom: 5px;
+  margin-right: 7px;
+}
+
+#main .freeclass_promo dl dd {
+  float: left;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-right: 3px;
+}
+
+#main .freeclass_promo dl dd:after {
+  content: ' | ';
+}
+
+#main .freeclass_promo dl dd.last:after {
+  content: none;
+}
+
+#main .freeclass_promo a {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+}
+
+#main .freeclass_promo a img {
+  border: none;
+}
+
 #join_2col {
   height: 55px;
   width: 270px;
@@ -195,6 +417,27 @@ input.empty {
   line-height: 22px;
   font-weight: bold;
   color: #000000;
+}
+
+#menu_item img.bullet {
+  position: relative;
+  top: -2px;
+  padding: 0 2px;
+}
+
+.free_class {
+  border-top: 1px solid #c1c1c1;
+  width: 83%;
+  padding: 5px 0;
+  position: relative;
+  left: 17px;
+  padding-left: 0;
+}
+
+.free_class img, .free_class a {
+  vertical-align: middle;
+  position: relative;
+  left: -17px;
 }
 
 .sub_menu_box {
@@ -231,7 +474,7 @@ input.empty {
   position: absolute;
   width: 290px;
   z-index: 41;
-  top: 65px;
+  top: 25px;
   left: 0px;
 }
 
@@ -239,16 +482,17 @@ input.empty {
   position: absolute;
   width: 290px;
   z-index: 41;
-  top: 65px;
-  left: 0px;
+  top: 25px;
+  left: 86px;
+
 }
 
 #learn_more_menu {
   position: absolute;
   width: 290px;
   z-index: 41;
-  top: 65px;
-  left: 0px;
+  top: 25px;
+  left: 187px;
 }
 
 #main #main_content {
@@ -265,8 +509,99 @@ input.empty {
   float: left;
 }
 
-.get-started-item {
-  padding: 15px 0px;
+.get_started_infoboxes {
+  clear: both;
+  overflow: visible;
+  background: transparent;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.get_started_infoboxes div {
+  float: left;
+  margin-right: 20px;
+  margin-top: 20px;
+  position: relative;
+  overflow: visible;
+  width: 300px;
+  height: 200px;
+}
+
+.get_started_infoboxes div.get_started_unlimited {
+  margin-right: 0;
+}
+
+.get_started_infoboxes div ul {
+  position: absolute;
+  top: 55px;
+  left: 10px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #222;
+  padding: 0 0 0 15px;
+}
+
+.get_started_infoboxes div.get_started_unlimited ul {
+  color: #4F8CFF;
+}
+
+.get_started_infoboxes div ul li {
+  line-height: 13px;
+}
+
+.get_started_infoboxes div a {
+  display: block;
+  position: absolute;
+  right: 10px;
+  bottom: 64px;
+  z-index: 1200;
+}
+
+.get_started_infoboxes div a.getstarted_button {
+  bottom: 20px;
+}
+
+.get_started_infoboxes div div.popup {
+  margin: 0;
+  position: absolute;
+  bottom: 63px;
+  left: 0;
+  z-index: 1000;
+  padding-top: 40px;
+  width: 300px;
+  height: auto;
+}
+
+.get_started_infoboxes div div.popup div {
+  background: #fff;
+  border: 2px solid #fff;
+  padding: 0 10px 25px 10px;
+  width: 276px;
+  height: auto;
+}
+
+.get_started_infoboxes div.get_started_free div.popup {
+  background: #fff url('/images/gettingstarted_free_top.png') left top no-repeat;
+}
+.get_started_infoboxes div.get_started_free div.popup div {
+  border-color: #ddd;
+}
+.get_started_infoboxes div.get_started_download div.popup {
+  background: #fff url('/images/gettingstarted_download_top.png') left top no-repeat;
+}
+.get_started_infoboxes div.get_started_download div.popup div {
+  border-color: #469918;
+}
+.get_started_infoboxes div.get_started_unlimited div.popup {
+  background: #fff url('/images/gettingstarted_unlimited_top.png') left top no-repeat;
+}
+.get_started_infoboxes div.get_started_unlimited div.popup div {
+  border-color: #1849AF;
+}
+
+.get_started_infoboxes div a img {
+  border: none;
 }
 
 #get-started-box {

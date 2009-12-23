@@ -31,9 +31,6 @@
     </div>
     <div id="container">
       <div id="header">
-        <div id="special_message">
-        </div>
-
         <div id="yoga_logo">
           <a title="Yoga Today - Yoga videos delivered daily" href="<%= root_url  %> ">
             <img height="70" border="0" width="170" src="/images/yogatoday-logo.gif"/>
@@ -41,9 +38,6 @@
         </div>
         <div id="menu">
           <%= render :partial => 'shared/menu' %>
-        </div>
-        <div id="special_display">
-          <%= link_to_remote "<span style=\"font-weight: bold; color: #3a7a15;\">Special Message</span>", :update => 'special_message', :url => {:controller => 'users', :action => 'special_message'}, :class => 'bigger_button' %>
         </div>
         <div id="login_display">
           <%= render :partial => 'shared/header_link_nav' %>
@@ -148,17 +142,7 @@
     <% end %>
 
     <!-- The following TODO was added by the designer. I don't know what it fixes. -->
-    <script language="javascript">
-      //jQuery-ify original code in case we need more menu buttons... or something.
-      setInterval(setLeftCSSForMenu, 500);
-      $(window).load(function() {
-        setLeftCSSForMenu();
-      });
-      function setLeftCSSForMenu () {
-        var pos = ($('#classes_button').position().left - 1) + 'px';
-        $('.yoga_drop_down_menu').css('left', pos);
-      }
-    </script>
+
     <% if Rails.env == 'production' %>
       <script type="text/javascript">
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :  "http://www.");

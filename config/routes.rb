@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   map.resources :users,
-    :collection => { :check_email => :post },
+    :collection => { :check_email => :post, :subscription => :get },
     :member => { :profile => :any, :billing => :any,
       :billing_history => :get, :membership_terms => :get, :cancel_membership => :any
     }
@@ -27,10 +27,11 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resource :session
-  map.resources :videos, :collection => { :search => :any }, :member => { :leave_suggestion => :post } do |videos|
+  map.resources :videos, :collection => { :search => :any, :this_weeks_free_video => :get }, :member => { :leave_suggestion => :post } do |videos|
     videos.resources :comments
     videos.resources :reviews
   end
+
   map.resources :user_stories
   map.forgot_password '/forgot-password', :controller => 'sessions', :action => 'forgot'
   map.reset_password '/reset-password/:token', :controller => 'sessions', :action => 'reset'

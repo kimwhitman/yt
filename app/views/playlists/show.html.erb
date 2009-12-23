@@ -1,4 +1,4 @@
-<div id="main">  
+<div id="main">
     <div id="page_container">
       <div id="page_information">
         <%= breadcrumb("My Yoga Queue") %>
@@ -9,8 +9,11 @@
         <div id="Subscribe">Subscribe for only $9.99 per month. Learn more</div>
       </div>-->
     </div>
-         
+
     <div id="main_content">
-      <%= render :partial => 'video', :collection => user_playlist.videos %>      
+      <%= render :partial => 'video', :collection => user_playlist.videos %>
+      <% if user_playlist.size == 0 -%>
+      <p>Your Yoga Queue is currently empty. We encourage you to review all of <%= link_to('our videos', videos_path) -%> and add them to your queue.</p>
+      <% end -%>
     </div>
   </div>

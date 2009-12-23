@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
 
   before_filter :login_required,
-    :except => [:create, :new, :special_message, :no_special_message, :check_email]
+    :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription]
 
   def create
     @user = User.new params[:user]
@@ -173,6 +173,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render :json => available }
     end
+  end
+
+  def subscription
+    redirect_to(logged_in? ? profile_user_path(current_user) : sign_up_path)
   end
 
   protected

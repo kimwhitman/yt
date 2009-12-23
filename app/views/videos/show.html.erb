@@ -146,6 +146,11 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
         </div>
       <% end %>
     </div>
+    <div class="promo_yt365_wide">
+      <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
+      <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
+      <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
+    </div>
   </div>
   <div style="float: right;" id="container_2col">
     <div class="grid_line"><img height="1" width="1" src="/images/spacer.gif"/></div>

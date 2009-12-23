@@ -2,7 +2,7 @@
 <li>
   <div class="slider_item_box"
     onmouseover="this.style.cursor='Pointer';"
-    onclick="sliderSelect(this); featured_video_details($(this).parent().attr('jcarouselindex'));"
+    onclick="toggle_homepage_promo(); sliderSelect(this); featured_video_details($(this).parent().attr('jcarouselindex'));"
     large_thumbnail="<%= carousel_item.thumbnail %>"
     free='<%= carousel_item.free? %>'>
     <% if carousel_item.free? %>
