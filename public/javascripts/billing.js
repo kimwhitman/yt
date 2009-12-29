@@ -1,14 +1,36 @@
 var billing = {
   setup: function(){
     $('#billing_form').validate({
+
       rules: {
         'creditcard[number]': {
-          required: true,
+          required:
+            function() {
+              return !$("#membership_free").is(':checked');
+            },
           creditcard: true
         },
-        'creditcard[verification_value]': 'required',
-        'creditcard[first_name]': 'required',
-        'creditcard[last_name]': 'required',
+
+        'creditcard[verification_value]': {
+          required:
+            function() {
+              return !$("#membership_free").is(':checked');
+            }
+        },
+
+        'creditcard[first_name]': {
+          required:
+            function() {
+              return !$("#membership_free").is(':checked');
+            }
+        },
+
+        'creditcard[last_name]': {
+          required:
+            function() {
+              return !$("#membership_free").is(':checked');
+            }
+        },
         'agree_to_terms': 'required'
       },
       messages: {

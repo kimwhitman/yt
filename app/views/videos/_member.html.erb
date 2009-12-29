@@ -60,9 +60,11 @@
   </div>
   <br />
   <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <% if free_video_of_week %>
   <div>
     <%= link_to "<span>Try this week's free class</span>", "#{video_url(free_video_of_week.video)}", :class => 'arial13_gray', :style => 'float:right' %>
   </div>
+  <% end %>
   <br />
   <div><img height="20" width="1" src="/images/spacer.gif"/></div>
 <% else %>
@@ -94,9 +96,11 @@
   </div>
   <br />
   <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+  <% if free_video_of_week %>
   <div>
     <%= link_to "<span>Try this week's free class</span>", "#{video_url(free_video_of_week.video)}", :class => 'arial13_gray', :style => 'float:right' %>
   </div>
+  <% end %>
   <br />
   <div><img height="20" width="1" src="/images/spacer.gif"/></div>
 <% end %>

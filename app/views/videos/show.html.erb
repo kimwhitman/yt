@@ -1,6 +1,6 @@
 <%
 title @video.title
-can_has_js 'registration', 'jquery.timeago', 
+can_has_js 'registration', 'jquery.timeago',
   'jquery.rating', 'jquery.metadata', 'jquery.validate', 'jquery.form',
   'login', 'jquery.scrollTo'
 can_has_css 'jquery.rating'
@@ -544,7 +544,9 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
 
       <div class="ext_ads" <%= "style='margin-top: -13px;'" if push_up %>>
         <script type="text/javascript">
+        if(typeof GA_googleFillSlot != 'undefined') {
           GA_googleFillSlot("YogaToday_VideoDetails_Bottom_300x250");
+        }
         </script>
       </div>
 

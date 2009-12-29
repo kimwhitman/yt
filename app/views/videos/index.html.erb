@@ -97,9 +97,10 @@
     <!--</div>-->
       <div class="ext_ads">
         <script type="text/javascript">
-    GA_googleFillSlot("YogaToday_SearchResults_Bottom_300x250");
-    </script>
-
+        if(typeof GA_googleFillSlot != 'undefined') {
+          GA_googleFillSlot("YogaToday_SearchResults_Bottom_300x250");
+        }
+        </script>
       </div>
     </div>
   </div>

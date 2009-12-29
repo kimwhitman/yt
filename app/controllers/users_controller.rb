@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
 
   before_filter :login_required,
-    :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription]
+    :except => [:create, :new, :special_message, :no_special_message, :check_email]
 
   def create
     @user = User.new params[:user]
@@ -28,7 +28,18 @@ class UsersController < ApplicationController
       self.current_user = @user
 
       respond_to do |format|
-        format.html { redirect_to billing_user_path(@user, :membership => params[:membership]) }
+        format.html do
+          if params[:membership] == 'free'
+            if free_video_of_week
+              redirect_to video_path(free_video_of_week.video)
+            else
+              redirect_to videos_path
+            end
+          else
+            redirect_to billing_user_url(@user, :membership => params[:membership])
+          end
+          return
+         end
         format.js
       end
 
@@ -82,6 +93,12 @@ class UsersController < ApplicationController
   def billing
     @user = current_user
     @user.attributes = params[:user]
+
+
+    if !params[:membership].blank? && params[:membership] == 'free'
+      redirect_to profile_user_url(current_user)
+      return
+    end
 
     @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
 
@@ -180,10 +197,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render :json => available }
     end
-  end
-
-  def subscription
-    redirect_to(logged_in? ? profile_user_path(current_user) : sign_up_path)
   end
 
   protected
