@@ -37,6 +37,7 @@ namespace :videos do
     end
   end
 
+  # FIXME: account for file types other than jpg
   namespace :featured do
     desc 'Update Featured Video thumbnails with those from Delve'
     task :update_thumbnails => [:environment] do
@@ -49,7 +50,10 @@ namespace :videos do
         if video && video.thumbnail_url != ''
           begin
             io = open(URI.parse(video.thumbnail_url))
+
             featured_video.image = io
+            featured_video.image.instance_write(:file_name, "image.jpg")
+
             if featured_video.save!
               puts "Updated [#{featured_video.id}] thumbnail from: #{video.thumbnail_url}"
             end
