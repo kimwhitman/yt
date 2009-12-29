@@ -1,0 +1,20 @@
+==  2009-12-28
+
+Google Analytics javascript errors
+
+==  2009-12-23
+
+bug fix for credit card validation when signing up as a free member
+remove email confirmation
+bug fix when signing up for annual billing
+copy changes for signup and billing pages
+
+==  2009-12-21
+
+update deployment tag
+rails patch for asset_tag problem
+
+==  2009-12-18
+
+Support for annual billing
+redesigned billing and registration pages
