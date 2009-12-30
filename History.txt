@@ -1,6 +1,7 @@
 == In Git
 
-
+Annual Subscription
+Plan upgrades/downgrades
 
 ==  2009-12-28
 
