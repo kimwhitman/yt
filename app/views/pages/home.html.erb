@@ -89,7 +89,7 @@
 <% if @featured_videos %>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
-  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url}'" } * ',' %>];
+  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url}'" }.uniq * ',' %>];
   for(i = 0; i < imgUrls.length; i++) {
     var img = new Image();
     img.src = imgUrls[i];
