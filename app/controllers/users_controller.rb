@@ -9,32 +9,25 @@ class UsersController < ApplicationController
   def create
     @user = User.new params[:user]
 
-    valid = simple_captcha_valid?
-
-    if !valid
+    unless simple_captcha_valid?
       @user.errors.add_to_base "Captcha is invalid"
     end
 
-    if valid && @user.save
+    if @user.save
 
-      if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
-        billing_cycle = params[:membership]
-      else
-        billing_cycle = nil
-      end
+      free_user = params[:membership] && params[:membership] == 'free'
 
-      UserMailer.deliver_email_confirmation(@user, billing_cycle)
-
-      self.current_user = @user
+       if free_user
+         UserMailer.deliver_email_confirmation(@user, params[:membership])
+         self.current_user = nil
+       else
+         self.current_user = @user
+       end
 
       respond_to do |format|
         format.html do
-          if params[:membership] == 'free'
-            if free_video_of_week
-              redirect_to video_path(free_video_of_week.video)
-            else
-              redirect_to videos_path
-            end
+          if free_user
+            render :action => "welcome"
           else
             redirect_to billing_user_url(@user, :membership => params[:membership])
           end
@@ -170,12 +163,12 @@ class UsersController < ApplicationController
       flash[:notice] = "You must agree to cancel your membership."
       render :action => 'cancel_membership'
     end
-    sub = Subscription.find(current_user.account.subscription.id)
-    sub.downgrade_to_free
+    @subscription = Subscription.find(current_user.account.subscription.id)
+    @subscription.downgrade_to_free
     current_user.cart_items_to_non_subscription_price
-    sub.destroy_gateway_record!
-    sub.save!
-    SubscriptionNotifier.deliver_plan_changed_cancelled(current_user, sub)
+    @subscription.destroy_gateway_record!
+    @subscription.save!
+    SubscriptionNotifier.deliver_plan_changed_cancelled(current_user, @subscription)
     render :action => 'subscription_cancelled'
   end
 

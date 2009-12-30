@@ -3,9 +3,14 @@
 # avoid external api calls
 ConstantContact.stubs(:subscribe).returns(nil)
 ConstantContact.stubs(:unsubscribe).returns(nil)
+RestClient.stubs(:get).returns("{ }")
 
 Then /^I should see error messages$/ do
   assert_match /(error(s)? prohibited)|(errorExplanation)/m, response.body
+end
+
+Then /^"([^\"]*)" should be selected$/ do |field|
+  assert field_labeled(field).checked?
 end
 
 # Database
@@ -100,6 +105,15 @@ Then /^a confirmation message should be sent to "(.*)"$/ do |email|
   assert_match /confirm/i, sent.subject
   assert !user.confirmation_token.blank?
   assert_match /#{user.confirmation_token}/, sent.body
+end
+
+Then /^a confirmation message should not be sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  sent = ActionMailer::Base.deliveries.first
+
+  if sent
+    assert_not_equal [user.email], sent.to
+  end
 end
 
 Then /^a welcome message should be sent to "(.*)"$/ do |email|

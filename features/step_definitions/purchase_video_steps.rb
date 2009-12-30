@@ -1,7 +1,4 @@
 Given /^the following videos:$/ do |videos|
-  # prevent remote api calls
-  RestClient.stubs(:get).returns("{ }")
-
   videos.hashes.each do |hash|
     Video.create!(hash)
   end

@@ -5,52 +5,63 @@ Feature: Sign up
 
     Scenario: User signs up with invalid data
       When I go to the sign up page
-      And I fill in "Your name" with "test user"
-      And I fill in "Your Email" with "invalidemail"
-      And I fill in "Your Password" with "password"
-      And I fill in "Your Password Again" with ""
+      When I fill in the following:
+          | Your Name           | test user    |
+          | Your Email          | invalidemail |
+          | Your Email again    | invalidemail |
+          | Your Password       | password     |
+          | Your Password again |              |
       And I press "Sign Up"
       Then I should see error messages
 
     Scenario: User signs up for free account with valid data
       When I go to the sign up page
+      When I fill in the following:
+          | Your Name           | test user          |
+          | Your Email          | email@domain.local |
+          | Your Email again    | email@domain.local |
+          | Your Password       | password           |
+          | Your Password again | password           |
       And I choose "Free"
-      And I fill in "Your name" with "test user"
-      And I fill in "Your Email" with "email@domain.local"
-      And I fill in "Your Email Again" with "email@domain.local"
-      And I fill in "Your Password" with "password"
-      And I fill in "Your Password Again" with "password"
       And I press "Sign Up"
-      Then I should be signed in
-      And a confirmation message should be sent to "email@domain.local"
+      Then a confirmation message should be sent to "email@domain.local"
+      And I should see "Instructions have been emailed"
+      And I should be signed out
 
     Scenario: User signs up for a monthly account with valid data
       When I go to the sign up page
-      And I choose "membership_1"
-      And I fill in "Your name" with "test user"
-      And I fill in "Your Email" with "email@domain.local"
-      And I fill in "Your Email Again" with "email@domain.local"
-      And I fill in "Your Password" with "password"
-      And I fill in "Your Password Again" with "password"
+      When I fill in the following:
+          | Your Name           | test user          |
+          | Your Email          | email@domain.local |
+          | Your Email again    | email@domain.local |
+          | Your Password       | password           |
+          | Your Password again | password           |
+      And I choose "Subscription"
       And I press "Sign Up"
-      And a confirmation message should be sent to "email@domain.local"
+      Then a confirmation message should not be sent to "email@domain.local"
+      And I should be signed in
+      And I should be on "email@domain.local"'s billing page
+      And "Subscription" should be selected
 
     Scenario: User signs up for a prepaid account with valid data
       When I go to the sign up page
-      And I choose "membership_12"
-      And I fill in "Your name" with "test user"
-      And I fill in "Your Email" with "email@domain.local"
-      And I fill in "Your Email Again" with "email@domain.local"
-      And I fill in "Your Password" with "password"
-      And I fill in "Your Password Again" with "password"
+      When I fill in the following:
+          | Your Name           | test user          |
+          | Your Email          | email@domain.local |
+          | Your Email again    | email@domain.local |
+          | Your Password       | password           |
+          | Your Password again | password           |
+      And I choose "Yoga Today 365"
       And I press "Sign Up"
-      And a confirmation message should be sent to "email@domain.local"
+      Then a confirmation message should not be sent to "email@domain.local"
+      And I should be signed in
+      And I should be on "email@domain.local"'s billing page
+      And "Yoga Today 365" should be selected
 
-    Scenario: User confirms his account
+    Scenario: User confirms their free account
       Given I signed up with "email@domain.local/password"
       When I follow the confirmation link sent to "email@domain.local"
       Then I should be on "email@domain.local"'s billing page
       And I should see "Confirmed email and signed in"
       And I should be signed in
       And a welcome message should be sent to "email@domain.local"
-

@@ -16,11 +16,10 @@ class ConfirmationsController < ApplicationController
 
     self.current_user = @user
 
-    if @user.account.subscription.subscription_plan.name.downcase == 'free'
+    unless @user.has_paying_subscription?
       UserMailer.deliver_welcome(@user)
+      flash_success_after_create
     end
-
-    flash_success_after_create
 
     redirect_to billing_user_url(current_user, :membership => params[:membership])
   end
