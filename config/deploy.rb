@@ -35,20 +35,15 @@ namespace :config do
   end
 end
 
-namespace :mod_rails do
-  desc <<-DESC
-  Restart the application altering tmp/restart.txt for mod_rails.
-  DESC
-  task :restart, :roles => :app do
-    run "touch #{release_path}/tmp/restart.txt"
+namespace :deploy do
+  task :restart do
+    run "touch #{deploy_to}/current/tmp/restart.txt"
+  end
+
+  task :start do
+    run "touch #{deploy_to}/current/tmp/restart.txt"
   end
 end
 
-namespace :deploy do
-  %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
-end
-
-after 'deploy:setup', 'accelerator:restart_apache'
 after 'deploy:update_code', 'config:symlinks'
 
-after :deploy, 'deploy:cleanup'
