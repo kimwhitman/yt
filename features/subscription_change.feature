@@ -1,7 +1,8 @@
-Feature: Change subscription
+@staging
+Feature: Subscription Change
   In order allow users to change their subscription
   As a user
-  I should be able to upgrade or downgrade my plan at any time
+  I Should be able to upgrade or downgrade my plan at any time
 
   Scenario: Upgrade from free to monthly
     Given I signed up as a "Free" member for "email@domain.local/password"

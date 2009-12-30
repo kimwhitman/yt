@@ -1,9 +1,10 @@
+@staging
 Feature: Subscription
   In order to get access premium video content
-  A user
-  Should be able to upgrade their plan
+  As a user
+  I should be able to sign up and/or upgrade their plan
 
-  Scenario: User signs up for a premium (annual) successfully
+  Scenario: User signs up for Yoga Today 365 successfully
     Given I signed up with "email@domain.local/password"
     When I sign in as "email@domain.local/password"
     Then I go to "email@domain.local"'s billing page
@@ -23,7 +24,7 @@ Feature: Subscription
     When I go to "email@domain.local"'s billing page
     Then I should see "You are signed up for the Yoga Today 365"
 
-  Scenario: User signs up for a premium (monthly) successfully
+  Scenario: User signs up for a subscription successfully
     Given I signed up with "email@domain.local/password"
     When I sign in as "email@domain.local/password"
     Then I go to "email@domain.local"'s billing page
@@ -43,7 +44,7 @@ Feature: Subscription
     When I go to "email@domain.local"'s billing page
     Then I should see "You are signed up for monthly billing"
 
-  Scenario: User signs up for a premium (monthly) unsuccessfully
+  Scenario: User signs up for a subscription unsuccessfully
     Given I signed up with "email@domain.local/password"
     When I sign in as "email@domain.local/password"
     Then I go to "email@domain.local"'s billing page
@@ -60,7 +61,7 @@ Feature: Subscription
     And I press "Save"
     Then I should see "We were unable to obtain account authorization"
 
-  Scenario: User signs up for a premium (annual) unsuccessfully
+  Scenario: User signs up for Yoga Today 365 unsuccessfully
     Given I signed up with "email@domain.local/password"
     When I sign in as "email@domain.local/password"
     Then I go to "email@domain.local"'s billing page

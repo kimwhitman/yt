@@ -1,7 +1,8 @@
+@staging
 Feature: Unsubscribe
   In order an account from being billed
-  A user
-  Should be able to cancel their subscription
+  As a user
+  I should be able to cancel their subscription
 
   Scenario: Paying user unsubscribes
     Given I signed up as an "Annual" member for "email@domain.local/password"

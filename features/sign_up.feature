@@ -1,7 +1,8 @@
+@staging
 Feature: Sign up
-  In order to get access to protected sections of the site
-  A user
-  Should be able to sign up
+  In order access protected portions of the site
+  As a user
+  I should be able to sign up
 
     Scenario: User signs up with invalid data
       When I go to the sign up page
@@ -28,7 +29,7 @@ Feature: Sign up
       And I should see "Instructions have been emailed"
       And I should be signed out
 
-    Scenario: User signs up for a monthly account with valid data
+    Scenario: User signs up for a subscription with valid data
       When I go to the sign up page
       When I fill in the following:
           | Your Name           | test user          |
@@ -43,7 +44,7 @@ Feature: Sign up
       And I should be on "email@domain.local"'s billing page
       And "Subscription" should be selected
 
-    Scenario: User signs up for a prepaid account with valid data
+    Scenario: User signs up for Yoga Today 365 with valid data
       When I go to the sign up page
       When I fill in the following:
           | Your Name           | test user          |

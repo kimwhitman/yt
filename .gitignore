@@ -8,6 +8,7 @@ coverage
 doc/api
 doc/app
 doc/specs.*
+doc/features.html
 config/database.yml
 public/system
 vendor/
