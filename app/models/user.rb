@@ -105,6 +105,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_downgraded_to_free?
+    (self.account.subscription.subscription_plan.name == 'Free') && had_paying_subscription?
+  end
+
   # Does the user have a paying subscription right now?
   def has_paying_subscription?
     if self.account.subscription.subscription_plan.name != 'Free'

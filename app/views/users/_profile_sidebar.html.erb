@@ -24,17 +24,14 @@
       <%= link_to_unless_current 'Membership Terms and Details', membership_terms_user_path(current_user) %>
     </span>
   </div>
-  <% if current_user.has_paying_subscription? %>
-  <div class="form_row">
-    <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Cancel Membership', cancel_membership_user_path(current_user) %>
-    </span>
-  </div>
-  <% else %>
+
    <div class="form_row">
     <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Subscribe to Yoga Today', billing_user_path(current_user)  %>
+      <% if current_user.has_downgraded_to_free? %>
+      <%= link_to_unless_current 'Reactivate Membership', billing_user_path(current_user) %>
+      <% elsif !current_user.has_paying_subscription?  %>
+        <%= link_to_unless_current 'Subscribe to Yoga Today', billing_user_path(current_user)  %>
+      <% end %>
     </span>
   </div>
-  <% end %>
 </div>
