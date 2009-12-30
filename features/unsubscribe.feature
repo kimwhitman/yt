@@ -11,6 +11,8 @@ Feature: Unsubscribe
     And I check "accept_cancel_terms"
     And I press "Cancel Membership"
     Then I should see "Your subscription has been canceled"
+    And I should see "Reactivate Membership"
+    And a cancellation message should be sent to "email@domain.local"
 
   Scenario: Free users should not be able to unsubscribe
     Given I signed up as a "Free" member for "email@domain.local/password"

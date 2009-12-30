@@ -31,6 +31,8 @@
       <%= link_to_unless_current 'Reactivate Membership', billing_user_path(current_user) %>
       <% elsif !current_user.has_paying_subscription?  %>
         <%= link_to_unless_current 'Subscribe to Yoga Today', billing_user_path(current_user)  %>
+      <% else %>
+      <%= link_to_unless_current 'Cancel Membership', cancel_membership_user_path(current_user)  %>
       <% end %>
     </span>
   </div>

@@ -174,6 +174,8 @@ class UsersController < ApplicationController
     @subscription.destroy_gateway_record!
     @subscription.save!
     SubscriptionNotifier.deliver_plan_changed_cancelled(current_user, @subscription)
+    current_user.reload
+
     render :action => 'subscription_cancelled'
   end
 
