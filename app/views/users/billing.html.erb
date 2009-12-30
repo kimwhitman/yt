@@ -74,6 +74,8 @@
           </p>
         </div>
 
+        <div id="credit_card">
+
         <% fields_for :creditcard do |cc| %>
 
         <div class="form_row">
@@ -153,6 +155,8 @@
 
         <% end %>
 
+      </div>
+
       <% unless @user.has_paying_subscription? %>
         <div class="form_row">
           <div class="form_title">&nbsp;</div>
@@ -182,3 +186,17 @@
     <%= render :partial => 'profile_sidebar' %>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+      $("#membership_free").click(function(){
+       $('#credit_card').hide();
+      });
+      $("#membership_1").click(function(){
+       $('#credit_card').show();
+      });
+      $("#membership_12").click(function(){
+       $('#credit_card').show();
+      });
+  });
+</script>
