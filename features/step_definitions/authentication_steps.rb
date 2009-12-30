@@ -26,6 +26,33 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
     :name => 'Test User'
 end
 
+Given /^I signed up as an? "([^\"]*)" member for "(.*)\/(.*)"$/ do |plan_name, email, password|
+  user = User.create! :email => email,
+    :password                => password,
+    :password_confirmation   => password,
+    :name => 'Test User'
+
+  cc = ActiveMerchant::Billing::CreditCard.new(:type => 'bogus',
+        :number => '1',
+        :month => Date.today.month,
+        :year => Date.today.year + 5,
+        :first_name => "First Name",
+        :last_name => "Last Name"
+        )
+
+  case plan_name
+  when /free/i
+  when /monthly/i
+    user.account.subscription.upgrade_to_premium(1)
+    user.account.subscription.store_card(cc)
+  when /annual/i
+    user.account.subscription.upgrade_to_premium(12)
+    user.account.subscription.store_card(cc)
+  end
+end
+
+
+
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user = User.new :email => email,
     :password                => password,

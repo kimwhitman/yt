@@ -4,11 +4,6 @@ Feature: Subscription
   Should be able to upgrade their plan
 
   Scenario: User signs up for a premium (annual) successfully
-    # Given the following subscription plans:
-    #   | name    | amount | renewal_period | setup_amount |
-    #   | Free    | 0      | 1              | 0            |
-    #   | Premium | 10     | 1              | 0            |
-    #   | Premium | 100    | 12             | 0            |
     Given I signed up with "email@domain.local/password"
     When I sign in as "email@domain.local/password"
     Then I go to "email@domain.local"'s billing page

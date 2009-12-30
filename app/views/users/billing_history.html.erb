@@ -14,9 +14,13 @@
   <% end %>
 
   <% if @user.has_paying_subscription? %>
-    <% subscription = @user.account.subscription %>
-
-    <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %></h3>
+    <%
+      subscription = @user.account.subscription
+      plan         = subscription.subscription_plan
+    %>
+    <% if subscription.amount > 0 %>
+    <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %> for <%= number_to_currency(subscription.amount)%></h3>
+    <% end %>
   <% end %>
 
   <div id="main_content">

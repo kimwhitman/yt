@@ -87,13 +87,23 @@ class UsersController < ApplicationController
     @user = current_user
     @user.attributes = params[:user]
 
+    @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
+
+    begin
+      @date = Date.parse("#{@creditcard.month}/#{@creditcard.year}")
+    rescue ArgumentError
+      @date = Date.parse("Jan #{Date.today.year}")
+    end
 
     if !params[:membership].blank? && params[:membership] == 'free'
+      if @user.has_paying_subscription?
+        flash[:notice] = "If you wish to cancel your membership, please click 'Cancel Membership' on the right side of the screen"
+        @billing_cycle = @user.account.subscription.renewal_period.to_s
+        return
+      end
       redirect_to profile_user_url(current_user)
       return
     end
-
-    @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
 
     if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
@@ -103,11 +113,6 @@ class UsersController < ApplicationController
       @billing_cycle = '1'
     end
 
-    begin
-      @date = Date.parse("#{@creditcard.month}/#{@creditcard.year}")
-    rescue ArgumentError
-      @date = Date.parse("Jan #{Date.today.year}")
-    end
 
     if request.post? || request.put?
 
@@ -121,7 +126,6 @@ class UsersController < ApplicationController
         migrate_cart!
 
         if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
-          flash[:notice] = "Your billing information has been updated."# unless account_upgrade
 
           if account_upgrade
             @user.reload # Out with the old, in with the new.
@@ -129,6 +133,7 @@ class UsersController < ApplicationController
             SubscriptionNotifier.deliver_plan_changed_upgrade(@user, @user.account.subscription)
             render :action => 'subscription_thank_you'
           else
+            flash[:notice] = "Your billing information has been updated."# unless account_upgrade
             redirect_to billing_user_url(@user)
           end
 

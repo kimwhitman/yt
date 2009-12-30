@@ -18,6 +18,8 @@ module NavigationHelpers
       sign_up_path
     when /the forgot password page/
       forgot_password_path
+    when /^"(.*)"'s profile page$/i
+      profile_user_path(User.find_by_email($1))
     when /^"(.*)"'s billing page$/i
       billing_user_path(User.find_by_email($1))
     when /the shopping cart page/

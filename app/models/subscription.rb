@@ -38,6 +38,7 @@ class Subscription < ActiveRecord::Base
     Rails.logger.info "Attempting to store credit card details for Account ID: #{self.account_id}"
     Rails.logger.debug gateway.class
     Rails.logger.debug "Gateway options: #{gateway.options.inspect}"
+    Rails.logger.debug "Card info: #{creditcard.inspect}"
 
     @response = if billing_id.blank?
       gateway.store(creditcard, gw_options)
@@ -142,24 +143,36 @@ class Subscription < ActiveRecord::Base
 
   def destroy_gateway_record!(gw = gateway)
     return if billing_id.blank?
-    gw.unstore(billing_id)
+
+    if gw.class == ActiveMerchant::Billing::BogusGateway
+      gw.unstore('1')
+    else
+      gw.unstore(billing_id)
+    end
+
     self.card_number = nil
     self.card_expiration = nil
     self.billing_id = nil
     self.save
   end
 
+  # TODO: needs unit test
   def upgrade_to_premium(_renewal_period = 1)
     self.saved_subscription_plan_id = self.subscription_plan_id
-    self.subscription_plan_id = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period).id
+    sp = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period)
+    self.subscription_plan = sp
+    self.amount = sp.amount
     self.renewal_period = _renewal_period
     self.save!
   end
 
+  # TODO: needs unit test
   def downgrade_to_free
     self.saved_subscription_plan_id = self.subscription_plan_id
     self.saved_next_renewal_at = self.next_renewal_at
-    self.subscription_plan_id = SubscriptionPlan.find_by_name('Free').id
+    sp = SubscriptionPlan.find_by_name('Free')
+    self.subscription_plan = sp
+    self.amount = sp.amount
     self.save!
   end
 
