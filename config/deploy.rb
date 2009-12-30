@@ -44,5 +44,11 @@ namespace :mod_rails do
   end
 end
 
+namespace :deploy do
+  %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
+end
+
 after 'deploy:setup', 'accelerator:restart_apache'
 after 'deploy:update_code', 'config:symlinks'
+
+after :deploy, 'deploy:cleanup'
