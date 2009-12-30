@@ -3,6 +3,14 @@
 Annual Subscription
 Plan upgrades/downgrades
 
+==  2009-12-29
+
+Turned off forgery protection. Many users were complaining on being logged out.
+This only seems to be happening on IE, but with select machines. We've verified
+that 2 different machines running the same version of Internet Explorer are having
+different experiences using the site. Users were being logged out and unable to
+post data via AJAX.
+
 ==  2009-12-28
 
 Google Analytics javascript errors
