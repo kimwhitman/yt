@@ -14,9 +14,16 @@ Before do
   :is_public  => true,
   :publish_at => Time.now
   )
-end
 
-# After do
-#   SubscriptionPlan.destroy_all
-#   UserStory.destroy_all
-# end
+  v = Video.create(:title => "Sample Video",
+  :duration => 1.minute,
+  :streaming_media_id => '123',
+  :is_public => true,
+  :title => 'Video Title',
+  :description => 'Sample Description'
+  )
+
+  fv = FeaturedVideo.create(:video => v,
+  :starts_free_at => 1.day.ago,
+  :ends_free_at => 7.days.from_now)
+end
