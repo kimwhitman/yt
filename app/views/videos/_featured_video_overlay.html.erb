@@ -21,7 +21,7 @@
     </div>
   <% end -%>
 <% end -%>
-
+<div style="clear:both;"></div>
 <div id="video_banner" onmouseover="$('#featured_video_image_fade').toggle();" onmouseout="$('#featured_video_image_fade').toggle();" style="margin-bottom: 0px; padding-bottom: 0px; overflow:hidden; <%= 'display: none;' if @home_page and !logged_in? -%>">
     <% if size.nil? %>
       <div id="featured_video_image_fade" style="display:none; overflow: hidden; ">
