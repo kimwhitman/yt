@@ -39,7 +39,7 @@ Feature: Sign up
           | Your Password again | password           |
       And I choose "Subscription"
       And I press "Sign Up"
-      Then a confirmation message should not be sent to "email@domain.local"
+      Then a welcome message should not be sent to "email@domain.local"
       And I should be signed in
       And I should be on "email@domain.local"'s billing page
       And "Subscription" should be selected

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       free_user = params[:membership] && params[:membership] == 'free'
 
        if free_user
-         UserMailer.deliver_email_confirmation(@user, params[:membership])
+         UserMailer.deliver_welcome(@user)
          self.current_user = nil
        else
          self.current_user = @user

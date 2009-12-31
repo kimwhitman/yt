@@ -52,7 +52,7 @@ input:focus {
 }
 
 input.empty {
-  color: #D5D5D5;
+  color: #B0B0B0;
 }
 
 .ads {
@@ -298,7 +298,7 @@ input.empty {
   width: 298px;
   height: 248px;
   overflow: hidden;
-} 
+}
 
 #main_content .community_promo .photo {
   border:none;
