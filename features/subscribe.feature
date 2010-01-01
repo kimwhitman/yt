@@ -54,7 +54,7 @@ Feature: Subscription
       | Card Number | 2    |
       | CVV, CVV2   | 112  |
     And I choose "Subscription"
-    And I select "Visa" from "Select Card Type"
+    And I select "Bogus" from "Select Card Type"
     And I select "1 - January" from "creditcard_month"
     And I select "2015" from "creditcard_year"
     And I check "I agree"
@@ -71,7 +71,7 @@ Feature: Subscription
       | Card Number | 2    |
       | CVV, CVV2   | 112  |
     And I choose "Yoga Today 365"
-    And I select "Visa" from "Select Card Type"
+    And I select "Bogus" from "Select Card Type"
     And I select "1 - January" from "creditcard_month"
     And I select "2015" from "creditcard_year"
     And I check "I agree"

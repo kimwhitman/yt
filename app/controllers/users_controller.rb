@@ -87,6 +87,8 @@ class UsersController < ApplicationController
     @user = current_user
     @user.attributes = params[:user]
 
+    # @user.add_to_base("You must agree to Membership Terms and Details") unless @user.agree_to_terms?
+
     @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
 
     begin
@@ -113,7 +115,6 @@ class UsersController < ApplicationController
       @billing_cycle = '1'
     end
 
-
     if request.post? || request.put?
 
       @address = SubscriptionAddress.new(:first_name => @creditcard.first_name,
@@ -126,7 +127,6 @@ class UsersController < ApplicationController
         migrate_cart!
 
         if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
-
           if account_upgrade
             @user.reload # Out with the old, in with the new.
             @current_account = @user.account # EAE instance variable was not set to new account
@@ -136,8 +136,9 @@ class UsersController < ApplicationController
             flash[:notice] = "Your billing information has been updated."# unless account_upgrade
             redirect_to billing_user_url(@user)
           end
-
         else
+
+          @user.errors.add_to_base "We were unable to obtain account authorization"
           errors = @user.account.subscription.errors.full_messages
           logger.info "Subscription Error: #{errors}"
           flash[:error_messages] = errors.join("<br/>")
@@ -145,10 +146,21 @@ class UsersController < ApplicationController
         end
 
       else
-        errors = @creditcard.errors.full_messages + @address.errors.full_messages + current_account.subscription.errors.full_messages
+        @creditcard.errors.full_messages.each do |message|
+          @user.errors.add_to_base message
+        end
+
+        @address.errors.full_messages.each do |message|
+          @user.errors.add_to_base message
+        end
+
+        @user.account.subscription.errors.full_messages.each do |message|
+          @user.errors.add_to_base message
+        end
+
+        errors = @creditcard.errors.full_messages + @address.errors.full_messages + @user.account.subscription.errors.full_messages
         logger.info "Subscription Error: #{errors}"
         flash[:error_messages] = errors.join("<br/>")
-        render :action => 'billing'
       end
 
     end

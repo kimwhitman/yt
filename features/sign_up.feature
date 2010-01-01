@@ -25,7 +25,7 @@ Feature: Sign up
           | Your Password again | password           |
       And I choose "Free"
       And I press "Sign Up"
-      Then a confirmation message should be sent to "email@domain.local"
+      Then a welcome message should be sent to "email@domain.local"
       And I should see "Instructions have been emailed"
       And I should be signed out
 
@@ -39,7 +39,6 @@ Feature: Sign up
           | Your Password again | password           |
       And I choose "Subscription"
       And I press "Sign Up"
-      Then a welcome message should not be sent to "email@domain.local"
       And I should be signed in
       And I should be on "email@domain.local"'s billing page
       And "Subscription" should be selected
@@ -59,6 +58,7 @@ Feature: Sign up
       And I should be on "email@domain.local"'s billing page
       And "Yoga Today 365" should be selected
 
+    @wip
     Scenario: User confirms their free account
       Given I signed up with "email@domain.local/password"
       When I follow the confirmation link sent to "email@domain.local"

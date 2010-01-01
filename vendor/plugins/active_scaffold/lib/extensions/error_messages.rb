@@ -30,8 +30,12 @@ module ActionView
       # overrides the standard error_messages_for() to use our own as_full_messages()
       # also passes strings through as_(), since it's handy.
       def error_messages_for(*params)
-        options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
-        objects = params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
+        options = params.extract_options!.symbolize_keys
+        if object = options.delete(:object)
+          objects = [object].flatten
+        else
+          objects = params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
+        end
         count   = objects.inject(0) {|sum, object| sum + object.errors.count }
         unless count.zero?
           html = {}
@@ -43,22 +47,21 @@ module ActionView
               html[key] = 'errorExplanation'
             end
           end
-          error_message = "error prohibited this"
-          header_message = as_("%d #{error_message} %s from being saved", count, (options[:object_name] || params.first).to_s.gsub('_', ' '))
-          # Change 'error' to 'errors' for english setups void of a localization plugin
-          header_message.gsub!("error", "errors") if header_message.include?(error_message) and count > 1
-          error_messages = objects.map {|object|
-            object.errors.as_full_messages(active_scaffold_config).map {|msg| content_tag(:li, msg) }
-          }
-          content_tag(:div,
-            content_tag(options[:header_tag] || :h2, header_message) <<
-              content_tag(:p, as_('There were problems with the following fields:')) <<
-              content_tag(:ul, error_messages),
-            html
-          )
+          options[:object_name] ||= params.first
+          options[:header_message] = "#{pluralize(count, 'error')} prohibited this #{options[:object_name].to_s.gsub('_', ' ')} from being saved" unless options.include?(:header_message)
+          options[:message] ||= 'There were problems with the following fields:' unless options.include?(:message)
+          error_messages = objects.sum {|object| object.errors.full_messages.map {|msg| content_tag(:li, msg) } }.join
+
+          contents = ''
+          contents << content_tag(options[:header_tag] || :h2, options[:header_message]) unless options[:header_message].blank?
+          contents << content_tag(:p, options[:message]) unless options[:message].blank?
+          contents << content_tag(:ul, error_messages)
+
+          content_tag(:div, contents, html)
         else
           ''
         end
+
       end
     end
   end
