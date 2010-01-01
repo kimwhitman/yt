@@ -15,12 +15,12 @@
         $('#instructor_filter_title').click();
       <% end %>
       <% if params[:video_focus] || (params[:search] && params[:search][:video_focus]) %>
-		$('#focus_filter_title').click();
-		<% video_focuses_ids = params[:video_focus] || params[:search][:video_focus] || []  %>
-		<% VideoFocus.find(video_focuses_ids).collect{|vf| vf.video_focus_category}.uniq.each do |vfc| %>
-			$('#video_focus_category_<%= vfc.id %> > div').click();
-			$('#video_focus_category_<%= vfc.id %> > input').attr('checked', true);
-		<% end %>
+    $('#focus_filter_title').click();
+    <% video_focuses_ids = params[:video_focus] || params[:search][:video_focus] || []  %>
+    <% VideoFocus.find(video_focuses_ids).collect{|vf| vf.video_focus_category}.uniq.each do |vfc| %>
+      $('#video_focus_category_<%= vfc.id %> > div').click();
+      $('#video_focus_category_<%= vfc.id %> > input').attr('checked', true);
+    <% end %>
       <% end %>
     });
   </script>
@@ -32,14 +32,14 @@
   <%= link_to_function "Reset All Search Filters", "$('input[type=checkbox]').attr('checked', false);$('#keywords').val('');" %>
   <%= link_to "#{image_tag 'filter-arrow-close.png', :style=>'margin-bottom: -1px; border: 0px;' } search help", faqs_url(:type => 'technical'), :style=>"padding-left: 55px;" %>
   <div style="clear:both; padding-top: 15px;">
-	  <div style="float:left;">
-	  	<% styling = 'color: #999999; font-style: italic;' %>
-	  	<%= text_field_tag :keywords, :value => ('keywords'), :onfocus => "if(this.value=='keywords'){this.value='';this.style.color='#333333'; this.style.fontStyle='normal';}", :style => "padding: 4px; width: 185px; #{styling}" %>
-	  </div>
-	  <div style="float:left; margin-left: 5px;">
-	  	<%= submit_tag "Search", :class => "smaller_button" %>
-	  </div>
-	  <div style="clear:both;"></div>
+    <div style="float:left;">
+      <% styling = 'color: #999999; font-style: italic;' %>
+      <%= text_field_tag :keywords, 'keywords', :onfocus => "if(this.value=='keywords'){this.value='';this.style.color='#333333'; this.style.fontStyle='normal';}", :style => "padding: 4px; width: 185px; #{styling}" %>
+    </div>
+    <div style="float:left; margin-left: 5px;">
+      <%= submit_tag "Search", :class => "smaller_button" %>
+    </div>
+    <div style="clear:both;"></div>
   </div>
 </div>
 
@@ -57,7 +57,7 @@
   <div class="filter_arrow" style="margin-top: 13px;" onclick="displayDropDown('filter_level_off','block','filter_level_on');" onmouseover="this.style.cursor='Pointer';"><img src="/images/filter-arrow-open.png" /></div><div class="filter_title"  onclick="displayDropDown('filter_level_off','block','filter_level_on');" style="margin-top: 10px;"  onmouseover="this.style.cursor='Pointer';">Level</div>
   <div class="filter_actions">&nbsp;-&nbsp;<%= select_all_or_cancel_links(:context => "$('#filter_level_on')") %></div>
   <div style="float: right;">
-  	<%= submit_tag "Apply Filters", :class => "button" %>
+    <%= submit_tag "Apply Filters", :class => "button" %>
   </div>
   <div style="clear:both;"></div>
 
@@ -89,11 +89,11 @@
 <div class="filter_box" id="filter_instructor_on" style="display:none; clear:both;">
   <div class="filter_arrow" style="margin-top: 13px;" onclick="displayDropDown('filter_instructor_off','block','filter_instructor_on');" onmouseover="this.style.cursor='Pointer';"><img src="/images/filter-arrow-open.png" /></div><div class="filter_title" onclick="displayDropDown('filter_instructor_off','block','filter_instructor_on');" onmouseover="this.style.cursor='Pointer';" style="margin-top: 10px;">Instructor</div>
   <div class="filter_actions">&nbsp;-&nbsp;<%= select_all_or_cancel_links(:context => "$('#filter_instructor_on')") %></div>
-	<div style="float: right;">
-  	<%= submit_tag "Apply Filters", :class => "button" %>
+  <div style="float: right;">
+    <%= submit_tag "Apply Filters", :class => "button" %>
   </div>
   <div style="clear:both;"></div>
-  
+
   <div class="filter_options">
     <% Instructor.find(:all, :order => "name asc").each do |instructor| %>
       <div class="filter_option_box">
@@ -120,10 +120,10 @@
   <div class="filter_arrow" style="margin-top: 13px;" onclick="displayDropDown('filter_type_off','block','filter_type_on');" onmouseover="this.style.cursor='Pointer';"><img src="/images/filter-arrow-open.png" /></div><div class="filter_title" onclick="displayDropDown('filter_type_off','block','filter_type_on');" onmouseover="this.style.cursor='Pointer';" style="margin-top: 10px;">Type</div>
   <div class="filter_actions">&nbsp;-&nbsp;<%= select_all_or_cancel_links(:context => "$('#filter_type_on')") %></div>
   <div style="float: right;">
-  	<%= submit_tag "Apply Filters", :class => "button" %>
+    <%= submit_tag "Apply Filters", :class => "button" %>
   </div>
   <div style="clear:both;"></div>
-  
+
   <div class="filter_options">
     <% YogaType.find(:all, :order => 'name ASC').each do |yoga_type| %>
       <div class="filter_option_box">
