@@ -33,7 +33,7 @@
               <p>Listening to your feedback is how we make Yoga Today better for everyone! When you find a class you like, add it to your shopping cart and it's yours to download for only $3.99. Sign Up today!</p>
             </div>
           </div>
-          <%= link_to image_tag('button_getstarted_free.png', :alt => 'Sign Up'), sign_up_path, :class => 'getstarted_button', :title => 'Sign up today' %>
+          <%= link_to image_tag('button_getstarted_free.png', :alt => 'Sign Up'), sign_up_path(:membership => 'free'), :class => 'getstarted_button', :title => 'Sign up today' %>
         </div>
         <div class="get_started_download">
           <%= image_tag( 'gettingstarted_download.png', :alt => 'Free Membership' ) -%>
@@ -68,7 +68,7 @@
               <p>Subscribe at $9.99/month or save 25% when you opt for a full year of Yoga Today at $89.95. Subscribers enjoy a discounted download rate of only $2.99 per class.</p>
             </div>
           </div>
-          <%= link_to image_tag('button_getstarted_unlimited.png', :alt => 'Sign Up'), subscription_users_path, :class => 'getstarted_button', :title => 'Subscribe to Yoga Today' %>
+          <%= link_to image_tag('button_getstarted_unlimited.png', :alt => 'Sign Up'), subscription_users_path(:membership => '12'), :class => 'getstarted_button', :title => 'Subscribe to Yoga Today' %>
         </div>
       </div>
 
