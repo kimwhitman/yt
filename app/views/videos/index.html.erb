@@ -53,7 +53,7 @@
     </div>
     <div><img height="10" width="1" src="/images/spacer.gif"/></div>
     <% end %>
-    <%# if free_video_of_week %>
+    <% if free_video_of_week %>
     <div id="container_2col" class="freeclass_promo">
       <% video ||= free_video_of_week.video %>
       <%= image_tag( 'freeclass_promo.png', :alt => "This week's free video" ) -%>
@@ -66,7 +66,7 @@
       </dl>
       <%= link_to image_tag( 'button_watchnow.png', :alt => 'Watch Now' ), '#' -%>
     </div>
-    <%# end %>
+    <% end %>
     </div>
 
 
