@@ -103,7 +103,7 @@ class UsersController < ApplicationController
       @date = Date.parse("Jan #{Date.today.year}")
     end
 
-    if !params[:membership].blank? && params[:membership] == 'free'
+    if !params[:membership].blank? && params[:membership] == 'free' && request.post?
       if @user.has_paying_subscription?
         flash[:notice] = "If you wish to cancel your membership, please click 'Cancel Membership' on the right side of the screen"
         @billing_cycle = @user.account.subscription.renewal_period.to_s
