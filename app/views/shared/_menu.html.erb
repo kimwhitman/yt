@@ -33,7 +33,7 @@
     </li>
     <% if logged_in? -%>
     <li class="margin_left cart_logged_in"><%= link_to(image_tag('nav_cart_loggedin.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%><span class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
-    <li><%= link_to(image_tag('nav_subscribe.png', :alt => 'Subscribe' ), cart_path, {:id => 'cart_link', :title => 'Subscribe'}) -%></li>
+    <li><%= link_to(image_tag('nav_subscribe.png', :alt => 'Subscribe' ), subscription_users_path, {:id => 'cart_link', :title => 'Subscribe'}) -%></li>
     <li><%= link_to(image_tag('nav_logout.png', :alt => 'Logout' ), logout_path, {:title => 'Logout of Yoga Today'}) -%></li>
     <% else -%>
     <li class="margin_left"><%= link_to(image_tag('nav_login.png', :alt => 'Login' ), login_path, {:id => 'login_h', :title => 'Login to Yoga Today'}) -%></li>
@@ -41,7 +41,7 @@
     <li><%= link_to(image_tag('nav_cart.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%>
     <span class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
     <% end -%>
-    
+
   </ul>
 
 

@@ -149,7 +149,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
     <div class="promo_yt365_wide">
       <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
       <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
-      <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path, {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
+      <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path(:membership => 12), {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
     </div>
   </div>
   <div style="float: right;" id="container_2col">
@@ -527,7 +527,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
         <% subscription_advert_path = !logged_in? ? sign_up_path : billing_user_path(current_user) %>
         <% push_up = false %>
         <div id="container_2col">
-          <a href="<%= subscription_advert_path %>"><img src="/images/blue_box_2col.png" width="300" border="0" height="145"></a>
+          <a href="<%= subscription_users_path(:membership => 1) %>"><img src="/images/blue_box_2col.png" width="300" border="0" height="145"></a>
         </div>
         <div><img src="/images/spacer.gif" width="1" height="10"></div>
       <% end %>

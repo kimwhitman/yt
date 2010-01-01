@@ -79,6 +79,12 @@ class UsersController < ApplicationController
     @user.wants_newsletter = true
     @user.wants_promos = true
 
+    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
+      @billing_cycle = params[:membership]
+    else
+      @billing_cycle = '1'
+    end
+
     redirect_to profile_user_path(current_user) if logged_in?
   end
 
@@ -212,7 +218,7 @@ class UsersController < ApplicationController
   end
 
   def subscription
-    redirect_to(logged_in? ? billing_user_path(current_user) : sign_up_path)
+    redirect_to(logged_in? ? billing_user_path(current_user, :membership => params[:membership]) : sign_up_path(:membership => params[:membership]))
   end
 
   protected

@@ -42,21 +42,6 @@
         :header_message => nil,
         :message => "I'm sorry, we were unable to save your billing information.") %>
 
-    <% if flash[:error_messages] || @user.errors.count > 0 || @creditcard.errors.count > 0 %>
-      <!-- <div class="notice"> -->
-
-        <!-- I'm sorry. We were unable to obtain account authorization.<br> -->
-        <!-- Please try again, or enter billing information for a different account. -->
-
-        <% errors = (@user.errors.full_messages + @creditcard.errors.full_messages).uniq %>
-        <!-- <ul> -->
-        <% errors.each do |error| %>
-          <!-- <li><%= error %></li> -->
-        <% end %>
-        <!-- </ul> -->
-      <!-- </div> -->
-    <% end %>
-
     <div id="container_4col" style="float:left;">
 
         <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
