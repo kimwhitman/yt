@@ -11,10 +11,13 @@
   <div id="main_content">
     <div id="container_4col" style="float:left">
       <div class="filter_options" style="border: none; background-image: none; padding-left: 0px;">
-        <p>Welcome to the Yoga Today Community! Instructions have been emailed to you to activate your account.
-          Once you activate, your registration will be complete and you'll be all
-          set to start practicing with us. You can add classes to your Queue (playlist). </p>
-        <p> Thanks for being here.</p>
+        <p>Welcome to the Yoga Today Community! Your signup is complete and you're all set to start
+          practicing with us! You can also add classes to your Queue (playlist).</p>
+        <p>Thanks for being here.</p>
+
+        <% if free_video_of_week %>
+          <%= button_to_function 'Watch classes now', "location.href = '#{video_url(free_video_of_week.video)}'", :class => "bigger_button" %>
+        <% end %>
       </div>
     </div>
   </div>

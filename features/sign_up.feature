@@ -26,7 +26,7 @@ Feature: Sign up
       And I choose "Free"
       And I press "Sign Up"
       Then a welcome message should be sent to "email@domain.local"
-      And I should see "Instructions have been emailed"
+      And I should see "Your signup is complete"
       And I should be signed out
 
     Scenario: User signs up for a subscription with valid data
