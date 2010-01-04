@@ -27,7 +27,7 @@ Feature: Sign up
       And I press "Sign Up"
       Then a welcome message should be sent to "email@domain.local"
       And I should see "Your signup is complete"
-      And I should be signed out
+      And I should be signed in
 
     Scenario: User signs up for a subscription with valid data
       When I go to the sign up page

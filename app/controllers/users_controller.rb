@@ -14,15 +14,10 @@ class UsersController < ApplicationController
     end
 
     if @user.save
-
       free_user = params[:membership] && params[:membership] == 'free'
 
-       if free_user
-         UserMailer.deliver_welcome(@user)
-         self.current_user = nil
-       else
-         self.current_user = @user
-       end
+      UserMailer.deliver_welcome(@user) if free_user
+      self.current_user = @user
 
       respond_to do |format|
         format.html do
@@ -35,7 +30,6 @@ class UsersController < ApplicationController
          end
         format.js
       end
-
     else
       respond_to do |format|
         format.html { render :action => "new" }
