@@ -1,8 +1,11 @@
 == In Git
 
-Annual Subscription
-Plan upgrades/downgrades
-YogaToday 365 Promo
+==  2010-01-04
+
+* Redesigned login functionality
+* Annual subscription option
+* Yoga Today 365 Promo Banners
+* Plan upgrades/downgrades
 
 ==  2009-12-29
 
