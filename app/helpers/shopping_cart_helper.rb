@@ -2,8 +2,8 @@ module ShoppingCartHelper
   include ActionView::Helpers::NumberHelper
   def update_cart
     shopping_cart = page.context.shopping_cart
-    page.replace_html 'cart_link', "Cart (#{shopping_cart.size})"
-    page.replace_html 'header_cart_size', shopping_cart.size
+    # page.replace_html 'cart_link', "Cart (#{shopping_cart.size})"
+    page.replace_html 'header_cart_size', "(#{shopping_cart.size})"
     page.replace_html 'cart_taxes', number_to_currency(shopping_cart.taxes.to_dollars)
     page.replace_html 'cart_subtotal', number_to_currency(shopping_cart.subtotal.to_dollars)
     page.replace_html 'cart_total', number_to_currency(shopping_cart.total.to_dollars)
