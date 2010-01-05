@@ -88,7 +88,7 @@ YT_Authentication = {
         return false;
       });
   }
-}
+};
 
 $(document).ready(function() {
   YT_Authentication.setupModals();
