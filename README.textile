@@ -1,20 +1,24 @@
-# YogaToday
+h1. YogaToday
 
-## Installation
+h2. Installation
 
 For development, you'll need to install the gems for each environment:
 
-    rake gems:install && rake gems:install RAILS_ENV=test && rake gems:install RAILS_ENV=cucumber
+<code>
+  rake gems:install && rake gems:install RAILS_ENV=test && rake gems:install RAILS_ENV=cucumber
+</code>
 
 Then create a database.yml for development and test environments. Once you have them, run these rake tasks:
 
-    rake db:create
-    rake db:schema:load
-    rake db:bootstrap
+<pre><code>
+rake db:create
+rake db:schema:load
+rake db:bootstrap
+</code></pre>
 
 That should give you a sample set of data to get up and running
 
-## Testing
+h2. Testing
 
 Pretty much all of the rspec, unit, functional, and integration tests aren't working.
 
@@ -23,14 +27,14 @@ consider adding them using cucumber. Everyone will be happy that you did.
 
 To run cucumber tests:
 
-    rake cucumber
+<pre><code>rake cucumber</code></pre>
 
-## Deploying apps
+h2. Deploying apps
 
 To deploy to the staging server:
 
-    cap staging deloy
+  <pre><code>cap staging deloy</code></pre>
 
 To deploy to the production server:
 
-    TODO: incomplete
+  <pre><code>cap production deloy</code></pre>
