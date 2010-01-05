@@ -73,5 +73,9 @@
         </div>
       <!-- END FEATURED VIDEO FADE -->
     </div>
-    <%= image_tag( (fv.blank? ? '' :  fv.thumbnail), :id => 'featured_video_image', :size => size, :width => width, :style=>"margin: 0px; padding: 0px; border: 0px;") %>
+    <div id="featured_video_image_container" size="<%= size %>">
+      <% unless fv.blank? %>
+        <%= image_tag(fv.thumbnail, :id => 'featured_video_image', :size => size, :width => width, :style => "margin: 0px; padding: 0px; border: 0px;") %>
+      <% end %>
+    </div>
   </div>
