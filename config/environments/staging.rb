@@ -27,6 +27,8 @@ config.action_mailer.default_url_options = { :host => HOST, :only_path => false 
 # DELVE_API_ACCESS_KEY = 'xUIk6ov+S6UoeaW6B9NExEx9hGE=';
 # DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
 
+config.log_level = :info
+
 config.after_initialize do
   ActiveMerchant::Billing::Base.gateway_mode = :test
 end
