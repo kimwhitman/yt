@@ -46,7 +46,7 @@ module SimpleCaptcha #:nodoc
     def append_simple_captcha_code #:nodoc
       color = @simple_captcha_image_options[:color]
       text = Magick::Draw.new
-      text.annotate(@image, 0, 0, 0, 5, simple_captcha_value(@simple_captcha_image_options[:simple_captcha_key])) do
+      text.annotate(@image, 0, 0, 0, 5, simple_captcha_value(@simple_captcha_image_options[:simple_captcha_key]) || 'empty') do
         self.font_family = 'arial'
         self.pointsize = 22
         self.fill = color
