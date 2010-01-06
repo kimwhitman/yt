@@ -9,11 +9,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new params[:user]
 
+    @user.valid?
+
     unless simple_captcha_valid?
       @user.errors.add_to_base "Captcha is invalid"
     end
 
-    if @user.save
+    if @user.errors.count == 0 && @user.save
       free_user = params[:membership] && params[:membership] == 'free'
 
       UserMailer.deliver_welcome(@user) if free_user
