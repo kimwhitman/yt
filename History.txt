@@ -1,6 +1,6 @@
 == In Git
 
-
+Prevent bots from indexing & following some pages
 
 ==  2010-01-05
 
