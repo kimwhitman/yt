@@ -1,7 +1,13 @@
 == In Git
 
+
+
+==  2010-01-05
+
 * Hoptoad Notifier support
 * removed forgery protection (didn't make it back into master)
+* footer style fix
+* shopping cart style fix
 
 ==  2010-01-04
 
