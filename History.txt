@@ -1,6 +1,12 @@
 == In Git
 
-Prevent bots from indexing & following some pages
+
+
+==  2010-01-16
+
+* updating tracking code based on: http://www.google.com/support/googleanalytics/bin/answer.py?hl=en&answer=55488
+
+* Prevent bots from indexing & following some pages
 
 ==  2010-01-05
 
