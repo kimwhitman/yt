@@ -1,7 +1,8 @@
 class FeaturedVideo < ActiveRecord::Base
   has_attached_file :image,
     :styles => {
-      :thumb => '106x59'
+      :thumb => '106x59',
+      :carousel => '940x526'
     }
 
   belongs_to :video
@@ -36,7 +37,7 @@ class FeaturedVideo < ActiveRecord::Base
   end
 
   def thumbnail
-    image? ? image.url : video.thumbnail_url
+    image? ? image.url(:carousel) : video.thumbnail_url
   end
 
   # For active scaffold to display the correct label in "update"
