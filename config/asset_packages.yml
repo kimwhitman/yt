@@ -10,7 +10,6 @@ javascripts:
   - jquery.defaultvalue
   - jquery.jcarousel
   - jquery.validate
-# from can_has_js
   - billing
   - home
   - login
@@ -21,21 +20,17 @@ javascripts:
   - jquery.metadata
   - jquery.rating
   - jquery.scrollTo
-  # - jquery.timeago
 - dev:
   - jquery
   - jquery-ui
 
 stylesheets:
 - base:
-  - 'yoga_main'
-  - 'yoga_type'
-  - 'main'
-  - 'jqModal/jqModal'
-  - "jquery.jcarousel"
-  - "yoga_carousel_skin"
-
-# from can_has_js
-  # jquery.rating
+  - yoga_main
+  - yoga_type
+  - main
+  - jqModal/jqModal
+  - jquery.jcarousel
+  - yoga_carousel_skin
 - admin:
   - admin
