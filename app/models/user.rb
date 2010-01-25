@@ -209,7 +209,7 @@ class User < ActiveRecord::Base
   def setup_newsletter
     return unless @newsletter_changed || !@old_email.blank?
 
-    unless Rails.env == 'production'
+    if Rails.env == 'production'
       if wants_newsletter
         ConstantContact.subscribe(self)
       else
