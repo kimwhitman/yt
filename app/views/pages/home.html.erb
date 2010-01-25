@@ -1,6 +1,4 @@
 <% title 'Yoga Delivered Daily' %>
-<% can_has_js 'jquery.jcarousel.pack', 'jquery.timeago', 'home' %>
-<% can_has_css 'jquery.jcarousel', 'yoga_carousel_skin' %>
 <% can_has_js :time_ago_again do %>
   $(document).ready(function() { $('.timeago').timeago(); });
 <% end %>

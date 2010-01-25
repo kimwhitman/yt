@@ -1,0 +1,27 @@
+---
+javascripts:
+- base:
+  - jrails
+  - application
+  - yoga
+  - image_swap
+  - jqModal/jqModal
+  - jquery.form
+  - jquery.defaultvalue
+  - jquery.jcarousel.pack
+  - jquery.timeago
+  - home
+- dev:
+  - jquery
+  - jquery-ui
+
+stylesheets:
+- base:
+  - yoga_main
+  - yoga_type
+  - main
+  - jqModal/jqModal
+  - jquery.jcarousel
+  - yoga_carousel_skin
+- admin:
+  - admin
