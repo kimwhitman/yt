@@ -82,3 +82,5 @@ ExceptionNotifier.sender_address = %("YogaToday Application Error" <app.error@yo
 
 ExceptionNotifier.email_prefix = "[YOGATODAY-ERROR] "
 
+Synthesis::AssetPackage.merge_environments = ["staging", "production"]
+
