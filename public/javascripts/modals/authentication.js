@@ -91,9 +91,9 @@ YT_Authentication = {
 };
 
 $(document).ready(function() {
-  YT_Authentication.setupModals();
-  YT_Authentication.setupStyles();
-  YT_Authentication.setupDefaults();
-  YT_Authentication.submitLogin();
-  YT_Authentication.submitForgotPassword();
+  // YT_Authentication.setupModals();
+  // YT_Authentication.setupStyles();
+  // YT_Authentication.setupDefaults();
+  // YT_Authentication.submitLogin();
+  // YT_Authentication.submitForgotPassword();
 });
