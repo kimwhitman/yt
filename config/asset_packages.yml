@@ -8,20 +8,34 @@ javascripts:
   - jqModal/jqModal
   - jquery.form
   - jquery.defaultvalue
-  - jquery.jcarousel.pack
-  - jquery.timeago
+  - jquery.jcarousel
+  - jquery.validate
+# from can_has_js
+  - billing
   - home
+  - login
+  - shopping_cart
+  - story
+  - registration
+  - yoga/registration
+  - jquery.metadata
+  - jquery.rating
+  - jquery.scrollTo
+  # - jquery.timeago
 - dev:
   - jquery
   - jquery-ui
 
 stylesheets:
 - base:
-  - yoga_main
-  - yoga_type
-  - main
-  - jqModal/jqModal
-  - jquery.jcarousel
-  - yoga_carousel_skin
+  - 'yoga_main'
+  - 'yoga_type'
+  - 'main'
+  - 'jqModal/jqModal'
+  - "jquery.jcarousel"
+  - "yoga_carousel_skin"
+
+# from can_has_js
+  # jquery.rating
 - admin:
   - admin
