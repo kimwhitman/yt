@@ -1535,3 +1535,8 @@ input[type="button"].button_cancel {
   font-size: 14px;
   width: 65px;
 }
+
+#featured_video_image_container {
+  width: 941px;
+  height: 526px;
+}
