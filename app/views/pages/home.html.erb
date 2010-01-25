@@ -87,12 +87,20 @@
 <% if @featured_videos %>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
-  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url(:carousel)}'" }.uniq * ',' %>];
+  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url(:thumb)}'" }.uniq * ',' %>];
   for(i = 0; i < imgUrls.length; i++) {
-    // console.log("preloading image: " + imgUrls[i]);
+    // console.log("preloading thumbnail: " + imgUrls[i]);
     var img = new Image();
     img.src = imgUrls[i];
   }
+
+  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url(:carousel)}'" }.uniq * ',' %>];
+  for(i = 0; i < imgUrls.length; i++) {
+    // console.log("preloading carousel image: " + imgUrls[i]);
+    var img = new Image();
+    img.src = imgUrls[i];
+  }
+
 });
 </script>
 <% end %>
