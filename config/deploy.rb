@@ -43,7 +43,13 @@ namespace :deploy do
   task :start do
     run "touch #{deploy_to}/current/tmp/restart.txt"
   end
+
+  desc "Create asset packages for production"
+  task :bundle, :roles => [:web] do
+    run "cd #{release_path} && rake asset:packager:build_all"
+  end
 end
 
+before 'config:symlinks', 'deploy:bundle'
 after 'deploy:update_code', 'config:symlinks'
 
