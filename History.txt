@@ -1,6 +1,7 @@
 == In Git
 
-
+Asset Packing
+Image optimizations for homepage
 
 ==  2010-01-16
 
