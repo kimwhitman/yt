@@ -50,7 +50,7 @@ var billing = {
       }
     });
   }
-}
+};
 
 $(document).ready(function() {
 
