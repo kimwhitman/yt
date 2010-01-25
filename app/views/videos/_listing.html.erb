@@ -1,11 +1,15 @@
-<% can_has_js 'jquery.metadata', 'jquery.rating' %>
-<% can_has_css 'jquery.rating'%>
+<% content_for :head do %>
+ <%= stylesheet_link_tag 'jquery.rating' %>
+<% end %>
+
 <script>
   $(document).ready(function(){$('input[type=radio].star').rating();});
 </script>
+
 <%
   video = listing
 %>
+
 <div class="results_row">
   <div class="video_list_thumb">
     <%= link_to_video video %>
@@ -26,7 +30,7 @@
   </div>
 
   <div class="video_list_buttons">
-    <%= add_video_to_playlist_link '+ Queue', video %>     
+    <%= add_video_to_playlist_link '+ Queue', video %>
     <br />
     <div class="vert_spacer10"><img src="/images/spacer.gif" width="1" height="10" /></div>
     <%= add_video_to_cart_link "Buy | #{number_to_currency(video.price(current_user)).split('.').first}<span style='vertical-align: top; line-height: 14px; font-size: 8px;'>99</span>", video %>

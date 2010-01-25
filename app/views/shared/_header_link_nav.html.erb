@@ -1,4 +1,4 @@
-<%= render :partial => 'shared/authentication_modals' unless ['users','sessions'].include? controller.controller_name %>
+<%#= render :partial => 'shared/authentication_modals' unless ['users','sessions'].include? controller.controller_name %>
 
 <div id="header_information">
   <% if logged_in? -%>
@@ -8,4 +8,4 @@
   <% end -%>
 </div>
 
-<%= javascript_include_tag 'modals/authentication' unless ['users','sessions'].include? controller.controller_name %>
+<%#= javascript_include_tag 'modals/authentication' unless ['users','sessions'].include? controller.controller_name %>

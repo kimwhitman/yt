@@ -1,10 +1,4 @@
 <% title 'Reset password' %>
-<% can_has_js :login_now do %>
-$(document).ready(function() {
-  $('#header_information').hide();
-  $('#header_login_form').show();
-});
-<% end %>
 <div id="main">
 
   <div id="page_container">
@@ -25,3 +19,9 @@ $(document).ready(function() {
   </div>
 </div>
 
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  $('#header_information').hide();
+  $('#header_login_form').show();
+});
+</script>

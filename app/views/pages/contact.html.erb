@@ -1,26 +1,4 @@
 <% title 'Contact' %>
-<% can_has_js 'jquery.validate' %>
-<% can_has_js :validate_contact_form do %>
-  $(document).ready(function() {
-    $('#feedback_form').validate({
-        rules: {
-          first_name: 'required',
-          last_name: 'required',
-          email: {
-            required: true,
-            email: true
-          },
-          message: 'required'
-        },
-        messages: {
-          first_name: 'First Name is required',
-          last_name: 'Last Name is required',
-          email: 'A valid email is required',
-          message: 'Message is required'
-        }
-      });
-  });
-<% end %>
 <div id="main">
 
   <div id="page_container">
@@ -118,11 +96,11 @@
 
             <div class="grid_spacer"> </div>
 
-            <div id="topic_form_submit" class="form_field_3col">              
+            <div id="topic_form_submit" class="form_field_3col">
               <%= submit_tag 'Submit', :class => 'button' %>
             </div>
           </div>
-          
+
         <% end %>
         <script type="text/javascript">document.getElementById('first_name').focus();</script>
 
@@ -137,3 +115,24 @@
 
   </div>
 </div>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('#feedback_form').validate({
+        rules: {
+          first_name: 'required',
+          last_name: 'required',
+          email: {
+            required: true,
+            email: true
+          },
+          message: 'required'
+        },
+        messages: {
+          first_name: 'First Name is required',
+          last_name: 'Last Name is required',
+          email: 'A valid email is required',
+          message: 'Message is required'
+        }
+      });
+  });
+</script>

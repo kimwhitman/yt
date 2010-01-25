@@ -4,9 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><%= yield(:title) || 'Yoga Today' %></title>
     <link rel="shortcut icon" href="/favicon.ico">
-    <%= stylesheet_link_merged :base %>
-    <%= stylesheet_link_tag :can_has_assets %>
-
     <% if Rails.env == 'development' %>
       <%= javascript_include_merged :dev %>
     <% else %>
@@ -15,7 +12,12 @@
     <% end %>
 
     <%= javascript_include_merged :base %>
-    <%= javascript_include_tag :can_has_assets %>
+
+    <%= stylesheet_link_merged :base %>
+    <%# TODO: these two stylesheets need to be loaded separately for the carousel to layout properly %>
+    <%= stylesheet_link_tag 'jquery.jcarousel' %>
+    <%= stylesheet_link_tag 'yoga_carousel_skin' %>
+    <%= yield :head %>
   </head>
   <body>
     <!-- preload images with hidden div -->
@@ -138,8 +140,6 @@
         }
       </script>
     <% end %>
-
-    <!-- The following TODO was added by the designer. I don't know what it fixes. -->
 
     <% if Rails.env == 'production' %>
       <script type="text/javascript">

@@ -1,12 +1,13 @@
-<% can_has_js 'jquery.metadata', 'jquery.rating' %>
-<% can_has_css 'jquery.rating'%>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'jquery.rating' %>
+<% end %>
 <script>
   $(document).ready(function(){$('input[type=radio].star').rating();});
 </script>
 <div class="results_row" style='overflow: hidden'>
   <% grid_listing.compact.each do |video| %>
     <div class="video_box1">
-      <%= link_to_video video %>      
+      <%= link_to_video video %>
       <div style="margin-top: 10px;">
         <a href="<%= video_path video %>" title="More information about '<%= h video.title  %>'" class="video-thumb-title">
           <%= truncate(video.title,18) %>
@@ -23,12 +24,12 @@
         <%= render_star_rating video.score %>
       </div>
       <div style="float: left; padding: 2px 0px;">
-        <%= add_video_to_playlist_link '+ Queue', video %>        
+        <%= add_video_to_playlist_link '+ Queue', video %>
       </div>
       <div style="float: left; margin-left: 2px; padding: 2px 0px;">
       <%= add_video_to_cart_link "Buy | #{number_to_currency(video.price(current_user)).split('.').first}<span style='vertical-align: top; line-height: 14px; font-size: 8px;'>99</span>", video %>
       </div>
       <div style="clear:both;"></div>
-    </div>    
+    </div>
   <% end %>
 </div>

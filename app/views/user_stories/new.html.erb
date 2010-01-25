@@ -1,10 +1,9 @@
 <% title 'Tell Us Your Story' %>
-<% can_has_js 'jquery.validate', 'story' %>
-<% can_has_js :validate_story do %>
+<script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
     validate_new_story_form('#new_user_story');
   });
-<% end %>
+</script>
 <script language="javascript" type="text/javascript">
   function limitText(limitField, limitCount, limitNum) {
     if (limitField.value.length > limitNum) {

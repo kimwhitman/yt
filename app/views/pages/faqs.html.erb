@@ -1,6 +1,6 @@
 <% title 'faqs' %>
 <% if params[:type] %>
-  <% can_has_js :select_faq_tab do %>
+  <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
     <% if params[:type] == 'technical' %>
       discussionChange('review_display_button','review_display');
@@ -10,7 +10,7 @@
       discussionChange('suggestion_display_button','suggestion_new_topic');
     <% end %>
     });
-  <% end %>
+  </script>
 <% end %>
 <div id="main">
 

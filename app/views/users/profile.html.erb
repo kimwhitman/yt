@@ -1,36 +1,4 @@
 <% title 'Your Profile' %>
-<% can_has_js 'jquery.validate' %>
-<% can_has_js :profile_validation do %>
-$(document).ready(function () {
-  $('.edit_user').validate({
-    rules: {
-        "user[password]": {
-          minlength: 5
-        },
-        "user[password_confirmation]": {
-          minlength: 5,
-          equalTo: "#user_password"
-        },
-        "user[email]": {
-          required: true,
-          email: true
-        }
-      },
-      messages: {
-        "user[password]": {
-          minlength: "Your password must be at least 5 characters long"
-        },
-        "user[password_confirmation]": {
-          equalTo: "Please enter the same password as above"
-        },
-        "user[email]": "Please enter a valid email address"
-      }
-    });
-  $('.edit_user').find("#user_password").blur(function() {
-    $('.edit_user').find("#user_password_confirmation").valid();
-  });
-});
-<% end %>
 <div id="main">
   <div id="page_container">
     <div id="page_information">
@@ -148,3 +116,35 @@ $(document).ready(function () {
     </div>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function () {
+  $('.edit_user').validate({
+    rules: {
+        "user[password]": {
+          minlength: 5
+        },
+        "user[password_confirmation]": {
+          minlength: 5,
+          equalTo: "#user_password"
+        },
+        "user[email]": {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        "user[password]": {
+          minlength: "Your password must be at least 5 characters long"
+        },
+        "user[password_confirmation]": {
+          equalTo: "Please enter the same password as above"
+        },
+        "user[email]": "Please enter a valid email address"
+      }
+    });
+  $('.edit_user').find("#user_password").blur(function() {
+    $('.edit_user').find("#user_password_confirmation").valid();
+  });
+});
+</script>

@@ -33,7 +33,8 @@
         :title => 'Share Yoga Today',
         :onmouseout => "MM_swapImgRestore();",
         :onmouseover => "MM_swapImage('nav_share','','/images/nav_share_on.png',1);" }) -%>
-      <script type="text/javascript">a2a_linkname=document.title;a2a_linkurl=location.href;</script><script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+      <script type="text/javascript">a2a_linkname=document.title;a2a_linkurl=location.href;</script>
+      <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
     </li>
     <% if logged_in? -%>
     <li class="margin_left cart_logged_in"><%= link_to(image_tag('nav_cart_loggedin.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%><span id="header_cart_size" class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>

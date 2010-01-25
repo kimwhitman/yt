@@ -1,15 +1,14 @@
-<%
-title @video.title
-can_has_js 'registration', 'jquery.timeago',
-  'jquery.rating', 'jquery.metadata', 'jquery.validate', 'jquery.form',
-  'login', 'jquery.scrollTo'
-can_has_css 'jquery.rating'
-%>
-<% can_has_js :timeago do %>
+<% title @video.title %>
+
+<% content_for :head do %>
+ <%= stylesheet_link_tag 'jquery.rating' %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
   $('abbr[class*=timeago]').timeago();
   });
-<% end %>
+</script>
 
 <%
 post_submission_text = logged_in? ? "Submit" : "Post anonymously"
