@@ -14,3 +14,5 @@ public/system
 vendor/
 mkmf.log
 rerun.txt
+public/stylesheets/*_packaged.css
+public/javascripts/*_packaged.js
