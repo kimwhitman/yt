@@ -33,20 +33,24 @@
         <% if controls %>
 
         <div id="featured-video-previous">
-          <span id='featured-video-previous' onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';"><img src="/images/overlay-previous.png" width="11" height="23" border="0" /></span>
+          <span id='featured-video-previous' onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';">
+            <%= image_tag '/images/overlay-previous.png', :size => '11x23', :border => '0' %>
+          </span>
         </div>
 
         <div id="featured-video-next">
-          <span id='featured-video-next' onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';"><img src="/images/overlay-next.png" width="11" height="23" border="0" /></span>
+          <span id='featured-video-next' onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';">
+            <%= image_tag '/images/overlay-next.png', :size => '11x23', :border => '0' %>
+          </span>
         </div>
 
         <% end %>
         <div id="featured-video-content">
           <div id="feature-video-info-free-class" style="<%= free_video_of_week ? '' : 'display: none' %>">
-            <img src="/images/overlay-free-class-header.png" width="355" height="39" />
+            <%= image_tag '/images/overlay-free-class-header.png', :size => '355x39' %>
           </div>
       <div id="feature-video-info-featured-class" style="<%= (featured_video_of_week && !free_video_of_week) ? '' : 'display: none' %>">
-            <img src="/images/overlay-featured-class-header.png" width="355" height="39" />
+            <%= image_tag 'overlay-featured-class-header.png', :size => '355x39' %>
           </div>
 
           <div id="featured-video-info" onmouseover="this.style.cursor='Pointer';" onmouseout="this.style.cursor='';" onclick="window.location.href='<%= video_url(video.id) if video %>'">
@@ -61,12 +65,16 @@
             </div>
 
             <div id="feature-video-info-play">
-              <a href="<%= video_path(video) if video %>" title="video details" id='featured-videos-link'><img src="/images/overlay-round-play-arrow.png" width="39" height="40" border="0" style="margin-top: 5px;" /></a>
+              <a href="<%= video_path(video) if video %>" title="video details" id='featured-videos-link'>
+                <%= image_tag 'overlay-round-play-arrow.png', :size => '39x40', :style => 'margin-top: 5px', :border => '0' %>
+              </a>
             </div>
           </div>
             <% if !logged_in? || !current_user.has_paying_subscription? %>
               <div id="featured-video-ad">
-                <a href="<%= get_started_today_path %>" title="get started today"><img src="/images/overlay-unlimited-bar.png" width="355" height="33" border="0" /></a>
+                <a href="<%= get_started_today_path %>" title="get started today">
+                  <%= image_tag 'overlay-unlimited-bar.png', :size => '355x33', :border => '0' %>
+                </a>
               </div>
             <% end %>
         </div>

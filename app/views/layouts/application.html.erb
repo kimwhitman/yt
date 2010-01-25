@@ -20,20 +20,11 @@
     <%= yield :head %>
   </head>
   <body>
-    <!-- preload images with hidden div -->
-    <div style="display:none;">
-      <%= image_tag "button-bg-lg.png" %>
-      <%= image_tag "button-bg-lg-2.png" %>
-      <%= image_tag "button-bg-lg-3.png" %>
-      <%= image_tag "button-smaller.png" %>
-      <%= image_tag "thumbnail_default.png" %>
-      <%= image_tag "thumbnail_hover.png" %>
-    </div>
     <div id="container">
       <div id="header">
         <div id="yoga_logo">
           <a title="Yoga Today - Yoga videos delivered daily" href="<%= root_url  %> ">
-            <img height="70" border="0" width="170" src="/images/yogatoday-logo.gif"/>
+            <%= image_tag 'yogatoday-logo.gif', :size => '170x70', :border => '0' %>
           </a>
         </div>
         <div id="menu">
@@ -48,7 +39,6 @@
       <%#= render :partial => 'shared/flashes' %>
 
       <%= yield %>
-
     </div>
     <div id="footer">
       <div id="content">
@@ -103,20 +93,34 @@
         </div>
 
         <div style="float: right; text-align: right;">
-          <a href="http://www.yogatoday.com/" title="Yoga Today - Yoga videos delivered daily"><img src="/images/yogatoday-logo-large.gif" border="0"></a>
+          <a href="http://www.yogatoday.com/" title="Yoga Today - Yoga videos delivered daily">
+            <%= image_tag 'yogatoday-logo-large.gif', :border => '0' %>
+          </a>
         </div>
-
       </div>
     </div>
 
+    <%
+      images = ['thumbnail_default.png',
+                'thumbnail_hover.png',
+                'button-bg-lg.png',   'button-bg-lg-2.png',
+                'button-bg-lg-3.png', 'button-smaller.png',
+                'videos_button.png',  'videos_button_on.png',
+                'about_yoga_today_button_on.png','about_yoga_today_button.png',
+                'blog_button.png','blog_button_on.png']
+
+      preload = []
+
+      images.each { |str| preload << "'#{image_path(str)}'" }
+    %>
+
     <script type='text/javascript'>
     jQuery(document).ready(function() {
-        MM_preloadImages('/images/thumbnail_default.png', '/images/thumbnail_hover.png',
-            '/images/button-bg-lg.png',   '/images/button-bg-lg-2.png',
-            '/images/button-bg-lg-3.png', '/images/button-smaller.png',
-            '/images/videos_button.png',  '/images/videos_button_on.png',
-            '/images/about_yoga_today_button_on.png','/images/about_yoga_today_button.png',
-            '/images/blog_button.png','/images/blog_button_on.png');
+        var imgUrls = [<%= preload * ',' %>];
+        for(i = 0; i < imgUrls.length; i++) {
+          var img = new Image();
+          img.src = imgUrls[i];
+        }
       });
     </script>
 

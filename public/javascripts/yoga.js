@@ -207,13 +207,13 @@ function sliderSelect(selectedElement)
     $("#featured_video_image_container").empty();
     var dim = $("#featured_video_image_container").attr('size').split('x');
 
-    if(dim.length == 2) {
-      img = '<img src="' +  thumb + ' width="' + dim[0] + '"' + ' height="' + dim[1] + '" />';
-    }
-    else
-    {
+    // if(dim.length == 2) {
+    //   img = '<img src="' +  thumb + ' width="' + dim[0] + '"' + ' height="' + dim[1] + '" />';
+    // }
+    // else
+    // {
       img = '<img src="' +  thumb + '" />';
-    }
+    // }
 
     $("#featured_video_image_container").append(img)
 }

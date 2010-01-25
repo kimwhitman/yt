@@ -89,6 +89,7 @@
 $(document).ready(function() {
   var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url(:carousel)}'" }.uniq * ',' %>];
   for(i = 0; i < imgUrls.length; i++) {
+    // console.log("preloading image: " + imgUrls[i]);
     var img = new Image();
     img.src = imgUrls[i];
   }
