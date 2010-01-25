@@ -1,6 +1,11 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+function toggle_homepage_promo() {
+  jQuery('#homepage_intro_promo').hide();
+  jQuery('#video_banner').show();
+}
+
 function hovered_images(selector) {
   $(selector).each(function() { $(this).data('orig_img', $(this).attr('src')); });
   $(selector).hover(function() {

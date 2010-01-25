@@ -14,9 +14,6 @@
     <%= javascript_include_merged :base %>
 
     <%= stylesheet_link_merged :base %>
-    <%# TODO: these two stylesheets need to be loaded separately for the carousel to layout properly %>
-    <%#= stylesheet_link_tag 'jquery.jcarousel' %>
-    <%#= stylesheet_link_tag 'yoga_carousel_skin' %>
     <%= yield :head %>
   </head>
   <body>
@@ -103,11 +100,12 @@
     <%
       images = ['thumbnail_default.png',
                 'thumbnail_hover.png',
-                'button-bg-lg.png',   'button-bg-lg-2.png',
-                'button-bg-lg-3.png', 'button-smaller.png',
-                'videos_button.png',  'videos_button_on.png',
-                'about_yoga_today_button_on.png','about_yoga_today_button.png',
-                'blog_button.png','blog_button_on.png']
+                'button-bg-lg.png',
+                'button-bg-lg-2.png',
+                'button-bg-lg-3.png',
+                'button-smaller.png',
+                'blog_button.png',
+                'blog_button_on.png']
 
       preload = []
 
@@ -122,7 +120,12 @@
           img.src = imgUrls[i];
         }
       });
+
+      // used by addtoany.com
+      a2a_linkname=document.title;
+      a2a_linkurl=location.href;
     </script>
+    <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
 
     <% if !request.ssl? %>
       <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>

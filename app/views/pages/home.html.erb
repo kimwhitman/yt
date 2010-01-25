@@ -1,45 +1,5 @@
 <% title 'Yoga Delivered Daily' %>
 
-<script type="text/javascript" charset="utf-8">
-   // $(document).ready(function() { $('.timeago').timeago(); });
-
-  function toggle_homepage_promo() {
-    jQuery('#homepage_intro_promo').hide();
-    jQuery('#video_banner').show();
-  }
-
-  var jCarousel =
-  $(window).ready(function() {
-    jQuery('#featured_videos_carousel').jcarousel({
-      scroll: 1,
-      wrap: 'both',
-      initCallback: function(carousel) {
-        jCarousel = carousel;
-        $('#featured-video-previous').click(function() { prev_featured_video(carousel); });
-        $('#featured-video-next').click(function() { next_featured_video(carousel); });
-      }
-    });
-    // Select 1st free featured video... or just the first featured video.
-    free_elements = $("#featured_videos_carousel .slider_item_box[free='true']")
-    first = null;
-    if (free_elements.length >= 1)
-      first = free_elements[(free_elements.length / 2 - 1)];
-    else {
-      non_free_elements = $("#featured_videos_carousel .slider_item_box")
-      first = non_free_elements[(non_free_elements.length / 2)];
-    }
-    sliderSelect(first);
-    if (first) {
-      var index = parseInt($(first).parent().attr('jcarouselindex'));
-      jCarousel.scroll(index);
-      featured_video_details(index);
-    }
-  });
-</script>
-
-<script type='text/javascript'>
-  var video_details = <%= @featured_videos_data.to_json %>;
-</script>
 <div id="main">
 
   <%= render :partial => 'shared/flashes' %>
@@ -86,14 +46,44 @@
 
 <% if @featured_videos %>
 <script type="text/javascript" charset="utf-8">
-$(document).ready(function() {
-  var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url(:carousel)}'" }.uniq * ',' %>];
-  for(i = 0; i < imgUrls.length; i++) {
-    // console.log("preloading carousel image: " + imgUrls[i]);
-    var img = new Image();
-    img.src = imgUrls[i];
-  }
+  var video_details = <%= @featured_videos_data.to_json %>;
+  // $(document).ready(function() { $('.timeago').timeago(); });
+  var jCarousel =
+  $(window).ready(function() {
+    jQuery('#featured_videos_carousel').jcarousel({
+      scroll: 1,
+      wrap: 'both',
+      initCallback: function(carousel) {
+        jCarousel = carousel;
+        $('#featured-video-previous').click(function() { prev_featured_video(carousel); });
+        $('#featured-video-next').click(function() { next_featured_video(carousel); });
+      }
+    });
+    // Select 1st free featured video... or just the first featured video.
+    free_elements = $("#featured_videos_carousel .slider_item_box[free='true']")
+    first = null;
+    if (free_elements.length >= 1)
+      first = free_elements[(free_elements.length / 2 - 1)];
+    else {
+      non_free_elements = $("#featured_videos_carousel .slider_item_box")
+      first = non_free_elements[(non_free_elements.length / 2)];
+    }
+    sliderSelect(first);
+    if (first) {
+      var index = parseInt($(first).parent().attr('jcarouselindex'));
+      jCarousel.scroll(index);
+      featured_video_details(index);
+    }
+  });
 
-});
+  $(document).ready(function() {
+    var imgUrls = [<%= @featured_videos.collect { |fv| "'#{fv.image.url(:carousel)}'" }.uniq * ',' %>];
+    for(i = 0; i < imgUrls.length; i++) {
+      // console.log("preloading carousel image: " + imgUrls[i]);
+      var img = new Image();
+      img.src = imgUrls[i];
+    }
+
+  });
 </script>
 <% end %>
