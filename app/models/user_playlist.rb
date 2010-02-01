@@ -1,13 +1,11 @@
 class UserPlaylist
-  # Accepts a User instance or an array of video ids to prime the playlist with.
-  def initialize(user_record_or_array = nil)
+  # Accepts a User instance to prime the playlist with
+  def initialize(user = nil)
     @videos = []
-    case user_record_or_array
-    when User
-      @user_id = user_record_or_array.id
-      user_record_or_array.playlist_videos.each { |pv|  @videos << pv.video_id }
-    when Array
-      @videos = pv.dup
+
+    if user.is_a? User
+      @user_id = user.id
+      user.playlist_videos.each { |pv|  @videos << pv.video_id }
     end
   end
 
@@ -24,8 +22,10 @@ class UserPlaylist
   def remove(video)
     return unless video
     if @user_id
-      PlaylistVideo.find_by_user_id_and_video_id(@user_id, video.id).destroy
+      plv = PlaylistVideo.find_by_user_id_and_video_id(@user_id, video.id)
+      plv.destroy unless plv.nil?
     end
+
     @videos.delete video.id
   end
 
