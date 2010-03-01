@@ -1,7 +1,7 @@
 # Edit at your own peril - it's recommended to regenerate this file
 # in the future when you upgrade to a newer version of Cucumber.
 
-HOST = 'yoga.local'
+HOST = 'yogatoday.local'
 
 # IMPORTANT: Setting config.cache_classes to false is known to
 # break Cucumber's use_transactional_fixtures method.
