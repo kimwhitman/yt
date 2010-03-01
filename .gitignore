@@ -2,6 +2,8 @@ log/*.log
 log/*.pid
 db/*.db
 db/*.sqlite3
+db/schema.rb
+tmp/*
 tmp/**/*
 .DS_Store
 coverage
@@ -14,5 +16,6 @@ public/system
 vendor/
 mkmf.log
 rerun.txt
+.DS_Store
 public/stylesheets/*_packaged.css
 public/javascripts/*_packaged.js
