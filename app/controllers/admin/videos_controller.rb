@@ -1,9 +1,10 @@
 class Admin::VideosController < Admin::BaseController
   active_scaffold :videos do |config|
     config.columns[:friendly_name].label = 'Custom ID'
-    config.list.columns = [:title, :friendly_name, :description, :skill_level, :is_public, :instructors]
+    config.list.columns = [:title, :friendly_name, :description, :skill_level, :is_public, :published_at, :instructors]
     config.list.sorting = { :title => :asc }
     config.columns[:is_public].label = "Public?"
+    config.columns[:published_at].label = 'Published At'
     config.columns[:streaming_media_id].label = "Streaming Video"
     config.columns[:preview_media_id].label = "Preview Video"
     config.columns[:downloadable_media_id].label = "Downloadable Video"
@@ -12,9 +13,8 @@ class Admin::VideosController < Admin::BaseController
     config.columns[:video_focus].form_ui = :select
     #config.columns[:related_videos].form_ui = :select
     create_or_update_columns = [:title, :friendly_name, :description, :skill_level_id, :is_public,
-      :instructors, :yoga_types, :related_videos,
-      :video_focus,
-      :preview_media_id, :streaming_media_id, :downloadable_media_id]
+      :published_at, :instructors, :yoga_types, :related_videos,
+      :video_focus, :preview_media_id, :streaming_media_id, :downloadable_media_id]
     config.create.columns = create_or_update_columns
     config.update.columns = create_or_update_columns
     config.search.columns = [:title, :description, :instructors]
