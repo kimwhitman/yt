@@ -14,7 +14,7 @@ set :rake, "/opt/local/bin/rake"
 
 set :repository, "git@github.com:planetargon/yogatoday.git"
 set :scm, :git
-set :branch, "published_dates" # or whatever branch/tag/SHA1
+set :branch, "master" # or whatever branch/tag/SHA1
 
 set :user, 'yoga'
 set :password, "y0g4"
