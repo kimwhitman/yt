@@ -10,14 +10,18 @@ set :stages, %w(production staging)
 set :default_stage, "staging"
 
 set :rake, "/opt/local/bin/rake"
-set :repository, "git@github.com:kimwhitman/YogaToday.git"
+# set :repository, "git@github.com:kimwhitman/YogaToday.git"
+
+set :repository, "git@github.com:planetargon/yogatoday.git"
 set :scm, :git
-set :branch, "master" # or whatever branch/tag/SHA1
+set :branch, "published_dates" # or whatever branch/tag/SHA1
 
 set :user, 'yoga'
 set :password, "y0g4"
 set :runner, 'yoga'
 set :use_sudo, false
+
+ssh_options[:forward_agent] = true
 
 begin
   require 'capistrano/ext/multistage'
