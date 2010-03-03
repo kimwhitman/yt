@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
-  config.gem 'exceptional', :version => '2.0.10'
+  config.gem 'exceptional'
   config.gem 'lockfile', :version => '1.4.3'
   config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
   config.gem 'mislav-will_paginate', :lib => 'will_paginate', :version => '~> 2.2.3', :source => 'http://gems.github.com'
