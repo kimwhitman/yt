@@ -21,4 +21,18 @@ namespace :subscriptions do
     end
 
   end
+
+  desc "Look for any un-renewed subscriptions and try again"
+  task :charge_past_due_accounts => :environment do
+    subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (45.days.ago .. Date.today ) })
+
+    subscriptions.each do |subscription|
+      if subscription.charge
+        puts "#{Time.now} Charged #{subscription.inspect}"
+      else
+        SubscriptionNotifier.deliver_charge_failure(subscription)
+        puts "#{Time.now} Failed to charge #{subscription.inspect}"
+      end
+    end
+  end
 end
