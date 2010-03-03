@@ -34,7 +34,7 @@ namespace :subscriptions do
       else
         SubscriptionNotifier.deliver_charge_failure(subscription)
         puts "#{Time.now} Failed to charge #{subscription.inspect}"
-        subscription.update_attribute({:last_attempt_at => Time.now, :last_attempt_successful => false})
+        subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => false})
       end
     end
   end
