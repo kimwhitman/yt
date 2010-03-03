@@ -20,7 +20,5 @@ namespace :subscriptions do
       end
     end
 
-  rescue StandardError
-
   end
 end
