@@ -10,7 +10,7 @@ class Subscription < ActiveRecord::Base
   attr_accessor :creditcard, :address
   attr_reader :response
 
-  named_scope :active, :conditions => {:state => 'active'}, :order => 'next_renewal_at ASC'
+  named_scope :active, :conditions => ['state = ? AND last_attempt_successful != ?', 'active', false], :order => 'next_renewal_at ASC'
   named_scope :paid, :include => [:subscription_plan], :conditions => ['name != ?', 'Free']
   # renewal_period is the number of months to bill at a time
   # default is 1

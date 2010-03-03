@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207120003) do
+ActiveRecord::Schema.define(:version => 20100303195410) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -280,6 +280,8 @@ ActiveRecord::Schema.define(:version => 20091207120003) do
     t.string   "billing_id"
     t.integer  "saved_subscription_plan_id"
     t.datetime "saved_next_renewal_at"
+    t.datetime "last_attempt_at"
+    t.boolean  "last_attempt_successful",                                   :default => true
   end
 
   create_table "user_stories", :force => true do |t|
@@ -362,7 +364,10 @@ ActiveRecord::Schema.define(:version => 20091207120003) do
     t.string   "friendly_name"
     t.string   "mds_tags"
     t.string   "video_focus_cache"
+    t.datetime "published_at"
   end
+
+  add_index "videos", ["published_at"], :name => "index_videos_on_published_at"
 
   create_table "videos_yoga_poses", :id => false, :force => true do |t|
     t.integer  "video_id"
