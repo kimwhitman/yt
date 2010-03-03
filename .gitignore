@@ -1,5 +1,7 @@
 log/*.log
 log/*.pid
+db/development_structure.sql
+db/schema.rb
 db/*.db
 db/*.sqlite3
 db/schema.rb

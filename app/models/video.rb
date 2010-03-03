@@ -34,7 +34,7 @@ class Video < ActiveRecord::Base
       :joins => "INNER JOIN `related_videos` ON `videos`.id = `related_videos`.related_video_id OR `videos`.id = `related_videos`.video_id"
     }
   }
-  named_scope :public, :conditions => { :is_public => true }
+  named_scope :published, lambda { { :conditions => [ 'is_public = ? AND published_at <= ?', true, Time.now ] } }  
   named_scope :by_title, :order => 'title ASC'
   named_scope :by_most_recent, :order => 'videos.created_at DESC'
   named_scope :by_most_popular,

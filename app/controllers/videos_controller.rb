@@ -7,11 +7,11 @@ class VideosController < ApplicationController
   end
 
   def preview
-    render :partial => 'player', :locals => { :video => Video.find(params[:id])}
+    render :partial => 'player', :locals => { :video => Video.published.find(params[:id])}
   end
 
   def info
-    render :partial => 'info', :locals => { :video => Video.find(params[:id])}
+    render :partial => 'info', :locals => { :video => Video.published.find(params[:id])}
   end
 
 
@@ -27,12 +27,12 @@ class VideosController < ApplicationController
 
   def show
     @sorting = sorting
-    @video = Video.find(params[:id])
+    @video = Video.published.find(params[:id])
     @preview = params['preview']
     session[:continue_shopping_to] = "show"
     session[:last_video_id] = params[:id]
 
-    @related_videos = Video.related_videos_for(@video.id).send("by_#{@sorting}").paginate(:page => @page, :per_page => 8).uniq
+    @related_videos = Video.published.related_videos_for(@video.id).send("by_#{@sorting}").paginate(:page => @page, :per_page => 8).uniq
     respond_to do |format|
       format.html
       format.js do
@@ -46,8 +46,8 @@ class VideosController < ApplicationController
 
   def sort_related_videos
     @sorting = sorting
-    @video = Video.find(params[:id])
-    @related_videos = Video.related_videos_for(@video.id).send("by_#{@sorting}").paginate(:page => @page, :per_page => 8).uniq
+    @video = Video.published.find(params[:id])
+    @related_videos = Video.published.related_videos_for(@video.id).send("by_#{@sorting}").paginate(:page => @page, :per_page => 8).uniq
     @display_mode = params[:display_mode]
     respond_to do |wants|
       wants.js {
@@ -77,12 +77,12 @@ class VideosController < ApplicationController
     if params[:commit] == 'Search' # keyword search
       @search_terms = {}
       params.delete :search
-      @videos = Video.public.send("by_#{@sorting}").keywords(@keywords).paginate(:page => @page, :per_page => @per_page)
+      @videos = Video.published.send("by_#{@sorting}").keywords(@keywords).paginate(:page => @page, :per_page => @per_page)
     else
       @keywords = ''
       # will_paginate + rails don't do counts right with any "group by" statements.
-      total = Video.public.send("by_#{@sorting}").search(@search_terms).count(:group => 'videos.id').size
-      @videos = Video.public.send("by_#{@sorting}").search(@search_terms).paginate(:page => @page, :per_page => @per_page, :total_entries => total)
+      total = Video.published.send("by_#{@sorting}").search(@search_terms).count(:group => 'videos.id').size
+      @videos = Video.published.send("by_#{@sorting}").search(@search_terms).paginate(:page => @page, :per_page => @per_page, :total_entries => total)
     end
     respond_to do |wants|
         wants.html { render :action => 'index' }
