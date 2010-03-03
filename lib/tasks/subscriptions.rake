@@ -27,6 +27,7 @@ namespace :subscriptions do
     subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (45.days.ago .. Date.today ) })
 
     subscriptions.each do |subscription|
+      p subscription
       if subscription.charge
         puts "#{Time.now} Charged #{subscription.inspect}"
       else
