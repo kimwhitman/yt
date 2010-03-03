@@ -11,7 +11,7 @@ class Subscription < ActiveRecord::Base
   attr_reader :response
 
   named_scope :active, :conditions => {:state => 'active'}, :order => 'next_renewal_at ASC'
-
+  named_scope :paid, :include => [:subscription_plan], :conditions => ['name != ?', 'Free']
   # renewal_period is the number of months to bill at a time
   # default is 1
   validates_numericality_of :renewal_period, :only_integer => true, :greater_than => 0
