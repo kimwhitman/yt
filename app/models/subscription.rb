@@ -10,6 +10,8 @@ class Subscription < ActiveRecord::Base
   attr_accessor :creditcard, :address
   attr_reader :response
 
+  named_scope :active, :conditions => ['state = ? AND last_attempt_successful != ?', 'active', false], :order => 'next_renewal_at ASC'
+  named_scope :paid, :include => [:subscription_plan], :conditions => ['name != ?', 'Free']
   # renewal_period is the number of months to bill at a time
   # default is 1
   validates_numericality_of :renewal_period, :only_integer => true, :greater_than => 0
@@ -134,7 +136,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.find_due(renew_at = Time.now)
-    find(:all, :include => :account, :conditions => { :state => 'active', :next_renewal_at => (renew_at.beginning_of_day .. renew_at.end_of_day) })
+    active.find(:all, :include => [:account, :subscription_plan], :conditions => ["subscription_plans.name != 'Free' AND next_renewal_at <= now()"])
   end
 
   def paypal?
