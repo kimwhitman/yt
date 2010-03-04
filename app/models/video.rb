@@ -35,7 +35,7 @@ class Video < ActiveRecord::Base
     }
   }
   named_scope :published, lambda { { :conditions => [ 'is_public = ? AND published_at <= ?', true, Time.now ] } }
-  named_scope :upcoming, lambda { { :conditions => [ 'is_public = ? AND published_at >= ?', true, Time.now ] } }
+  named_scope :upcoming, lambda { { :conditions => [ 'is_public = ? AND published_at > ?', true, Time.now ] } }
   named_scope :by_title, :order => 'title ASC'
   named_scope :by_most_recent, :order => 'videos.created_at DESC'
   named_scope :by_most_popular,

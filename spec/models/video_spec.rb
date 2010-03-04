@@ -43,5 +43,20 @@ describe Video do
 
       Video.upcoming.should include(@video_1, @video_2)
     end
+    
+    it "should not return videos that are published in the past" do
+      Timecop.freeze(Date.today + 2)
+      (1..2).each do |interval|
+        self.instance_variable_set("@video_#{interval}", Video.create(:title => 'Test', :duration => 100, :description => 'This is a test', 
+          :streaming_media_id => 1, :is_public => true, :published_at => Time.now))
+      end
+          
+      Timecop.return
+      
+      @video_3 = Video.create(:title => 'Test', :duration => 100, :description => 'This is a test', 
+        :streaming_media_id => 1, :is_public => true, :published_at => Time.now)
+
+      Video.upcoming.should_not include(@video_3)
+    end
   end
 end
