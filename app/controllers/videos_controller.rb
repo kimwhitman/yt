@@ -5,6 +5,10 @@ class VideosController < ApplicationController
     #@videos = Video.public.send("by_#{sorting}").paginate(:page => @page, :per_page => @per_page)
     search
   end
+  
+  def lineup
+    @videos = Video.upcoming
+  end
 
   def preview
     render :partial => 'player', :locals => { :video => Video.published.find(params[:id])}

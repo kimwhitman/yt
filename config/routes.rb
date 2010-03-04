@@ -27,7 +27,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resource :session
-  map.resources :videos, :collection => { :search => :any, :this_weeks_free_video => :get }, :member => { :leave_suggestion => :post } do |videos|
+  map.resources :videos, :collection => { :search => :any, :this_weeks_free_video => :get, :lineup => :get }, 
+    :member => { :leave_suggestion => :post } do |videos|
     videos.resources :comments
     videos.resources :reviews
   end
