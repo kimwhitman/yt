@@ -190,6 +190,11 @@ class Video < ActiveRecord::Base
     !fv.blank? && fv.free?
   end
 
+  def could_be_free?
+    fv = FeaturedVideo.find_by_video_id(self.id)
+    !fv.blank? && fv.could_be_free?
+  end
+
   # API-accessing functions
   def thumbnail_url
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do

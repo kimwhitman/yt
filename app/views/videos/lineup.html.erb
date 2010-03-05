@@ -30,12 +30,12 @@
         <th colspan="4">Upcoming Releases</th>
       </tr>
       <% @upcoming_videos.each do |video| -%>
-        <% if video.free? %>
+        <% if video.could_be_free? %>
         <tr class="free">
-          <td class="title"><span><%= link_to(video.title, video_path(video)) -%> <span>FREE</span></span></td>
+          <td class="title"><span><%= video.title -%> <span>FREE</span></span></td>
         <% else %>
         <tr>
-          <td class="title"><%= link_to(video.title, video_path(video)) -%></td>
+          <td class="title"><%= video.title -%></td>
         <% end %>
           <td class="type"><%= video.skill_name -%> |</td>
           <td class="instructor"><%= video.instructor_names.join(', ') %></td>
