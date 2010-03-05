@@ -1541,8 +1541,30 @@ input[type="button"].button_cancel {
   height: 526px;
 }
 
+/* LINEUP */
+
+.lineup {
+  position: relative;
+  margin-top: 30px;
+}
+
+.lineup h1 {
+  line-height: 50px;
+}
+
+.lineup p {
+  position: absolute;
+  right: 320px;
+  top: 20px;
+}
+
+.lineup #container_2col {
+  margin-top: 75px;
+}
+
 table.scheduled_releases {
   width: 100%;
+  margin-bottom: 40px;
 }
 
 table.scheduled_releases th {
@@ -1566,8 +1588,31 @@ table.scheduled_releases tr.free td {
   background: #efefef;
 }
 
+table.scheduled_releases tr.thisweek td {
+  background: #edffe2;
+}
+
 table.scheduled_releases td.title {
   padding-left: 30px;
+  color: #488A1A;
+}
+
+table.scheduled_releases tr.free td.title {
+  color: #333;
+}
+
+table.scheduled_releases tr.free td.title span {
+  position: relative;
+  display: block;
+}
+
+table.scheduled_releases tr.free td.title span span {
+  position: absolute;
+  top: 1px;
+  left: 0px;
+  line-height: 10px;
+  font-size: 9px;
+  color: #555;
 }
 
 table.scheduled_releases td.type, table.scheduled_releases td.instructor {

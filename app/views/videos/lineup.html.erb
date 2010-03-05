@@ -1,30 +1,46 @@
-<div id="main" style="clear: left;">  
-  <div id="container_4col">
-    <h1>Scheduled Releases</h1>
+<div id="main" style="clear: left;" class="lineup">  
+  <div style="float: left;" id="container_4col">
+    <h1 class="arial18_green">Scheduled Releases</h1>
     <p>Keep up with RSS</p>
     <table class="scheduled_releases" cellpadding="0" cellspacing="0">
       <tr>
         <th colspan="4">This Week <span>Date</span></th>
       </tr>
-      <tr class="free">
-        <td class="title">Title</td>
-        <td class="type">Type | </td>
-        <td class="instructor">Instructor</td>
-        <td class="date">Date</td>
-      </tr>
-      <tr>
-        <td class="title">Title</td>
-        <td class="type">Type | </td>
-        <td class="instructor">Instructor</td>
-        <td class="date">Date</td>
-      </tr>
-      <tr class="free">
+      <tr class="thisweek">
         <td class="title">Title</td>
         <td class="type">Type | </td>
         <td class="instructor">Instructor</td>
         <td class="date">Date</td>
       </tr>
     </table>
+    
+    <table class="scheduled_releases" cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="4">Upcoming Releases <span>Date</span></th>
+      </tr>
+      <tr class="free">
+        <td class="title"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit <span>FREE</span></span></td>
+        <td class="type">Yogis | </td>
+        <td class="instructor">Sara Kline</td>
+        <td class="date">Mar 11-15</td>
+      </tr>
+      <tr>
+        <td class="title">Title</td>
+        <td class="type">Type | </td>
+        <td class="instructor">Instructor</td>
+        <td class="date">Date</td>
+      </tr>
+      <tr class="free">
+        <td class="title">Title <span>FREE</span></td>
+        <td class="type">Type | </td>
+        <td class="instructor">Instructor</td>
+        <td class="date">Date</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div style="float: right;" id="container_2col" class="YT365_promo">
+    <%= render :partial => 'shared/promo_yt365' %>
   </div>
 </div>
 
