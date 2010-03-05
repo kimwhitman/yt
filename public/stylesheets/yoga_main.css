@@ -1540,3 +1540,50 @@ input[type="button"].button_cancel {
   width: 941px;
   height: 526px;
 }
+
+table.scheduled_releases {
+  width: 100%;
+}
+
+table.scheduled_releases th {
+  border-top: 5px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 0;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+table.scheduled_releases th span {
+  float: right;
+  font-weight: normal;
+}
+
+table.scheduled_releases td {
+  line-height: 40px;
+}
+
+table.scheduled_releases tr.free td {
+  background: #efefef;
+}
+
+table.scheduled_releases td.title {
+  padding-left: 30px;
+}
+
+table.scheduled_releases td.type, table.scheduled_releases td.instructor {
+  font-size: 11px;
+  color: #555;
+}
+
+table.scheduled_releases td.type {
+  text-align: right;
+  padding-right: 2px;
+}
+
+table.scheduled_releases td.date, table.scheduled_releases th span {
+  font-style: italic;
+  color: green;
+  font-size: 14px;
+  text-align: right;
+  padding-right: 10px;
+}
