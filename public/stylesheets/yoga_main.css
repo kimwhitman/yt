@@ -1600,6 +1600,7 @@ table.scheduled_releases tr.thisweek td.title {
 table.scheduled_releases td.title {
   padding-left: 30px;
   color: #488A1A;
+  width: 60%;
 }
 
 table.scheduled_releases tr.free td.title {
@@ -1624,6 +1625,7 @@ table.scheduled_releases tr.free td.title span span {
 table.scheduled_releases td.type, table.scheduled_releases td.instructor {
   font-size: 11px;
   color: #555;
+  width: 13%;
 }
 
 table.scheduled_releases td.type {
