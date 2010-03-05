@@ -1545,22 +1545,24 @@ input[type="button"].button_cancel {
 
 .lineup {
   position: relative;
-  margin-top: 30px;
+  padding-top: 10px;
 }
 
 .lineup h1 {
-  line-height: 50px;
+  line-height: 40px;
 }
 
-.lineup p {
+.lineup .rss_link {
   position: absolute;
   right: 320px;
-  top: 20px;
-  display: none;
+  top: 38px;
+  color: #878752;
+  background: url(/images/rss_round.png) right top no-repeat;
+  padding-right: 20px;
 }
 
 .lineup #container_2col {
-  margin-top: 75px;
+  margin-top: 65px;
 }
 
 table.scheduled_releases {
