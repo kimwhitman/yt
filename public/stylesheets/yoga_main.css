@@ -1556,6 +1556,7 @@ input[type="button"].button_cancel {
   position: absolute;
   right: 320px;
   top: 20px;
+  display: none;
 }
 
 .lineup #container_2col {
@@ -1581,7 +1582,7 @@ table.scheduled_releases th span {
 }
 
 table.scheduled_releases td {
-  line-height: 40px;
+  line-height: 45px;
 }
 
 table.scheduled_releases tr.free td {
@@ -1592,6 +1593,10 @@ table.scheduled_releases tr.thisweek td {
   background: #edffe2;
 }
 
+table.scheduled_releases tr.thisweek td.title {
+  background: #edffe2 url(/images/icon_freeclass_greenbg.png) 10px 15px no-repeat;
+}
+
 table.scheduled_releases td.title {
   padding-left: 30px;
   color: #488A1A;
@@ -1599,6 +1604,7 @@ table.scheduled_releases td.title {
 
 table.scheduled_releases tr.free td.title {
   color: #333;
+  background: #efefef url(/images/icon_freeclass_graybg.png) 10px 16px no-repeat;
 }
 
 table.scheduled_releases tr.free td.title span {
@@ -1608,7 +1614,7 @@ table.scheduled_releases tr.free td.title span {
 
 table.scheduled_releases tr.free td.title span span {
   position: absolute;
-  top: 1px;
+  top: 3px;
   left: 0px;
   line-height: 10px;
   font-size: 9px;
@@ -1631,4 +1637,8 @@ table.scheduled_releases td.date, table.scheduled_releases th span {
   font-size: 14px;
   text-align: right;
   padding-right: 10px;
+}
+
+table.scheduled_releases td.date img {
+  border: none;
 }
