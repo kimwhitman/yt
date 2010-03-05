@@ -5,9 +5,10 @@ class VideosController < ApplicationController
     #@videos = Video.public.send("by_#{sorting}").paginate(:page => @page, :per_page => @per_page)
     search
   end
-  
+
   def lineup
-    @videos = Video.upcoming
+    @this_weeks_videos = Video.this_week
+    @upcoming_videos = Video.after_this_week
   end
 
   def preview

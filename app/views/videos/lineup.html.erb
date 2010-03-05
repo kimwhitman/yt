@@ -1,51 +1,51 @@
-<div id="main" style="clear: left;" class="lineup">  
+<div id="main" style="clear: left;" class="lineup">
   <div style="float: left;" id="container_4col">
     <h1 class="arial18_green">Scheduled Releases</h1>
     <%= link_to 'Keep up with RSS', 'http://blog.yogatoday.com/feed/', :title => 'YogaToday RSS feed', :class => 'rss_link' -%>
+
+    <% if @this_weeks_videos.size > 0 -%>
     <table class="scheduled_releases" cellpadding="0" cellspacing="0">
       <tr>
-        <th colspan="4">This Week <span>Date</span></th>
+        <th colspan="4">This Week <span><%= Date.today.beginning_of_week.strftime('%b %d') -%>-<%= Date.today.end_of_week.strftime('%b %d %Y') -%></span></th>
       </tr>
+      <% @this_weeks_videos.each do |video| -%>
+      <% if video.free? %>
+      <tr class="thisweek free">
+        <td class="title"><span><%= link_to(video.title, video_path(video)) -%> <span>FREE</span></span></td>
+      <% else %>
       <tr class="thisweek">
-        <td class="title">Title</td>
-        <td class="type">Type | </td>
-        <td class="instructor">Instructor</td>
-        <td class="date"><%= link_to image_tag('button_watch_now_03.png', :alt => 'Watch Now'), '#', :title => 'Watch Now' -%></td>
+        <td class="title"><%= link_to(video.title, video_path(video)) -%></td>
+      <% end %>
+
+        <td class="type"><%= video.skill_name -%> |</td>
+        <td class="instructor"><%= video.instructor_names.join(', ') %></td>
+        <td class="date"><%= link_to image_tag('button_watch_now_03.png', :alt => 'Watch Now'), video_path(video), :title => 'Watch Now' -%></td>
       </tr>
+      <% end -%>
     </table>
-    
+    <% end -%>
+
     <table class="scheduled_releases" cellpadding="0" cellspacing="0">
       <tr>
         <th colspan="4">Upcoming Releases</th>
       </tr>
-      <tr class="free">
-        <td class="title"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit <span>FREE</span></span></td>
-        <td class="type">Yogis | </td>
-        <td class="instructor">Sara Kline</td>
-        <td class="date">Mar 11-15</td>
-      </tr>
-      <tr>
-        <td class="title">Title</td>
-        <td class="type">Type | </td>
-        <td class="instructor">Instructor</td>
-        <td class="date">Date</td>
-      </tr>
-      <tr class="free">
-        <td class="title"><span>Title <span>FREE</span></span></td>
-        <td class="type">Type | </td>
-        <td class="instructor">Instructor</td>
-        <td class="date">Date</td>
-      </tr>
+      <% @upcoming_videos.each do |video| -%>
+        <% if video.free? %>
+        <tr class="free">
+          <td class="title"><span><%= link_to(video.title, video_path(video)) -%> <span>FREE</span></span></td>
+        <% else %>
+        <tr>
+          <td class="title"><%= link_to(video.title, video_path(video)) -%></td>
+        <% end %>
+          <td class="type"><%= video.skill_name -%> |</td>
+          <td class="instructor"><%= video.instructor_names.join(', ') %></td>
+          <td class="date"><%= video.published_at.strftime('%b %d') -%></td>
+        </tr>
+      <% end -%>
     </table>
   </div>
-  
+
   <div style="float: right;" id="container_2col" class="YT365_promo">
     <%= render :partial => 'shared/promo_yt365' %>
   </div>
 </div>
-
-<ul>
-  <% @videos.each do |video| %>
-    <li><%= video.title %></li>
-  <% end %>
-</ul>
