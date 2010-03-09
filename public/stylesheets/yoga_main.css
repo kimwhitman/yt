@@ -1562,6 +1562,16 @@ input[type="button"].button_cancel {
   line-height: 16px;
 }
 
+.lineup #x_recently_released_show_links a {
+  float: right;
+  padding-right: 20px;
+  position: relative;
+  top: -25px;
+  line-height: 16px;
+  color: #878752;
+  background: url(/images/rss_round.png) right top no-repeat;
+}
+
 .lineup #container_2col {
   margin-top: 65px;
 }
@@ -1595,8 +1605,6 @@ input[type="button"].button_cancel {
 .lineup table.thisweek tr.free {
 
 }
-
-
 
 .lineup table td.title {
   padding-left: 30px;
