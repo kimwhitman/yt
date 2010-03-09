@@ -54,7 +54,7 @@
       <table class="thisweek" cellpadding="0" cellspacing="0">
         <tr>
           <th colspan="4">Recently Released <span>
-            <%= 3.weeks.ago.beginning_of_week.strftime('%b %e') -%>-<%= 2.weeks.ago.end_of_week.strftime('%b %e') -%></span></th>
+            <%= 2.weeks.ago.beginning_of_week.strftime('%b %e') -%>-<%= 1.weeks.ago.end_of_week.strftime('%b %e') -%></span></th>
         </tr>
         <% @recently_released_videos.each do |video| -%>
           <% if video.free? %>
