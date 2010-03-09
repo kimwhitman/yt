@@ -6,7 +6,7 @@
     <% if @this_weeks_videos.size > 0 -%>
     <table class="thisweek" cellpadding="0" cellspacing="0">
       <tr>
-        <th colspan="4">This Week <span><%= Date.today.beginning_of_week.strftime('%b %d') -%>-<%= Date.today.end_of_week.strftime('%b %d %Y') -%></span></th>
+        <th colspan="4">This Week <span><%= Date.today.beginning_of_week.strftime('%b %e') -%>-<%= Date.today.end_of_week.strftime('%b %e') -%></span></th>
       </tr>
       <% @this_weeks_videos.each do |video| -%>
       <% if video.free? %>
@@ -32,7 +32,7 @@
         <td class="instructor"><%= video.instructor_names.join(', ') %></td>
         <td class="date">
           <% if video.published_at >= Time.now -%>
-            <%= video.published_at.strftime('%b %d') -%>
+            <%= video.published_at.strftime('%b %e') -%>
           <% else -%>
             <%= link_to image_tag('button_watch_now_03.png', :alt => 'Watch Now'), video_path(video), :title => 'Watch Now' -%>
           <% end -%>
@@ -56,7 +56,7 @@
         <% end %>
           <td class="type"><%= video.skill_name -%> |</td>
           <td class="instructor"><%= video.instructor_names.join(', ') %></td>
-          <td class="date"><%= video.published_at.strftime('%b %d') -%></td>
+          <td class="date"><%= video.published_at.strftime('%b %e') -%></td>
         </tr>
       <% end -%>
     </table>
