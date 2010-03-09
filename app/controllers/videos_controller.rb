@@ -8,6 +8,7 @@ class VideosController < ApplicationController
 
   def lineup
     @this_weeks_videos = Video.this_week
+    @recently_released_videos = Video.recently_released
     @upcoming_videos = Video.after_this_week
   end
 

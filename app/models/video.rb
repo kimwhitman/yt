@@ -40,6 +40,8 @@ class Video < ActiveRecord::Base
 
   named_scope :after_this_week, lambda { { :conditions => ['published_at >= ?', Date.today.next_week], :order => 'published_at ASC' } }
 
+  named_scope :recently_released, lambda { { :conditions => { :published_at => (3.months.ago.beginning_of_week .. 2.weeks.from_now.end_of_week) }, :order => 'published_at ASC' } }
+
   named_scope :by_title, :order => 'title ASC'
   named_scope :by_most_recent, :order => 'videos.created_at DESC'
   named_scope :by_most_popular,
