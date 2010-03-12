@@ -217,6 +217,7 @@ input.empty {
 
 #homepage_intro_promo {
   height: 530px;
+  position: relative;
 }
 
 #homepage_intro_promo img {
@@ -227,6 +228,12 @@ input.empty {
   float: left;
   width: 417px;
   position: relative;
+}
+
+#homepage_intro_promo a.check_lineup {
+  position: absolute;
+  top: 452px;
+  left: 47px;
 }
 
 #homepage_intro_promo div .signup {
