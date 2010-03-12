@@ -277,8 +277,19 @@ input.empty {
   float: left;
 }
 
-#main_content .home_promo a img {
+#main_content .home_promo a img, #main .StudioSessions_promo a img {
   border: none;
+}
+
+#main .StudioSessions_promo {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+#main .StudioSessions_promo a {
+  position: absolute;
+  top: 95px;
+  left: 15px;
 }
 
 #main .YT365_promo {

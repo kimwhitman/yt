@@ -47,6 +47,9 @@
     <div style="float: right;" id="container_2col">
     <% if !logged_in? || !current_user.has_paying_subscription? %>
     <% subscription_advert_path = !logged_in? ? get_started_today_path : billing_user_path(current_user) %>
+    <div id="container_2col" class="StudioSessions_promo">
+      <%= render :partial => 'shared/promo_studiosessions' %>
+    </div>
     <div id="container_2col" class="YT365_promo">
       <%= render :partial => 'shared/promo_yt365' %>
     </div>
