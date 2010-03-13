@@ -625,16 +625,22 @@ input.empty {
 #get-started-box {
   float: right;
   width: 250px;
-  padding: 15px 35px 15px 15px;
+  padding: 10px 20px;
   border: 1px solid #DADAD7;
-  height: 380px;
+  height: 378px;
 }
 #get-started-box p {
-  line-height: 20px;
-  margin-bottom: 25px;
+  font-size: 1.15em;
+  line-height: 18px;
+  margin-bottom: 18px;
+}
+#get-started-box p span {
+  display: block;
 }
 #get-started-title {
   font-size: 20px;
+  font-weight: normal;
+  margin: 20px 0;
 }
 
 #words-from-community-box {
