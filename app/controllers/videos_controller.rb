@@ -7,9 +7,12 @@ class VideosController < ApplicationController
   end
 
   def lineup
-    @this_weeks_videos = Video.this_week
+    @this_weeks_videos = Video.find_by_sql(["SELECT videos.id, videos.title, skill_level_id, published_at, featured_videos.starts_free_at FROM videos LEFT OUTER JOIN `featured_videos` ON featured_videos.video_id = videos.id WHERE  (`videos`.`published_at` BETWEEN ? AND ?) ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC;", Date.today.beginning_of_week,Date.today.next_week])
+
     @recently_released_videos = Video.recently_released
-    @upcoming_videos = Video.after_this_week
+    @upcoming_videos = Video.find_by_sql(["SELECT videos.id, videos.title, skill_level_id, published_at, featured_videos.starts_free_at FROM videos LEFT OUTER JOIN `featured_videos` ON featured_videos.video_id = videos.id WHERE (videos.published_at >= ? OR featured_videos.starts_free_at >= ?) ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC;", Date.today.next_week, Date.today.next_week])
+
+        #Video.after_this_week
   end
 
   def preview
