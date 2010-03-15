@@ -262,10 +262,6 @@ input.empty {
   border: none;
 }
 
-#video_banner   {
-
-}
-
 #main_content .home_promo {
   width: 300px;
   float: left;
@@ -420,7 +416,6 @@ input.empty {
 
 #featured_video_image_fade {/*UPDATED 2009-03-06*/
   width:940px;
-  height:526px;
   position: absolute;
   z-index: 10;
   background-image: url(../images/fade-bkg-50.png);
@@ -1561,8 +1556,7 @@ input[type="button"].button_cancel {
 }
 
 #featured_video_image_container {
-  width: 941px;
-  height: 526px;
+
 }
 
 /* LINEUP */

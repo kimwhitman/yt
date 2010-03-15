@@ -73,21 +73,18 @@
 
 
 
-    <div id="page_container" style="width: 620px; margin-top: 5px;">
-      <div id="page_information" style="height:50px; width: 400px;">
-        <div id="navigation" class="breadcrub_nav">Home : Videos</div>
-        <div class="arial18_green" id="main_title" style="padding-bottom: 10px;">Yoga Today Videos</div>
-      </div>
-      <% unless @keywords.blank? %>
-        <div style="float:right; margin-top: 10px; text-align: right;">
-          <%= @videos.total_entries %> of <%= Video.count %> classes found<br>keywords: <%= @keywords %>
-      </div>
-      <% end %>
-    </div>
-
     <!--<div id="main_content">-->
       <div style="height: 0px; clear:both">&nbsp;</div>
-      <div id="container_4col_wrap" style="float:left; margin-top: 10px;">
+      <div id="container_4col" style="float:left; margin-top: -40px;">
+        <div id="page_information" style="height:50px;">
+          <div id="navigation" class="breadcrub_nav">Home : Videos</div>
+          <div class="arial18_green" id="main_title" style="padding-bottom: 10px;">Yoga Today Videos</div>
+        </div>
+        <% unless @keywords.blank? %>
+          <div style="float:right; margin-top: 10px; text-align: right;">
+            <%= @videos.total_entries %> of <%= Video.count %> classes found<br>keywords: <%= @keywords %>
+        </div>
+        <% end %>
         <%= render :partial => "video_listings" %>
         <div class="promo_yt365_wide">
           <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
