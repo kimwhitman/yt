@@ -59,15 +59,6 @@
             <%= 2.weeks.ago.beginning_of_week.strftime('%b %e') -%>-<%= 1.weeks.ago.end_of_week.strftime('%b %e') -%></span></th>
         </tr>
         <% @recently_released_videos.each do |video| -%>
-          <% if video.free? %>
-          <tr class="free">
-            <td class="title"><span>
-              <% if video.starts_free_at >= Time.now -%>
-                <%= video.starts_free_at.strftime('%b %d') -%> <%= video.ends_free_at.strftime('%b %d') -%>
-              <% else -%>
-                <%= link_to(video.title, video_path(video)) -%>
-              <% end -%> <span>FREE</span></span></td>
-          <% else %>
           <tr>
             <td class="title">
               <% if video.published_at >= Time.now -%>
@@ -76,7 +67,6 @@
                 <%= link_to(video.title, video_path(video)) -%>
               <% end -%>
             </td>
-          <% end %>
             <td class="type"><%= video.skill_name -%> |</td>
             <td class="instructor"><%= video.instructor_names.join(', ') %></td>
             <td class="date">
@@ -105,7 +95,13 @@
         <% end %>
           <td class="type"><%= video.skill_name -%> |</td>
           <td class="instructor"><%= video.instructor_names.join(', ') %></td>
-          <td class="date"><%= video.published_at.strftime('%b %e') -%></td>
+          <td class="date">
+            <% if video.free? -%>
+              <%= video.starts_free_at.strftime('%b %d') -%>-<%= video.ends_free_at.strftime('%b %d') -%>
+            <% else -%>
+              <%= video.published_at.strftime('%b %e') -%>
+            <% end -%>
+          </td>
         </tr>
       <% end -%>
     </table>
