@@ -63,7 +63,7 @@
           <tr class="free">
             <td class="title"><span>
               <% if video.starts_free_at >= Time.now -%>
-                <%= video.starts_free_at.strftime('%b %d') -%>
+                <%= video.starts_free_at.strftime('%b %d') -%> <%= video.ends_free_at.strftime('%b %d') -%>
               <% else -%>
                 <%= link_to(video.title, video_path(video)) -%>
               <% end -%> <span>FREE</span></span></td>
