@@ -96,7 +96,7 @@
           <td class="type"><%= video.skill_name -%> |</td>
           <td class="instructor"><%= video.instructor_names.join(', ') %></td>
           <td class="date">
-            <% if video.free? -%>
+            <% if video.could_be_free? -%>
               <%= video.starts_free_at.strftime('%b %d') -%>-<%= video.ends_free_at.strftime('%b %d') -%>
             <% else -%>
               <%= video.published_at.strftime('%b %e') -%>
