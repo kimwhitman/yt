@@ -9,7 +9,8 @@
 <% if controller.action_name == 'home' %>
   <% unless logged_in? -%>
     <div id="homepage_intro_promo">
-      <%= image_tag 'home_hero_photo.jpg' -%>
+      <%= image_tag 'home_hero_studiosessions.png', :alt => 'The Yoga Today Studio Sessions' -%>
+      <%= link_to(image_tag( 'button_homepromo_checklineup.png'), lineup_videos_path, {:class => 'check_lineup', :title => 'Check the Lineup'}) -%>
       <div>
         <%= image_tag 'home_hero_signup.png', :class => 'signup' -%>
         <%= link_to(image_tag( 'button_homepromo_signup.png'), sign_up_path, {:class => 'signup_link', :title => 'Sign up today'}) -%>

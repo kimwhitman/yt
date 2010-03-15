@@ -217,6 +217,7 @@ input.empty {
 
 #homepage_intro_promo {
   height: 530px;
+  position: relative;
 }
 
 #homepage_intro_promo img {
@@ -227,6 +228,12 @@ input.empty {
   float: left;
   width: 417px;
   position: relative;
+}
+
+#homepage_intro_promo a.check_lineup {
+  position: absolute;
+  top: 452px;
+  left: 47px;
 }
 
 #homepage_intro_promo div .signup {
@@ -270,8 +277,19 @@ input.empty {
   float: left;
 }
 
-#main_content .home_promo a img {
+#main_content .home_promo a img, #main .StudioSessions_promo a img {
   border: none;
+}
+
+#main .StudioSessions_promo {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+#main .StudioSessions_promo a {
+  position: absolute;
+  top: 95px;
+  left: 15px;
 }
 
 #main .YT365_promo {
@@ -607,16 +625,22 @@ input.empty {
 #get-started-box {
   float: right;
   width: 250px;
-  padding: 15px 35px 15px 15px;
+  padding: 10px 20px;
   border: 1px solid #DADAD7;
-  height: 380px;
+  height: 378px;
 }
 #get-started-box p {
-  line-height: 20px;
-  margin-bottom: 25px;
+  font-size: 1.15em;
+  line-height: 18px;
+  margin-bottom: 18px;
+}
+#get-started-box p span {
+  display: block;
 }
 #get-started-title {
   font-size: 20px;
+  font-weight: normal;
+  margin: 20px 0;
 }
 
 #words-from-community-box {
@@ -1539,4 +1563,126 @@ input[type="button"].button_cancel {
 #featured_video_image_container {
   width: 941px;
   height: 526px;
+}
+
+/* LINEUP */
+
+.lineup {
+  position: relative;
+  padding-top: 10px;
+}
+
+.lineup h1 {
+  line-height: 40px;
+}
+
+.lineup .rss_link {
+  position: absolute;
+  right: 320px;
+  top: 38px;
+  color: #878752;
+  background: url(/images/rss_round.png) right top no-repeat;
+  padding-right: 20px;
+  line-height: 18px;
+}
+
+.lineup #x_recently_released_show_links a {
+  float: right;
+  padding-right: 20px;
+  position: relative;
+  top: -25px;
+  line-height: 18px;
+  color: #878752;
+  background: url(/images/recently_released_round.png) right top no-repeat;
+}
+
+.lineup #container_2col {
+  margin-top: 65px;
+}
+
+.lineup table {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.lineup table th {
+  border-top: 5px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 0;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+.lineup table th span {
+  float: right;
+  font-weight: normal;
+}
+
+.lineup table td {
+  line-height: 45px;
+}
+
+.lineup table tr.free td {
+  background: #efefef;
+}
+
+.lineup table.thisweek tr.free {
+
+}
+
+.lineup table td.title {
+  padding-left: 30px;
+  color: #488A1A;
+  width: 50%;
+}
+
+.lineup table tr.free td.title {
+  color: #333;
+  background: #efefef url(/images/icon_freeclass_graybg.png) 10px 16px no-repeat;
+}
+
+.lineup table.thisweek tr.free td {
+  background: #edffe2;
+}
+
+.lineup table.thisweek tr.free td.title {
+  background: #edffe2 url(/images/icon_freeclass_greenbg.png) 10px 15px no-repeat;
+}
+
+.lineup table tr.free td.title span {
+  position: relative;
+  display: block;
+  height: 45px;
+}
+
+.lineup table tr.free td.title span span {
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  line-height: 10px;
+  font-size: 9px;
+  color: #555;
+}
+
+.lineup table td.type, .lineup table td.instructor {
+  font-size: 11px;
+  color: #555;
+  width: 15%;
+}
+
+.lineup table td.type {
+  text-align: right;
+  padding-right: 2px;
+}
+
+.lineup table td.date, .lineup table th span {
+  font-style: italic;
+  color: green;
+  font-size: 14px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.lineup table td.date img {
+  border: none;
 }

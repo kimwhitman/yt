@@ -1,0 +1,131 @@
+<% title 'Scheduled Releases' %>
+
+<div id="main" style="clear: left;" class="lineup">
+  <div style="float: left;" id="container_4col">
+    <h1 class="arial18_green">Scheduled Releases</h1>
+    <%= link_to 'Keep up with RSS', 'http://blog.yogatoday.com/feed/', :title => 'YogaToday RSS feed', :class => 'rss_link' -%>
+
+    <% if @this_weeks_videos.size > 0 -%>
+    <table class="thisweek" cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="4">This Week <span><%= Date.today.beginning_of_week.strftime('%b %e') -%>-<%= Date.today.end_of_week.strftime('%b %e') -%></span></th>
+      </tr>
+      <% @this_weeks_videos.each do |video| -%>
+      <% if video.free? %>
+      <tr class="free">
+        <td class="title"><span>
+          <% if video.published_at >= Time.now -%>
+            <%= video.published_at.strftime('%b %d') -%>
+          <% else -%>
+            <%= link_to(video.title, video_path(video)) -%>
+          <% end -%>
+          <span>FREE</span></span></td>
+      <% else %>
+      <tr>
+        <td class="title">
+          <% if video.published_at >= Time.now -%>
+            <%= video.title -%>
+          <% else -%>
+            <%= link_to(video.title, video_path(video)) -%>
+          <% end -%>
+        </td>
+      <% end %>
+
+        <td class="type"><%= video.skill_name -%> |</td>
+        <td class="instructor"><%= video.instructor_names.join(', ') %></td>
+        <td class="date">
+          <% if video.published_at >= Time.now -%>
+            <%= video.published_at.strftime('%b %e') -%>
+          <% else -%>
+            <%= link_to image_tag('button_watch_now_03.png', :alt => 'Watch Now'), video_path(video), :title => 'Watch Now' -%>
+          <% end -%>
+        </td>
+      </tr>
+      <% end -%>
+    </table>
+    <% end -%>
+
+    <% if @recently_released_videos.size > 0 -%>
+
+    <p id="x_recently_released_show_links">
+      <a href="#recently_released" onclick="showRecentlyReleased(); return false;">Show Recently Released</a>
+      <a href="#" onclick="hideRecentlyReleased(); return false;" style="display: none;">Hide Recently Released</a>
+    </p>
+
+    <div id="x_recently_released" style="display: none;">
+      <table class="thisweek" cellpadding="0" cellspacing="0">
+        <tr>
+          <th colspan="4">Recently Released <span>
+            <%= 2.weeks.ago.beginning_of_week.strftime('%b %e') -%>-<%= 1.weeks.ago.end_of_week.strftime('%b %e') -%></span></th>
+        </tr>
+        <% @recently_released_videos.each do |video| -%>
+          <% if video.free? %>
+          <tr class="free">
+            <td class="title"><span>
+              <% if video.published_at >= Time.now -%>
+                <%= video.published_at.strftime('%b %d') -%>
+              <% else -%>
+                <%= link_to(video.title, video_path(video)) -%>
+              <% end -%> <span>FREE</span></span></td>
+          <% else %>
+          <tr>
+            <td class="title">
+              <% if video.published_at >= Time.now -%>
+                <%= video.title -%>
+              <% else -%>
+                <%= link_to(video.title, video_path(video)) -%>
+              <% end -%>
+            </td>
+          <% end %>
+            <td class="type"><%= video.skill_name -%> |</td>
+            <td class="instructor"><%= video.instructor_names.join(', ') %></td>
+            <td class="date">
+              <% if video.published_at >= Time.now -%>
+                <%= video.published_at.strftime('%b %e') -%>
+              <% else -%>
+                <%= link_to image_tag('button_watch_now_03.png', :alt => 'Watch Now'), video_path(video), :title => 'Watch Now' -%>
+              <% end -%>
+          </tr>
+        <% end -%>
+      </table>
+    </div>
+    <% end -%>
+
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="4">Upcoming Releases</th>
+      </tr>
+      <% @upcoming_videos.each do |video| -%>
+        <% if video.could_be_free? %>
+        <tr class="free">
+          <td class="title"><span><%= video.title -%> <span>FREE</span></span></td>
+        <% else %>
+        <tr>
+          <td class="title"><%= video.title -%></td>
+        <% end %>
+          <td class="type"><%= video.skill_name -%> |</td>
+          <td class="instructor"><%= video.instructor_names.join(', ') %></td>
+          <td class="date"><%= video.published_at.strftime('%b %e') -%></td>
+        </tr>
+      <% end -%>
+    </table>
+  </div>
+
+  <div style="float: right;" id="container_2col" class="YT365_promo">
+    <%= render :partial => 'shared/promo_yt365' %>
+  </div>
+</div>
+
+<% content_for :javascript_content do %>
+<script type="text/javascript">
+  function showRecentlyReleased() {
+    jQuery('#x_recently_released_show_links a').toggle();
+    jQuery('#x_recently_released').stop().fadeIn();
+  }
+
+  function hideRecentlyReleased() {
+    jQuery('#x_recently_released_show_links a').toggle();
+    jQuery('#x_recently_released').stop().fadeOut();
+  }
+</script>
+<% end -%>
