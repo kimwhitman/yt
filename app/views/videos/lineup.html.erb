@@ -62,8 +62,8 @@
           <% if video.free? %>
           <tr class="free">
             <td class="title"><span>
-              <% if video.published_at >= Time.now -%>
-                <%= video.published_at.strftime('%b %d') -%>
+              <% if video.starts_free_at >= Time.now -%>
+                <%= video.starts_free_at.strftime('%b %d') -%>
               <% else -%>
                 <%= link_to(video.title, video_path(video)) -%>
               <% end -%> <span>FREE</span></span></td>

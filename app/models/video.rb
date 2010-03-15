@@ -197,6 +197,11 @@ class Video < ActiveRecord::Base
     !fv.blank? && fv.could_be_free?
   end
 
+  def starts_free_at
+    fv = featured_videos.find(:first, :order => 'starts_free_at DESC')
+    fv.starts_free_at
+  end
+
   # API-accessing functions
   def thumbnail_url
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do
