@@ -112,6 +112,8 @@
       images.each { |str| preload << "'#{image_path(str)}'" }
     %>
 
+    <%= yield :javascript_content %>
+
     <script type='text/javascript'>
     jQuery(document).ready(function() {
         var imgUrls = [<%= preload * ',' %>];

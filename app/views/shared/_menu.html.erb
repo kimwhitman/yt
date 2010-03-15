@@ -105,6 +105,10 @@
       <div style="cursor: pointer; color: #999999;" id="menu_item" onclick="window.location.href ='<%= videos_url %>';" onmouseover="displayIndexDropDown('classes_menu','block',''); this.style.color='#333333'; document.getElementById('show_all_classes').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('show_all_classes').style.color='#999999';">
         <%= image_tag 'bullet_green.gif', :class => 'bullet' -%> <%= link_to 'Show All Classes', videos_path, :style => "color: inherit", :id => "show_all_classes" %>
       </div>
+      
+      <div style="cursor: pointer; color: #999999;" id="menu_item" class="free_class" onclick="window.location.href ='<%= lineup_videos_path %>';" onmouseover="displayIndexDropDown('classes_menu','block',''); this.style.color='#333333'; document.getElementById('show_all_classes').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('show_all_classes').style.color='#999999';">
+        <%= image_tag 'bullet_green.gif', :class => 'bullet' -%> <%= link_to 'Scheduled Releases', lineup_videos_path, :style => "color: inherit", :id => "scheduled_releases" %>
+      </div>
 
       <div style="cursor: pointer; color: #999999;" id="menu_item" class="free_class" onclick="window.location.href ='<%= videos_url %>';" onmouseover="displayIndexDropDown('classes_menu','block',''); this.style.color='#333333'; document.getElementById('show_all_classes').style.color='#333333'; this.style.cursor='Pointer';" onmouseout="this.style.backgroundColor='';this.style.color='#999999'; document.getElementById('show_all_classes').style.color='#999999';">
         <%= image_tag 'icon_logo.gif' -%> <%= link_to "This week's free class", this_weeks_free_video_videos_path %>

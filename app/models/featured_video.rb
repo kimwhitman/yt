@@ -44,6 +44,11 @@ class FeaturedVideo < ActiveRecord::Base
   def to_label
     "Featured Video"
   end
+
+  def published_at
+    starts_free_at
+  end
+
   protected
 
   def free_range_validation
