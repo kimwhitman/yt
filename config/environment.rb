@@ -69,6 +69,8 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
+  
+  config.time_zone = 'Mountain Time (US & Canada)'
 
   config.cache_store = :file_store, 'tmp/cache'
 end

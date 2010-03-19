@@ -8,21 +8,21 @@ describe Video do
 
     it "should be published if is_public is true and the published_date is in the past" do
       video = Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-        :streaming_media_id => 1, :is_public => true, :published_at => Time.now)
+        :streaming_media_id => 1, :is_public => true, :published_at => Time.zone.now)
       Timecop.freeze(Date.today + 2)
       Video.published.should include(video)
     end
 
     it "should not be published if is_public is false and the published_date is in the past" do
       video = Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-        :streaming_media_id => 1, :is_public => false, :published_at => Time.now)
+        :streaming_media_id => 1, :is_public => false, :published_at => Time.zone.now)
 
         Video.published.should_not include(video)
     end
 
     it "should not be published if is_public is true but the published_date is in the future" do
       video = Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-        :streaming_media_id => 1, :is_public => true, :published_at => Time.now.advance(:months => 3))
+        :streaming_media_id => 1, :is_public => true, :published_at => Time.zone.now.advance(:months => 3))
 
       Video.published.should_not include(video)
     end
@@ -72,13 +72,13 @@ describe Video do
       Timecop.freeze(Date.today + 2)
       (1..2).each do |interval|
         self.instance_variable_set("@video_#{interval}", Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-          :streaming_media_id => 1, :is_public => true, :published_at => Time.now))
+          :streaming_media_id => 1, :is_public => true, :published_at => Time.zone.now))
       end
 
       Timecop.return
 
       @video_3 = Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-        :streaming_media_id => 1, :is_public => true, :published_at => Time.now)
+        :streaming_media_id => 1, :is_public => true, :published_at => Time.zone.now)
 
       Video.upcoming.should include(@video_1, @video_2)
     end
@@ -87,13 +87,13 @@ describe Video do
       Timecop.freeze(Date.today + 2)
       (1..2).each do |interval|
         self.instance_variable_set("@video_#{interval}", Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-          :streaming_media_id => 1, :is_public => true, :published_at => Time.now))
+          :streaming_media_id => 1, :is_public => true, :published_at => Time.zone.now))
       end
 
       Timecop.return
 
       @video_3 = Video.create(:title => 'Test', :duration => 100, :description => 'This is a test',
-        :streaming_media_id => 1, :is_public => true, :published_at => Time.now)
+        :streaming_media_id => 1, :is_public => true, :published_at => Time.zone.now)
 
       Video.upcoming.should_not include(@video_3)
     end

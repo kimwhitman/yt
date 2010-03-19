@@ -27,6 +27,7 @@ class VideosController < ApplicationController
   def this_weeks_free_video
     if free_video_of_week.nil? || free_video_of_week.video.nil?
       flash[:notice] = "We're sorry, it appears that our free video of the week has expired. Please check back soon."
+      redirect_to videos_path
     else
       @video = free_video_of_week.video
       render :action => 'show'

@@ -34,8 +34,8 @@ class Video < ActiveRecord::Base
       :joins => "INNER JOIN `related_videos` ON `videos`.id = `related_videos`.related_video_id OR `videos`.id = `related_videos`.video_id"
     }
   }
-  named_scope :published, lambda { { :conditions => [ 'is_public = ? AND published_at <= ?', true, Time.now ] } }
-  named_scope :upcoming, lambda { { :conditions => [ 'is_public = ? AND published_at > ?', true, Time.now ], :order => 'published_at ASC' } }
+  named_scope :published, lambda { { :conditions => [ 'is_public = ? AND published_at <= ?', true, Time.zone.now ] } }
+  named_scope :upcoming, lambda { { :conditions => [ 'is_public = ? AND published_at > ?', true, Time.zone.now ], :order => 'published_at ASC' } }
   named_scope :this_week, lambda { { :conditions => {:published_at => (Date.today.beginning_of_week .. Date.today.next_week)}, :order => 'published_at ASC' }}
 
   named_scope :after_this_week, lambda { { :conditions => ['published_at >= ?', Date.today.next_week], :order => 'published_at ASC' } }
