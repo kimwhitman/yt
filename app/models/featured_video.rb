@@ -15,7 +15,7 @@ class FeaturedVideo < ActiveRecord::Base
   named_scope :by_rank, :order => "rank ASC"
   named_scope :previously_featured, :conditions => ['starts_free_at <= ?', Date.today]
   named_scope :free_videos,
-    :conditions => "NOW() between featured_videos.starts_free_at AND featured_videos.ends_free_at"
+    :conditions => ["? between featured_videos.starts_free_at AND featured_videos.ends_free_at", Time.zone.now]
 
   before_validation :set_rank
 
