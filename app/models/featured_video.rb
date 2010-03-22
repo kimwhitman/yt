@@ -34,7 +34,7 @@ class FeaturedVideo < ActiveRecord::Base
 
   def free?
     return false unless could_be_free?
-    (starts_free_at..ends_free_at).include? Time.now
+    (starts_free_at..ends_free_at).include? Time.zone.now
   end
 
   def thumbnail
