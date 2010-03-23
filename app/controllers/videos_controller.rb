@@ -10,14 +10,16 @@ class VideosController < ApplicationController
     @this_weeks_videos = Video.find_by_sql(["SELECT videos.id, videos.title, skill_level_id, published_at, 
       featured_videos.starts_free_at FROM videos LEFT OUTER JOIN `featured_videos` ON featured_videos.video_id = videos.id 
       WHERE  (`videos`.`published_at` BETWEEN ? AND ?) OR (featured_videos.starts_free_at BETWEEN ? AND ?) 
-      ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC;", 
+      ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC,
+      (CASE WHEN starts_free_at IS NULL THEN 2 ELSE 1 END) ASC;", 
       (Date.today - 1.week).end_of_week, Date.today.end_of_week, (Date.today - 1.week).end_of_week, Date.today.end_of_week])
 
     @recently_released_videos = Video.recently_released
     @upcoming_videos = Video.find_by_sql(["SELECT videos.id, videos.title, skill_level_id, published_at, 
       featured_videos.starts_free_at FROM videos LEFT OUTER JOIN `featured_videos` ON featured_videos.video_id = videos.id 
       WHERE (videos.published_at >= ? OR featured_videos.starts_free_at >= ?) 
-      ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC;", 
+      ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC,
+      (CASE WHEN starts_free_at IS NULL THEN 2 ELSE 1 END) ASC;", 
       Date.today.next_week, Date.today.next_week])
 
         #Video.after_this_week
