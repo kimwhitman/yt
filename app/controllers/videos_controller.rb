@@ -12,7 +12,8 @@ class VideosController < ApplicationController
       WHERE  (`videos`.`published_at` BETWEEN ? AND ?) OR (featured_videos.starts_free_at BETWEEN ? AND ?) 
       ORDER BY (CASE WHEN starts_free_at IS NULL THEN published_at ELSE starts_free_at END) ASC,
       (CASE WHEN starts_free_at IS NULL THEN 2 ELSE 1 END) ASC;", 
-      (Date.today - 1.week).end_of_week, Date.today.end_of_week, (Date.today - 1.week).end_of_week, Date.today.end_of_week])
+      Time.zone.now.beginning_of_week, Time.zone.now.end_of_week,
+      Time.zone.now.beginning_of_week, Time.zone.now.end_of_week])
 
     @recently_released_videos = Video.recently_released
     @upcoming_videos = Video.find_by_sql(["SELECT videos.id, videos.title, skill_level_id, published_at, 
