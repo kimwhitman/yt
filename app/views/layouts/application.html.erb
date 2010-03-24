@@ -7,8 +7,8 @@
     <% if Rails.env == 'development' %>
       <%= javascript_include_merged :dev %>
     <% else %>
-      <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js" %>
-      <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" %>
+      <%= javascript_include_tag "#{request.ssl? ? 'https://' : 'http://'}ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js" %>
+      <%= javascript_include_tag "#{request.ssl? ? 'https://' : 'http://'}ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" %>
     <% end %>
 
     <%= javascript_include_merged :base %>
@@ -127,7 +127,7 @@
       a2a_linkname=document.title;
       a2a_linkurl=location.href;
     </script>
-    <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+    <script type="text/javascript" src="<%= request.ssl? ? 'https://' : 'http://' %>static.addtoany.com/menu/page.js"></script>
 
     <% if !request.ssl? %>
       <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
