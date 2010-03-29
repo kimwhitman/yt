@@ -13,7 +13,7 @@ class FeaturedVideo < ActiveRecord::Base
   validate :free_range_validation
 
   named_scope :by_rank, :order => "rank ASC"
-  named_scope :previously_featured, :conditions => ['starts_free_at <= ?', Date.today]
+  named_scope :previously_featured, :conditions => ['starts_free_at <= ?', Time.zone.now.today]
   named_scope :free_videos,
     :conditions => ["? between featured_videos.starts_free_at AND featured_videos.ends_free_at", Time.zone.now]
 
