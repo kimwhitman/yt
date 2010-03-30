@@ -20,6 +20,7 @@ javascripts:
   - jquery.metadata
   - jquery.rating
   - jquery.scrollTo
+  - jquery.timeago
 - dev:
   - jquery
   - jquery-ui
