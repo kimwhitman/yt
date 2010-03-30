@@ -756,6 +756,8 @@ input.empty {
 
 .video_list_buttons {
   float: right;
+	padding-right: 20px;
+	_padding-right: 0px;
 }
 
 .buy_button {
@@ -1556,7 +1558,6 @@ input[type="button"].button_cancel {
 }
 
 #featured_video_image_container {
-
 }
 
 /* LINEUP */
