@@ -128,6 +128,10 @@
       a2a_linkurl=location.href;
     </script>
     <script type="text/javascript" src="<%= request.ssl? ? 'https://' : 'http://' %>static.addtoany.com/menu/page.js"></script>
+    <script type="text/javascript">
+      var a2a_config = a2a_config || {};
+      a2a_config.hide_embeds = 0;
+    </script>
 
     <% if !request.ssl? %>
       <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
