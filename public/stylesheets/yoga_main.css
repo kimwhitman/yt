@@ -314,8 +314,12 @@ input.empty {
   overflow: hidden;
 }
 
+#main_content .community_promo img {
+	border: none;
+}
+
 #main_content .community_promo .photo {
-  border:none;
+  border: none;
   max-width:135px;
   max-height:90px;
   float: left;
