@@ -318,6 +318,14 @@ input.empty {
 	border: none;
 }
 
+#main_content .community_promo div span {
+	color: #143A78;
+}
+
+#main_content .community_promo div span:hover {
+	text-decoration: underline;
+}
+
 #main_content .community_promo .photo {
   border: none;
   max-width:135px;
