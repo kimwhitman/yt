@@ -11,9 +11,11 @@ namespace :subscriptions do
           # comment out to avaoid double receipts
           #SubscriptionNotifier.deliver_charge_receipt(subscription.subscription_payments.last)
           puts "#{Time.now} Charged #{subscription.inspect}"
+          subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => true})
         else
           SubscriptionNotifier.deliver_charge_failure(subscription)
           puts "#{Time.now} Failed to charge #{subscription.inspect}"
+          subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => false})
         end
       else
         puts "#{Time.now} Not charging free #{subscription.inspect}"
@@ -24,7 +26,7 @@ namespace :subscriptions do
 
   desc "Look for any un-renewed subscriptions and try again"
   task :charge_past_due_accounts => :environment do
-    subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (45.days.ago .. Date.today ) })
+    subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (30.days.ago .. Date.today ) })
 
     subscriptions.each do |subscription|
       p subscription
