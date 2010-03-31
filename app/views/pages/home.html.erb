@@ -20,27 +20,26 @@
       <%= render :partial => 'shared/promo_yt365' %>
     </div>
     <div class="home_promo get_started">
-      <%= image_tag 'home_promo_getstarted_top.png', :alt => 'Three easy ways to get started with Yoga Today' -%>
-      <%= link_to image_tag( 'home_promo_getstarted_free.png', :alt => 'Free Membership' ), sign_up_path, :title => 'Sign up today' -%>
-      <%= link_to image_tag( 'home_promo_getstarted_download.png', :alt => 'Download Classes' ), videos_url, :title => 'Download classes' -%>
-      <%= link_to image_tag( 'home_promo_getstarted_unlimited.png', :alt => 'Unlimited Membership' ), subscription_users_path, :title => 'Subscribe to Yoga Today' -%>
+      <%= link_to image_tag( 'home_promo_getstarted_top.png', :alt => 'Three easy ways to get started with Yoga Today' ), get_started_today_url, :title => 'Get started today' -%><%= link_to image_tag( 'home_promo_getstarted_free.png', :alt => 'Free Membership' ), sign_up_path, :title => 'Sign up today' -%><%= link_to image_tag( 'home_promo_getstarted_download.png', :alt => 'Download Classes' ), videos_url, :title => 'Download classes' -%><%= link_to image_tag( 'home_promo_getstarted_unlimited.png', :alt => 'Unlimited Membership' ), subscription_users_path, :title => 'Subscribe to Yoga Today' -%>
     </div>
-    <div class="home_promo community_promo">
-      <%= image_tag 'home_promo_community.png' -%>
-      <% unless @user_story.image_file_name.blank? %>
-        <%= image_tag(@user_story.image.url, :class => "photo") if @user_story.image? %>
-      <% end %>
-      <ul class="details">
-        <li class="title"><%= truncate(@user_story.title, 82) %></li>
-        <li>Posted <%= time_ago(@user_story.publish_at, :mf => false) %></li>
-        <li>By <%= @user_story.name.split.first  %>, <%= @user_story.location.gsub(', United States', '')  %></li>
-      </ul>
-      <% if @user_story.image_file_name.blank? %>
-        <div><%= truncate(@user_story.story, 330) %></div>
-      <% else %>
-        <div><%= truncate(@user_story.story, 65) %></div>
-      <% end %>
-    </div>
+    <a href="/user_stories">
+      <div class="home_promo community_promo">
+        <%= image_tag 'home_promo_community.png' -%>
+        <% unless @user_story.image_file_name.blank? %>
+          <%= image_tag(@user_story.image.url, :class => "photo") if @user_story.image? %>
+        <% end %>
+        <ul class="details">
+          <li class="title"><%= truncate(@user_story.title, 82) %></li>
+          <li>Posted <%= time_ago(@user_story.publish_at, :mf => false) %></li>
+          <li>By <%= @user_story.name.split.first  %>, <%= @user_story.location.gsub(', United States', '')  %></li>
+        </ul>
+        <% if @user_story.image_file_name.blank? %>
+          <div><%= truncate(@user_story.story, 330) %> <span>more</span></div>
+        <% else %>
+          <div><%= truncate(@user_story.story, 105) %> <span>more</span></div>
+        <% end %>
+      </div>
+    </a>
   </div>
 </div>
 

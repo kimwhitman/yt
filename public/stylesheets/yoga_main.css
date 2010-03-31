@@ -277,6 +277,10 @@ input.empty {
   border: none;
 }
 
+#matin_content div.get_started a {
+	border: none;
+}
+
 #main .StudioSessions_promo {
   position: relative;
   margin-bottom: 10px;
@@ -314,8 +318,20 @@ input.empty {
   overflow: hidden;
 }
 
+#main_content .community_promo img {
+	border: none;
+}
+
+#main_content .community_promo div span {
+	color: #143A78;
+}
+
+#main_content .community_promo div span:hover {
+	text-decoration: underline;
+}
+
 #main_content .community_promo .photo {
-  border:none;
+  border: none;
   max-width:135px;
   max-height:90px;
   float: left;
@@ -756,6 +772,8 @@ input.empty {
 
 .video_list_buttons {
   float: right;
+	padding-right: 20px;
+	_padding-right: 0px;
 }
 
 .buy_button {
@@ -1556,7 +1574,6 @@ input[type="button"].button_cancel {
 }
 
 #featured_video_image_container {
-
 }
 
 /* LINEUP */

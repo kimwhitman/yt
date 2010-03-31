@@ -20,9 +20,9 @@
   <% div_class_style = params[:video_focus] == vfc.video_focuses.collect{|item| item.id.to_s} ? '' : 'hidden' %>
     <div class="filter_option_box <%= div_class_style %>" id="<%= dom_id(vfc) %>">
       <% if div_class_style.blank? %>
-        <%= check_box_tag 'vidda', :style => 'float:left', :class => 'header_checkbox', :onclick => "toggle_filter('##{dom_id(vfc)}'); $('##{dom_id(vfc)}').next().find('input:checkbox').click();", :checked => 'checked' %>
+        <%= check_box_tag 'vidda','', true, { :style => 'float:left', :class => 'header_checkbox', :onclick => "toggle_filter('##{dom_id(vfc)}'); $('##{dom_id(vfc)}').next().find('input:checkbox').click();" } %>
       <% else %>
-          <%= check_box_tag 'vidda', :style => 'float:left', :class => 'header_checkbox', :onclick => "toggle_filter('##{dom_id(vfc)}'); $('##{dom_id(vfc)}').next().find('input:checkbox').click();" %>
+          <%= check_box_tag 'vidda','', false, { :style => 'float:left', :class => 'header_checkbox', :onclick => "toggle_filter('##{dom_id(vfc)}'); $('##{dom_id(vfc)}').next().find('input:checkbox').click();" } %>
         <% end %>
       <div onclick="toggle_filter('#<%= dom_id(vfc) %>');" style='float:left;'>
         <div class="filter_arrow" style="margin-top: 3px;">
