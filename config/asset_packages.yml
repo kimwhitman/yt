@@ -21,6 +21,7 @@ javascripts:
   - jquery.rating
   - jquery.scrollTo
   - jquery.timeago
+  - search
 - dev:
   - jquery
   - jquery-ui
