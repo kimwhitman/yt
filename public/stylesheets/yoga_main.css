@@ -277,6 +277,10 @@ input.empty {
   border: none;
 }
 
+#matin_content div.get_started a {
+	border: none;
+}
+
 #main .StudioSessions_promo {
   position: relative;
   margin-bottom: 10px;
