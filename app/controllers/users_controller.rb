@@ -222,6 +222,7 @@ class UsersController < ApplicationController
   end
 
 
+
   protected
 
     def authorized?

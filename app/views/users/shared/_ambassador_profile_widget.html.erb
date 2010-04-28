@@ -6,25 +6,29 @@
 
     <div class="introduction">
       <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
-      <fieldset>
-        <legend><span>Choose your Ambassador ID</span></legend>
-        <label>
-        <input id="x_ambassador_name" type="input"></input>
-        </label>
-        <input class="submit" type="submit" value="Continue"></input>
-      </fieldset>
+      <% form_for current_user do |f| -%>
+        <fieldset>
+          <legend><span>Choose your Ambassador ID</span></legend>
+          <label>
+            <%= f.text_field :ambassador_name %>
+            <% # TODO: Need to pass a param so that a failed update returns to the containing page %>
+          </label>
+          <%= submit_tag 'Continue', :class => 'submit' %>
+        </fieldset>
+      <% end %>
     </div>
 
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-        $("#x_ambassador_name").defaultValue('hint: keep it simple...');
+        $("#user_ambassador_name").defaultValue('hint: keep it simple...');
       });
     </script>
   <% end %>
 
-  <% if current_user.ambassador_name %>
+  <% # TODO When does this appear? After submission? %>
+  <% if false && current_user.ambassador_name %>
     <div class="confirm" style="">
-      <div class="ambassador_agent_id"><span>joinsunny26</span></div>
+      <div class="ambassador_agent_id"><span><%= current_user.ambassador_name %></span></div>
       <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
       <fieldset>
         <legend><span><a href="#">make a change</a></span></legend>
@@ -38,7 +42,7 @@
   <div id="ambassador_profile_widget" class="tools">
     <p class="header">Ambassador Tools <span>Quick-view</span> <a href="#">Learn More</a></p>
     <div class="ambassador_agent_id">
-      <span>joinsunny26</span>
+      <span><%= current_user.ambassador_name %></span>
     </div>
 
     <div class="stats">
