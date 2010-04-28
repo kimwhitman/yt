@@ -1,4 +1,4 @@
-<div id="ambassador_profile_widget" class="program" style="">
+<div id="ambassador_profile_widget" class="program">
 
   <% if current_user.ambassador_name.nil? %>
     <p class="header">Ambassador Program <a href="#">Learn More</a></p>
@@ -9,12 +9,12 @@
       <% form_for current_user do |f| -%>
         <fieldset>
           <legend><span>Choose your Ambassador ID</span></legend>
-          <label>
+         <label>
             <%= f.text_field :ambassador_name %>
-            <% # TODO: Need to pass a param so that a failed update returns to the containing page %>
           </label>
           <%= submit_tag 'Continue', :class => 'submit' %>
         </fieldset>
+        <% # TODO: Need to pass a param so that a failed update returns to the containing page -%>
       <% end %>
     </div>
 
