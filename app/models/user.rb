@@ -22,9 +22,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
-
+  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..15
   validates_inclusion_of :newsletter_format, :in => %w(html plain)
-
   validates_confirmation_of :email, :on => :create
 
   before_save :encrypt_password
@@ -39,7 +38,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation,
     :wants_newsletter, :wants_promos, :photo, :photo_file_name,
     :photo_content_type, :photo_file_size, :city, :state, :country,
-    :agree_to_terms, :newsletter_format, :email_confirmation
+    :agree_to_terms, :newsletter_format, :email_confirmation, :ambassador_name
 
   def name
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
