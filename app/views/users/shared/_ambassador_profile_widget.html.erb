@@ -1,40 +1,48 @@
 <div id="ambassador_profile_widget" class="program" style="">
 
-  <p class="header">Ambassador Program <a href="#">Learn More</a></p>
-  <img class="greeting" src="/images/ambassador_greeting.png" />
+  <% if current_user.ambassador_name.nil? %>
+    <p class="header">Ambassador Program <a href="#">Learn More</a></p>
+    <img class="greeting" src="/images/ambassador_greeting.png" />
 
-  <div class="introduction" style="display: none;">
-    <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
-    <fieldset>
-      <legend><span>Choose your Ambassador ID</span></legend>
-      <label>
-      <input type="input" value="keep it simple..."></input>
-      </label>
-      <input class="submit" type="submit" value="Continue"></input>
-    </fieldset>
+    <div class="introduction">
+      <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
+      <fieldset>
+        <legend><span>Choose your Ambassador ID</span></legend>
+        <label>
+        <input id="x_ambassador_name" type="input"></input>
+        </label>
+        <input class="submit" type="submit" value="Continue"></input>
+      </fieldset>
+    </div>
 
-  </div>
-   
-  <div class="confirm" style="">
-    <div class="ambassador_agent_id"><span>joinsunny26</span></div>
-    <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
-    <fieldset>
-      <legend><span><a href="#">make a change</a></span></legend>
-      <label><input type="submit" value="Confirm"></input></label>
-    </fieldset>
-  </div>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        $("#x_ambassador_name").defaultValue('hint: keep it simple...');
+      });
+    </script>
+  <% end %>
 
+  <% if current_user.ambassador_name %>
+    <div class="confirm" style="">
+      <div class="ambassador_agent_id"><span>joinsunny26</span></div>
+      <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
+      <fieldset>
+        <legend><span><a href="#">make a change</a></span></legend>
+        <label><input type="submit" value="Confirm"></input></label>
+      </fieldset>
+    </div>
+  <% end %>
 </div>
 
-<div id="ambassador_profile_widget" class="tools">
-    
+<% if current_user.ambassador_name %>
+  <div id="ambassador_profile_widget" class="tools">
     <p class="header">Ambassador Tools <span>Quick-view</span> <a href="#">Learn More</a></p>
     <div class="ambassador_agent_id">
       <span>joinsunny26</span>
     </div>
-    
+
     <div class="stats">
-    
+
     <table>
       <tr>
         <td>Invitations</td>
@@ -54,5 +62,6 @@
       </tr>
       </table>
     </div>
-    
+
   </div>
+<% end %>

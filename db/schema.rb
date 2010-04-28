@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100303195410) do
+ActiveRecord::Schema.define(:version => 20100428214034) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -325,7 +325,10 @@ ActiveRecord::Schema.define(:version => 20100303195410) do
     t.boolean  "wants_promos",                            :default => false
     t.boolean  "email_confirmed",                         :default => false
     t.string   "confirmation_token"
+    t.string   "ambassador_name"
   end
+
+  add_index "users", ["ambassador_name"], :name => "index_users_on_ambassador_name"
 
   create_table "video_focus", :force => true do |t|
     t.string   "name",                    :null => false
