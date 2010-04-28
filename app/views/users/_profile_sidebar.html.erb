@@ -5,6 +5,15 @@
       <%= link_to_unless_current 'Profile', profile_user_path(current_user)  %>
     </span>
   </div>
+
+  <% if current_user.has_paying_subscription? %>
+  <div class="form_row">
+    <span class="arial13_bold_gray">
+      <%= link_to_unless_current 'Ambassador Tools', ambassador_tools_user_path(current_user) %>
+    </span>
+  </div>
+  <% end %>
+
   <% if current_user.has_paying_subscription? %>
   <div class="form_row">
     <span class="arial13_bold_gray">

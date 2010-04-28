@@ -1,0 +1,25 @@
+<% title 'Your Profile' %>
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("My Account") %>
+      <div class="arial18_green" id="main_title">Profile</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
+    <div id="container_4col" style="float:left;">
+
+
+
+
+    </div>
+    <div id="container_2col" style="float:right">
+      <%= render :partial => 'profile_sidebar' %>
+
+      <%= render :partial => 'shared/ambassador_profile_widget' %>
+
+    </div>
+  </div>
+</div>
