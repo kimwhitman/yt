@@ -4,30 +4,25 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   map.root :controller => "pages", :action => "home"
-
   map.plans '/signup', :controller => 'accounts', :action => 'plans'
   map.thanks '/signup/thanks', :controller => 'accounts', :action => 'thanks'
   map.resource :account, :collection => { :dashboard => :get, :thanks => :get, :plans => :get, :billing => :any, :paypal => :any, :plan => :any, :cancel => :any, :canceled => :get }
   map.new_account '/signup/:plan', :controller => 'accounts', :action => 'new', :plan => nil
-
   map.login  '/login',  :controller => 'Sessions', :action => 'new'
   map.logout '/logout', :controller => 'Sessions', :action => 'destroy'
-
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   map.resources :users,
     :collection => { :check_email => :post, :subscription => :get },
-    :member => { :profile => :any, :billing => :any,
-      :billing_history => :get, :membership_terms => :get, :cancel_membership => :any
-    }
+    :member => { :profile => :any, :billing => :any, :billing_history => :get, :membership_terms => :get,
+      :cancel_membership => :any, :ambassador_tools => :get }
 
-  # email confirmations
   map.resources :users do |users|
     users.resource :confirmation, :only => [:new, :create]
   end
 
   map.resource :session
-  map.resources :videos, :collection => { :search => :any, :this_weeks_free_video => :get, :lineup => :get }, 
+  map.resources :videos, :collection => { :search => :any, :this_weeks_free_video => :get, :lineup => :get },
     :member => { :leave_suggestion => :post } do |videos|
     videos.resources :comments
     videos.resources :reviews
@@ -44,7 +39,6 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'sessions' do |sessions|
     sessions.sign_out '/sign-out', :action => 'destroy'
     sessions.connect '/sign-in', :action => 'create'
-
     sessions.sign_in '/sign-in', :action => 'create',
       :conditions => { :method => :post }
     sessions.sign_in '/sign-in', :action => 'new',

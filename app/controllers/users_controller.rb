@@ -217,6 +217,11 @@ class UsersController < ApplicationController
     redirect_to(logged_in? ? billing_user_path(current_user, :membership => params[:membership]) : sign_up_path(:membership => params[:membership]))
   end
 
+  def ambassador_tools
+
+  end
+
+
   protected
 
     def authorized?
