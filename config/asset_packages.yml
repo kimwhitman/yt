@@ -32,5 +32,6 @@ stylesheets:
   - jqModal/jqModal
   - jquery.jcarousel
   - yoga_carousel_skin
+  - ambassador
 - admin:
   - admin
