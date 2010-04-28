@@ -1,5 +1,40 @@
+div.ambassador_agent_id {
+  position: relative;
+  height: 30px;
+  width: 203px;
+  background: url('/images/ambassador_id.png') no-repeat 0px 0px;
+}
+div.ambassador_agent_id span {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: normal;
+  color: #666666;
+}
+#ambassador_profile_widget.tools div.ambassador_agent_id {
+  float: none;
+  width: auto;
+  height: 50px;
+  background-position: 10px 10px;
+}
+#ambassador_profile_widget.tools div.ambassador_agent_id span {
+  top: 18px;
+  left: 54px;
+}
+#ambassador_profile_widget.tools div.stats {
+  float: none;
+  clear: left;
+}
+#ambassador_profile_widget.tools div.stats table {
+  width: 200px;
+  margin: 0 0 0 10px;
+  border: 1px solid #666666;
+  background: #ffffff;
+}
+#ambassador_profile_widget.tools div.stats table th { border: 1px solid red; }
 #ambassador_profile_widget {
-  float: left;
   position: relative;
   margin: 20px 0 0 0;
   padding: 0;
@@ -16,6 +51,10 @@
   color: #7e9aca;
   font-weight: bold;
 }
+#ambassador_profile_widget p.header span {
+  font-size: 12px;
+  font-weight: normal;
+}
 #ambassador_profile_widget p.header a {
   font-size: 12px;
   position: absolute;
@@ -26,35 +65,91 @@
   _top: -7px;
 }
 #ambassador_profile_widget p.header a:hover { text-decoration: none; }
-#ambassador_profile_widget img.greeting { margin: 14px 10px 0px 10px; }
-#ambassador_profile_widget p.introduction {
+#ambassador_profile_widget img.greeting {
+  margin: 14px 10px 0px 10px;
+  display: block;
+}
+#ambassador_profile_widget p {
   font-size: 12px;
-  border-top: 1px solid #dcebff;
   padding: 10px 0 0 0;
   margin: 10px;
   color: #666666;
 }
-#ambassador_profile_widget fieldset.ambassador_id {
+#ambassador_profile_widget div.introduction { float: none; }
+#ambassador_profile_widget div.introduction p {
+  border-top: 1px solid #dcebff;
+  margin-top: 0px;
+  padding-bottom: 18px;
+}
+#ambassador_profile_widget div.introduction fieldset {
   position: relative;
-  float: left;
-  margin: 0;
   padding: 0;
   border: none;
-  margin: 18px 10px 20px 10px;
+  margin: 0px 10px 20px 10px;
 }
-#ambassador_profile_widget fieldset.ambassador_id legend span {
+#ambassador_profile_widget div.introduction fieldset legend span {
   position: absolute;
   top: -16px;
   left: 0px;
   font-size: 11px;
   color: #7e9aca;
 }
-#ambassador_profile_widget fieldset.ambassador_id label { float: left; }
-#ambassador_profile_widget fieldset.ambassador_id label input {
+#ambassador_profile_widget div.introduction fieldset label { float: left; }
+#ambassador_profile_widget div.introduction fieldset label input {
   height: 22px;
   width: 160px;
   margin-right: 5px;
   padding-left: 3px;
+  line-height: 22px;
   font-style: italic;
 }
-#ambassador_profile_widget fieldset.ambassador_id input.submit { float: left; }
+#ambassador_profile_widget div.introduction fieldset input.submit {
+  float: none;
+  _position: relative;
+  _top: 4px;
+}
+#ambassador_profile_widget div.confirm {
+  position: relative;
+  float: none;
+  clear: left;
+}
+#ambassador_profile_widget div.confirm div.ambassador_agent_id {
+  border-top: 1px solid #dcebff;
+  margin: 10px 10px 0 10px;
+  padding: 0;
+  background-position: 34px 18px;
+  height: 60px;
+  width: auto;
+}
+#ambassador_profile_widget div.confirm div.ambassador_agent_id span {
+  top: 26px;
+  left: 85px;
+}
+#ambassador_profile_widget div.confirm p {
+  padding: 0;
+  margin-top: 0;
+  clear: both;
+}
+#ambassador_profile_widget div.confirm fieldset {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+#ambassador_profile_widget div.confirm fieldset legend span {
+  position: absolute;
+  top: 10px;
+  _top: 0px;
+  left: 10px;
+}
+#ambassador_profile_widget div.confirm fieldset legend span a {
+  font-size: 12px;
+  color: #666666;
+  text-decoration: underline;
+}
+#ambassador_profile_widget div.confirm fieldset legend span a:hover { text-decoration: none; }
+#ambassador_profile_widget div.confirm fieldset label {
+  float: right;
+  margin: 0 10px 10px 0;
+  padding: 0;
+}

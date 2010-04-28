@@ -2,8 +2,53 @@
 @color_background: #F2F6FF;
 @color_header_font: #7E9ACA;
 
+
+div.ambassador_agent_id {
+	position: relative;
+	height: 30px;
+	width: 203px;
+	background: url('/images/ambassador_id.png') no-repeat 0px 0px;
+	span {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		font-style: italic;
+		font-size: 18px;
+		font-weight: normal;
+		color: #666;
+	}
+}
+
+#ambassador_profile_widget.tools {
+	div.ambassador_agent_id {
+		float: none;
+		width: auto;
+		height: 50px;
+		background-position: 10px 10px;
+		span {
+			top: 18px;
+			left: 54px;
+		}
+	}
+	div.stats {
+		float: none;
+		clear: left;
+		table {
+			width: 200px;
+			margin: 0 0 0 10px;
+			border: 1px solid #666;
+			background: #fff;
+			th {
+				border: 1px solid red;
+			}
+		}
+	}
+}
+
+#ambassador_profile_widget.program {
+}
+
 #ambassador_profile_widget {
-	float: left;
 	position: relative;
 	margin: 20px 0 0 0;
 	padding: 0;
@@ -18,6 +63,10 @@
 		border-bottom: 1px solid @color_border;
 		color: @color_header_font;
 		font-weight: bold;
+		span {
+			font-size: 12px;
+			font-weight: normal;
+		}
 		a {
 			font-size: 12px;
 			position: absolute;
@@ -33,40 +82,96 @@
 	}
 	img.greeting {
 		margin: 14px 10px 0px 10px;
+		display: block;
 	}
-	p.introduction {
+	p {
 		font-size: 12px;
-		border-top: 1px solid @color_border;
 		padding: 10px 0 0 0;
 		margin: 10px;
-		color: #666;
+		color: #666;		
 	}
-	fieldset.ambassador_id {
-		position: relative;
-		float: left;
-		margin: 0;
-		padding: 0;
-		border: none;
-		margin: 18px 10px 20px 10px;
-		legend span {
-			position: absolute;
-			top: -16px;
-			left: 0px;
-			font-size: 11px;
-			color: @color_header_font;
+	div.introduction {
+		float: none;
+		p {
+			border-top: 1px solid @color_border;
+			margin-top: 0px;
+			padding-bottom: 18px;
 		}
-		label {
-			float: left;
-			input {
-				height: 22px;
-				width: 160px;
-				margin-right: 5px;
-				padding-left: 3px;
-				font-style: italic;
+		fieldset {
+			position: relative;
+			padding: 0;
+			border: none;
+			margin: 0px 10px 20px 10px;
+			legend span {
+				position: absolute;
+				top: -16px;
+				left: 0px;
+				font-size: 11px;
+				color: @color_header_font;
+			}
+			label {
+				float: left;
+				input {
+					height: 22px;
+					width: 160px;
+					margin-right: 5px;
+					padding-left: 3px;
+					line-height: 22px;
+					font-style: italic;
+				}
+			}
+			input.submit {
+				float: none;
+				_position: relative;
+				_top: 4px;
+			}
+		} 
+	}
+	div.confirm {
+		position: relative;
+		float: none;
+		clear: left;
+		div.ambassador_agent_id {
+			border-top: 1px solid @color_border;
+			margin: 10px 10px 0 10px;
+			padding: 0;
+			background-position: 34px 18px;
+			height: 60px;
+			width: auto;
+			span {
+				top: 26px;
+				left: 85px;
 			}
 		}
-		input.submit {
-			float: left;
+		p {
+			padding: 0;
+			margin-top: 0;
+			clear: both;
 		}
-	} 
+		fieldset {
+			position: relative;
+			padding: 0;
+			margin: 0;
+			border: none;
+			legend span {
+				position: absolute;
+				top: 10px;
+				_top: 0px;
+				left: 10px;
+				a {
+					font-size: 12px;
+					color: #666;
+					text-decoration: underline;
+					:hover {
+						text-decoration: none;
+					}
+				}
+			}
+			label {
+				float: right;
+				margin: 0 10px 10px 0;
+				padding: 0;
+			}
+		}
+	}
 }
