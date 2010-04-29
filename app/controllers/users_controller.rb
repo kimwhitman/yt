@@ -217,8 +217,24 @@ class UsersController < ApplicationController
     redirect_to(logged_in? ? billing_user_path(current_user, :membership => params[:membership]) : sign_up_path(:membership => params[:membership]))
   end
 
-  def ambassador_tools
+  def ambassador_tools_invite_by_email
+    render :template => 'users/ambassador_tools/invite_by_email'
+  end
 
+  def ambassador_tools_invite_by_sharing
+    render :template => 'users/ambassador_tools/invite_by_sharing'
+  end
+
+  def ambassador_tools_my_invitations
+    render :template => 'users/ambassador_tools/my_invitations'
+  end
+
+  def ambassador_tools_my_rewards
+    render :template => 'users/ambassador_tools/my_rewards'
+  end
+
+  def ambassador_tools_help
+    render :template => 'users/ambassador_tools/help'
   end
 
 
