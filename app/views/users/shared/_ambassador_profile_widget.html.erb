@@ -54,21 +54,21 @@
       </tr>
       <tr>
         <td>Successful Referrals</td>
-        <td class="count">5</td>
+        <td class="count"><%= current_user.successful_referrals_count %></td>
       </tr>
       <tr>
         <td>Points Earned</td>
-        <td class="count">5</td>
+        <td class="count"><%= current_user.points_earned %></td>
       </tr>
       <tr class="last">
         <td>Points Used</td>
-        <td class="count">1</td>
+        <td class="count"><%= current_user.points_used %></td>
       </tr>
       </table>
 
       <div class="points">
         <span class="header">My Points</span>
-        <span class="count">4</span>
+        <span class="count"><%= current_user.points_current %></span>
       </div>
 
     </div>
