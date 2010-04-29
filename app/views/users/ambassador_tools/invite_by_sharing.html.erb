@@ -10,25 +10,19 @@
   <div id="main_content">
     <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
     <div id="container_4col" style="float:left;">
- 
+
       <div id="ambassador_tools">
 
-        <ul id="ambassador_tools_navigation">
-          <li><a href="#">Invite by E-mail</a></li>
-          <li class="active"><a href="#">Invite by Sharing</a></li>
-          <li><a href="#">My Invitations</a></li>
-          <li><a href="#">My Rewards</a></li>
-          <li><a href="#">Help</a></li>
-        </ul>
-        
+        <%= render :partial => 'users/ambassador_tools/navigation' %>
+
         <div class="tools_container">
-          
+
           <h2 class="header">Share your Yoga Today Ambassador Invitation</h2>
-          
+
         </div>
-          
-      </div> 
- 
+
+      </div>
+
     </div>
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>

@@ -31,6 +31,7 @@ class Invite < ActiveRecord::Base
 
     def send_invitation
       self.user.increment!(:invitations_count) if self.type == 'AmbassadorInvite'
+      # TODO Did the user request that this becomes their default body text?
       #UserMailer.deliver_ambassador_invite
     end
 end
