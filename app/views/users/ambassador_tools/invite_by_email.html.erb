@@ -1,0 +1,73 @@
+<% title 'Your Profile' %>
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("My Account") %>
+      <div class="arial18_green" id="main_title">Profile</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
+    <div id="container_4col" style="float:left;">
+      <div id="ambassador_tools">
+
+        <ul id="ambassador_tools_navigation">
+          <li class="active"><a href="#">Invite by E-mail</a></li>
+          <li><a href="#">Invite by Sharing</a></li>
+          <li><a href="#">My Invitations</a></li>
+          <li><a href="#">My Rewards</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        
+        <div class="tools_container">
+          
+          <h2 class="header">Send a Yoga Today Ambassador e-mail invitation</h2>
+          
+          <fieldset class="invitation">
+            <label>
+              Email an invitation to:
+              <input type="text"></input>
+              <span class="tip">Use a comma (,) to separate multiple addresses</span>
+            </label>
+            
+            <label>
+              From:
+              <input type="text"></input>
+              <span class="tip">Tip: To avoid being blocked as spam, use the address your friends know</span>
+            </label>
+            
+            <label>
+              Subject:
+              <input type="text"></input>
+            </label>
+          
+            <label class="message">
+              Your Message:
+              <textarea></textarea>
+            </label>
+          
+            <label class="default">
+              <input type="checkbox"></input> Save this as my default invitation message
+            </label>
+       
+            <label class="instruction">Yoga Today will automatically add your Ambassador ID and instructions to this e-mail.</label>
+
+          </fieldset>
+          
+          <div class="actions">
+            <input class="preview" type="submit" value="Preview"></input>
+            <input class="send" type="submit" value="Send invitation"></input>
+            <input class="cancel" type="submit" value="Cancel"></input>
+          </div>
+            
+        </div>
+        
+      </div>
+    </div>
+    <div id="container_2col" style="float:right">
+      <%= render :partial => 'profile_sidebar' %>
+      <%= render :partial => 'users/shared/ambassador_profile_widget' %>
+    </div>
+  </div>
+</div>

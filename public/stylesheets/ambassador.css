@@ -287,6 +287,79 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container {
   border-top: 1px solid #ffffff;
-  height: 400px;
   background: #f2f6ff;
+  padding: 0 0 20px 0;
+}
+#ambassador_tools div.tools_container h2.header {
+  font-size: 20px;
+  margin: 30px 0 30px 30px;
+  color: #4778c5;
+  font-weight: normal;
+}
+#ambassador_tools div.tools_container fieldset.invitation {
+  margin: 0 0 0 30px;
+  padding: 0;
+  border: none;
+}
+#ambassador_tools div.tools_container fieldset.invitation label {
+  color: #4778c5;
+  font-size: 11px;
+  width: 50%;
+  float: left;
+}
+#ambassador_tools div.tools_container fieldset.invitation label input {
+  display: block;
+  width: 258px;
+}
+#ambassador_tools div.tools_container fieldset.invitation label span.tip {
+  display: block;
+  font-size: 10px;
+  line-height: 12px;
+  width: 230px;
+  color: #666666;
+  margin-top: 2px;
+}
+#ambassador_tools div.tools_container fieldset.invitation label.message {
+  margin-top: 30px;
+  width: auto;
+  clear: left;
+}
+#ambassador_tools div.tools_container fieldset.invitation label.message textarea {
+  display: block;
+  width: 560px;
+  height: 130px;
+}
+#ambassador_tools div.tools_container fieldset.invitation label.default {
+  clear: left;
+  display: block;
+  width: auto;
+  font-size: 13px;
+  line-height: 13px;
+  margin-top: 4px;
+}
+#ambassador_tools div.tools_container fieldset.invitation label.default input {
+  display: inline;
+  width: auto;
+  margin: 4px 0;
+  *border: none;
+  *margin: 0;
+}
+#ambassador_tools div.tools_container fieldset.invitation label.instruction {
+  width: 400px;
+  font-size: 16px;
+  display: block;
+  clear: left;
+  padding: 30px 0 50px 0;
+}
+#ambassador_tools div.tools_container div.actions {
+  position: relative;
+  border: 1px solid #cccccc;
+  border-width: 4px 0 1px 0;
+  float: none;
+  margin: 0 30px 0 30px;
+  padding: 4px 0;
+}
+#ambassador_tools div.tools_container div.actions input.cancel {
+  position: absolute;
+  right: 0px;
 }

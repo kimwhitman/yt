@@ -1,6 +1,7 @@
 @color_border: #DCEBFF;
 @color_background: #F2F6FF;
 @color_header_font: #7E9ACA;
+@color_ambassador_font: #4778C5;
 
 
 div.ambassador_agent_id {
@@ -316,7 +317,79 @@ div.ambassador_agent_id {
 	clear: both;
 	div.tools_container {
 		border-top: 1px solid #fff;
-		height: 400px;
 		background: @color_background;
+		padding: 0 0 20px 0;
+		h2.header {
+			font-size: 20px;
+			margin: 30px 0 30px 30px;
+			color: @color_ambassador_font;
+			font-weight: normal;
+		}
+		fieldset.invitation {
+			margin: 0 0 0 30px;
+			padding: 0;
+			border: none;
+			label {
+				color: @color_ambassador_font;
+				font-size: 11px;
+				width: 50%;
+				float: left;
+				input {
+					display: block;
+					width: 258px;
+				}
+				span.tip {
+					display: block;
+					font-size: 10px;
+					line-height: 12px;
+					width: 230px;
+					color: #666;
+					margin-top: 2px;
+				}
+			}
+			label.message {
+				margin-top: 30px;
+				width: auto;
+				clear: left;
+				textarea {
+					display: block;
+					width: 560px;
+					height: 130px;
+				}
+			}
+			label.default {
+				clear: left;
+				display: block;
+				width: auto;
+				font-size: 13px;
+				line-height: 13px;
+				margin-top: 4px;
+				input {
+					display: inline;
+					width: auto;
+					margin: 4px 0;
+					*border: none;
+					*margin: 0;
+				}
+			}
+			label.instruction {
+				width: 400px;
+				font-size: 16px;
+				display: block;
+				clear: left;
+				padding: 30px 0 50px 0;
+			}
+		}
+		div.actions {
+			position: relative;
+			border: 1px solid #ccc;
+			border-width: 4px 0 1px 0;
+			float: none;
+			margin: 0 30px 0 30px;
+			padding: 4px 0;
+			input.preview {}
+			input.send {}
+			input.cancel { position: absolute; right: 0px;}
+		}
 	}
 }
