@@ -19,50 +19,52 @@
           <li><a href="#">My Rewards</a></li>
           <li><a href="#">Help</a></li>
         </ul>
-        
-        <div class="tools_container">
-          
-          <h2 class="header">Send a Yoga Today Ambassador e-mail invitation</h2>
-          
-          <fieldset class="invitation">
-            <label>
-              Email an invitation to:
-              <input type="text"></input>
-              <span class="tip">Use a comma (,) to separate multiple addresses</span>
-            </label>
-            
-            <label>
-              From:
-              <input type="text"></input>
-              <span class="tip">Tip: To avoid being blocked as spam, use the address your friends know</span>
-            </label>
-            
-            <label>
-              Subject:
-              <input type="text"></input>
-            </label>
-          
-            <label class="message">
-              Your Message:
-              <textarea></textarea>
-            </label>
-          
-            <label class="default">
-              <input type="checkbox"></input> Save this as my default invitation message
-            </label>
-       
-            <label class="instruction">Yoga Today will automatically add your Ambassador ID and instructions to this e-mail.</label>
 
-          </fieldset>
-          
-          <div class="actions">
-            <input class="preview" type="submit" value="Preview"></input>
-            <input class="send" type="submit" value="Send invitation"></input>
-            <input class="cancel" type="submit" value="Cancel"></input>
-          </div>
-            
+        <div class="tools_container">
+
+          <h2 class="header">Send a Yoga Today Ambassador e-mail invitation</h2>
+
+          <% form_for :ambassador_invite, @ambassador_invite, :url => ambassador_invites_path do |f| %>
+            <fieldset class="invitation">
+              <label>
+                Email an invitation to:
+                <%= f.text_field :recipients %>
+                <span class="tip">Use a comma (,) to separate multiple addresses</span>
+              </label>
+
+              <label>
+                From:
+                <%= f.text_field :from %>
+                <span class="tip">Tip: To avoid being blocked as spam, use the address your friends know</span>
+              </label>
+
+              <label>
+                Subject:
+                <%= f.text_field :subject %>
+              </label>
+
+              <label class="message">
+                Your Message:
+                <%= f.text_area :body %>
+              </label>
+
+              <label class="default">
+                <%= f.check_box :is_default_body_for_user %>  Save this as my default invitation message
+              </label>
+
+              <label class="instruction">Yoga Today will automatically add your Ambassador ID and instructions to this e-mail.</label>
+
+            </fieldset>
+
+            <div class="actions">
+              <%= submit_tag 'Preview', :class => 'preview', :id => 'preview' %>
+              <%= submit_tag 'Send Invitation', :class => 'send', :id => 'send' %>
+              <%= button_to 'Cancel', profile_user_path(current_user), :class => 'cancel' -%>
+            </div>
+          <% end %>
+
         </div>
-        
+
       </div>
     </div>
     <div id="container_2col" style="float:right">

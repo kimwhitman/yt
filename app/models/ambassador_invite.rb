@@ -1,0 +1,3 @@
+class AmbassadorInvite < Invite
+
+end
