@@ -73,11 +73,13 @@
 
     </div>
 
-    <fieldset class="invitation">
-      <legend><span>E-mail an invitation to:</span></legend>
-      <label><input type="text"></input></label>
-      <input type="submit" class="submit" value="Continue"></input>
-    </fieldset>
+    <% form_tag ambassador_tools_widget_invite_by_email_user_path(current_user) do %>
+      <fieldset class="invitation">
+        <legend><span>E-mail an invitation to:</span></legend>
+        <label><%= text_field_tag :email %></label>
+        <%= submit_tag 'Continue', :class => "submit" %>
+      </fieldset>
+    <% end %>
 
     <div class="share">
       <span class="header">Share your invitation:</span>
