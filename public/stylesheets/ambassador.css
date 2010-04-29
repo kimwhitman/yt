@@ -45,7 +45,10 @@ div.ambassador_agent_id span {
   line-height: 18px;
   padding-left: 5px;
 }
-#ambassador_profile_widget.tools div.stats table td.count { border-width: 0 0 1px 0; }
+#ambassador_profile_widget.tools div.stats table td.count {
+  border-width: 0 0 1px 0;
+  font-weight: bold;
+}
 #ambassador_profile_widget.tools div.stats table tr.last td { border-bottom: none; }
 #ambassador_profile_widget.tools div.stats div.points {
   position: absolute;
@@ -174,7 +177,6 @@ div.ambassador_agent_id span {
 #ambassador_profile_widget div.introduction { float: none; }
 #ambassador_profile_widget div.introduction p {
   border-top: 1px solid #dcebff;
-  margin-top: 0px;
   padding-bottom: 18px;
 }
 #ambassador_profile_widget div.introduction fieldset {
@@ -248,4 +250,20 @@ div.ambassador_agent_id span {
   float: right;
   margin: 0 10px 10px 0;
   padding: 0;
+}
+#ambassador_tools_navigation {
+  height: 26px;
+  display: block;
+  list-style-type: none;
+  border: 1px solid red;
+  margin: 0;
+  padding: 0;
+  background: #f5f8fd;
+}
+#ambassador_tools_navigation li { float: left; }
+#ambassador_tools {
+  margin: 0;
+  padding: 0;
+  clear: both;
+  background: #eeeeee;
 }

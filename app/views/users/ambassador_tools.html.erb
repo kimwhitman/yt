@@ -10,7 +10,17 @@
   <div id="main_content">
     <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
     <div id="container_4col" style="float:left;">
-      The ambassador tools all go here.
+      <div id="ambassador_tools">
+
+        <ul id="ambassador_tools_navigation">
+          <li>Invite by E-mail</li>
+          <li>Invite by Sharing</li>
+          <li>My Invitations</li>
+          <li>My Rewards</li>
+          <li>Help</li>
+        </ul>
+        
+      </div>
     </div>
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
