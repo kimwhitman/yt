@@ -1,0 +1,38 @@
+<% title 'Your Profile' %>
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("My Account") %>
+      <div class="arial18_green" id="main_title">Profile</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
+    <div id="container_4col" style="float:left;">
+ 
+      <div id="ambassador_tools">
+
+        <ul id="ambassador_tools_navigation">
+          <li><a href="#">Invite by E-mail</a></li>
+          <li class="active"><a href="#">Invite by Sharing</a></li>
+          <li><a href="#">My Invitations</a></li>
+          <li><a href="#">My Rewards</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        
+        <div class="tools_container">
+          
+          <h2 class="header">Share your Yoga Today Ambassador Invitation</h2>
+          
+        </div>
+          
+      </div> 
+ 
+    </div>
+    <div id="container_2col" style="float:right">
+      <%= render :partial => 'profile_sidebar' %>
+      <%= render :partial => 'users/shared/ambassador_profile_widget' %>
+    </div>
+  </div>
+</div>
