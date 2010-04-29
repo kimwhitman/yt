@@ -50,7 +50,7 @@
     <table>
       <tr>
         <td>Invitations</td>
-        <td class="count">16</td>
+        <td class="count"><%= current_user.invitations_count %></td>
       </tr>
       <tr>
         <td>Successful Referrals</td>
@@ -65,25 +65,25 @@
         <td class="count">1</td>
       </tr>
       </table>
-      
+
       <div class="points">
         <span class="header">My Points</span>
         <span class="count">4</span>
       </div>
-      
+
     </div>
-    
+
     <fieldset class="invitation">
       <legend><span>E-mail an invitation to:</span></legend>
       <label><input type="text"></input></label>
       <input type="submit" class="submit" value="Continue"></input>
     </fieldset>
-    
+
     <div class="share">
       <span class="header">Share your invitation:</span>
       <span class="blocks"></span>
     </div>
-    
+
     <span class="help"><a href="#">Help</a></span>
 
   </div>

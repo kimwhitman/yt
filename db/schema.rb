@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100428214034) do
+ActiveRecord::Schema.define(:version => 20100428223646) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -307,25 +307,30 @@ ActiveRecord::Schema.define(:version => 20100428214034) do
     t.string   "email"
     t.string   "name"
     t.string   "remember_token"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
+    t.string   "crypted_password",           :limit => 40
+    t.string   "salt",                       :limit => 40
     t.datetime "remember_token_expires_at"
     t.datetime "updated_at"
     t.datetime "created_at"
     t.integer  "account_id"
-    t.boolean  "admin",                                   :default => false
-    t.boolean  "wants_newsletter",                        :default => false
+    t.boolean  "admin",                                    :default => false
+    t.boolean  "wants_newsletter",                         :default => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.string   "city"
     t.string   "state"
     t.string   "country"
-    t.string   "newsletter_format",                       :default => "html"
-    t.boolean  "wants_promos",                            :default => false
-    t.boolean  "email_confirmed",                         :default => false
+    t.string   "newsletter_format",                        :default => "html"
+    t.boolean  "wants_promos",                             :default => false
+    t.boolean  "email_confirmed",                          :default => false
     t.string   "confirmation_token"
     t.string   "ambassador_name"
+    t.integer  "invitations_count",                        :default => 0,      :null => false
+    t.integer  "successful_referrals_count",               :default => 0,      :null => false
+    t.integer  "points_earned",                            :default => 0,      :null => false
+    t.integer  "points_used",                              :default => 0,      :null => false
+    t.integer  "points_current",                           :default => 0,      :null => false
   end
 
   add_index "users", ["ambassador_name"], :name => "index_users_on_ambassador_name"
