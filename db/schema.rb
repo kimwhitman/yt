@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100428223646) do
+ActiveRecord::Schema.define(:version => 20100429200507) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -129,6 +129,24 @@ ActiveRecord::Schema.define(:version => 20100428223646) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "invites", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type"
+    t.string   "recipients"
+    t.string   "subject"
+    t.string   "from"
+    t.string   "state"
+    t.text     "body"
+    t.boolean  "is_default_body_for_user", :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
+  add_index "invites", ["type"], :name => "index_invites_on_type"
+  add_index "invites", ["state"], :name => "index_invites_on_state"
+  add_index "invites", ["is_default_body_for_user"], :name => "index_invites_on_is_default_body_for_user"
 
   create_table "media_kits", :force => true do |t|
     t.string   "name"

@@ -222,6 +222,7 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_invite_by_email
+    @ambassador_invite = AmbassadorInvite.new(:recipients => params[:recipients])
     render :template => 'users/ambassador_tools/invite_by_email'
   end
 
@@ -230,6 +231,7 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_my_invitations
+    @ambassador_invites = current_user.ambassador_invites.find(:all, :conditions => ["state = ?", 'active'])
     render :template => 'users/ambassador_tools/my_invitations'
   end
 

@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   belongs_to :account, :dependent => :destroy
   has_many :playlist_videos, :dependent => :destroy
   has_many :purchases, :dependent => :destroy
+  has_many :invites
+  has_many :ambassador_invites
+
   has_attached_file :photo,
     :default_url => "/images/user_yogi.png",
     :styles => { :small => '48x48#' },
@@ -22,7 +25,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
-  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..15
+  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12
   validates_inclusion_of :newsletter_format, :in => %w(html plain)
   validates_confirmation_of :email, :on => :create
 
@@ -32,6 +35,7 @@ class User < ActiveRecord::Base
   before_save :initialize_confirmation_token
   after_save :setup_free_account
   after_save :setup_newsletter
+
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.

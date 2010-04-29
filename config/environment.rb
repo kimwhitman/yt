@@ -22,6 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
+  config.gem 'aasm', :version => '2.1.5'
   config.gem 'exceptional'
   config.gem 'lockfile', :version => '1.4.3'
   config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
