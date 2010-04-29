@@ -255,15 +255,38 @@ div.ambassador_agent_id span {
   height: 26px;
   display: block;
   list-style-type: none;
-  border: 1px solid red;
   margin: 0;
   padding: 0;
   background: #f5f8fd;
+  border-bottom: 1px solid #dcebff;
 }
-#ambassador_tools_navigation li { float: left; }
+#ambassador_tools_navigation li {
+  float: left;
+  border-right: 1px solid #dcebff;
+  padding: 0 15px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+}
+#ambassador_tools_navigation li a {
+  color: #999999;
+  text-decoration: none;
+}
+#ambassador_tools_navigation li.active {
+  position: relative;
+  height: 28px;
+  background: #f2f6ff;
+  border: 1px solid #ffffff;
+  border-width: 0 1px 0 0;
+}
+#ambassador_tools_navigation li.active a { color: #666666; }
 #ambassador_tools {
   margin: 0;
   padding: 0;
   clear: both;
-  background: #eeeeee;
+}
+#ambassador_tools div.tools_container {
+  border-top: 1px solid #ffffff;
+  height: 400px;
+  background: #f2f6ff;
 }
