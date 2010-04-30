@@ -13,6 +13,7 @@ div.ambassador_agent_id span {
   font-weight: normal;
   color: #666666;
 }
+#container_4col.ambassador_pages { position: relative; }
 #ambassador_profile_widget.tools div.ambassador_agent_id {
   float: none;
   width: auto;
@@ -290,7 +291,6 @@ div.ambassador_agent_id span {
   clear: both;
 }
 #ambassador_tools div.tools_container {
-  position: relative;
   border-top: 1px solid #ffffff;
   background: #f2f6ff;
   padding: 0 0 20px 0;
@@ -301,9 +301,11 @@ div.ambassador_agent_id span {
   color: #4778c5;
   font-weight: normal;
 }
+#ambassador_tools div.tools_container div.redeemed_rewards ul li span.title { float: left; }
+#ambassador_tools div.tools_container div.redeemed_rewards ul li span.action { float: right; }
 #ambassador_tools div.tools_container fieldset.ask_a_question {
   position: absolute;
-  top: 0px;
+  top: 28px;
   right: 30px;
   width: 316px;
   height: 56px;
