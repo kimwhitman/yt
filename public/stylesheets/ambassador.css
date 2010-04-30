@@ -290,6 +290,7 @@ div.ambassador_agent_id span {
   clear: both;
 }
 #ambassador_tools div.tools_container {
+  position: relative;
   border-top: 1px solid #ffffff;
   background: #f2f6ff;
   padding: 0 0 20px 0;
@@ -299,6 +300,12 @@ div.ambassador_agent_id span {
   margin: 30px 0 20px 30px;
   color: #4778c5;
   font-weight: normal;
+}
+#ambassador_tools div.tools_container fieldset.ask_a_question {
+  position: absolute;
+  top: 0px;
+  right: 30px;
+  width: 318px;
 }
 #ambassador_tools div.tools_container div.track_invitations h3 {
   position: relative;

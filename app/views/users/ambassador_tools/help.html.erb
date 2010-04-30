@@ -1,0 +1,61 @@
+<% title 'Your Profile' %>
+<div id="main">
+  <div id="page_container">
+    <div id="page_information">
+      <%= breadcrumb("My Account") %>
+      <div class="arial18_green" id="main_title">Profile</div>
+    </div>
+  </div>
+
+  <div id="main_content">
+    <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
+    <div id="container_4col" style="float:left;">
+ 
+      <div id="ambassador_tools">
+
+        <ul id="ambassador_tools_navigation">
+          <li><a href="#">Invite by E-mail</a></li>
+          <li class="active"><a href="#">Invite by Sharing</a></li>
+          <li><a href="#">My Invitations</a></li>
+          <li><a href="#">My Rewards</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        
+        <div class="tools_container">
+          
+          <h2 class="header">Ambassador Help</h2>
+
+          <fieldset class="ask_a_question">
+            <legend><span>Ask a question:</span></legend>
+            <label>
+              <input type="text"></input>
+            </label>
+              <input class="submit" type="submit"></input>
+          </fieldset>
+
+          <h3>How do I earn points?</h3>
+          <p>Invite your friends to subscribe to Yoga Today <a href="#">by e-mail</a> or <a href="#">by sharing</a> on sites like Facebook or Twitter. When someone begins a prepaid subscription to Yoga Today using your unique Ambassador ID, you'll earn a point for each new referral.</p>
+          
+          <h3>Are there other ways to share my Ambassador ID?</h3>
+          <p>You can invite others to Yoga Today any way you'd like. It's up to you! Our e-mail and shared invitations are to help make sure you get credit for new prepaid subscriptions that you refer. When inviting others, make sure they have your unique Ambassador ID so that they can credit your referral when they subscribe.</p>
+          
+          <h3>Is there a limit to the number of invitations I can send?</h3>
+          <p>There's no limit, but nobody likes SPAM. We're happy to reward our Ambassadors and ask only that you please be considerate of others in your Ambassador activity.</p>
+          
+          <h3>How do I earn and redeem points?</h3>
+          <p>Each time you refer a new prepaid subscriber to Yoga Today, you earn a point. 1 point = 1 free month Unlimited Membership to Yoga Today. In the <a href="#">my Rewards</a> section you can redeem any or all the points you have earned for free months of Yoga Today. Check your status under <a href="#">Billing Activity</a> in your Profile.</p>
+
+          <h3>Do I have to be a subscriber</h3>
+          <p>Ambassador rewards can be earned by both Free Members and Unlimited Members. If you have a Free Membership, you will be granted Unlimited Membership privileges for as many months as the points you earn. If you are already a subscriber, your points will be rewarded for additional free months immediately following your current billing cycle.</p>
+
+        </div>
+          
+      </div> 
+ 
+    </div>
+    <div id="container_2col" style="float:right">
+      <%= render :partial => 'profile_sidebar' %>
+      <%= render :partial => 'users/shared/ambassador_profile_widget' %>
+    </div>
+  </div>
+</div>
