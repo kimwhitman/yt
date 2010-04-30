@@ -336,32 +336,125 @@ div.ambassador_agent_id {
 			font-weight: normal;
 		}
 		div.my_rewards_points {
-			h3 {}
-			p {}
+			position: relative;
+			border: 1px solid #ccc;
+			height: 110px;
+			border-bottom-width: 4px;
+			margin: 30px 30px 0 30px;
+			h3 {
+				margin: 20px 0 0 15px;
+				font-size: 20px;
+				font-weight: normal;
+				color: @color_ambassador_font;
+			}
+			p {
+				color: #3B5E84;
+				margin: 6px 130px 0 15px;
+				padding: 0;
+			}
 			div.my_points {
-				span.header {}
-				span.count {}
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				height: 110px;
+				width: 100px;
+				border-left: 1px solid #ccc;
+				background: url('/images/ambassador_bg_points.png') no-repeat 20px 30px;
+				span.header {
+					position: absolute;
+					top: 0px;
+					right: 0px;
+					font-size: 14px;
+					color: @color_header_font;
+				}
+				span.count {
+					position: absolute;
+					width: 40px;
+					text-align: center;
+					bottom: 18px;
+					*bottom: 15px;
+					right: 11px;
+					font-weight: bold;
+					font-size: 28px;
+					line-height: 28px;
+					font-style: italic;
+					color: @color_header_font;
+				}
 			}
 		}
-		h3.redeem_rewards {}
+		h3.redeem_rewards {
+			margin: 0 30px;
+			padding: 0 0 0 10px;
+			background: #D9E8FF;
+			height: 33px;
+			color: @color_ambassador_font;
+			line-height: 33px;
+			font-size: 16px;
+			font-weight: normal;
+			span {
+				position: absolute;
+				right: 33px;
+				font-size: 12px;
+			}
+		}
 		div.redeemed_rewards {
-			p {}
+			div.unredeemed {
+				margin: 0 30px;
+				padding: 15px 0;
+				background: #fff;
+				border-top: 1px solid #ccc;
+				h4 {
+					padding: 0;
+					margin: 0 0 0 15px;
+					font-weight: bold;
+					color: #000;
+					font-size: 12px;
+				}
+				p {
+					padding: 0;
+					margin: 0 0 6px 15px;
+				}
+				a {
+					color: #333;
+					text-decoration: underline;
+				}
+				a.by_email {
+					margin: 0 10px 0 15px;
+				}
+			}
 			ul {
+				background: #fff;
+				list-style-type: none;
+				padding: 20px 0 0 0;
+				margin: 0 30px;
+				border-top: 1px solid #ccc;
 				li {
+					display: block;
+					clear: both;
+					height: 30px;
 					span.title {
+						padding: 0 0 0 15px;
 						float: left;
+						color: #333;
 					}
 					span.action {
+						padding: 0 20px 0 0;
 						float: right;
 					}
 				}
 			}
 			div.actions {
-				input.submit {}
-				input.cancel {}
+				clear: both;
+				text-align: right;
+				input.submit { position: static;}
+				input.cancel { position: static;}
 			}
 		}
-		div.rewards_terms {}
+		div.rewards_terms {
+			margin: 0 30px;
+			padding: 4px 0 0 0;
+			color: #3B5E84;
+		}
 		fieldset.ask_a_question {
 			position: absolute;
 			top: 28px;
