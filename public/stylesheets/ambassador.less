@@ -336,7 +336,54 @@ div.ambassador_agent_id {
 			position: absolute;
 			top: 0px;
 			right: 30px;
-			width: 318px;
+			width: 316px;
+			height: 56px;
+			border: none;
+			background: #DAE9FE;
+			padding: 0;
+			margin: 0;
+			legend span {
+				position: absolute;
+				top: 6px;
+				left: 20px;
+				color: @color_header_font;
+				font-size: 11px;
+			}
+			label {
+				margin: 20px 0 0 20px;
+				float: left;
+				input {
+					width: 224px;
+					height: 20px;
+				}
+			}
+			input.submit {
+				margin: 20px 0 0 4px;
+				width: 40px;
+				border-left: 1px solid #ddd;
+				border-right: 1px solid #ddd;
+			}
+		}
+		div.help {
+			color: #3B5E84;
+			margin: 0 30px;
+			h3 {
+				color: #3B5E84;
+				font-size: 16px;
+				font-weight: normal;
+				margin: 0;
+				padding: 0;
+			}
+			p {
+				margin: 2px 0 14px 0;
+				a {
+					color: #3B5E84;
+					text-decoration: underline;
+					:hover {
+						text-decoration: none;
+					}
+				}
+			}
 		}
 		div.track_invitations {
 			h3 {

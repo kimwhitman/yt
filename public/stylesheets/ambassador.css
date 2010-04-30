@@ -305,8 +305,51 @@ div.ambassador_agent_id span {
   position: absolute;
   top: 0px;
   right: 30px;
-  width: 318px;
+  width: 316px;
+  height: 56px;
+  border: none;
+  background: #dae9fe;
+  padding: 0;
+  margin: 0;
 }
+#ambassador_tools div.tools_container fieldset.ask_a_question legend span {
+  position: absolute;
+  top: 6px;
+  left: 20px;
+  color: #7e9aca;
+  font-size: 11px;
+}
+#ambassador_tools div.tools_container fieldset.ask_a_question label {
+  margin: 20px 0 0 20px;
+  float: left;
+}
+#ambassador_tools div.tools_container fieldset.ask_a_question label input {
+  width: 224px;
+  height: 20px;
+}
+#ambassador_tools div.tools_container fieldset.ask_a_question input.submit {
+  margin: 20px 0 0 4px;
+  width: 40px;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+#ambassador_tools div.tools_container div.help {
+  color: #3b5e84;
+  margin: 0 30px;
+}
+#ambassador_tools div.tools_container div.help h3 {
+  color: #3b5e84;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+#ambassador_tools div.tools_container div.help p { margin: 2px 0 14px 0; }
+#ambassador_tools div.tools_container div.help p a {
+  color: #3b5e84;
+  text-decoration: underline;
+}
+#ambassador_tools div.tools_container div.help p a:hover { text-decoration: none; }
 #ambassador_tools div.tools_container div.track_invitations h3 {
   position: relative;
   border-top: 4px solid #cccccc;
