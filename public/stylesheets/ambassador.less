@@ -20,6 +20,10 @@ div.ambassador_agent_id {
 	}
 }
 
+#container_4col.ambassador_pages {
+	position: relative;
+}
+
 #ambassador_profile_widget.tools {
 	div.ambassador_agent_id {
 		float: none;
@@ -299,6 +303,9 @@ div.ambassador_agent_id {
 		a {
 			color: #999;
 			text-decoration: none;
+			:hover {
+				color: #666;
+			}
 		}
 	}
 	li.active {
@@ -328,21 +335,160 @@ div.ambassador_agent_id {
 			color: @color_ambassador_font;
 			font-weight: normal;
 		}
+		div.my_rewards_points {
+			h3 {}
+			p {}
+			div.my_points {
+				span.header {}
+				span.count {}
+			}
+		}
+		h3.redeem_rewards {}
+		div.redeemed_rewards {
+			p {}
+			ul {
+				li {
+					span.title {
+						float: left;
+					}
+					span.action {
+						float: right;
+					}
+				}
+			}
+			div.actions {
+				input.submit {}
+				input.cancel {}
+			}
+		}
+		div.rewards_terms {}
+		fieldset.ask_a_question {
+			position: absolute;
+			top: 28px;
+			right: 30px;
+			width: 316px;
+			height: 56px;
+			border: none;
+			background: #DAE9FE;
+			padding: 0;
+			margin: 0;
+			legend span {
+				position: absolute;
+				top: 6px;
+				left: 20px;
+				color: @color_header_font;
+				font-size: 11px;
+			}
+			label {
+				margin: 20px 0 0 20px;
+				float: left;
+				input {
+					width: 224px;
+					height: 20px;
+				}
+			}
+			input.submit {
+				margin: 20px 0 0 4px;
+				width: 40px;
+				border-left: 1px solid #ddd;
+				border-right: 1px solid #ddd;
+			}
+		}
+		div.help {
+			color: #3B5E84;
+			margin: 0 30px;
+			h3 {
+				color: #3B5E84;
+				font-size: 16px;
+				font-weight: normal;
+				margin: 0;
+				padding: 0;
+			}
+			p {
+				margin: 2px 0 14px 0;
+				a {
+					color: #3B5E84;
+					text-decoration: underline;
+					:hover {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		div.track_invitations {
+			h3 {
+				position: relative;
+				border-top: 4px solid #ccc;
+				color: @color_ambassador_font;
+				margin: 0 30px;
+				font-size: 16px;
+				font-weight: normal;
+				padding: 9px 0;
+				a {
+					position: absolute;
+					right: 0px;
+					_right: 30px;
+					color: @color_ambassador_font;
+					float: right;
+					font-size: 12px;
+					text-decoration: underline;
+				}
+			}
+			div.table {
+				margin: 0 30px 15px 30px;
+				background: #fff;
+				height: 180px;
+				overflow: scroll;
+				border-top: 1px solid #ccc;
+				ul {
+					padding: 0;
+					margin: 15px 35px 20px 15px;
+					list-style-type: none;
+					li {
+						height: 30px;
+						padding: 0;
+						margin: 0;
+						display: block;
+						clear: both;
+						span.name {color: #333; float: left;}
+						span.date {font-size: 11px; float: right;}
+					}
+				}
+			}
+			
+		}
 		ul.invitation_networks {
 			list-style-type: none;
 			margin: 0 30px;
 			padding: 0;
 			li {
+				height: 135px;
+				position: relative;
 				margin: 0;
 				padding: 0;
 				border-top: 1px dotted @color_ambassador_font;
 				img.network {
 					position: absolute;
 					left: 0px;
-					top: 0px;
+					top: 8px;
 					width: 156px;
 					height: 50px;
 					border: 3px solid #ccc;
+					background: #eee;
+				}
+				a.network {
+					color: @color_ambassador_font;
+					display: block;
+					margin: 8px 30px 0 176px;
+					font-size: 11px;
+					line-height: 14px;
+					:hover {
+						text-decoration: underline;
+					}
+				}
+				p {
+					margin: 0 30px 0 176px;
+					padding: 0;
 				}
 			}
 		}
