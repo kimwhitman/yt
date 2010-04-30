@@ -222,6 +222,7 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_invite_by_email
+    # TODO Load up the user's default email body if they have one
     @ambassador_invite = AmbassadorInvite.new(:recipients => params[:recipients])
     render :template => 'users/ambassador_tools/invite_by_email'
   end
