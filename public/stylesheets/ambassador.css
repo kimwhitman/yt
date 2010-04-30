@@ -417,6 +417,10 @@ div.ambassador_agent_id span {
   padding: 4px 0 0 0;
   color: #3b5e84;
 }
+#ambassador_tools div.tools_container div.rewards_terms a {
+  text-decoration: underline;
+  color: #3b5e84;
+}
 #ambassador_tools div.tools_container fieldset.ask_a_question {
   position: absolute;
   top: 28px;
