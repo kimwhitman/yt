@@ -1,3 +1,31 @@
+#profile_sidebar {
+  margin: 0;
+  padding: 9px 13px;
+  border: 1px solid #999999;
+}
+#profile_sidebar h4 {
+  margin: 0 0 2px 0;
+  padding: 0;
+  font-size: 12px;
+  color: #999999;
+}
+#profile_sidebar ul {
+  padding: 0 0 4px 15px;
+  margin: 0;
+}
+#profile_sidebar ul li {
+  font-size: 12px;
+  color: #999999;
+}
+#profile_sidebar ul li a { color: #999999; }
+#profile_sidebar ul li a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+#profile_sidebar ul.membership_actions {
+  padding-top: 4px;
+  border-top: 1px dotted #999999;
+}
 div.ambassador_agent_id {
   position: relative;
   height: 30px;
