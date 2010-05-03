@@ -24,13 +24,13 @@
   <div class="search_results_bar">
     <div id="sort_by_div">
       <strong>Sort by:</strong>
-      <%= select_tag 'sort_by', options_for_select([
+      <%= select_tag 'sort_by_dropdown', options_for_select([
               ['Most Recent', 'most_recent'],
               ['Top Rated', 'top_rated'],
               ['Most Viewed', 'most_popular'],
               ['Most Discussed', 'most_discussed']
           ], params[:sort_by]) %>
-      <%= observe_field 'sort_by', :url => { :action => 'search' }, :with => "$('#sort_by, #search_form').serialize()", :loading => "$('#search_message').show()" %>
+      <%= observe_field 'sort_by_dropdown', :url => { :action => 'search' }, :with => "$('#sort_by_dropdown, #search_form').serialize()", :loading => "$('#search_message').show()" %>
     </div>
     <div id="page_count">          
       <%= will_paginate @videos, :renderer => "SearchPaginationRenderer", :class => 'search_pagination', :params => {:search => @search_terms, :sort_by => @sorting, :keywords => @keywords} %>
