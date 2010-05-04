@@ -14,7 +14,7 @@
     <% end %>
 
     <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>
-    <li><%= link_to_unless_current 'Subscription Billing History', billing_history_user_path(current_user) %></li>
+    <li><%= link_to_unless_current 'Billing Activity', billing_history_user_path(current_user) %></li>
     <% end %>
 
   </ul>

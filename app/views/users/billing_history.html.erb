@@ -2,7 +2,7 @@
   <div id="page_container">
     <div id="page_information">
       <%= breadcrumb(["My Account",  profile_user_path(current_user)], "Billing History") %>
-      <div class="arial18_green" id="main_title">Subscription Billing History</div>
+      <div class="arial18_green" id="main_title">My Profile : Billing Activity</div>
     </div>
   </div>
 
@@ -13,57 +13,78 @@
     </div>
   <% end %>
 
-  <% if @user.has_paying_subscription? %>
-    <%
-      subscription = @user.account.subscription
-      plan         = subscription.subscription_plan
-    %>
-    <% if subscription.amount > 0 %>
-    <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %> for <%= number_to_currency(subscription.amount)%></h3>
-    <% end %>
-  <% end %>
-
   <div id="main_content">
     <div id="container_4col" style="float:left;">
-      <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
-        <% unless current_user.account.subscription.subscription_payments.empty? %>
-        <h2 style="margin-bottom: 20px; color:#000000;">Subscription Charges</h2>
-        <table id="billing_history_table" cellspacing="0" cellpadding="2" border="0" width="100%">
-          <tbody><tr id="header_row" class="arial13_bold_black">
-            <td>Date</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>Method</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>Period</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>Charge</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>Tax</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>Total</td>
-          </tr>
-          <% current_user.account.subscription.subscription_payments.find(:all, :order => 'created_at desc').each do |sp| %>
-          <tr class="arial13_black">
-            <td><%= sp.created_at.strftime '%d-%b-%y' %></td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>Credit Card</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td><%= billing_period(sp) %></td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td><%= number_to_currency(sp.amount) %></td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td>$0.00</td>
-            <td><img height="1" width="20" src="images/spacer.gif"/></td>
-            <td><%= number_to_currency(sp.amount) %></td>
-          </tr>
-          <% end %>
-        </tbody></table>
-        <% else %>
-          <p class="arial11_black">No account information available.</p>
-        <% end %>
+      <div id="profile_billing_activity">
+        
+        <div class="details">
+          <p class="title">Membership Type</p>
+          <p class="value">$9.99 Monthly Unlimited Membership</p>
+        </div>
 
-      </div>
+        <div class="details period">
+          <p class="title">Current membership period</p>
+          <p class="value">Sept 1, 2010 - Sept 30, 2010</p>
+        </div>
+
+        <div class="details date">
+          <p class="title">Next payment date</p>
+          <p class="value">Oct 1, 2010</p>
+        </div>
+        
+        <div class="details">
+          <p class="title">Amount</p>
+          <p class="value">FREE</p>
+        </div>
+        
+        <h2>Recent Billing Activity <a href="#">Show All</a></h2>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Activity</th>
+              <th>Method</th>
+              <th>Membership Period</th>
+              <th class="last">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sept 1, 2010</td>
+              <td>Membership payment</td>
+              <td>Rewards points</td>
+              <td>Nov 2, 2010 -- Nov 30, 2010</td>
+              <td class="last">FREE</td>
+            </tr>
+            <tr>
+              <td>Sept 1, 2010</td>
+              <td>Membership payment</td>
+              <td>Rewards points</td>
+              <td>Nov 2, 2010 -- Nov 30, 2010</td>
+              <td class="last">FREE</td>
+            </tr>
+            <tr>
+              <td>Sept 1, 2010</td>
+              <td>Membership payment</td>
+              <td>Rewards points</td>
+              <td>Nov 2, 2010 -- Nov 30, 2010</td>
+              <td class="last">FREE</td>
+            </tr>
+            <tr>
+              <td>Sept 1, 2010</td>
+              <td>Membership payment</td>
+              <td>Rewards points</td>
+              <td>Nov 2, 2010 -- Nov 30, 2010</td>
+              <td class="last">FREE</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+      </div>  
     </div>
+
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
     </div>

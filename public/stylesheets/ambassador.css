@@ -1,3 +1,58 @@
+#profile_billing_activity div.details {
+  margin: 0;
+  padding: 0;
+  width: 214px;
+  float: left;
+}
+#profile_billing_activity div.details p {
+  margin: 0;
+  padding: 0;
+}
+#profile_billing_activity div.details p.title {
+  font-size: 10px;
+  color: #999999;
+}
+#profile_billing_activity div.details p.value { margin-bottom: 20px; }
+#profile_billing_activity div.period { clear: left; }
+#profile_billing_activity div.date { width: 130px; }
+#profile_billing_activity h2 {
+  clear: both;
+  height: 34px;
+  border-top: 3px solid #cccccc;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 34px;
+  color: #666666;
+}
+#profile_billing_activity h2 a {
+  color: #999999;
+  font-size: 10px;
+  text-decoration: underline;
+  padding-left: 6px;
+}
+#profile_billing_activity h2 a:hover { color: #666666; }
+#profile_billing_activity table {
+  width: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+#profile_billing_activity table th {
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  font-size: 10px;
+  color: #999999;
+  height: 22px;
+  font-weight: normal;
+  line-height: 22px;
+}
+#profile_billing_activity table td {
+  height: 30px;
+  line-height: 30px;
+}
+#profile_billing_activity table th.last { text-align: right; }
+#profile_billing_activity table td.last { text-align: right; }
 #profile_basic_information_form h2 {
   height: 33px;
   border-top: 4px solid #cccccc;
