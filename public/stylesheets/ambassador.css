@@ -15,6 +15,7 @@
 #profile_billing_activity div.details p.value { margin-bottom: 20px; }
 #profile_billing_activity div.period { clear: left; }
 #profile_billing_activity div.date { width: 130px; }
+#profile_billing_activity div.type { width: 100%; }
 #profile_billing_activity h2 {
   clear: both;
   height: 34px;
