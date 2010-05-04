@@ -106,11 +106,12 @@ class VideosController < ApplicationController
       @videos = Video.published.send("by_#{@sorting}").search(@search_terms).paginate(:page => @page, :per_page => @per_page, :total_entries => total)
     end
     respond_to do |wants|
-        wants.html { render :action => 'index' }
+      wants.html { render :action => 'index' }
       wants.js do
         render(:update) do |page|
-          page.replace_html "container_4col_wrap", :partial => "video_listings"
-            page << "$('input[type=radio].star').rating();"
+          page.replace_html "x_video_listings", :partial => "video_listings"
+          page << "$('input[type=radio].star').rating();"
+          page << 'bindSortingDropdown();'
         end
       end
     end
