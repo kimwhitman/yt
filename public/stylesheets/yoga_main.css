@@ -896,7 +896,23 @@ input.empty {
 #container_4col {
   width: 620px;
   overflow: visible;
+  float: left;
 }
+
+#container_4col.signed_in {
+  width: 620px;
+  overflow: visible;
+  margin-top: 0; 
+}
+
+#container_4col.signed_out {
+  width: 620px;
+  overflow: visible;
+  margin-top: -200px; 
+  *margin-top: -220px; 
+  _margin-top: -240px;
+}
+
 .container_8col2 {
   width: 220px;
   height: 250px;
