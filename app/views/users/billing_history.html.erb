@@ -39,6 +39,8 @@
         
         <h2>Recent Billing Activity <a href="#">Show All</a></h2>
         
+        <% unless current_user.account.subscription.subscription_payments.empty? %>
+
         <table>
           <thead>
             <tr>
@@ -50,37 +52,20 @@
             </tr>
           </thead>
           <tbody>
+            <% current_user.account.subscription.subscription_payments.find(:all, :order => 'created_at desc').each do |sp| %>
             <tr>
-              <td>Sept 1, 2010</td>
-              <td>Membership payment</td>
-              <td>Rewards points</td>
-              <td>Nov 2, 2010 -- Nov 30, 2010</td>
-              <td class="last">FREE</td>
+              <td><%= sp.created_at.strftime '%d-%b-%y' %></td>
+              <td>Membership Payment</td>
+              <td>Credit Card</td>
+              <td><%= billing_period(sp) %></td>
+              <td class="last"><%= number_to_currency(sp.amount) %></td>
             </tr>
-            <tr>
-              <td>Sept 1, 2010</td>
-              <td>Membership payment</td>
-              <td>Rewards points</td>
-              <td>Nov 2, 2010 -- Nov 30, 2010</td>
-              <td class="last">FREE</td>
-            </tr>
-            <tr>
-              <td>Sept 1, 2010</td>
-              <td>Membership payment</td>
-              <td>Rewards points</td>
-              <td>Nov 2, 2010 -- Nov 30, 2010</td>
-              <td class="last">FREE</td>
-            </tr>
-            <tr>
-              <td>Sept 1, 2010</td>
-              <td>Membership payment</td>
-              <td>Rewards points</td>
-              <td>Nov 2, 2010 -- Nov 30, 2010</td>
-              <td class="last">FREE</td>
-            </tr>
+            <% end %>
           </tbody>
         </table>
-        
+        <% else %>
+          <p class="not_available">No account information available.</p>
+        <% end %>        
         
       </div>  
     </div>

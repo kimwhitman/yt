@@ -53,6 +53,10 @@
 }
 #profile_billing_activity table th.last { text-align: right; }
 #profile_billing_activity table td.last { text-align: right; }
+#profile_billing_activity p.not_available {
+  font-style: italic;
+  font-weight: bold;
+}
 #profile_basic_information_form h2 {
   height: 33px;
   border-top: 4px solid #cccccc;
