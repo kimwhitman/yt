@@ -22,7 +22,6 @@ javascripts:
   - jquery.scrollTo
   - jquery.timeago
   - search
-  - jquery.delayedObserver
 - dev:
   - jquery
   - jquery-ui
