@@ -61,7 +61,7 @@
   display: block;
   clear: left;
   margin: 0 0 6px 0;
-  padding: 0;
+  padding: 0 0 0 3px;
 }
 #profile_basic_information_form fieldset label.end_set input { margin-bottom: 18px; }
 #profile_basic_information_form fieldset label.state {
@@ -84,7 +84,7 @@
 }
 #profile_basic_information_form fieldset label.state { width: 88px; }
 #profile_basic_information_form fieldset label.state select { width: 52px; }
-#profile_basic_information_form fieldset label.country select { width: 194px; }
+#profile_basic_information_form fieldset label.country select { width: 197px; }
 #profile_basic_information_form fieldset label.checkbox {
   clear: left;
   display: block;
