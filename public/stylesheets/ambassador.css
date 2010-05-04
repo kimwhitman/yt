@@ -1,3 +1,108 @@
+#profile_basic_information_form h2 {
+  height: 33px;
+  border-top: 4px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  font-size: 16px;
+  line-height: 33px;
+  font-weight: normal;
+  color: #666666;
+}
+#profile_basic_information_form h2 span {
+  font-size: 12px;
+  padding-left: 20px;
+}
+#profile_basic_information_form div.avatar {
+  position: relative;
+  height: 48px;
+  margin: 12px 0;
+}
+#profile_basic_information_form div.avatar img {
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  top: 0px;
+  left: 0px;
+  background: #eeeeee;
+  border: none;
+}
+#profile_basic_information_form div.avatar span {
+  display: block;
+  padding-top: 10px;
+  margin: 0 0 0 60px;
+  color: #999999;
+}
+#profile_basic_information_form div.avatar a {
+  display: block;
+  margin: 0 0 0 60px;
+  text-decoration: underline;
+  color: #999999;
+}
+#profile_basic_information_form div.avatar a:hover { color: #333333; }
+#profile_basic_information_form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#profile_basic_information_form fieldset label {
+  margin: 0;
+  padding: 0;
+  clear: left;
+  font-size: 11px;
+  color: #999999;
+}
+#profile_basic_information_form fieldset label input {
+  height: 18px;
+  width: 280px;
+  display: block;
+  clear: left;
+  margin: 0 0 6px 0;
+  padding: 0;
+}
+#profile_basic_information_form fieldset label.end_set input { margin-bottom: 18px; }
+#profile_basic_information_form fieldset label.state {
+  width: 85px;
+  float: left;
+  clear: none;
+}
+#profile_basic_information_form fieldset label.state input { width: 52px; }
+#profile_basic_information_form fieldset label.country {
+  float: left;
+  clear: none;
+}
+#profile_basic_information_form fieldset label.country input { width: 194px; }
+#profile_basic_information_form fieldset label.checkbox {
+  clear: left;
+  display: block;
+  margin-bottom: 10px;
+}
+#profile_basic_information_form fieldset label.radio {
+  float: left;
+  clear: none;
+  margin: 6px 20px 20px 0;
+}
+#profile_basic_information_form fieldset label.checkbox input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#profile_basic_information_form fieldset label.radio input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#profile_basic_information_form div.actions {
+  border-top: 4px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding: 4px 0;
+}
 #profile_sidebar {
   margin: 0;
   padding: 9px 13px;
