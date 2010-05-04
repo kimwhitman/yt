@@ -86,7 +86,7 @@
             <%= @videos.total_entries %> of <%= Video.count %> classes found<br>keywords: <%= @keywords %>
         </div>
         <% end %>
-        <%= render :partial => "video_listings" %>
+        <div id="x_video_listings"><%= render :partial => "video_listings" %></div>
         <div class="promo_yt365_wide">
           <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
           <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
