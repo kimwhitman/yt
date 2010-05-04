@@ -38,6 +38,11 @@
   color: #999999;
 }
 #profile_basic_information_form div.avatar a:hover { color: #333333; }
+#profile_basic_information_form div.avatar #photo_upload {
+  position: absolute;
+  top: 50%;
+  left: 140px;
+}
 #profile_basic_information_form fieldset {
   border: none;
   margin: 0;
@@ -60,16 +65,26 @@
 }
 #profile_basic_information_form fieldset label.end_set input { margin-bottom: 18px; }
 #profile_basic_information_form fieldset label.state {
-  width: 85px;
   float: left;
   clear: none;
 }
-#profile_basic_information_form fieldset label.state input { width: 52px; }
+#profile_basic_information_form fieldset label.state select {
+  clear: left;
+  display: block;
+  margin-bottom: 18px;
+}
 #profile_basic_information_form fieldset label.country {
   float: left;
   clear: none;
 }
-#profile_basic_information_form fieldset label.country input { width: 194px; }
+#profile_basic_information_form fieldset label.country select {
+  clear: left;
+  display: block;
+  margin-bottom: 18px;
+}
+#profile_basic_information_form fieldset label.state { width: 88px; }
+#profile_basic_information_form fieldset label.state select { width: 52px; }
+#profile_basic_information_form fieldset label.country select { width: 194px; }
 #profile_basic_information_form fieldset label.checkbox {
   clear: left;
   display: block;

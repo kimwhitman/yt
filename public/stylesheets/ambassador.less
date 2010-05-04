@@ -46,6 +46,11 @@
 				color: #333;
 			}
 		}
+		#photo_upload {
+			position: absolute;
+			top: 50%;
+			left: 140px;
+		}
 	}
 	fieldset {
 		border: none;
@@ -67,21 +72,29 @@
 			}
 		}
 		label.end_set input { margin-bottom: 18px;}
-		label.state {
-			width: 85px;
+		
+		label.state, label.country {
 			float: left;
 			clear: none;
-			input {
+			select {
+				clear: left;
+				display: block;
+				margin-bottom: 18px;
+			}	
+		}
+		
+		label.state {
+			width: 88px;
+			select {
 				width: 52px;
 			}
 		}
 		label.country {
-			float: left;
-			clear: none;
-			input {
+			select {
 				width: 194px;
 			}
 		}
+
 		label.checkbox {
 			clear: left;
 			display: block;
