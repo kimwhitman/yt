@@ -1,3 +1,124 @@
+#signup_section h2.header {
+  font-size: 14px;
+  color: #666666;
+  border-top: 2px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  height: 36px;
+  line-height: 36px;
+}
+#signup_section h2.header a {
+  font-size: 11px;
+  padding-left: 5px;
+  color: #666666;
+  text-decoration: none;
+  font-weight: normal;
+}
+#signup_section h2.header a:hover {
+  text-decoration: underline;
+  color: #333333;
+}
+#signup_section p.title {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 12px;
+  color: #666666;
+}
+#signup_section p.radio {
+  margin: 0;
+  padding: 0;
+  line-height: 24px;
+}
+#signup_section p.radio input {
+  padding: 0;
+  margin: 0 6px 0 0;
+  border: none;
+  background: none;
+}
+#signup_section p.end_set { margin-bottom: 10px; }
+#signup_section fieldset.trial {
+  width: 400px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  background: #f2f6ff;
+  border: 1px solid #dcebff;
+  position: relative;
+}
+#signup_section fieldset.trial label { font-size: 11px; }
+#signup_section fieldset.trial label span {
+  color: #666666;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+#signup_section fieldset.trial label input {
+  width: 200px;
+  height: 18px;
+  margin-top: 10px;
+}
+#signup_section fieldset.basic {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#signup_section fieldset.basic label {
+  float: left;
+  font-size: 11px;
+  color: #999999;
+}
+#signup_section fieldset.basic label input {
+  clear: left;
+  display: block;
+  width: 280px;
+  padding: 0 0 0 3px;
+  margin: 0 0 6px 0;
+  height: 18px;
+}
+#signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
+#signup_section fieldset.basic label.wide { width: 100%; }
+#signup_section fieldset.basic label.column { width: 320px; }
+#signup_section fieldset.basic label.checkbox {
+  clear: left;
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+#signup_section fieldset.basic label.radio {
+  float: left;
+  clear: none;
+  margin: 6px 20px 20px 0;
+}
+#signup_section fieldset.basic label.checkbox input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#signup_section fieldset.basic label.radio input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#signup_section fieldset.basic label.spam { position: relative; }
+#signup_section fieldset.basic label.spam input { margin-bottom: 28px; }
+#signup_section fieldset.basic label.spam img {
+  position: absolute;
+  top: 4px;
+  left: 300px;
+}
+#signup_section div.actions {
+  border-top: 2px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding: 5px 0;
+}
 #profile_billing_activity div.details {
   margin: 0;
   padding: 0;
@@ -174,9 +295,9 @@
   padding: 0;
 }
 #profile_basic_information_form div.actions {
-  border-top: 4px solid #cccccc;
+  border-top: 2px solid #cccccc;
   border-bottom: 1px solid #cccccc;
-  padding: 4px 0;
+  padding: 5px 0;
 }
 #profile_sidebar {
   margin: 0;

@@ -66,21 +66,21 @@
             <%= f.check_box :wants_newsletter %>
             Send me the weekly Yoga Today newsletter and weekly class update.
           </label>
-          
+
           <label class="checkbox">
-            <input type="checkbox"></input>
+            <%= f.check_box :wants_promos %>
             Keep me informed of Yoga Today offers and special announcements.
           </label>
-          
+
           <label class="radio">
-            <input type="radio"></input>
+            <%= f.radio_button :newsletter_format, 'html' %>
             HTML E-mail
           </label>
-          
+
           <label class="radio">
-            <input type="radio"></input>
+            <%= f.radio_button :newsletter_format, 'plain' %>
             Plain Text E-mail
-          </label>          
+          </label>       
           
         </fieldset>
         

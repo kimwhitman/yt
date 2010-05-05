@@ -7,15 +7,13 @@
 
     <div id="signup_section">
       <h1 class="arial20_bold_green signup_banner">Sign Up</h1>
-      <hr size="3" noshade />
-      <h2>Sign Up <span><small><%= link_to 'Already a member?', login_path %></small></span></h2>
-      <hr size="1" noshade />
-
-      <br/>
+      
+      <h2 class="header">Sign Up <%= link_to 'Already a member?', login_path %></h2>
 
       <% form_for @user do |f| -%>
         <%= render :partial => "form", :locals => { :f => f } %>
       <% end -%>
+
     </div>
 
     <%= render :partial => "sessions/login" %>

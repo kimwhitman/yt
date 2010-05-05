@@ -3,6 +3,138 @@
 @color_header_font: #7E9ACA;
 @color_ambassador_font: #4778C5;
 
+#signup_section {
+	h2.header {
+		font-size: 14px;
+		color: #666;
+		border-top: 2px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		height: 36px;
+		line-height: 36px;
+		a {
+			font-size: 11px;
+			padding-left: 5px;
+			color: #666;
+			text-decoration: none;
+			font-weight: normal;
+			:hover {
+				text-decoration: underline;
+				color: #333;
+			}
+		}
+	}
+	p.title {
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		font-size: 12px;
+		color: #666;
+	}
+	p.radio {
+		margin: 0;
+		padding: 0;
+		line-height: 24px;
+		input {
+			padding: 0;
+			margin: 0 6px 0 0;
+			border: none;
+			background: none;
+		}
+	}
+	p.end_set {
+		margin-bottom: 10px;
+	}
+	fieldset.trial {
+		width: 400px;
+		margin: 0 0 10px 0;
+		padding: 10px;
+		background: @color_background;
+		border: 1px solid @color_border;
+		position: relative;
+		label {
+			font-size: 11px;
+			span {
+				color: #666;
+				font-size: 16px;
+				font-weight: bold;
+				display: block;
+				margin-bottom: 6px;
+			}
+			input {
+				width: 200px;
+				height: 18px;
+				margin-top: 10px;
+			}
+		}
+	}
+	fieldset.basic {
+		border: none;
+		margin: 0;
+		padding: 0;
+		label {
+			float: left;
+			font-size: 11px;
+			color: #999;
+			input {
+				clear: left;
+				display: block;
+				width: 280px;
+				padding: 0 0 0 3px;
+				margin: 0 0 6px 0;
+				height: 18px;
+			}
+		}
+		label.end_set input {
+			margin-bottom: 18px;
+		}
+		label.wide {
+			width: 100%;
+		}
+		label.column {
+			width: 320px;
+		}
+		label.checkbox {
+			clear: left;
+			display: block;
+			margin-bottom: 10px;
+			width: 100%;
+		}
+		label.radio {
+			float: left;
+			clear: none;
+			margin: 6px 20px 20px 0;
+		}
+		label.checkbox input, label.radio input {
+			border: none;
+			background: none;
+			display: inline;
+			width: auto;
+			height: auto;
+			margin: 0;
+			padding: 0;			
+		}
+		label.spam {
+			position: relative;
+			input {
+				margin-bottom: 28px;
+			}
+			img {
+				position: absolute;
+				top: 4px;
+				left: 300px;
+			}
+		}
+	}
+	div.actions {
+		border-top: 2px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		padding: 5px 0;
+		input.cancel {}
+		input.submit {}
+	}
+}
+
+
 #profile_billing_activity {
 	div.details {
 		margin: 0;
@@ -191,9 +323,9 @@
 		}
 	}
 	div.actions {
-		border-top: 4px solid #ccc;
+		border-top: 2px solid #ccc;
 		border-bottom: 1px solid #ccc;
-		padding: 4px 0;
+		padding: 5px 0;
 		input.cancel {}
 		input.submit {}
 	}
