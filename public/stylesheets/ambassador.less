@@ -2,6 +2,91 @@
 @color_background: #F2F7FF;
 @color_header_font: #7E9ACA;
 @color_ambassador_font: #4778C5;
+@color_details_font: #3c5e82;
+
+#ambassador_details {
+	width: 941px;
+	background: #fff;
+	div.header {}
+	div.hero {
+		width: 941px;
+		height: 463px;
+		background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
+	}
+	ul {
+		list-style-type: none;
+		background: #edf4ff;
+		margin: 10px 0 0 0;
+		padding: 0 23px;
+		li {
+			height: 236px;
+			border-bottom: 1px solid #d4e4ff;
+			position: relative;
+			margin: 0;
+			padding: 0;
+			span.token {
+				position: absolute;
+				top: 44px;
+				left: 0px;
+				font-weight: bold;
+				color: @color_details_font;
+				font-size: 15px;
+				font-weight: bold;
+			}
+			h3 {
+				color: @color_details_font;
+				font-size: 18px;
+				font-weight: normal;
+				padding: 44px 345px 0 16px;
+				margin: 0;
+			}
+			p {
+				padding: 0 345px 12px 16px;
+				margin: 0;
+				font-size: 14px;
+				color: #666;
+			}
+			dl {
+				margin: 0;
+				padding: 0 0 0 15px;
+				dt {
+					display: block;
+					margin: 0;
+					padding: 0 0 6px 0;
+					font-size: 11px;
+					color: @color_details_font;
+					font-weight: bold;
+				}
+				dd {
+					margin: 0 25px 0 0;
+					padding: 0;
+					float: left;
+					font-size: 14px;
+					color: #666;
+					font-style: italic;
+					span {
+						display: block;
+						font-style: normal;
+						font-size: 12px;
+						line-height: 16px;
+						color: #69ba00;
+					}
+					span.red {
+						color: #ba7568;
+					}
+				}
+			}
+			div.preview {
+				position: absolute;
+				top: 12px;
+				right: -12px;
+			}
+		}
+		li.last {
+			border-bottom: none;
+		}
+	}
+}
 
 h1.header_primary {
 	color: #3A7A15;
@@ -741,7 +826,7 @@ div.ambassador_agent_id {
 					*bottom: 27px;
 					right: 31px;
 					font-weight: bold;
-					font-size: 28px;
+					font-size: 24px;
 					line-height: 28px;
 					font-style: italic;
 					color: @color_header_font;

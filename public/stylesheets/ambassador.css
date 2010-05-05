@@ -1,3 +1,81 @@
+#ambassador_details {
+  width: 941px;
+  background: #ffffff;
+}
+#ambassador_details div.hero {
+  width: 941px;
+  height: 463px;
+  background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
+}
+#ambassador_details ul {
+  list-style-type: none;
+  background: #edf4ff;
+  margin: 10px 0 0 0;
+  padding: 0 23px;
+}
+#ambassador_details ul li {
+  height: 236px;
+  border-bottom: 1px solid #d4e4ff;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+#ambassador_details ul li span.token {
+  position: absolute;
+  top: 44px;
+  left: 0px;
+  font-weight: bold;
+  color: #3c5e82;
+  font-size: 15px;
+  font-weight: bold;
+}
+#ambassador_details ul li h3 {
+  color: #3c5e82;
+  font-size: 18px;
+  font-weight: normal;
+  padding: 44px 345px 0 16px;
+  margin: 0;
+}
+#ambassador_details ul li p {
+  padding: 0 345px 12px 16px;
+  margin: 0;
+  font-size: 14px;
+  color: #666666;
+}
+#ambassador_details ul li dl {
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+#ambassador_details ul li dl dt {
+  display: block;
+  margin: 0;
+  padding: 0 0 6px 0;
+  font-size: 11px;
+  color: #3c5e82;
+  font-weight: bold;
+}
+#ambassador_details ul li dl dd {
+  margin: 0 25px 0 0;
+  padding: 0;
+  float: left;
+  font-size: 14px;
+  color: #666666;
+  font-style: italic;
+}
+#ambassador_details ul li dl dd span {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #69ba00;
+}
+#ambassador_details ul li dl dd span.red { color: #ba7568; }
+#ambassador_details ul li div.preview {
+  position: absolute;
+  top: 12px;
+  right: -12px;
+}
+#ambassador_details ul li.last { border-bottom: none; }
 h1.header_primary {
   color: #3a7a15;
   font-family: Arial, Helvetica, sans-serif;
@@ -685,7 +763,7 @@ div.ambassador_agent_id span {
   *bottom: 27px;
   right: 31px;
   font-weight: bold;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 28px;
   font-style: italic;
   color: #7e9aca;
