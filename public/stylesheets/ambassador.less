@@ -3,26 +3,34 @@
 @color_header_font: #7E9ACA;
 @color_ambassador_font: #4778C5;
 
-#signup_section {
-	h2.header {
-		font-size: 14px;
+h1.header_primary {
+	color: #3A7A15;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+h2.header_secondary {
+	font-size: 14px;
+	color: #666;
+	border-top: 2px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	height: 36px;
+	line-height: 36px;
+	a, span {
+		font-size: 11px;
+		padding-left: 5px;
 		color: #666;
-		border-top: 2px solid #ccc;
-		border-bottom: 1px solid #ccc;
-		height: 36px;
-		line-height: 36px;
-		a {
-			font-size: 11px;
-			padding-left: 5px;
-			color: #666;
-			text-decoration: none;
-			font-weight: normal;
-			:hover {
-				text-decoration: underline;
-				color: #333;
-			}
-		}
+		text-decoration: none;
+		font-weight: normal;
+	}	
+	a:hover {
+		text-decoration: underline;
+		color: #333;
 	}
+}
+
+#signup_section {
 	p.title {
 		margin: 0;
 		padding: 0;
