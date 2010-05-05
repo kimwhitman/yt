@@ -621,7 +621,7 @@ div.ambassador_agent_id span {
 #ambassador_tools_navigation li.active {
   position: relative;
   height: 28px;
-  background: #f2f7ff;
+  background: #edf4ff;
   border: 1px solid #ffffff;
   border-width: 0 1px 0 0;
 }
@@ -634,7 +634,7 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container {
   border-top: 1px solid #ffffff;
-  background: #f2f7ff;
+  background: #edf4ff;
   padding: 0 0 20px 0;
 }
 #ambassador_tools div.tools_container h2.header {
@@ -668,12 +668,12 @@ div.ambassador_agent_id span {
   height: 110px;
   width: 100px;
   border-left: 1px solid #cccccc;
-  background: url('/images/ambassador_bg_points_small.png') no-repeat 20px 30px;
+  background: url('/images/ambassador_bg_points_small.png') no-repeat 25px 40px;
 }
 #ambassador_tools div.tools_container div.my_rewards_points div.my_points span.header {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 19px;
+  right: 19px;
   font-size: 14px;
   color: #7e9aca;
 }
@@ -681,9 +681,9 @@ div.ambassador_agent_id span {
   position: absolute;
   width: 40px;
   text-align: center;
-  bottom: 18px;
-  *bottom: 15px;
-  right: 11px;
+  bottom: 32px;
+  *bottom: 27px;
+  right: 31px;
   font-weight: bold;
   font-size: 28px;
   line-height: 28px;
