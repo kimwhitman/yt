@@ -53,7 +53,7 @@ h2.header_secondary a:hover {
   width: 400px;
   margin: 0 0 10px 0;
   padding: 10px;
-  background: #f2f6ff;
+  background: #f2f7ff;
   border: 1px solid #dcebff;
   position: relative;
 }
@@ -482,7 +482,7 @@ div.ambassador_agent_id span {
   position: relative;
   margin: 20px 0 0 0;
   padding: 0;
-  background: #f2f6ff;
+  background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom #f2f7ff;
   border: 1px solid #dcebff;
 }
 #ambassador_profile_widget p.header {
@@ -621,7 +621,7 @@ div.ambassador_agent_id span {
 #ambassador_tools_navigation li.active {
   position: relative;
   height: 28px;
-  background: #f2f6ff;
+  background: #f2f7ff;
   border: 1px solid #ffffff;
   border-width: 0 1px 0 0;
 }
@@ -634,7 +634,7 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container {
   border-top: 1px solid #ffffff;
-  background: #f2f6ff;
+  background: #f2f7ff;
   padding: 0 0 20px 0;
 }
 #ambassador_tools div.tools_container h2.header {
@@ -668,7 +668,7 @@ div.ambassador_agent_id span {
   height: 110px;
   width: 100px;
   border-left: 1px solid #cccccc;
-  background: url('/images/ambassador_bg_points.png') no-repeat 20px 30px;
+  background: url('/images/ambassador_bg_points_small.png') no-repeat 20px 30px;
 }
 #ambassador_tools div.tools_container div.my_rewards_points div.my_points span.header {
   position: absolute;
@@ -873,8 +873,6 @@ div.ambassador_agent_id span {
   position: absolute;
   left: 0px;
   top: 8px;
-  width: 156px;
-  height: 50px;
   border: 3px solid #cccccc;
   background: #eeeeee;
 }
@@ -890,6 +888,11 @@ div.ambassador_agent_id span {
   margin: 0 30px 0 176px;
   padding: 0;
 }
+#ambassador_tools div.tools_container ul.invitation_networks li a.network_button {
+  display: block;
+  margin: 6px 0 0 176px;
+}
+#ambassador_tools div.tools_container ul.invitation_networks li a.network_button img { border: none; }
 #ambassador_tools div.tools_container fieldset.invitation {
   margin: 0 0 0 30px;
   padding: 8px 0 0 0;

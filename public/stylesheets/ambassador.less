@@ -1,5 +1,5 @@
 @color_border: #DCEBFF;
-@color_background: #F2F6FF;
+@color_background: #F2F7FF;
 @color_header_font: #7E9ACA;
 @color_ambassador_font: #4778C5;
 
@@ -528,7 +528,7 @@ div.ambassador_agent_id {
 	position: relative;
 	margin: 20px 0 0 0;
 	padding: 0;
-	background: @color_background;
+	background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom @color_background;
 	border: 1px solid @color_border;
 	p.header {
 		font-size: 14px;
@@ -725,7 +725,7 @@ div.ambassador_agent_id {
 				height: 110px;
 				width: 100px;
 				border-left: 1px solid #ccc;
-				background: url('/images/ambassador_bg_points.png') no-repeat 20px 30px;
+				background: url('/images/ambassador_bg_points_small.png') no-repeat 20px 30px;
 				span.header {
 					position: absolute;
 					top: 0px;
@@ -934,8 +934,6 @@ div.ambassador_agent_id {
 					position: absolute;
 					left: 0px;
 					top: 8px;
-					width: 156px;
-					height: 50px;
 					border: 3px solid #ccc;
 					background: #eee;
 				}
@@ -952,6 +950,13 @@ div.ambassador_agent_id {
 				p {
 					margin: 0 30px 0 176px;
 					padding: 0;
+				}
+				a.network_button {
+					display: block;
+					margin: 6px 0 0 176px;
+					img {
+						border: none;
+					}
 				}
 			}
 		}
