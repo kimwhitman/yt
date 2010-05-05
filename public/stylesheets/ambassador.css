@@ -3,9 +3,28 @@
   background: #ffffff;
 }
 #ambassador_details div.hero {
+  position: relative;
   width: 941px;
   height: 463px;
   background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
+}
+#ambassador_details div.hero input {
+  position: absolute;
+  left: 420px;
+  bottom: 62px;
+}
+#ambassador_details div.join {
+  background: #d4e4ff;
+  height: 40px;
+  text-align: center;
+  border-top: 1px solid #ffffff;
+  margin: 0;
+  padding: 0;
+  line-height: 40px;
+}
+#ambassador_details div.join input {
+  position: relative;
+  top: 6px;
 }
 #ambassador_details ul {
   list-style-type: none;
@@ -74,6 +93,20 @@
   position: absolute;
   top: 12px;
   right: -12px;
+  width: 300px;
+  height: 190px;
+}
+#ambassador_details ul li div.create_id { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.create_id div {
+  position: absolute;
+  left: 70px;
+  top: 125px;
+}
+#ambassador_details ul li div.create_id div input.input { width: 135px; }
+#ambassador_details ul li div.create_id div input.submit {
+  width: 42px;
+  border: 1px solid #dddddd;
+  border-width: 0 1px;
 }
 #ambassador_details ul li.last { border-bottom: none; }
 h1.header_primary {
