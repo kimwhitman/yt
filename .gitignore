@@ -4,7 +4,6 @@ db/development_structure.sql
 db/schema.rb
 db/*.db
 db/*.sqlite3
-db/schema.rb
 tmp/*
 tmp/**/*
 .DS_Store
