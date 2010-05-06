@@ -1,3 +1,51 @@
+#home_200videos_signup {
+  background: url('/images/home_hero_signup.png') no-repeat 0px -21px;
+  height: 289px;
+  width: 417px;
+  border-bottom: 1px solid #ffffff;
+}
+#home_200videos_signup a.signup_link { top: 189px; }
+#home_invited_by_ambassador {
+  background: url('/images/home_invited-by-ambassador.png') no-repeat 0px 0px;
+  height: 183px;
+  width: 417px;
+  position: relative;
+}
+#home_invited_by_ambassador p {
+  position: absolute;
+  left: 40px;
+  top: 86px;
+  width: 240px;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0;
+  padding: 0;
+}
+#home_invited_by_ambassador div {
+  position: absolute;
+  top: 118px;
+  left: 64px;
+}
+#home_invited_by_ambassador div input.input {
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  width: 205px;
+}
+#home_invited_by_ambassador div input.submit {
+  margin: 0;
+  padding: 0;
+  width: 54px;
+}
+#home_invited_by_ambassador a.help {
+  position: absolute;
+  bottom: 5px;
+  right: 77px;
+  font-size: 10px;
+  text-decoration: underline;
+  color: #999999;
+}
+#home_invited_by_ambassador a.help:hover { color: #666666; }
 #get_started_ambassador {
   height: 398px;
   width: 298px;
