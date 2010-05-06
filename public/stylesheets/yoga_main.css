@@ -905,9 +905,13 @@ input.empty {
   margin-top: 0; 
 }
 
+#container_4col.signed_in.free {
+  margin-top: -200px; 
+  *margin-top: -220px; 
+  _margin-top: -240px;  
+}
+
 #container_4col.signed_out {
-  width: 620px;
-  overflow: visible;
   margin-top: -200px; 
   *margin-top: -220px; 
   _margin-top: -240px;
