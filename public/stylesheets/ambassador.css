@@ -3,6 +3,98 @@
   width: 298px;
   float: right;
   background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom #f2f7ff;
+  border: 1px solid #dcebff;
+}
+#get_started_ambassador div.welcome h3 {
+  color: #7d7d7d;
+  font-weight: normal;
+  font-size: 24px;
+  padding: 30px 0 8px 20px;
+  margin: 0;
+}
+#get_started_ambassador div.welcome p {
+  font-size: 12px;
+  padding: 0 20px;
+  margin: 0;
+  color: #7590bc;
+  line-height: 14px;
+}
+#get_started_ambassador div.welcome div.ambassador_agent_id {
+  height: 75px;
+  width: 298px;
+  background-position: 20px 18px;
+}
+#get_started_ambassador div.welcome div.ambassador_agent_id span {
+  top: 25px;
+  left: 60px;
+}
+#get_started_ambassador div.prepaid_selection {
+  border: 1px solid #cccccc;
+  width: 298px;
+  _width: 300px;
+  height: 184px;
+  position: relative;
+  left: -1px;
+  margin: 0;
+  padding: 0;
+  background: #ffe400;
+}
+#get_started_ambassador div.prepaid_selection h3 {
+  font-size: 19px;
+  font-weight: bold;
+  color: #666666;
+  margin: 0;
+  padding: 20px 0 4px 20px;
+}
+#get_started_ambassador div.prepaid_selection p {
+  margin: 0;
+  padding: 0 20px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #666666;
+}
+#get_started_ambassador div.prepaid_selection fieldset {
+  border: none;
+  margin: 25px 0 0 40px;
+  padding: 0;
+}
+#get_started_ambassador div.prepaid_selection fieldset label {
+  float: none;
+  display: block;
+  position: relative;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-weight: bold;
+}
+#get_started_ambassador div.prepaid_selection fieldset label span {
+  font-weight: normal;
+  display: block;
+  line-height: 16px;
+}
+#get_started_ambassador div.prepaid_selection fieldset label input {
+  position: absolute;
+  left: -20px;
+  top: 1px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+#get_started_ambassador fieldset.user_type {
+  border: 0;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+#get_started_ambassador fieldset.user_type label {
+  float: left;
+  font-size: 11px;
+  color: #7590bc;
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+#get_started_ambassador fieldset.user_type label input {
+  display: block;
+  width: auto;
 }
 #get_started_featured_ad {
   height: 48px;

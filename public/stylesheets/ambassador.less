@@ -3,12 +3,107 @@
 @color_header_font: #7E9ACA;
 @color_ambassador_font: #4778C5;
 @color_details_font: #3c5e82;
+@color_ambassador_yellow: #ffe400;
 
 #get_started_ambassador {
 	height: 398px;
 	width: 298px;
 	float: right;
 	background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom @color_background;
+	border: 1px solid @color_border;
+	div.welcome {
+		h3 {
+			color: #7d7d7d;
+			font-weight: normal;
+			font-size: 24px;
+			padding: 30px 0 8px 20px;
+			margin: 0;
+		}
+		p {
+			font-size: 12px;
+			padding: 0 20px;
+			margin: 0;
+			color: #7590bc;
+			line-height: 14px;
+		}
+		div.ambassador_agent_id {
+			height: 75px;
+			width: 298px;
+			background-position: 20px 18px;
+			span {
+				top: 25px;
+				left: 60px;
+			}
+		}
+	}
+	div.prepaid_selection {
+		border: 1px solid #ccc;
+		width: 298px;
+		_width: 300px;
+		height: 184px;
+		position: relative;
+		left: -1px;
+		margin: 0;
+		padding: 0;
+		background: @color_ambassador_yellow;
+		h3 {
+			font-size: 19px;
+			font-weight: bold;
+			color: #666;
+			margin: 0;
+			padding: 20px 0 4px 20px;
+		}
+		p {
+			margin: 0;
+			padding: 0 20px;
+			font-size: 12px;
+			line-height: 15px;
+			color: #666;
+		}
+		fieldset {
+			border: none;
+			margin: 25px 0 0 40px;
+			padding: 0;
+			label {
+				float: none;
+				display: block;
+				position: relative;
+				margin: 0 0 10px 0;
+				padding: 0;
+				font-weight: bold;
+				span {
+					font-weight: normal;
+					display: block;
+					line-height: 16px;
+				}
+				input {
+					position: absolute;
+					left: -20px;
+					top: 1px;
+					margin: 0;
+					padding: 0;
+					border: none;
+					background: none;
+				}
+			}
+		}
+	}
+	fieldset.user_type {
+		border: 0;
+		padding: 0;
+		margin: 10px 0 0 0;
+		label {
+			float: left;
+			font-size: 11px;
+			color: #7590bc;
+			margin: 0;
+			padding: 0 0 0 20px;
+			input {
+				display: block;
+				width: auto;
+			}
+		}
+	}
 }
 
 #get_started_featured_ad {
