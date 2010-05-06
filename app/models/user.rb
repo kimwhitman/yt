@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
-  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12
+  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true
   validates_inclusion_of :newsletter_format, :in => %w(html plain)
   validates_confirmation_of :email, :on => :create
 
@@ -176,68 +176,73 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-
   def first_name
     self.name.split.first || ''
   end
 
+  def ambassador_invite_with_default_body
+    self.ambassador_invites.find(:first, :conditions => ["is_default_body_for_user = ?", true])
+  end
+
+
+
   protected
 
-  def store_old_email
-    if email_changed?
-      @old_email = email_change.last
-    end
-  end
-
-  def initialize_confirmation_token
-    generate_confirmation_token if new_record?
-  end
-
-  def generate_confirmation_token
-    self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--")
-  end
-
-  # before filter
-  def encrypt_password
-    return if password.blank?
-    self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
-    self.crypted_password = encrypt(password)
-  end
-
-  def password_required?
-    crypted_password.blank? || !password.blank?
-  end
-
-  # After filter
-  def setup_newsletter
-    return unless @newsletter_changed || !@old_email.blank?
-
-    if Rails.env == 'production'
-      if wants_newsletter
-        ConstantContact.subscribe(self)
-      else
-        ConstantContact.unsubscribe(self)
+    def store_old_email
+      if email_changed?
+        @old_email = email_change.last
       end
     end
-    @newsletter_changed = false
-  rescue Exception => e
-    # In case the CC API doesn't want to talk to us right now.
-    Rails.logger.info "Could not contact CC api: #{e}, #{e.backtrace}"
-  end
 
-  def setup_free_account
-    return unless self.account.nil?
-    self.build_account :name => "#{self.name}'s Yoga Today account",
-      :user => self,
-      :plan => SubscriptionPlan.find_by_name('Free'),
-      :plan_start => DateTime.now
-    self.account.full_domain = 'yogatoday.com'
-    self.account.save!
-    self.account_id = self.account.id
-    self.save
-  end
+    def initialize_confirmation_token
+      generate_confirmation_token if new_record?
+    end
 
-  def downcase_email
-    self.email = self.email.downcase
-  end
+    def generate_confirmation_token
+      self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--")
+    end
+
+    # before filter
+    def encrypt_password
+      return if password.blank?
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
+      self.crypted_password = encrypt(password)
+    end
+
+    def password_required?
+      crypted_password.blank? || !password.blank?
+    end
+
+    # After filter
+    def setup_newsletter
+      return unless @newsletter_changed || !@old_email.blank?
+
+      if Rails.env == 'production'
+        if wants_newsletter
+          ConstantContact.subscribe(self)
+        else
+          ConstantContact.unsubscribe(self)
+        end
+      end
+      @newsletter_changed = false
+    rescue Exception => e
+      # In case the CC API doesn't want to talk to us right now.
+      Rails.logger.info "Could not contact CC api: #{e}, #{e.backtrace}"
+    end
+
+    def setup_free_account
+      return unless self.account.nil?
+      self.build_account :name => "#{self.name}'s Yoga Today account",
+        :user => self,
+        :plan => SubscriptionPlan.find_by_name('Free'),
+        :plan_start => DateTime.now
+      self.account.full_domain = 'yogatoday.com'
+      self.account.save!
+      self.account_id = self.account.id
+      self.save
+    end
+
+    def downcase_email
+      self.email = self.email.downcase
+    end
 end

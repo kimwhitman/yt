@@ -3,15 +3,15 @@ class Invite < ActiveRecord::Base
 
   # Associations
   belongs_to :user
+  has_many :share_urls, :as => :shareable, :dependent => :destroy
 
   # Validations
   validates_associated :user, :on => :create
   validates_presence_of :recipients, :message => "can't be blank"
   validates_presence_of :subject, :message => "can't be blank"
-  validates_uniqueness_of :is_default_body_for_user, :message => "must be unique", :scope => [:user_id, :type]
+  #validates_uniqueness_of :is_default_body_for_user, :message => "must be unique", :scope => [:user_id, :type]
 
   # Scopes
-
 
   # Extensions
   aasm_column :state
@@ -23,15 +23,25 @@ class Invite < ActiveRecord::Base
   end
 
   # Callbacks
+  after_validation_on_create :set_default_body_for_user
+  after_validation_on_update :set_default_body_for_user
 
   # Attributes
 
 
   private
 
+    def set_default_body_for_user
+      if self.is_default_body_for_user?
+        previous_invite_with_default_body = self.user.invites.find(:first,
+          :conditions => ['id <> ? AND is_default_body_for_user = ? AND type = ?', self.id, true, self.class.to_s])
+        previous_invite_with_default_body.update_attributes(:is_default_body_for_user => false) if previous_invite_with_default_body
+      end
+    end
+
     def send_invitation
+      # TODO Call mailer...
+
       self.user.increment!(:invitations_count) if self.type == 'AmbassadorInvite'
-      # TODO Did the user request that this becomes their default body text?
-      #UserMailer.deliver_ambassador_invite
     end
 end

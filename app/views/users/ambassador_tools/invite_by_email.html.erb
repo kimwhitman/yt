@@ -18,6 +18,10 @@
 
           <h2 class="header">Send a Yoga Today Ambassador e-mail invitation</h2>
 
+          <%= error_messages_for :ambassador_invite, :id => "warning",
+            :header_message => "There were problems with your invitation."
+          %>
+
           <% form_for :ambassador_invite, @ambassador_invite, :url => ambassador_invites_path do |f| %>
             <fieldset class="invitation">
               <label>
@@ -62,7 +66,7 @@
       </div>
     </div>
     <div id="container_2col" style="float:right">
-      <%= render :partial => 'profile_sidebar' %>
+      <%= render :partial => 'users/profile_sidebar' %>
       <%= render :partial => 'users/shared/ambassador_profile_widget' %>
     </div>
   </div>
