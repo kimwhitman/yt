@@ -900,8 +900,6 @@ input.empty {
 }
 
 #container_4col.signed_in {
-  width: 620px;
-  overflow: visible;
   margin-top: 0; 
 }
 
