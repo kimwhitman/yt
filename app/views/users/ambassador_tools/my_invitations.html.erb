@@ -18,23 +18,12 @@
           <h2 class="header">Keep track of your invitations</h2>
 
           <div class="track_invitations">
-            <h3>E-mail Invitations (28) <a href="#">Send an invitation</a></h3>
+            <h3>E-mail Invitations (<%= current_user.invitations_count %>) <%= link_to 'Send an invitation', ambassador_tools_invite_by_email_user_path(current_user) %></h3>
             <div class="table">
               <ul>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
-                <li><span class="name">email@email.com</span> <span class="date">March 25, 2010</span></li>
+                <% @ambassador_invites.each do |ambassador_invite| %>
+                  <li><span class="name"><%= ambassador_invite.recipients %></span> <span class="date"><%= ambassador_invite.created_at.strftime('%b %d, %Y') %></span></li>
+                <% end %>
               </ul>
             </div>
 
@@ -63,12 +52,6 @@
 
           </div>
 
-          Email Invitations (<%= current_user.invitations_count %>)
-          <table>
-            <% @ambassador_invites.each do |ambassador_invite| %>
-              <tr><td><%= ambassador_invite.recipients %></td><td><%= ambassador_invite.created_at.strftime('%b %d, %Y') %></td></tr>
-            <% end %>
-          </table>
         </div>
 
       </div>
