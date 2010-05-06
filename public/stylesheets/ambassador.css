@@ -336,26 +336,26 @@ h2.header_secondary a:hover {
   text-decoration: underline;
   color: #333333;
 }
-#signup_section p.title {
+#signup_section div.ambassador_off p.title {
   margin: 0;
   padding: 0;
   font-weight: bold;
   font-size: 12px;
   color: #666666;
 }
-#signup_section p.radio {
+#signup_section div.ambassador_off p.radio {
   margin: 0;
   padding: 0;
   line-height: 24px;
 }
-#signup_section p.radio input {
+#signup_section div.ambassador_off p.radio input {
   padding: 0;
   margin: 0 6px 0 0;
   border: none;
   background: none;
 }
-#signup_section p.end_set { margin-bottom: 10px; }
-#signup_section fieldset.trial {
+#signup_section div.ambassador_off p.end_set { margin-bottom: 10px; }
+#signup_section div.ambassador_off div.trial {
   width: 400px;
   margin: 0 0 10px 0;
   padding: 10px;
@@ -363,15 +363,22 @@ h2.header_secondary a:hover {
   border: 1px solid #dcebff;
   position: relative;
 }
-#signup_section fieldset.trial label { font-size: 11px; }
-#signup_section fieldset.trial label span {
+#signup_section div.ambassador_off div.trial h3 {
   color: #666666;
   font-size: 16px;
   font-weight: bold;
   display: block;
-  margin-bottom: 6px;
+  margin: 0 0 6px 0;
+  padding: 0;
 }
-#signup_section fieldset.trial label input {
+#signup_section div.ambassador_off div.trial p {
+  font-size: 11px;
+  width: 290px;
+  color: #666666;
+  margin: 0;
+  padding: 0;
+}
+#signup_section div.ambassador_off div.trial input.input {
   width: 200px;
   height: 18px;
   margin-top: 10px;
