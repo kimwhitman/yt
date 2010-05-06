@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   ssl_required :billing if RAILS_ENV == 'production'
 
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
-
   before_filter :login_required,
     :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription]
+  before_filter :setup_ambassador, :only => [:ambassador_tools_invite_by_email, :ambassador_tools_widget_invite_by_email]
 
   def create
     @user = User.new params[:user]
@@ -222,8 +222,6 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_invite_by_email
-    # TODO Load up the user's default email body if they have one
-    @ambassador_invite = AmbassadorInvite.new(:recipients => params[:recipients])
     render :template => 'users/ambassador_tools/invite_by_email'
   end
 
@@ -256,7 +254,17 @@ class UsersController < ApplicationController
       current_account.users
     end
 
+    def setup_ambassador
+      ambassador_params = { :recipients => params[:recipients] }
+      ambassador_invite_with_default_body = current_user.ambassador_invite_with_default_body
+      ambassador_params[:body] = ambassador_invite_with_default_body.body if ambassador_invite_with_default_body
+      @ambassador_invite = AmbassadorInvite.new(ambassador_params)
+    end
+
+
+
   private
+
     def valid_billing?
       @user.valid? && @creditcard.valid? && @address.valid?
     end
