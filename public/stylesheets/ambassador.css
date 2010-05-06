@@ -1,3 +1,15 @@
+#get_started_featured_ad {
+  height: 48px;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+#get_started_featured_ad img {
+  position: absolute;
+  right: 1px;
+  top: 6px;
+  border: none;
+}
 #ambassador_details {
   width: 941px;
   background: #ffffff;
