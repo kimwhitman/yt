@@ -2,24 +2,26 @@
       :header_message => "There were problems with your registration."
 %>
 
-<p class="title">Free Membership</p>
-<p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
+<div class="ambassador_off">
 
-<p class="title">Monthly Unlimited Membership</p>
-<p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
+  <p class="title">Free Membership</p>
+  <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
 
-<p class="title">Prepaid Unlimited Membership</p>
-<p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
-<p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p>
+  <p class="title">Monthly Unlimited Membership</p>
+  <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
 
-<fieldset class="trial">
-  <label>
-    <span>2 Week Free Trial</span>
-    Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.
-    <input type="text"></input>
-  </label>
-  <input class="submit" type="submit" value="Enter"></input>
-</fieldset>
+  <p class="title">Prepaid Unlimited Membership</p>
+  <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
+  <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p>
+
+  <div class="trial">
+    <h3>2 Week Free Trial</h3>
+    <p>Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.</p>
+    <input type="text" class="input"></input>
+    <input class="submit" type="submit" value="Enter"></input>
+  </div>
+
+</div>
 
 <fieldset class="basic">
   
