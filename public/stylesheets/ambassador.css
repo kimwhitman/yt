@@ -1,3 +1,9 @@
+#get_started_ambassador {
+  height: 398px;
+  width: 298px;
+  float: right;
+  background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom #f2f7ff;
+}
 #get_started_featured_ad {
   height: 48px;
   width: 100%;
