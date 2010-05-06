@@ -3,6 +3,7 @@ class Invite < ActiveRecord::Base
 
   # Associations
   belongs_to :user
+  has_many :share_urls, :as => :shareable, :dependent => :destroy
 
   # Validations
   validates_associated :user, :on => :create
@@ -11,7 +12,6 @@ class Invite < ActiveRecord::Base
   #validates_uniqueness_of :is_default_body_for_user, :message => "must be unique", :scope => [:user_id, :type]
 
   # Scopes
-
 
   # Extensions
   aasm_column :state
