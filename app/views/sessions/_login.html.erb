@@ -1,13 +1,10 @@
 <div id="login_section">
-  <h1 class="arial20_bold_green signup_banner">Login</h1>
-  <hr size="3" noshade />
+  <h1 class="header_primary signup_banner">Login</h1>
   <% if controller.controller_name == 'users' && controller.action_name == 'new' %>
-  <h2>Returning Members Login</h2>
+  <h2 class="header_secondary">Returning Members Login</h2>
   <% else %>
-  <h2>Returning Members Login <span><small><%= link_to("New user?  Sign up!", sign_up_path) %></small></span></h2>
+  <h2 class="header_secondary">Returning Members Login <%= link_to("New user?  Sign up!", sign_up_path) %></h2>
   <% end %>
-
-  <hr size="1" noshade />
 
   <% form_for :session, :url => session_path, :html => { :id => 'sidebar_login' } do |f| -%>
 

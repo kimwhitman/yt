@@ -1,3 +1,582 @@
+#get_started_ambassador {
+  height: 398px;
+  width: 298px;
+  float: right;
+  background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom #f2f7ff;
+  border: 1px solid #dcebff;
+}
+#get_started_ambassador div.welcome h3 {
+  color: #7d7d7d;
+  font-weight: normal;
+  font-size: 24px;
+  padding: 30px 0 8px 20px;
+  margin: 0;
+}
+#get_started_ambassador div.welcome p {
+  font-size: 12px;
+  padding: 0 20px;
+  margin: 0;
+  color: #7590bc;
+  line-height: 14px;
+}
+#get_started_ambassador div.welcome div.ambassador_agent_id {
+  height: 75px;
+  width: 298px;
+  background-position: 20px 18px;
+}
+#get_started_ambassador div.welcome div.ambassador_agent_id span {
+  top: 25px;
+  left: 60px;
+}
+#get_started_ambassador div.welcome div.ambassador_assign {
+  height: 75px;
+  padding: 0 0 0 20px;
+  margin: 0;
+}
+#get_started_ambassador div.welcome div.ambassador_assign input.input {
+  width: 202px;
+  height: 20px;
+  margin: 4px 0;
+  padding: 0 0 0 3px;
+}
+#get_started_ambassador div.welcome div.ambassador_assign input.submit {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+#get_started_ambassador div.prepaid_selection {
+  border: 1px solid #cccccc;
+  width: 298px;
+  _width: 300px;
+  height: 184px;
+  position: relative;
+  left: -1px;
+  margin: 0;
+  padding: 0;
+  background: #ffe400;
+}
+#get_started_ambassador div.prepaid_selection h3 {
+  font-size: 19px;
+  font-weight: bold;
+  color: #666666;
+  margin: 0;
+  padding: 20px 0 4px 20px;
+}
+#get_started_ambassador div.prepaid_selection p {
+  margin: 0;
+  padding: 0 20px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #666666;
+}
+#get_started_ambassador div.prepaid_selection fieldset {
+  border: none;
+  margin: 25px 0 0 40px;
+  padding: 0;
+}
+#get_started_ambassador div.prepaid_selection fieldset label {
+  float: none;
+  display: block;
+  position: relative;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-weight: bold;
+}
+#get_started_ambassador div.prepaid_selection fieldset label span {
+  font-weight: normal;
+  display: block;
+  line-height: 16px;
+}
+#get_started_ambassador div.prepaid_selection fieldset label input {
+  position: absolute;
+  left: -20px;
+  top: 1px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+#get_started_ambassador fieldset.user_type {
+  border: 0;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+#get_started_ambassador fieldset.user_type label {
+  float: left;
+  font-size: 11px;
+  color: #7590bc;
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+#get_started_ambassador fieldset.user_type label input {
+  display: block;
+  width: auto;
+}
+#get_started_featured_ad {
+  height: 48px;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+#get_started_featured_ad img {
+  position: absolute;
+  right: 1px;
+  top: 6px;
+  border: none;
+}
+#ambassador_details {
+  width: 941px;
+  background: #ffffff;
+}
+#ambassador_details div.hero {
+  position: relative;
+  width: 941px;
+  height: 463px;
+  background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
+}
+#ambassador_details div.hero input {
+  position: absolute;
+  left: 420px;
+  bottom: 62px;
+}
+#ambassador_details div.join {
+  background: #d4e4ff;
+  height: 40px;
+  text-align: center;
+  border-top: 1px solid #ffffff;
+  margin: 0;
+  padding: 0;
+  line-height: 40px;
+}
+#ambassador_details div.join input {
+  position: relative;
+  top: 6px;
+}
+#ambassador_details ul {
+  list-style-type: none;
+  background: #edf4ff;
+  margin: 10px 0 0 0;
+  padding: 0 23px;
+}
+#ambassador_details ul li {
+  height: 236px;
+  border-bottom: 1px solid #d4e4ff;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+#ambassador_details ul li span.token {
+  position: absolute;
+  top: 44px;
+  left: 0px;
+  font-weight: bold;
+  color: #3c5e82;
+  font-size: 15px;
+  font-weight: bold;
+}
+#ambassador_details ul li h3 {
+  color: #3c5e82;
+  font-size: 18px;
+  font-weight: normal;
+  padding: 44px 345px 0 16px;
+  margin: 0;
+}
+#ambassador_details ul li p {
+  padding: 0 345px 12px 16px;
+  margin: 0;
+  font-size: 14px;
+  color: #666666;
+}
+#ambassador_details ul li dl {
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+#ambassador_details ul li dl dt {
+  display: block;
+  margin: 0;
+  padding: 0 0 6px 0;
+  font-size: 11px;
+  color: #3c5e82;
+  font-weight: bold;
+}
+#ambassador_details ul li dl dd {
+  margin: 0 25px 0 0;
+  padding: 0;
+  float: left;
+  font-size: 14px;
+  color: #666666;
+  font-style: italic;
+}
+#ambassador_details ul li dl dd span {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #69ba00;
+}
+#ambassador_details ul li dl dd span.red { color: #ba7568; }
+#ambassador_details ul li div.preview {
+  position: absolute;
+  top: 12px;
+  right: -12px;
+  width: 300px;
+  height: 190px;
+}
+#ambassador_details ul li div.create_id { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.create_id div {
+  position: absolute;
+  left: 70px;
+  top: 125px;
+}
+#ambassador_details ul li div.create_id div input.input { width: 135px; }
+#ambassador_details ul li div.create_id div input.submit {
+  width: 42px;
+  border: 1px solid #dddddd;
+  border-width: 0 1px;
+}
+#ambassador_details ul li.last { border-bottom: none; }
+h1.header_primary {
+  color: #3a7a15;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+h2.header_secondary {
+  font-size: 14px;
+  color: #666666;
+  border-top: 2px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  height: 36px;
+  line-height: 36px;
+}
+h2.header_secondary a {
+  font-size: 11px;
+  padding-left: 5px;
+  color: #666666;
+  text-decoration: none;
+  font-weight: normal;
+}
+h2.header_secondary span {
+  font-size: 11px;
+  padding-left: 5px;
+  color: #666666;
+  text-decoration: none;
+  font-weight: normal;
+}
+h2.header_secondary a:hover {
+  text-decoration: underline;
+  color: #333333;
+}
+#signup_section p.title {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 12px;
+  color: #666666;
+}
+#signup_section p.radio {
+  margin: 0;
+  padding: 0;
+  line-height: 24px;
+}
+#signup_section p.radio input {
+  padding: 0;
+  margin: 0 6px 0 0;
+  border: none;
+  background: none;
+}
+#signup_section p.end_set { margin-bottom: 10px; }
+#signup_section fieldset.trial {
+  width: 400px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  background: #f2f7ff;
+  border: 1px solid #dcebff;
+  position: relative;
+}
+#signup_section fieldset.trial label { font-size: 11px; }
+#signup_section fieldset.trial label span {
+  color: #666666;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+#signup_section fieldset.trial label input {
+  width: 200px;
+  height: 18px;
+  margin-top: 10px;
+}
+#signup_section fieldset.basic {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#signup_section fieldset.basic label {
+  float: left;
+  font-size: 11px;
+  color: #999999;
+}
+#signup_section fieldset.basic label input {
+  clear: left;
+  display: block;
+  width: 280px;
+  padding: 0 0 0 3px;
+  margin: 0 0 6px 0;
+  height: 18px;
+}
+#signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
+#signup_section fieldset.basic label.wide { width: 100%; }
+#signup_section fieldset.basic label.column { width: 320px; }
+#signup_section fieldset.basic label.checkbox {
+  clear: left;
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+#signup_section fieldset.basic label.radio {
+  float: left;
+  clear: none;
+  margin: 6px 20px 20px 0;
+}
+#signup_section fieldset.basic label.checkbox input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#signup_section fieldset.basic label.radio input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#signup_section fieldset.basic label.spam { position: relative; }
+#signup_section fieldset.basic label.spam input { margin-bottom: 28px; }
+#signup_section fieldset.basic label.spam img {
+  position: absolute;
+  top: 4px;
+  left: 300px;
+}
+#signup_section div.actions {
+  border-top: 2px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding: 5px 0;
+}
+#profile_billing_activity div.details {
+  margin: 0;
+  padding: 0;
+  width: 214px;
+  float: left;
+}
+#profile_billing_activity div.details p {
+  margin: 0;
+  padding: 0;
+}
+#profile_billing_activity div.details p.title {
+  font-size: 10px;
+  color: #999999;
+}
+#profile_billing_activity div.details p.value { margin-bottom: 20px; }
+#profile_billing_activity div.period { clear: left; }
+#profile_billing_activity div.date { width: 130px; }
+#profile_billing_activity div.type { width: 100%; }
+#profile_billing_activity h2 {
+  clear: both;
+  height: 34px;
+  border-top: 3px solid #cccccc;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 34px;
+  color: #666666;
+}
+#profile_billing_activity h2 a {
+  color: #999999;
+  font-size: 10px;
+  text-decoration: underline;
+  padding-left: 6px;
+}
+#profile_billing_activity h2 a:hover { color: #666666; }
+#profile_billing_activity table {
+  width: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+#profile_billing_activity table th {
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  font-size: 10px;
+  color: #999999;
+  height: 22px;
+  font-weight: normal;
+  line-height: 22px;
+}
+#profile_billing_activity table td {
+  height: 30px;
+  line-height: 30px;
+}
+#profile_billing_activity table th.last { text-align: right; }
+#profile_billing_activity table td.last { text-align: right; }
+#profile_billing_activity p.not_available {
+  font-style: italic;
+  font-weight: bold;
+}
+#profile_basic_information_form h2 {
+  height: 33px;
+  border-top: 4px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  font-size: 16px;
+  line-height: 33px;
+  font-weight: normal;
+  color: #666666;
+}
+#profile_basic_information_form h2 span {
+  font-size: 12px;
+  padding-left: 20px;
+}
+#profile_basic_information_form div.avatar {
+  position: relative;
+  height: 48px;
+  margin: 12px 0;
+}
+#profile_basic_information_form div.avatar img {
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  top: 0px;
+  left: 0px;
+  background: #eeeeee;
+  border: none;
+}
+#profile_basic_information_form div.avatar span {
+  display: block;
+  padding-top: 10px;
+  margin: 0 0 0 60px;
+  color: #999999;
+}
+#profile_basic_information_form div.avatar a {
+  display: block;
+  margin: 0 0 0 60px;
+  text-decoration: underline;
+  color: #999999;
+}
+#profile_basic_information_form div.avatar a:hover { color: #333333; }
+#profile_basic_information_form div.avatar #photo_upload {
+  position: absolute;
+  top: 50%;
+  left: 140px;
+}
+#profile_basic_information_form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#profile_basic_information_form fieldset label {
+  margin: 0;
+  padding: 0;
+  clear: left;
+  font-size: 11px;
+  color: #999999;
+}
+#profile_basic_information_form fieldset label input {
+  height: 18px;
+  width: 280px;
+  display: block;
+  clear: left;
+  margin: 0 0 6px 0;
+  padding: 0 0 0 3px;
+}
+#profile_basic_information_form fieldset label.end_set input { margin-bottom: 18px; }
+#profile_basic_information_form fieldset label.state {
+  float: left;
+  clear: none;
+}
+#profile_basic_information_form fieldset label.state select {
+  clear: left;
+  display: block;
+  margin-bottom: 18px;
+}
+#profile_basic_information_form fieldset label.country {
+  float: left;
+  clear: none;
+}
+#profile_basic_information_form fieldset label.country select {
+  clear: left;
+  display: block;
+  margin-bottom: 18px;
+}
+#profile_basic_information_form fieldset label.state { width: 88px; }
+#profile_basic_information_form fieldset label.state select { width: 52px; }
+#profile_basic_information_form fieldset label.country select { width: 197px; }
+#profile_basic_information_form fieldset label.checkbox {
+  clear: left;
+  display: block;
+  margin-bottom: 10px;
+}
+#profile_basic_information_form fieldset label.radio {
+  float: left;
+  clear: none;
+  margin: 6px 20px 20px 0;
+}
+#profile_basic_information_form fieldset label.checkbox input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#profile_basic_information_form fieldset label.radio input {
+  border: none;
+  background: none;
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+#profile_basic_information_form div.actions {
+  border-top: 2px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding: 5px 0;
+}
+#profile_sidebar {
+  margin: 0;
+  padding: 9px 13px;
+  border: 1px solid #999999;
+}
+#profile_sidebar h4 {
+  margin: 0 0 2px 0;
+  padding: 0;
+  font-size: 12px;
+  color: #999999;
+}
+#profile_sidebar ul {
+  padding: 0 0 4px 15px;
+  margin: 0;
+}
+#profile_sidebar ul li {
+  font-size: 12px;
+  color: #999999;
+}
+#profile_sidebar ul li a { color: #999999; }
+#profile_sidebar ul li a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+#profile_sidebar ul.membership_actions {
+  padding-top: 4px;
+  border-top: 1px dotted #999999;
+}
 div.ambassador_agent_id {
   position: relative;
   height: 30px;
@@ -140,7 +719,7 @@ div.ambassador_agent_id span {
   position: relative;
   margin: 20px 0 0 0;
   padding: 0;
-  background: #f2f6ff;
+  background: url('/images/ambassador_bg_gradient.png') repeat-x left bottom #f2f7ff;
   border: 1px solid #dcebff;
 }
 #ambassador_profile_widget p.header {
@@ -279,7 +858,7 @@ div.ambassador_agent_id span {
 #ambassador_tools_navigation li.active {
   position: relative;
   height: 28px;
-  background: #f2f6ff;
+  background: #edf4ff;
   border: 1px solid #ffffff;
   border-width: 0 1px 0 0;
 }
@@ -292,7 +871,7 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container {
   border-top: 1px solid #ffffff;
-  background: #f2f6ff;
+  background: #edf4ff;
   padding: 0 0 20px 0;
 }
 #ambassador_tools div.tools_container h2.header {
@@ -301,8 +880,126 @@ div.ambassador_agent_id span {
   color: #4778c5;
   font-weight: normal;
 }
-#ambassador_tools div.tools_container div.redeemed_rewards ul li span.title { float: left; }
-#ambassador_tools div.tools_container div.redeemed_rewards ul li span.action { float: right; }
+#ambassador_tools div.tools_container div.my_rewards_points {
+  position: relative;
+  border: 1px solid #cccccc;
+  height: 110px;
+  border-bottom-width: 4px;
+  margin: 30px 30px 0 30px;
+}
+#ambassador_tools div.tools_container div.my_rewards_points h3 {
+  margin: 20px 0 0 15px;
+  font-size: 20px;
+  font-weight: normal;
+  color: #4778c5;
+}
+#ambassador_tools div.tools_container div.my_rewards_points p {
+  color: #3b5e84;
+  margin: 6px 130px 0 15px;
+  padding: 0;
+}
+#ambassador_tools div.tools_container div.my_rewards_points div.my_points {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 110px;
+  width: 100px;
+  border-left: 1px solid #cccccc;
+  background: url('/images/ambassador_bg_points_small.png') no-repeat 25px 40px;
+}
+#ambassador_tools div.tools_container div.my_rewards_points div.my_points span.header {
+  position: absolute;
+  top: 19px;
+  right: 19px;
+  font-size: 14px;
+  color: #7e9aca;
+}
+#ambassador_tools div.tools_container div.my_rewards_points div.my_points span.count {
+  position: absolute;
+  width: 40px;
+  text-align: center;
+  bottom: 32px;
+  *bottom: 27px;
+  right: 31px;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  font-style: italic;
+  color: #7e9aca;
+}
+#ambassador_tools div.tools_container h3.redeem_rewards {
+  margin: 0 30px;
+  padding: 0 0 0 10px;
+  background: #d9e8ff;
+  height: 33px;
+  color: #4778c5;
+  line-height: 33px;
+  font-size: 16px;
+  font-weight: normal;
+}
+#ambassador_tools div.tools_container h3.redeem_rewards span {
+  position: absolute;
+  right: 33px;
+  font-size: 12px;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed {
+  margin: 0 30px;
+  padding: 15px 0;
+  background: #ffffff;
+  border-top: 1px solid #cccccc;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed h4 {
+  padding: 0;
+  margin: 0 0 0 15px;
+  font-weight: bold;
+  color: #000000;
+  font-size: 12px;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed p {
+  padding: 0;
+  margin: 0 0 6px 15px;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed a {
+  color: #333333;
+  text-decoration: underline;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed a.by_email { margin: 0 10px 0 15px; }
+#ambassador_tools div.tools_container div.redeemed_rewards ul {
+  background: #ffffff;
+  list-style-type: none;
+  padding: 20px 0 0 0;
+  margin: 0 30px;
+  border-top: 1px solid #cccccc;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards ul li {
+  display: block;
+  clear: both;
+  height: 30px;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards ul li span.title {
+  padding: 0 0 0 15px;
+  float: left;
+  color: #333333;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards ul li span.action {
+  padding: 0 20px 0 0;
+  float: right;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions {
+  clear: both;
+  text-align: right;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.submit { position: static; }
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.cancel { position: static; }
+#ambassador_tools div.tools_container div.rewards_terms {
+  margin: 0 30px;
+  padding: 4px 0 0 0;
+  color: #3b5e84;
+}
+#ambassador_tools div.tools_container div.rewards_terms a {
+  text-decoration: underline;
+  color: #3b5e84;
+}
 #ambassador_tools div.tools_container fieldset.ask_a_question {
   position: absolute;
   top: 28px;
@@ -413,8 +1110,6 @@ div.ambassador_agent_id span {
   position: absolute;
   left: 0px;
   top: 8px;
-  width: 156px;
-  height: 50px;
   border: 3px solid #cccccc;
   background: #eeeeee;
 }
@@ -430,6 +1125,11 @@ div.ambassador_agent_id span {
   margin: 0 30px 0 176px;
   padding: 0;
 }
+#ambassador_tools div.tools_container ul.invitation_networks li a.network_button {
+  display: block;
+  margin: 6px 0 0 176px;
+}
+#ambassador_tools div.tools_container ul.invitation_networks li a.network_button img { border: none; }
 #ambassador_tools div.tools_container fieldset.invitation {
   margin: 0 0 0 30px;
   padding: 8px 0 0 0;

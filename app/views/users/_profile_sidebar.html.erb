@@ -1,41 +1,26 @@
-<div class="filter_options">
+<div id="profile_sidebar">
 
-  <div class="form_row">
-    <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Profile', profile_user_path(current_user)  %>
-    </span>
-  </div>
+  <h4>My Profile</h4>
+  <ul>
+    <li><%= link_to_unless_current 'Basic Information', profile_user_path(current_user)  %></li>
+    <li><a href="#">My Yoga Queue (4)</a></li>
 
-  <% if current_user.ambassador_name %>
-  <div class="form_row">
-    <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Ambassador Tools', ambassador_tools_invite_by_email_user_path(current_user) %>
-    </span>
-  </div>
-  <% end %>
+    <% if current_user.ambassador_name %>
+    <li><%= link_to_unless_current 'Ambassador Tools', ambassador_tools_invite_by_email_user_path(current_user) %></li>
+    <% end %>
 
-  <% if current_user.has_paying_subscription? %>
-  <div class="form_row">
-    <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Payment Info', billing_user_path(current_user)  %>
-    </span>
-  </div>
-  <% end %>
-  <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>
-  <div class="form_row">
-    <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Subscription Billing History', billing_history_user_path(current_user) %>
-    </span>
-  </div>
-  <% end %>
-  <div class="form_row">
-    <span class="arial13_bold_gray">
-      <%= link_to_unless_current 'Membership Terms and Details', membership_terms_user_path(current_user) %>
-    </span>
-  </div>
+    <% if current_user.has_paying_subscription? %>
+    <li><%= link_to_unless_current 'Payment Information', billing_user_path(current_user)  %></li>
+    <% end %>
 
-   <div class="form_row">
-    <span class="arial13_bold_gray">
+    <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>
+    <li><%= link_to_unless_current 'Billing Activity', billing_history_user_path(current_user) %></li>
+    <% end %>
+
+  </ul>
+  <ul class="membership_actions">
+    <li><%= link_to_unless_current 'Membership Terms and Details', membership_terms_user_path(current_user) %></li>
+    <li>
       <% if current_user.has_downgraded_to_free? %>
       <%= link_to_unless_current 'Reactivate Membership', billing_user_path(current_user) %>
       <% elsif !current_user.has_paying_subscription?  %>
@@ -43,6 +28,7 @@
       <% else %>
       <%= link_to_unless_current 'Cancel Membership', cancel_membership_user_path(current_user)  %>
       <% end %>
-    </span>
-  </div>
+    </li>
+  </ul>
+
 </div>

@@ -2,75 +2,82 @@
       :header_message => "There were problems with your registration."
 %>
 
-<h3>Free Membership</h3>
+<p class="title">Free Membership</p>
+<p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
 
-<p style="margin-bottom: 15px">
-  <%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %>
-  <label for="membership_free">Free (Enjoy Yoga Today's free weekly classes)</label>
-</p>
+<p class="title">Monthly Unlimited Membership</p>
+<p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
 
-<h3>Unlimited Membership Options</h3>
+<p class="title">Prepaid Unlimited Membership</p>
+<p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
+<p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p>
 
-<p>All memberships: recurring billing, cancel anytime</p>
+<fieldset class="trial">
+  <label>
+    <span>2 Week Free Trial</span>
+    Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.
+    <input type="text"></input>
+  </label>
+  <input class="submit" type="submit" value="Enter"></input>
+</fieldset>
 
-<p style="margin-bottom: 15px">
-  <%= radio_button_tag 'membership', '1', @billing_cycle == '1' %>
-  <label for="membership_1">Subscription ($9.99/month)</label>
-  <br />
-  <%= radio_button_tag 'membership', '12', @billing_cycle == '12' %>
-  <label for="membership_12">Yoga Today 365 ($89.95/year) - Saves you 25%</label>
-  <br />
-</p>
-
-<p>
+<fieldset class="basic">
+  
+  <label class="end_set wide">
+    screen name
     <%= f.text_field :name  %>
-    <%= f.label :name, 'Your name' %>
-</p>
+  </label>
+  
+  <label class="column">
+    e-mail address
+    <%= f.text_field :email  %>
+  </label>
+  
+  <label>
+    confirm e-mail address
+    <%= f.text_field :email_confirmation%>
+  </label>
 
-<p>
+  <label class="column">
+    password
     <%= f.password_field :password %>
-    <%= f.label :password, 'Your Password' %>
-</p>
+  </label>
 
-<p style="margin-bottom: 20px">
+  <label class="end_set">
+    confirm password
     <%= f.password_field :password_confirmation %>
-    <%= f.label :password_confirmation, 'Your Password Again' %>
-</p>
-
-<p>
-  <%= f.text_field :email, :class => 'form_field'  %>
-  <%= f.label :email, 'Your Email' %>
-</p>
-
-<p style="margin-bottom: 10px">
-  <%= f.text_field :email_confirmation, :class => 'form_field'  %>
-  <%= f.label :email_confirmation, 'Your Email Again' %>
-</p>
-
-<p>
-  <%= show_simple_captcha(:image_style => 'simply_black', :size => 30) %>
-</p>
-
-<p>
-  <%= f.check_box :wants_newsletter %>
-  <%= f.label :wants_newsletter, 'Send me the weekly Yoga Today newsletter and weekly class update.' %>
-</p>
-
-<p style="margin-bottom: 10px">
-  <%= f.check_box :wants_promos %>
-  <%= f.label :wants_promos, 'Keep me informed of Yoga Today offers and special announcements.' %>
-</p>
-
-<p style="margin-bottom: 25px">
-  <%= f.radio_button :newsletter_format, 'html' %>
-  <%= f.label :newsletter_format_html, 'HTML E-mail' %>
-  <%= f.radio_button :newsletter_format, 'plain' %>
-  <%= f.label :newsletter_format_plain, 'Plain Text E-mail' %>
-</p>
-
-<hr size="3" noshade />
-
-<%= button_to_function 'Cancel', "history.back(); $(this).parents('form').find('.form_row input').val('');", :class => 'button_cancel'  %>
-<%= submit_tag 'Sign Up', :class => 'button_confirm' %>
-
-<hr size="1" noshade />
+  </label>
+  
+  <label class="spam wide end_set">
+    anti-spam check
+    <%= show_simple_captcha(:image_style => 'simply_black', :size => 30) %>
+  </label>
+  
+  <label class="checkbox">
+    <%= f.check_box :wants_newsletter %>
+    Send me the weekly Yoga Today newsletter and weekly class update.
+  </label>
+  
+  <label class="checkbox">
+    <%= f.check_box :wants_promos %>
+    Keep me informed of Yoga Today offers and special announcements.
+  </label>
+  
+  <label class="radio">
+    <%= f.radio_button :newsletter_format, 'html' %>
+    HTML E-mail
+  </label>
+  
+  <label class="radio">
+    <%= f.radio_button :newsletter_format, 'plain' %>
+    Plain Text E-mail
+  </label>
+  
+</fieldset>
+  
+  <div class="actions">
+    <input class="cancel" type="submit" value="Cancel"></input>
+    <%= submit_tag 'Save', :class => 'submit' %>
+  </div>  
+  
+  

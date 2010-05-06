@@ -6,16 +6,14 @@
     <%= render :partial => 'shared/flashes' %>
 
     <div id="signup_section">
-      <h1 class="arial20_bold_green signup_banner">Sign Up</h1>
-      <hr size="3" noshade />
-      <h2>Sign Up <span><small><%= link_to 'Already a member?', login_path %></small></span></h2>
-      <hr size="1" noshade />
-
-      <br/>
+      <h1 class="header_primary signup_banner">Sign Up</h1>
+      
+      <h2 class="header_secondary">Sign Up <%= link_to 'Already a member?', login_path %></h2>
 
       <% form_for @user do |f| -%>
         <%= render :partial => "form", :locals => { :f => f } %>
       <% end -%>
+
     </div>
 
     <%= render :partial => "sessions/login" %>

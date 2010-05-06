@@ -10,106 +10,89 @@
   <div id="main_content">
     <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
     <div id="container_4col" style="float:left;">
-      <% form_for(current_user, :html => {:multipart => true}) do |f| %>
-      <div class="form_row">
-        <div id="photo_title" class="form_title" style="padding-top: 20px;">
-         Photo:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="photo_field" class="avatar_wrap" style="float:left;">
-          <%= image_tag(current_user.photo.url, :style => "float:left;") %>
-        </div>
-        <div id="update_link" style="padding-top: 20px; float:left; margin-left: 6px;"><%= link_to_function "Update", 'document.getElementById("photo_upload").style.display = ""' %></div>
-      </div>
-      <div class="form_row" style="display:none" id="photo_upload">
-        <%= f.file_field :photo, :style=>"margin-left: 90px;" %>
-      </div>
-      <div class="form_row">
-        <div id="first_name_title" class="form_title">
-         Name:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="first_name_field" class="form_field_3col">
-          <%= f.text_field :name, :size => 40 %>
-        </div>
-      </div>
-      <div class="form_row">
-        <div id="email_title" class="form_title">
-          Email:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="email_field" class="form_field_3col">
-          <%= f.text_field :email, :size => 40 %>
-        </div>
-      </div>
-      <div class="form_row">
-        <div id="new_password_title" class="form_title">
-          New Password:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="new_password_field" class="form_field_3col">
-          <%= f.password_field :password, :value => ";9p=4-32", :size => 40, :style=>"color: #666666;" %>
-        </div>
-      </div>
-      <div class="form_row">
-        <div id="retype_password_title" class="form_title">
-          Retype Password:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="retype_password_field" class="form_field_3col">
-          <%= f.password_field :password_confirmation, :value => ";9p=4-32", :size => 40, :style=>"color: #666666;" %>
-        </div>
-      </div>
-      <div class="form_row">
-        <div id="email_title" class="form_title">
-          City:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="city_field" class="form_field_3col">
-          <%= f.text_field :city, :size => 40 %>
-        </div>
-      </div>
-      <div class="form_row">
-        <div id="email_title" class="form_title">
-          State:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="state_field" class="form_field_3col" style="float:left">
-          <%= f.select :state, states %>
-        </div>
-        <div class="grid_spacer" style="width: 10px;"> </div>
-        <div id="country_title" class="form_title" style="width: 53px; clear: none;">
-          Country:
-        </div>
-        <div class="grid_spacer" style="width: 10px;"> </div>
-        <div id="country_field" class="form_field_3col" style="float:left">
-          <%= f.select :country, countries, {:selected => current_user.country}, :onchange => "if(this.value != 'United States') { document.getElementById('user_state').value = '';}" %>
-        </div>
-      </div>
-      <div class="form_row">
-        <div id="news_title" class="form_title">
-          Newletters:
-        </div>
-        <div class="grid_spacer"> </div>
-        <div id="news_field" class="form_field_3col">
-          <%= f.check_box :wants_newsletter %>
-          Yes, send me news from YogaToday.com
-        </div>
-      </div>
 
-      <div class="form_row">
-        <div class="form_title">
-           
+      <div id="profile_basic_information_form">
+
+        <% form_for(current_user, :html => {:multipart => true}) do |f| %>
+
+        <h2>Basic Information <span>Account Type: Unlimited Member</span></h2>
+        
+        <div class="avatar">
+          <%= image_tag(current_user.photo.url) %>
+          <span>My Photo</span>
+          <%= link_to_function "update", 'document.getElementById("photo_upload").style.display = ""' %>
+          <div id="photo_upload" style="display: none;">
+            <%= f.file_field :photo %>
+          </div>
+        </div>
+        
+        <fieldset>
+          <label class="end_set">
+            user name
+            <%= f.text_field :name %>
+          </label>
+          
+          <label>
+            new password
+            <%= f.password_field :password, :value => ";9p=4-32" %>
+          </label>
+          
+          <label class="end_set">
+            confirm new password
+            <%= f.password_field :password_confirmation, :value => ";9p=4-32" %>
+          </label>
+          
+          <label>
+            e-mail address
+            <%= f.text_field :email %>
+          </label>
+          
+          <label>
+            city
+            <%= f.text_field :city %>
+          </label>
+
+          <label class="state">
+            state
+            <%= f.select :state, states %>
+          </label>
+          
+          <label class="country end_set">
+            country
+            <%= f.select :country, countries, {:selected => current_user.country}, :onchange => "if(this.value != 'United States') { document.getElementById('user_state').value = '';}" %>
+          </label>
+          
+          <label class="checkbox">
+            <%= f.check_box :wants_newsletter %>
+            Send me the weekly Yoga Today newsletter and weekly class update.
+          </label>
+
+          <label class="checkbox">
+            <%= f.check_box :wants_promos %>
+            Keep me informed of Yoga Today offers and special announcements.
+          </label>
+
+          <label class="radio">
+            <%= f.radio_button :newsletter_format, 'html' %>
+            HTML E-mail
+          </label>
+
+          <label class="radio">
+            <%= f.radio_button :newsletter_format, 'plain' %>
+            Plain Text E-mail
+          </label>       
+          
+        </fieldset>
+        
+        <div class="actions">
+          <input class="cancel" type="submit" value="Cancel"></input>
+          <%= submit_tag 'Save', :class => 'submit' %>
         </div>
 
-        <div class="grid_spacer"> </div>
+        <% end %>
 
-        <div class="form_field_3col">
-          <%= submit_tag 'Save', :class => 'smaller_button' %>
-          <%= button_to_function 'Cancel', "history.back()", :class => 'smaller_button' %>
-        </div>
       </div>
-      <% end %>
+      
     </div>
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
