@@ -1298,6 +1298,12 @@ div.ambassador_agent_id span {
   right: 33px;
   font-size: 12px;
 }
+#ambassador_tools div.tools_container h3.redeem_rewards span img {
+  position: relative;
+  top: 3px;
+  border: none;
+  vertical-align: middle;
+}
 #ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed {
   margin: 0 30px;
   padding: 15px 0;
