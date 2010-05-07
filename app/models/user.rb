@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :purchases, :dependent => :destroy
   has_many :invites
   has_many :ambassador_invites
+  has_one :share_url
 
   has_attached_file :photo,
     :default_url => "/images/user_yogi.png",
@@ -35,6 +36,7 @@ class User < ActiveRecord::Base
   before_save :initialize_confirmation_token
   after_save :setup_free_account
   after_save :setup_newsletter
+  after_update :setup_share_url
 
 
   # prevents a user from submitting a crafted form that bypasses activation
@@ -267,6 +269,12 @@ class User < ActiveRecord::Base
       self.account.save!
       self.account_id = self.account.id
       self.save
+    end
+    
+    def setup_share_url
+      if self.share_url.blank? && !self.ambassador_name.blank?
+        self.create_share_url
+      end
     end
 
     def downcase_email
