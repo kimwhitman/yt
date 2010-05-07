@@ -4,7 +4,7 @@ class ShareUrlRedirect < ActiveRecord::Base
   belongs_to :share_url
 
   # Validations
-  validates_presence_of :short_url_id, :message => "can't be blank"
+  validates_presence_of :share_url_id, :message => "can't be blank"
 
   # Scopes
 
