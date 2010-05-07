@@ -4,7 +4,7 @@ class ShareUrlsController < ApplicationController
   def show
     if @share_url
       @share_url.track_redirect({ :referrer => request.env['HTTP_REFERER'], :remote_ip => request.remote_ip, 
-        :domain => request.domain}).merge(logged_in? ? {:user => current_user} : {})
+        :domain => request.domain}.merge(logged_in? ? {:user => current_user} : {}))
       
       if @share_url.destination
         # Redirect to destination
