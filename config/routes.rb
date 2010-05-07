@@ -64,6 +64,8 @@ ActionController::Routing::Routes.draw do |map|
       eval "pages.#{root_page.underscore} '/#{root_page}', :action => root_page.underscore"
     end
   end
+  
+  map.resources :share_urls, :only => [:show]
 
   # Purchase-related stuff.
   map.cart '/cart', :controller => 'shopping_cart', :action => 'show'
