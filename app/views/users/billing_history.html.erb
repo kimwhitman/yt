@@ -16,58 +16,57 @@
   <div id="main_content">
     <div id="container_4col" style="float:left;">
       <div id="profile_billing_activity">
-        
+
         <div class="details type">
           <p class="title">Membership Type</p>
-          <p class="value">$9.99 Monthly Unlimited Membership</p>
+          <p class="value"><%= membership_type %></p>
         </div>
 
         <div class="details period">
           <p class="title">Current membership period</p>
-          <p class="value">Sept 1, 2010 - Sept 30, 2010</p>
+          <p class="value"><%= current_membership_period %></p>
         </div>
 
         <div class="details date">
           <p class="title">Next payment date</p>
-          <p class="value">Oct 1, 2010</p>
+          <p class="value"><%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %></p>
         </div>
-        
+
         <div class="details">
           <p class="title">Amount</p>
-          <p class="value">FREE</p>
+          <p class="value"><%= current_membership_amount %></p>
         </div>
-        
-        <h2>Recent Billing Activity <a href="#">Show All</a></h2>
-        
-        <% unless current_user.account.subscription.subscription_payments.empty? %>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Activity</th>
-              <th>Method</th>
-              <th>Membership Period</th>
-              <th class="last">Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% current_user.account.subscription.subscription_payments.find(:all, :order => 'created_at desc').each do |sp| %>
-            <tr>
-              <td><%= sp.created_at.strftime '%d-%b-%y' %></td>
-              <td>Membership Payment</td>
-              <td>Credit Card</td>
-              <td><%= billing_period(sp) %></td>
-              <td class="last"><%= number_to_currency(sp.amount) %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
+        <h2>Recent Billing Activity <a href="#">Show All</a></h2>
+
+        <% unless current_user.account.subscription.subscription_payments.empty? %>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Method</th>
+                <th>Membership Period</th>
+                <th class="last">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% current_user.account.subscription.subscription_payments.find(:all, :order => 'created_at desc').each do |sp| %>
+              <tr>
+                <td><%= sp.created_at.strftime '%b %e, %Y' %></td>
+                <td>Membership Payment</td>
+                <td><%= sp.payment_method %></td>
+                <td><%= billing_period(sp) %></td>
+                <td class="last"><%= sp.payment_method == SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD ? 'Free' : number_to_currency(sp.amount) %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
         <% else %>
           <p class="not_available">No account information available.</p>
-        <% end %>        
-        
-      </div>  
+        <% end %>
+
+      </div>
     </div>
 
     <div id="container_2col" style="float:right">

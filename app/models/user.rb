@@ -184,6 +184,33 @@ class User < ActiveRecord::Base
     self.ambassador_invites.find(:first, :conditions => ["is_default_body_for_user = ?", true])
   end
 
+  def redeem_points(redeemed_points)
+    if redeemed_points <= self.points_current
+      User.transaction do
+        self.points_current -= redeemed_points
+        self.points_used += redeemed_points
+
+        subscription = self.account.subscription
+        (1..redeemed_points).each do |point|
+          start_date = subscription.next_renewal_at
+          end_date = start_date.advance(:months => 1)
+
+          subscription.next_renewal_at = end_date
+          subscription.save
+
+          self.account.subscription_payments << SubscriptionPayment.create(
+            :subscription => self.account.subscription, :payment_method => SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD,
+            :amount => 0, :start_date => start_date, :end_date => end_date)
+        end
+
+        self.save
+        true
+      end
+    else
+      false
+    end
+  end
+
 
 
   protected

@@ -1,9 +1,21 @@
 class SubscriptionPayment < ActiveRecord::Base
+  REWARD_POINTS_PAYMENT_METHOD = 'Reward points'
+  # Associations
   belongs_to :subscription
   belongs_to :account
 
+  # Validations
+
+  # Scopes
+
+  # Extensions
+
+  # Callbacks
   before_create :set_account
   after_create :send_receipt
+
+  # Attributes
+
 
   def set_account
     self.account = subscription.account
