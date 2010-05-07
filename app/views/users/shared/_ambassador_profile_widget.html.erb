@@ -1,7 +1,7 @@
 <div id="ambassador_profile_widget" class="program">
 
   <% if current_user.ambassador_name.nil? %>
-    <p class="header">Ambassador Program <a href="#">Learn More</a></p>
+    <p class="header">Ambassador Program <%= link_to 'Learn More', ambassador_tools_help_user_path(current_user) %></p>
     <img class="greeting" src="/images/ambassador_greeting.png" />
 
     <div class="introduction">
@@ -40,7 +40,7 @@
 
 <% if current_user.ambassador_name %>
   <div id="ambassador_profile_widget" class="tools">
-    <p class="header">Ambassador Tools <span>Quick-view</span> <a href="#">Learn More</a></p>
+    <p class="header">Ambassador Tools <span>Quick-view</span> <%= link_to 'Learn More', ambassador_tools_help_user_path(current_user) %></p>
     <div class="ambassador_agent_id">
       <span><%= current_user.ambassador_name %></span>
     </div>
