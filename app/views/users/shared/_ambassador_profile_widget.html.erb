@@ -83,10 +83,21 @@
 
     <div class="share">
       <span class="header">Share your invitation:</span>
-      <span class="blocks"><img src="/images/ambassador_share_widget.png"></img></span>
+      <span class="blocks"><a class="a2a_dd" href="http://www.addtoany.com/share_save"><%= image_tag 'ambassador_share_widget.png' %></a></span>
     </div>
 
     <span class="help"><a href="#">Help</a></span>
 
   </div>
+<% end %>
+
+<% content_for :javascript_content do %>
+  <script type="text/javascript">
+    a2a_config.linkname = 'Sign up for YogaToday and save!';
+    a2a_config.linkurl = '<%= current_user.share_url.url -%>';
+    a2a_config.templates = {
+      twitter: "Sign up for YogaToday and save! <%= current_user.share_url.url %>"
+    }
+    a2a.init('page');
+  </script>
 <% end %>
