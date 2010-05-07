@@ -33,7 +33,8 @@
       <%= link_to_unless_current 'Events', url_for(:controller => 'admin/events') %> |
       <%= link_to_unless_current 'User Stories', url_for(:controller => 'admin/user_stories') %> |
       <%= link_to_unless_current 'Analytics', url_for(:controller => 'admin/analytics') %> |
-      <%= link_to_unless_current 'Share URLs', url_for(:controller => 'admin/share_urls') %>
+      <%= link_to_unless_current 'Share URLs', url_for(:controller => 'admin/share_urls') %> |
+      <%= link_to_unless_current 'Share URL Redirects', url_for(:controller => 'admin/share_url_redirects') %>
     </p>
     <p><%= flash[:notice]  %> </p>
 

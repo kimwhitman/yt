@@ -29,4 +29,19 @@ describe ShareUrl do
       share_url.token.size.should == 4
     end
   end
+  
+  describe "tracking a redirect" do
+    let(:share_url) { ShareUrl.new }
+    
+    it "should create a share url redirect" do
+      params = { :referrer => 'http://yogatoday.com', :remote_ip => '127.0.0.1', 
+      :domain => 'http://yogatoday.com'}
+      
+      share_url.token = 'test'
+      share_url.destination = '/foo'
+      share_url.save
+      
+      lambda { share_url.track_redirect(params) }.should change(share_url.share_url_redirects, :size).to(1)
+    end
+  end
 end

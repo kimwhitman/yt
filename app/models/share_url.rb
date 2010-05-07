@@ -21,7 +21,12 @@ class ShareUrl < ActiveRecord::Base
   # Attributes
   
   def track_redirect(params)
+    params[:referrer] = URI.parse(params[:referrer]).host if params[:referrer]
     self.share_url_redirects.create!(params)
+  end
+  
+  def to_label
+    "#{token}"
   end
   
   protected
