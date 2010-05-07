@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100506201542) do
+ActiveRecord::Schema.define(:version => 20100506223839) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -234,15 +235,31 @@ ActiveRecord::Schema.define(:version => 20100506201542) do
     t.datetime "updated_at"
   end
 
-  create_table "share_urls", :force => true do |t|
-    t.integer  "shareable_id"
-    t.string   "shareable_type"
-    t.string   "token"
+  create_table "share_url_redirects", :force => true do |t|
+    t.integer  "share_url_id"
+    t.integer  "user_id"
+    t.string   "remote_ip"
+    t.string   "referrer"
+    t.string   "domain"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "share_urls", ["shareable_id", "shareable_type"], :name => "index_share_urls_on_shareable_id_and_shareable_type"
+  add_index "share_url_redirects", ["share_url_id"], :name => "index_share_url_redirects_on_share_url_id"
+  add_index "share_url_redirects", ["user_id"], :name => "index_share_url_redirects_on_user_id"
+
+  create_table "share_urls", :force => true do |t|
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "path"
+    t.string   "destination"
+  end
+
+  add_index "share_urls", ["user_id"], :name => "index_share_urls_on_user_id"
+  add_index "share_urls", ["token"], :name => "index_share_urls_on_token"
+  add_index "share_urls", ["path"], :name => "index_share_urls_on_path"
 
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
