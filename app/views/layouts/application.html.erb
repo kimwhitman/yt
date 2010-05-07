@@ -111,11 +111,7 @@
 
       images.each { |str| preload << "'#{image_path(str)}'" }
     %>
-    
-    <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
-
-    <%= yield :javascript_content %>
-
+      
     <script type='text/javascript'>
     jQuery(document).ready(function() {
         var imgUrls = [<%= preload * ',' %>];
@@ -130,6 +126,10 @@
         linkurl: location.href
       };
     </script>
+    
+    <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+
+    <%= yield :javascript_content %>
 
     <% if !request.ssl? %>
       <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
