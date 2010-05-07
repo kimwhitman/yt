@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :ambassador_invites
   map.resources :users,
-    :collection => { :check_email => :post, :subscription => :get },
+    :collection => { :check_email => :post, :subscription => :get, :select_ambassador => :any, :change_ambassador => :post },
     :member => { :profile => :any, :billing => :any, :billing_history => :get, :membership_terms => :get,
       :cancel_membership => :any, :ambassador_tools_invite_by_email => :get, :ambassador_tools_invite_by_sharing => :get,
       :ambassador_tools_my_invitations => :get, :ambassador_tools_my_rewards => :get, :ambassador_tools_help => :get,
@@ -72,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm_purchase '/confirm-purchase', :controller => 'shopping_cart', :action => 'confirm_purchase'
   map.purchase '/purchase/:id', :controller => 'purchases', :action => 'show'
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
-  
+
   # This has to be the last route before the defaults
   map.share_url '/:id', :controller => 'share_urls', :action => 'show'
 

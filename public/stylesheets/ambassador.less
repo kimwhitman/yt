@@ -363,6 +363,114 @@ h2.header_secondary {
 	}
 }
 
+div.returning_login {
+	position: relative;
+	fieldset {
+		border: none;
+		margin: 0;
+		padding: 10px 0 8px 0;
+		label {
+			display: block;
+			padding: 0;
+			input {
+				width: 202px;
+				margin: 0 0 10px 0;
+			}
+		}
+		label.checkbox {
+			input {
+				width: auto;
+				display: inline;
+				margin: 0;
+				padding: 0;
+				background: none;
+				border: none;
+			}
+		}
+	}
+	div.ambassador_unassigned {
+		position: absolute;
+		left: 220px;
+		top: 4px;
+		height: 86px;
+		width: 440px;
+		background: @color_background;
+		border: 1px solid @color_border;
+		p {
+			margin: 0;
+			padding: 8px 0 0 10px;
+			width: 290px;
+			color: #666;
+			font-size: 11px;
+		}
+		input.input {
+			margin: 0 0 4px 10px;
+			padding: 0;
+			width: 202px;
+			height: 20px;
+			display: block;
+		}
+		input.submit {
+			margin: 0 0 0 10px;
+			height: 20px;
+			width: 52px;
+		}
+	}
+	div.ambassador_assigned {
+		position: absolute;
+		left: 220px;
+		top: 4px;
+		height: 86px;
+		width: 440px;
+		background: @color_background;
+		border: 1px solid @color_border;
+		h5 {
+			margin: 0;
+			padding: 12px 0 0 10px;
+			font-size: 11px;
+			font-weight: normal;
+			color: @color_header_font;
+		}
+		div.ambassador_agent_id {
+			height: 34px;
+			width: 240px;
+			background-position: 10px 0px;
+			span {
+				left: 50px;
+				top: 8px;
+			}
+		}
+		a.change_ambassador {
+			margin: 0 0 0 10px;
+			font-size: 10px;
+			color: #666;
+			text-decoration: underline;
+			:hover {
+				color: #333;
+			}
+		}
+		p.checkbox {
+			font-size: 11px;
+			color: #666;
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			top: 30px;
+			left: 248px;
+			width: 180px;
+			input {
+				position: absolute;
+				left: -18px;
+				top: 0px;
+				margin: 0;
+				padding: 0;
+				background: none;
+				border: none;
+			}
+		}
+	}
+}
+
 div.ambassador_on {
 	position: relative;
 	height: 135px;

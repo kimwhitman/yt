@@ -178,160 +178,162 @@ class Subscription < ActiveRecord::Base
     self.save!
   end
 
+
+
   protected
 
-  def restore_saved_plan
-    if (!self.saved_subscription_plan_id.nil?)
-      logger.debug("restoring saved plan = #{self.saved_subscription_plan_id}")
-      self.subscription_plan_id = self.saved_subscription_plan_id
-      self.saved_subscription_plan_id = nil
-      self.save!
-    else
+    def restore_saved_plan
+      if (!self.saved_subscription_plan_id.nil?)
+        logger.debug("restoring saved plan = #{self.saved_subscription_plan_id}")
+        self.subscription_plan_id = self.saved_subscription_plan_id
+        self.saved_subscription_plan_id = nil
+        self.save!
+      else
+      end
     end
-  end
 
-  def set_billing(cc = nil)
-    self.billing_id = @response.token unless @response.token.blank?
+    def set_billing(cc = nil)
+      self.billing_id = @response.token unless @response.token.blank?
 
-    if new_record?
-      if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight
-        if subscription_plan.trial_period?
-          logger.info("in trial")
-          self.next_renewal_at = Time.now.advance(:months => subscription_plan.trial_period)
-        else
-          charge_amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : amount
-          if amount == 0 || gateway.options[:test] == 'true' || (@response = gateway.purchase(charge_amount * 100, billing_id)).success?
+      if new_record?
+        if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight
+          if subscription_plan.trial_period?
+            logger.info("in trial")
+            self.next_renewal_at = Time.now.advance(:months => subscription_plan.trial_period)
+          else
+            charge_amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : amount
+            if amount == 0 || gateway.options[:test] == 'true' || (@response = gateway.purchase(charge_amount * 100, billing_id)).success?
+
+              # dates to be used by SubscriptionPayment
+              start_date = Time.now
+              end_date   = Time.now.advance(:months => renewal_period)
+
+              logger.debug("Set billing by adding new payment for new record")
+
+              subscription_payments.build(:account => account, :amount => charge_amount,
+                :transaction_id => @response.authorization,
+                :setup => subscription_plan.setup_amount?,
+                :start_date => start_date,
+                :end_date => end_date)
+
+              billing_transactions.build(:authorization_code => @response.authorization, :amount => (charge_amount * 100))
+
+              self.state = 'active'
+              self.next_renewal_at = end_date
+            else
+              restore_saved_plan
+              errors.add_to_base(@response.message)
+              return false
+            end
+          end
+        end
+      else
+        # amount_changed? looks dangerous here,
+        # but it will only be true when the user is upgrading their account...
+        # ...or downgrading their account. But downgrades don't trigger set_billing.
+        # And even if they did, they wouldn't cause a credit card charge.
+        # -- ARRON WASHINGTON
+
+        if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight || amount_changed?
+          self.amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : subscription_plan.amount
+          logger.info("amount = #{amount.to_s}")
+
+          # To test rejected charge
+          # if ((gateway.options[:test] == 'true') && card_number.include?('1111'))
+          #   logger.debug("IN TEST REJECT")
+          #   restore_saved_plan
+          #   errors.add_to_base('invalid account')
+          #   return false
+          # end
+
+          logger.debug("Attempting to charge card")
+
+          # support using BogusGateway when testing (based on config.yml)
+          # transaction_id is calculated differently between gateways, so
+          # this will get us a valid one
+          if gateway.class == ActiveMerchant::Billing::BogusGateway
+            logger.info "Using BogusGateway"
+            @response = gateway.purchase(amount_in_pennies, cc)
+            trans_id = @response.success? ? 1 : 'err'
+          else
+            @response = gateway.purchase(amount_in_pennies, billing_id)
+            trans_id = @response.authorization
+          end
+
+          logger.debug("Response is #{@response}")
+
+          if amount == 0 || @response.success? || gateway.options[:test] == 'true'
+            self.state = 'active'
 
             # dates to be used by SubscriptionPayment
-            start_date = Time.now
+            start_date = self.next_renewal_at
             end_date   = Time.now.advance(:months => renewal_period)
 
-            logger.debug("Set billing by adding new payment for new record")
+            logger.debug("Set billing by adding new payment for existing record")
 
-            subscription_payments.build(:account => account, :amount => charge_amount,
-              :transaction_id => @response.authorization,
-              :setup => subscription_plan.setup_amount?,
+            self.next_renewal_at = end_date
+            self.save!
+
+            subscription_payments.create(:account => account, :amount => amount,
+              :transaction_id => trans_id,
               :start_date => start_date,
               :end_date => end_date)
 
-            billing_transactions.build(:authorization_code => @response.authorization, :amount => (charge_amount * 100))
-
-            self.state = 'active'
-            self.next_renewal_at = end_date
+            billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
           else
             restore_saved_plan
             errors.add_to_base(@response.message)
             return false
           end
-        end
-      end
-    else
-      # amount_changed? looks dangerous here,
-      # but it will only be true when the user is upgrading their account...
-      # ...or downgrading their account. But downgrades don't trigger set_billing.
-      # And even if they did, they wouldn't cause a credit card charge.
-      # -- ARRON WASHINGTON
-
-      if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight || amount_changed?
-        self.amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : subscription_plan.amount
-        logger.info("amount = #{amount.to_s}")
-
-        # To test rejected charge
-        # if ((gateway.options[:test] == 'true') && card_number.include?('1111'))
-        #   logger.debug("IN TEST REJECT")
-        #   restore_saved_plan
-        #   errors.add_to_base('invalid account')
-        #   return false
-        # end
-
-        logger.debug("Attempting to charge card")
-
-        # support using BogusGateway when testing (based on config.yml)
-        # transaction_id is calculated differently between gateways, so
-        # this will get us a valid one
-        if gateway.class == ActiveMerchant::Billing::BogusGateway
-          logger.info "Using BogusGateway"
-          @response = gateway.purchase(amount_in_pennies, cc)
-          trans_id = @response.success? ? 1 : 'err'
         else
-          @response = gateway.purchase(amount_in_pennies, billing_id)
-          trans_id = @response.authorization
-        end
-
-        logger.debug("Response is #{@response}")
-
-        if amount == 0 || @response.success? || gateway.options[:test] == 'true'
           self.state = 'active'
+        end
 
-          # dates to be used by SubscriptionPayment
-          start_date = self.next_renewal_at
-          end_date   = Time.now.advance(:months => renewal_period)
+        self.save!
+      end
 
-          logger.debug("Set billing by adding new payment for existing record")
+      true
+    end
 
-          self.next_renewal_at = end_date
-          self.save!
+    def set_renewal_at
+      return if self.subscription_plan.nil? || self.next_renewal_at
+      self.next_renewal_at = Time.now.advance(:months => self.renewal_period)
+    end
 
-          subscription_payments.create(:account => account, :amount => amount,
-            :transaction_id => trans_id,
-            :start_date => start_date,
-            :end_date => end_date)
+    def validate_on_update
+      return unless self.subscription_plan.updated?
+    end
 
-          billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
-        else
-          restore_saved_plan
-          errors.add_to_base(@response.message)
+    def gateway
+      paypal? ? paypal : cc
+    end
+
+    def paypal
+      @paypal ||=  ActiveMerchant::Billing::Base.gateway(:paypal_express_reference_nv).new(config_from_file('paypal.yml'))
+    end
+
+    def cc
+      @cc ||= ActiveMerchant::Billing::Base.gateway(AppConfig[RAILS_ENV]['gateway']).new(config_from_file('gateway.yml'))
+    end
+
+    def card_storage
+      self.store_card(@creditcard, :billing_address => @address.to_activemerchant) if @creditcard && @address && card_number.blank?
+    end
+
+    def config_from_file(file)
+      YAML.load_file(File.join(RAILS_ROOT, 'config', file))[RAILS_ENV].symbolize_keys
+    end
+
+    def card_expired?
+      if !card_expiration.blank?
+        begin
+          month, year = card_expiration.split('-')
+          date = Date.parse("#{year}-#{month}-#{01}")
+          return date < Date.today
+        rescue NoMethodError, ArgumentError
           return false
         end
-      else
-        self.state = 'active'
       end
-
-      self.save!
+      false
     end
-
-    true
-  end
-
-  def set_renewal_at
-    return if self.subscription_plan.nil? || self.next_renewal_at
-    self.next_renewal_at = Time.now.advance(:months => self.renewal_period)
-  end
-
-  def validate_on_update
-    return unless self.subscription_plan.updated?
-  end
-
-  def gateway
-    paypal? ? paypal : cc
-  end
-
-  def paypal
-    @paypal ||=  ActiveMerchant::Billing::Base.gateway(:paypal_express_reference_nv).new(config_from_file('paypal.yml'))
-  end
-
-  def cc
-    @cc ||= ActiveMerchant::Billing::Base.gateway(AppConfig[RAILS_ENV]['gateway']).new(config_from_file('gateway.yml'))
-  end
-
-  def card_storage
-    self.store_card(@creditcard, :billing_address => @address.to_activemerchant) if @creditcard && @address && card_number.blank?
-  end
-
-  def config_from_file(file)
-    YAML.load_file(File.join(RAILS_ROOT, 'config', file))[RAILS_ENV].symbolize_keys
-  end
-
-  def card_expired?
-    if !card_expiration.blank?
-      begin
-        month, year = card_expiration.split('-')
-        date = Date.parse("#{year}-#{month}-#{01}")
-        return date < Date.today
-      rescue NoMethodError, ArgumentError
-        return false
-      end
-    end
-    false
-  end
 end

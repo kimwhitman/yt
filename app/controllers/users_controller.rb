@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
   before_filter :login_required,
-    :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription]
+    :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription, :select_ambassador,
+      :change_ambassador]
   before_filter :setup_ambassador, :only => [:ambassador_tools_invite_by_email, :ambassador_tools_widget_invite_by_email]
 
   def create
@@ -250,6 +251,23 @@ class UsersController < ApplicationController
       flash[:notice] = "An error occurred while trying to redeem your points."
       render :template => 'users/ambassador_tools/my_rewards'
     end
+  end
+
+  def select_ambassador
+    @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name])
+    if @ambassador_user
+      cookies[:ambassador_user_id] = @ambassador_user.id.to_s
+    else
+      flash[:error] = "We could not find a person with an ambassador id of '#{ params[:ambassador_name] }'. Please check that you have typed it correctly."
+    end
+    @user = User.new
+    render :template => 'users/new'
+  end
+
+  def change_ambassador
+    cookies.delete :ambassador_user_id
+    @user = User.new
+    render :template => 'users/new'
   end
 
 
