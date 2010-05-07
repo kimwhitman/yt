@@ -44,19 +44,30 @@
 }
 #home_invited_by_ambassador div {
   position: absolute;
-  top: 118px;
+  top: 120px;
   left: 64px;
+  line-height: 20px;
 }
 #home_invited_by_ambassador div input.input {
   margin: 0;
   padding: 0;
   height: 20px;
-  width: 205px;
+  width: 206px;
+  vertical-align: top;
 }
 #home_invited_by_ambassador div input.submit {
+  vertical-align: top;
   margin: 0;
   padding: 0;
   width: 54px;
+  height: 22px;
+  border: 1px solid #dddddd;
+  color: #666666;
+  background-position: -1px -1px;
+}
+#home_invited_by_ambassador div input.submit:hover {
+  border-color: #999999;
+  color: #333333;
 }
 #home_invited_by_ambassador a.help {
   position: absolute;

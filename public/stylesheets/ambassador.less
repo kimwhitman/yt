@@ -58,18 +58,29 @@
 	}
 	div {
 		position: absolute;
-		top: 118px;
+		top: 120px;
 		left: 64px;
+		line-height: 20px;
 		input.input {
 			margin: 0;
 			padding: 0;
 			height: 20px;
-			width: 205px;
+			width: 206px;
+			vertical-align: top;
 		}
 		input.submit {
+			vertical-align: top;
 			margin: 0;
 			padding: 0;
 			width: 54px;
+			height: 22px;
+			border: 1px solid #ddd;
+			color: #666;
+			background-position: -1px -1px;
+			:hover {
+				border-color: #999;
+				color: #333;
+			}
 		}
 	}
 	a.help {

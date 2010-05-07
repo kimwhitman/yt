@@ -21,8 +21,8 @@
           <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
           <div>
             <% form_tag select_ambassador_users_path do %>
-              <%= text_field_tag :ambassador_name %>
-              <%= submit_tag 'enter', :class => 'submit' %>
+              <%= text_field_tag :ambassador_name, '', :class => 'input' %>
+              <%= submit_tag 'Enter', :class => 'submit' %>
             <% end %>
           </div>
           <a href="#" class="help">What's this?</a>
