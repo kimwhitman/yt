@@ -92,12 +92,14 @@
 <% end %>
 
 <% content_for :javascript_content do %>
-  <script type="text/javascript">
-    a2a_config.linkname = 'Sign up for YogaToday and save!';
-    a2a_config.linkurl = '<%= current_user.share_url.url -%>';
-    a2a_config.templates = {
-      twitter: "Sign up for YogaToday and save! <%= current_user.share_url.url %>"
-    }
-    a2a.init('page');
-  </script>
+  <% if current_user.share_url %>
+    <script type="text/javascript">
+      a2a_config.linkname = 'Sign up for YogaToday and save!';
+      a2a_config.linkurl = '<%= current_user.share_url.url -%>';
+      a2a_config.templates = {
+        twitter: "Sign up for YogaToday and save! <%= current_user.share_url.url %>"
+      }
+      a2a.init('page');
+    </script>
+  <% end %>
 <% end %>
