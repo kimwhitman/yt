@@ -42,7 +42,10 @@
             <div id="x_my_rewards_actions" class="actions" style="display:none">
               <%= link_to_function 'Cancel', 'cancel_rewards()' %>
               <input type="submit" class="cancel" value="Cancel"></input>
-              <input type="submit" class="submit" value="Submit"></input>
+              <% form_tag redeem_points_user_path(current_user) do %>
+                <%= hidden_field_tag :redeemed_points, 0, :id => 'x_redeemed_points' %>
+                <input type="submit" class="submit" value="Submit"></input>
+              <% end %>
             </div>
 
             <div id="x_my_rewards_instructions" class="actions">
@@ -79,10 +82,11 @@
       if (points_current == 0) {
         jQuery('#x_add_one_month').hide();
       }
+
       jQuery('#x_my_points').html(points_current);
-      // TODO Add an li tag to the ul
       month_id = points_current + 1
       jQuery('#x_added_months').html(jQuery('#x_added_months').html() + '<li id="x_month_' + month_id + '"><span class="title">+1 free month Unlimited Membership</span><span class="action"><a href="#" onclick="remove_one_month(); return false;">Remove</a></span></li>')
+      jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
     }
   }
 
@@ -90,9 +94,11 @@
     points_current += 1;
     jQuery('#x_month_' + points_current).remove();
     jQuery('#x_my_points').html(points_current);
-    if (points_current > 0) {
-      jQuery('#x_add_one_month').show();
+    jQuery('#x_add_one_month').show();
+    if (points_current == <%= current_user.points_current %>) {
+      jQuery("#x_my_rewards_actions").hide();
     }
+    jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
   }
 
   function cancel_rewards() {
@@ -103,5 +109,6 @@
 
     points_current = <%= current_user.points_current %>;
     jQuery('#x_my_points').html(points_current);
+    jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
   }
 </script>

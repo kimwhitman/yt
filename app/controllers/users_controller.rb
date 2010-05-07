@@ -242,6 +242,10 @@ class UsersController < ApplicationController
     render :template => 'users/ambassador_tools/help'
   end
 
+  def redeem_points
+
+  end
+
 
 
   protected
