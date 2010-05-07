@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   before_save :initialize_confirmation_token
   after_save :setup_free_account
   after_save :setup_newsletter
+  before_save :strip_ambassador_name
 
   # Attributes
   attr_accessor :password
@@ -273,5 +274,9 @@ class User < ActiveRecord::Base
 
     def downcase_email
       self.email = self.email.downcase
+    end
+
+    def strip_ambassador_name
+      self.ambassador_name = self.ambassador_name.strip unless self.ambassador_name.nil?
     end
 end
