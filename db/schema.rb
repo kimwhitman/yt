@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100506201542) do
+ActiveRecord::Schema.define(:version => 20100507160005) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -279,7 +280,10 @@ ActiveRecord::Schema.define(:version => 20100506201542) do
     t.boolean  "setup"
     t.date     "start_date"
     t.date     "end_date"
+    t.string   "payment_method"
   end
+
+  add_index "subscription_payments", ["payment_method"], :name => "index_subscription_payments_on_payment_method"
 
   create_table "subscription_plans", :force => true do |t|
     t.string   "name"

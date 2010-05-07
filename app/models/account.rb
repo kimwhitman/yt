@@ -27,6 +27,8 @@ class Account < ActiveRecord::Base
     self.subscription.next_renewal_at >= Time.now
   end
 
+
+
   protected
     # An account must have an associated user to be the administrator
     def valid_user?
