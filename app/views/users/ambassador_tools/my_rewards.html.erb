@@ -44,7 +44,7 @@
               <input type="submit" class="cancel" value="Cancel"></input>
               <% form_tag redeem_points_user_path(current_user) do %>
                 <%= hidden_field_tag :redeemed_points, 0, :id => 'x_redeemed_points' %>
-                <input type="submit" class="submit" value="Submit"></input>
+                <input type="image" class="submit" src="/images/profile_tools_button_submit.png"></input>
               <% end %>
             </div>
 
