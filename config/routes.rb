@@ -65,8 +65,6 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.resources :share_urls, :only => [:show]
-
   # Purchase-related stuff.
   map.cart '/cart', :controller => 'shopping_cart', :action => 'show'
   map.playlist '/playlist', :controller => 'playlists', :action => 'show'
@@ -74,6 +72,9 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm_purchase '/confirm-purchase', :controller => 'shopping_cart', :action => 'confirm_purchase'
   map.purchase '/purchase/:id', :controller => 'purchases', :action => 'show'
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
+
+  # This has to be the last route before the defaults
+  map.share_url '/:id', :controller => 'share_urls', :action => 'show'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

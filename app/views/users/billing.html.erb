@@ -40,133 +40,105 @@
         :message => "I'm sorry, we were unable to save your billing information.") %>
 
     <div id="container_4col" style="float:left;">
+      <div id="profile_payment_info">
 
-        <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
-          <h3>Free Membership</h3>
+        <div class="ambassador_on">
+          <h4>Prepaid Unlimited Membership with 2 week free trial</h4>
+          <p class="radio"><input type="radio"></input>Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></p>
+          <p class="radio"><input type="radio"></input>Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></p>
+          <div class="panel">
+            <div class="assigned">
+              <h5>Your Ambassador</h5>
+              <div class="ambassador_agent_id">
+                <span>joinSunny26</span>
+              </div>
+              <p><input type="checkbox">Notify this Ambassador by e-mail when I subscribe.</p>
+              <a href="#" class="change_ambassador">Not your Ambassador?</a>
+            </div>
+            <div class="unassigned" style="display: none;">
+              <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
+              <input type="text" class="input"></input>
+              <input type="submit" class="submit" value="Enter"></input>
+            </div>
+          </div>
+        </div>
 
-          <p style="margin-bottom: 15px">
-            <%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %>
-            <label for="membership_free">Free (Enjoy Yoga Today's free weekly classes)</label>
-          </p>
+        <div class="ambassador_off" style="display: none">
 
-          <h3>Unlimited Membership Options</h3>
+          <p class="title">Free Membership</p>
+          <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
 
-          <p>All memberships: recurring billing, cancel anytime</p>
+          <p class="title">Monthly Unlimited Membership</p>
+          <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
 
-          <p style="margin-bottom: 15px">
-            <%= radio_button_tag 'membership', '1', @billing_cycle == '1' %>
-            <label for="membership_1">Subscription ($9.99/month)</label>
-            <br />
-            <%= radio_button_tag 'membership', '12', @billing_cycle == '12' %>
-            <label for="membership_12">Yoga Today 365 ($89.95/year) - Saves you 25%</label>
-            <br />
-          </p>
+          <p class="title">Prepaid Unlimited Membership</p>
+          <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
+          <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p>
+
+          <div class="trial">
+            <h3>2 Week Free Trial</h3>
+            <p>Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.</p>
+            <input type="text" class="input"></input>
+            <input class="submit" type="submit" value="Enter"></input>
+          </div>
+
         </div>
 
         <div id="credit_card">
+          <fieldset>
+            <% fields_for :creditcard do |cc| %>
+            <label>
+              select card type
+              <%
+              card_types = [['American Express', 'american_express'],
+                    ['Discover', 'discover'],
+                    ['Mastercard', 'master'],
+                    ['Visa', 'visa']]
 
-        <% fields_for :creditcard do |cc| %>
-
-        <div class="form_row">
-          <div class="form_title" id="card_type_title">
-            <%= label_tag :creditcard_type, 'Select Card Type*' %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col" id="card_type_field">
-            <%
-            card_types = [['American Express', 'american_express'],
-                  ['Discover', 'discover'],
-                  ['Mastercard', 'master'],
-                  ['Visa', 'visa']]
-
-              if Rails.env != 'production'
-                card_types << ['Bogus', 'bogus']
-              end %>
-
-            <%= cc.select :type, card_types %>
-            <br>
-            <%= image_tag 'credit_cards.png', :size => '111x27' %>
-          </div>
+                if Rails.env != 'production'
+                  card_types << ['Bogus', 'bogus']
+                end %>
+              <%= cc.select :type, card_types %>
+              <%= image_tag 'credit_cards.png', :size => '111x27' %>
+            </label>
+            <label>
+              card number
+              <%= cc.text_field :number, :size => 25, :onKeyDown => "limitText(this, 25);" %>
+            </label>
+            <label class="security_code">
+              CVV, CVV2
+              <%= cc.text_field :verification_value, :size => 4, :onKeyDown => "limitText(this, 4);" %>
+            </label>
+            <label class="expiration_month">
+              expiration date
+              <%= select_month(@date, :add_month_numbers => true, :prefix => 'creditcard',  :field_name => 'month') %>
+            </label>
+            <label class="expiration_year">
+              &nbsp;
+              <%= select_year(@date.year, :start_year => Date.today.year, :end_year => 10.years.from_now.year, :prefix => 'creditcard',  :field_name => 'year') %>
+            </label>
+            <label>
+              first name
+              <%= cc.text_field :first_name, :onKeyDown => "limitText(this, 100);" %>
+            </label>
+            <label>
+              last name
+              <%= cc.text_field :last_name, :onKeyDown => "limitText(this, 100);" %>
+            </label>
+            <% end %>
+            <% unless @user.has_paying_subscription? %>
+            <label class="checkbox">
+              <%= f.check_box :agree_to_terms %>
+              I agree to the Membership Terms and Details.
+            </label>
+            <% end %>
+          </fieldset>
         </div>
-
-        <div class="form_row">
-          <div class="form_title" id="card_number_title">
-            <%= label_tag :creditcard_number, 'Card Number*' %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col" id="card_number_field">
-            <%= cc.text_field :number, :size => 25, :onKeyDown => "limitText(this, 25);" %>
-          </div>
-        </div>
-
-        <div class="form_row">
-          <div class="form_title" id="card_cvv_title">
-            <%= label_tag :creditcard_verification_value, 'CVV, CVV2*' %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col" id="card_cvv_field">
-            <%= cc.text_field :verification_value, :size => 4, :onKeyDown => "limitText(this, 4);" %>
-          </div>
-        </div>
-
-        <div class="form_row">
-          <div class="form_title" id="expiration_date_title">
-            <%= label_tag :creditcard_month, 'Expiration Date*:' %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-
-          <div class="form_field_3col" id="expiration_date_field">
-            <%= select_month(@date, :add_month_numbers => true, :prefix => 'creditcard',  :field_name => 'month') %>
-            &nbsp;
-            <%= select_year(@date.year, :start_year => Date.today.year, :end_year => 10.years.from_now.year, :prefix => 'creditcard',  :field_name => 'year') %>
-          </div>
-        </div>
-
-        <div class="form_row">
-          <div class="form_title" id="billing_zip_title">
-            <%= label_tag :creditcard_first_name, 'First Name*' %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col" id="billing_zip_field">
-            <%= cc.text_field :first_name, :onKeyDown => "limitText(this, 100);" %>
-          </div>
-        </div>
-
-        <div class="form_row">
-          <div class="form_title" id="billing_zip_title">
-            <%= label_tag :creditcard_last_name, 'Last Name*' %>
-          </div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col" id="billing_zip_field">
-            <%= cc.text_field :last_name, :onKeyDown => "limitText(this, 100);" %>
-          </div>
-        </div>
-
-        <% end %>
-
-      </div>
-
-      <% unless @user.has_paying_subscription? %>
-        <div class="form_row">
-          <div class="form_title">&nbsp;</div>
-          <div class="grid_spacer">&nbsp;</div>
-          <div class="form_field_3col">
-            <%= f.check_box :agree_to_terms %>
-
-            <%= f.label :agree_to_terms, "I agree" %> to the
-            <%= link_to 'Membership Terms and Details', membership_terms_user_path(@user), :target => '_blank' %>.
-            <br />
-          </div>
-        </div>
-      <% end %>
-
-      <div class="form_row">
-        <div class="form_title">&nbsp;</div>
-        <div class="grid_spacer">&nbsp;</div>
-        <div class="form_field_3col">
+        <div class="actions">
           <%= submit_tag 'Save', :class => 'smaller_button' %>
           <%= button_to_function 'Cancel', "window.location = '#{profile_user_path(@user)}'", :class => 'smaller_button' %>
         </div>
+
       </div>
     <% end %>
 
