@@ -1046,17 +1046,12 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget.tools fieldset.invitation label input {
   width: 198px;
-  height: 22px;
-  line-height: 22px;
+  height: 16px;
   padding-left: 3px;
 }
 #ambassador_profile_widget.tools fieldset.invitation input.submit {
-  width: 68px;
   margin-left: 5px;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-  _border-left: 1px solid #999999;
-  _border-right: 1px solid #999999;
+  border: none;
 }
 #ambassador_profile_widget.tools div.share { margin: 14px 0; }
 #ambassador_profile_widget.tools div.share span.header {
@@ -1140,18 +1135,14 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget div.introduction fieldset label { float: left; }
 #ambassador_profile_widget div.introduction fieldset label input {
-  height: 22px;
-  width: 160px;
+  height: 16px;
+  width: 190px;
   margin-right: 5px;
   padding-left: 3px;
   line-height: 22px;
   font-style: italic;
 }
-#ambassador_profile_widget div.introduction fieldset input.submit {
-  float: none;
-  _position: relative;
-  _top: 4px;
-}
+#ambassador_profile_widget div.introduction fieldset input.submit { border: none !important; }
 #ambassador_profile_widget div.confirm {
   position: relative;
   float: none;
