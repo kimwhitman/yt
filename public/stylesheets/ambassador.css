@@ -446,26 +446,26 @@ div.ambassador_on div.panel div.unassigned input.submit {
   clear: left;
   margin: 0 0 0 20px;
 }
-#signup_section div.ambassador_off p.title {
+div.ambassador_off p.title {
   margin: 0;
   padding: 0;
   font-weight: bold;
   font-size: 12px;
   color: #666666;
 }
-#signup_section div.ambassador_off p.radio {
+div.ambassador_off p.radio {
   margin: 0;
   padding: 0;
   line-height: 24px;
 }
-#signup_section div.ambassador_off p.radio input {
+div.ambassador_off p.radio input {
   padding: 0;
   margin: 0 6px 0 0;
   border: none;
   background: none;
 }
-#signup_section div.ambassador_off p.end_set { margin-bottom: 10px; }
-#signup_section div.ambassador_off div.trial {
+div.ambassador_off p.end_set { margin-bottom: 10px; }
+div.ambassador_off div.trial {
   width: 400px;
   margin: 0 0 10px 0;
   padding: 10px;
@@ -473,7 +473,7 @@ div.ambassador_on div.panel div.unassigned input.submit {
   border: 1px solid #dcebff;
   position: relative;
 }
-#signup_section div.ambassador_off div.trial h3 {
+div.ambassador_off div.trial h3 {
   color: #666666;
   font-size: 16px;
   font-weight: bold;
@@ -481,14 +481,14 @@ div.ambassador_on div.panel div.unassigned input.submit {
   margin: 0 0 6px 0;
   padding: 0;
 }
-#signup_section div.ambassador_off div.trial p {
+div.ambassador_off div.trial p {
   font-size: 11px;
   width: 290px;
   color: #666666;
   margin: 0;
   padding: 0;
 }
-#signup_section div.ambassador_off div.trial input.input {
+div.ambassador_off div.trial input.input {
   width: 200px;
   height: 18px;
   margin-top: 10px;
@@ -551,6 +551,60 @@ div.ambassador_on div.panel div.unassigned input.submit {
   left: 300px;
 }
 #signup_section div.actions {
+  border-top: 2px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding: 5px 0;
+}
+#profile_payment_info #credit_card fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#profile_payment_info #credit_card fieldset label {
+  font-size: 11px;
+  color: #999999;
+  display: block;
+  clear: left;
+}
+#profile_payment_info #credit_card fieldset label input { display: block; }
+#profile_payment_info #credit_card fieldset label select { display: block; }
+#profile_payment_info #credit_card fieldset label input {
+  height: 20px;
+  width: 202px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+#profile_payment_info #credit_card fieldset label label.error {
+  height: auto;
+  position: relative;
+  top: -10px;
+}
+#profile_payment_info #credit_card fieldset label.security_code {
+  width: 100px;
+  clear: none;
+  float: left;
+}
+#profile_payment_info #credit_card fieldset label.security_code input { width: 75px; }
+#profile_payment_info #credit_card fieldset label.expiration_month {
+  float: left;
+  clear: none;
+}
+#profile_payment_info #credit_card fieldset label.expiration_month select { margin: 0 10px 0 0; }
+#profile_payment_info #credit_card fieldset label.expiration_year {
+  float: left;
+  clear: none;
+}
+#profile_payment_info #credit_card fieldset label.checkbox input {
+  display: inline;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+#profile_payment_info div.actions {
+  margin: 10px 0 0 0;
+  padding: 0;
   border-top: 2px solid #cccccc;
   border-bottom: 1px solid #cccccc;
   padding: 5px 0;
