@@ -123,6 +123,7 @@
   margin: 0;
   padding: 0;
   display: block;
+  border: none;
 }
 #get_started_ambassador div.prepaid_selection {
   border: 1px solid #cccccc;
@@ -186,11 +187,11 @@
   font-size: 11px;
   color: #7590bc;
   margin: 0;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
 }
 #get_started_ambassador fieldset.user_type label input {
   display: block;
-  width: auto;
+  border: none;
 }
 #get_started_featured_ad {
   height: 48px;
@@ -218,6 +219,7 @@
   position: absolute;
   left: 420px;
   bottom: 62px;
+  border: none;
 }
 #ambassador_details div.join {
   background: #d4e4ff;
@@ -230,7 +232,8 @@
 }
 #ambassador_details div.join input {
   position: relative;
-  top: 6px;
+  top: 5px;
+  border: none;
 }
 #ambassador_details ul {
   list-style-type: none;
@@ -306,13 +309,17 @@
 #ambassador_details ul li div.create_id div {
   position: absolute;
   left: 70px;
-  top: 125px;
+  top: 127px;
 }
-#ambassador_details ul li div.create_id div input.input { width: 135px; }
+#ambassador_details ul li div.create_id div input.input {
+  width: 132px;
+  height: 16px;
+  vertical-align: top;
+  padding: 2px 0px 2px 5px;
+}
 #ambassador_details ul li div.create_id div input.submit {
-  width: 42px;
-  border: 1px solid #dddddd;
-  border-width: 0 1px;
+  border: none;
+  vertical-align: top;
 }
 #ambassador_details ul li.last { border-bottom: none; }
 h1.header_primary {

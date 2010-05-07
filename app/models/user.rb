@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   before_save :initialize_confirmation_token
   after_save :setup_free_account
   after_save :setup_newsletter
+  before_save :strip_ambassador_name
   after_update :setup_share_url
 
   # Attributes
@@ -272,7 +273,7 @@ class User < ActiveRecord::Base
       self.account_id = self.account.id
       self.save
     end
-    
+
     def setup_share_url
       if self.share_url.blank? && !self.ambassador_name.blank?
         self.create_share_url
@@ -281,5 +282,9 @@ class User < ActiveRecord::Base
 
     def downcase_email
       self.email = self.email.downcase
+    end
+
+    def strip_ambassador_name
+      self.ambassador_name = self.ambassador_name.strip unless self.ambassador_name.nil?
     end
 end
