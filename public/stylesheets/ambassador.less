@@ -5,6 +5,86 @@
 @color_details_font: #3c5e82;
 @color_ambassador_yellow: #ffe400;
 
+#homepage_intro_promo {
+	div.home_hero_share {
+		position: relative;
+		height: 526px;
+		width: 524px;
+		background: url('/images/home_hero_share-yoga-today.jpg') no-repeat 0px 0px;
+		a.learn_how {
+			display: block;
+			position: absolute;
+			top: 130px;
+			left: 48px;
+			background: url('/images/home_bullet_notch.gif') no-repeat 0px 1px;
+			padding: 0 0 0 10px;
+			margin: 0;
+			color: #fff;
+			text-decoration: none;
+			font-size: 12px;
+			font-weight: bold;
+			line-height: 12px;
+			:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+#home_200videos_signup {
+	background: url('/images/home_hero_signup.png') no-repeat 0px -21px;
+	height: 289px;
+	width: 417px;
+	border-bottom: 1px solid #fff;
+	a.signup_link {
+		top: 189px;
+	}
+}
+
+#home_invited_by_ambassador {
+	background: url('/images/home_invited-by-ambassador.png') no-repeat 0px 0px;
+	height: 183px;
+	width: 417px;
+	position: relative;
+	p {
+		position: absolute;
+		left: 40px;
+		top: 86px;
+		width: 240px;
+		font-size: 11px;
+		line-height: 13px;
+		margin: 0;
+		padding: 0;
+	}
+	div {
+		position: absolute;
+		top: 118px;
+		left: 64px;
+		input.input {
+			margin: 0;
+			padding: 0;
+			height: 20px;
+			width: 205px;
+		}
+		input.submit {
+			margin: 0;
+			padding: 0;
+			width: 54px;
+		}
+	}
+	a.help {
+		position: absolute;
+		bottom: 5px;
+		right: 77px;
+		font-size: 10px;
+		text-decoration: underline;
+		color: #999;
+		:hover {
+			color: #666;
+		}
+	}
+}
+
 #get_started_ambassador {
 	height: 398px;
 	width: 298px;
@@ -283,50 +363,172 @@ h2.header_secondary {
 	}
 }
 
-#signup_section {
-	p.title {
-		margin: 0;
-		padding: 0;
-		font-weight: bold;
+div.ambassador_on {
+	position: relative;
+	height: 135px;
+	background: @color_ambassador_yellow;
+	border: 1px solid #ccc;
+	margin: 0 0 10px 0;
+	padding: 0;
+	h4 {
 		font-size: 12px;
-		color: #666;
+		font-weight: bold;
+		margin: 0;
+		padding: 14px 0 12px 14px;
 	}
 	p.radio {
-		margin: 0;
+		position: relative;
+		margin: 0 0 0 36px;
 		padding: 0;
-		line-height: 24px;
-		input {
+		font-weight: bold;
+		span {
+			display: block;
+			font-weight: normal;
+			margin: 0 0 10px 0;
 			padding: 0;
-			margin: 0 6px 0 0;
+		}
+		input {
+			position: absolute;
+			top: 0px;
+			left: -22px;
 			border: none;
 			background: none;
+			margin: 0;
+			padding: 0;
 		}
 	}
-	p.end_set {
-		margin-bottom: 10px;
+	div.panel {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		width: 240px;
+		height: 135px;
+		border-left: 1px solid #ccc;
+		margin: 0;
+		padding: 0;
+		background: url('/images/ambassador_panel_on_bg.png') no-repeat 0px 0px @color_ambassador_yellow;
+		div.assigned {
+			height: 135px;
+			position: relative;
+			h5 {
+				margin: 0;
+				padding: 12px 0 0 20px;
+				font-size: 11px;
+				font-weight: normal;
+				color: #666;
+			}
+			div.ambassador_agent_id {
+				height: 44px;
+				width: 240px;
+				background-position: 20px 0px;
+				span {
+					left: 60px;
+					top: 8px;
+				}
+			}
+			p {
+				margin: 0 0 0 38px;
+				padding: 0;
+				font-size: 11px;
+				color: #666;
+				width: 164px;
+				position: relative;
+				line-height: 12px;
+				input {
+					position: absolute;
+					top: 0;
+					left: -18px;
+					margin: 0;
+					padding: 0;
+					background: none;
+					border: none;
+				}
+			}
+			a.change_ambassador {
+				position: absolute;
+				bottom: 12px;
+				left: 20px;
+				font-size: 10px;
+				color: #666;
+				text-decoration: underline;
+				:hover {
+					color: #333;
+				}
+			}
+		}
+		div.unassigned {
+			p {
+				margin: 0;
+				padding: 20px 0 2px 20px;
+				font-size: 11px;
+				color: #666;
+				width: 200px;
+				line-height: 14px;
+			}
+			input.input {
+				width: 188px;
+				height: 14px;
+				margin: 0 0 4px 20px;
+			}
+			input.submit {
+				clear: left;
+				margin: 0 0 0 20px;
+			}
+		}
 	}
-	fieldset.trial {
-		width: 400px;
-		margin: 0 0 10px 0;
-		padding: 10px;
-		background: @color_background;
-		border: 1px solid @color_border;
-		position: relative;
-		label {
-			font-size: 11px;
-			span {
+}
+
+#signup_section {
+	div.ambassador_off {
+		p.title {
+			margin: 0;
+			padding: 0;
+			font-weight: bold;
+			font-size: 12px;
+			color: #666;
+		}
+		p.radio {
+			margin: 0;
+			padding: 0;
+			line-height: 24px;
+			input {
+				padding: 0;
+				margin: 0 6px 0 0;
+				border: none;
+				background: none;
+			}
+		}
+		p.end_set {
+			margin-bottom: 10px;
+		}
+		div.trial {
+			width: 400px;
+			margin: 0 0 10px 0;
+			padding: 10px;
+			background: @color_background;
+			border: 1px solid @color_border;
+			position: relative;
+			h3 {
 				color: #666;
 				font-size: 16px;
 				font-weight: bold;
 				display: block;
-				margin-bottom: 6px;
+				margin: 0 0 6px 0;
+				padding: 0;			
 			}
-			input {
+			p {
+				font-size: 11px;
+				width: 290px;
+				color: #666;
+				margin: 0;
+				padding: 0;
+			}
+			input.input {
 				width: 200px;
 				height: 18px;
 				margin-top: 10px;
 			}
-		}
+		}		
 	}
 	fieldset.basic {
 		border: none;

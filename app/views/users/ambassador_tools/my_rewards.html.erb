@@ -10,16 +10,11 @@
   <div id="main_content">
     <div class="flash" style="text-align: center;"><%= flash[:user_notice]%></div>
     <div id="container_4col" class="ambassador_pages" style="float:left;">
- 
+
       <div id="ambassador_tools">
 
-        <ul id="ambassador_tools_navigation">
-          <li><a href="#">Invite by E-mail</a></li>
-          <li><a href="#">Invite by Sharing</a></li>
-          <li><a href="#">My Invitations</a></li>
-          <li class="active"><a href="#">My Rewards</a></li>
-          <li><a href="#">Help</a></li>
-        </ul>
+        <%= render :partial => 'users/ambassador_tools/navigation' %>
+
         <div class="tools_container">
 
           <div class="my_rewards_points">
@@ -27,45 +22,47 @@
             <p>Earn a point for every successful prepaid subscription referral when you invite your friends and family to Yoga Today. Each point you earn as a Yoga Today Ambassador is worth a free month of Yoga Today.</p>
             <div class="my_points">
               <span class="header">My Points</span>
-              <span class="count">0</span>
+              <span id="x_my_points" class="count"><%= current_user.points_current %></span>
             </div>
           </div>
-          
-          <h3 class="redeem_rewards">My Rewards <span>Add +1 Month</span></h3>
-          <div class="redeemed_rewards">
-            
-            <div class="unredeemed" style="display: none;">
 
+          <h3 class="redeem_rewards">My Rewards <span><%= link_to_function('Add +1 Month', 'add_one_month()', :id => 'x_add_one_month') %></span></h3>
+          <div class="redeemed_rewards">
+
+            <div class="unredeemed" style="display: none;">
               <h4 style="display: none;">Click "Add +1 Month" to use points for free months of Yoga Today.</h4>
               <h4>You currently have no points available for rewards.</h4>
               <p>To earn free Yoga Today, start by inviting your friends and family to subscribe.</p>
-              <a class="by_email" href="#">Invite by E-mail</a><a href="#">Invite by Sharing</a>              
-              
+              <a class="by_email" href="#">Invite by E-mail</a><a href="#">Invite by Sharing</a>
             </div>
-            
-            <ul>
-              <li><span class="title">+1 free month Unlimited Membership</span><span class="action">Remove</span></li>
-              <li><span class="title">+1 free month Unlimited Membership</span><span class="action">Remove</span></li>
-              <li><span class="title">+1 free month Unlimited Membership</span><span class="action">Remove</span></li>
-              <li><span class="title">+1 free month Unlimited Membership</span><span class="action">Remove</span></li>
-              
+
+            <ul id="x_added_months">
             </ul>
-            <div class="actions">
+
+            <div id="x_my_rewards_actions" class="actions" style="display:none">
+              <%= link_to_function 'Cancel', 'cancel_rewards()' %>
               <input type="submit" class="cancel" value="Cancel"></input>
-              <input type="submit" class="submit" value="Submit"></input>
+              <% form_tag redeem_points_user_path(current_user) do %>
+                <%= hidden_field_tag :redeemed_points, 0, :id => 'x_redeemed_points' %>
+                <input type="submit" class="submit" value="Submit"></input>
+              <% end %>
+            </div>
+
+            <div id="x_my_rewards_instructions" class="actions">
+              <p>TODO: RYAN: STYLE! Click "Add +1 Month" to use points for free months of Yoga Today</p>
             </div>
           </div>
-          
+
           <div class="rewards_terms">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur odio enim, ultrices sed pharetra tempor, sagitis nec metus. Cras vitae turpis risus.</p>
             <p>Nuliam placerat, dui vitae pellentesque elementum, leo est blandit mauris, a tincidunt leo purus vel turpis. Suspendisse potenti. Morbi magna massa, pretium at vestibulium sed, ultrices at nibh.</p>
             <p>To See your rewards in action, visit the <a href="#">Billing Activity</a> page in your Profile.</p>
           </div>
-          
+
         </div>
-          
-      </div> 
- 
+
+      </div>
+
     </div>
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
@@ -73,3 +70,45 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  points_current = <%= current_user.points_current %>;
+
+  function add_one_month() {
+    jQuery("#x_my_rewards_instructions").hide();
+    jQuery("#x_my_rewards_actions").show();
+    if (points_current > 0) {
+      points_current -= 1;
+      if (points_current == 0) {
+        jQuery('#x_add_one_month').hide();
+      }
+
+      jQuery('#x_my_points').html(points_current);
+      month_id = points_current + 1
+      jQuery('#x_added_months').html(jQuery('#x_added_months').html() + '<li id="x_month_' + month_id + '"><span class="title">+1 free month Unlimited Membership</span><span class="action"><a href="#" onclick="remove_one_month(); return false;">Remove</a></span></li>')
+      jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
+    }
+  }
+
+  function remove_one_month() {
+    points_current += 1;
+    jQuery('#x_month_' + points_current).remove();
+    jQuery('#x_my_points').html(points_current);
+    jQuery('#x_add_one_month').show();
+    if (points_current == <%= current_user.points_current %>) {
+      jQuery("#x_my_rewards_actions").hide();
+    }
+    jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
+  }
+
+  function cancel_rewards() {
+    jQuery('#x_added_months li').remove();
+    jQuery("#x_my_rewards_actions").hide();
+    jQuery("#x_my_rewards_instructions").show();
+    jQuery('#x_add_one_month').show();
+
+    points_current = <%= current_user.points_current %>;
+    jQuery('#x_my_points').html(points_current);
+    jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
+  }
+</script>

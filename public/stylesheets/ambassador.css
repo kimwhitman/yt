@@ -1,3 +1,72 @@
+#homepage_intro_promo div.home_hero_share {
+  position: relative;
+  height: 526px;
+  width: 524px;
+  background: url('/images/home_hero_share-yoga-today.jpg') no-repeat 0px 0px;
+}
+#homepage_intro_promo div.home_hero_share a.learn_how {
+  display: block;
+  position: absolute;
+  top: 130px;
+  left: 48px;
+  background: url('/images/home_bullet_notch.gif') no-repeat 0px 1px;
+  padding: 0 0 0 10px;
+  margin: 0;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 12px;
+}
+#homepage_intro_promo div.home_hero_share a.learn_how:hover { text-decoration: underline; }
+#home_200videos_signup {
+  background: url('/images/home_hero_signup.png') no-repeat 0px -21px;
+  height: 289px;
+  width: 417px;
+  border-bottom: 1px solid #ffffff;
+}
+#home_200videos_signup a.signup_link { top: 189px; }
+#home_invited_by_ambassador {
+  background: url('/images/home_invited-by-ambassador.png') no-repeat 0px 0px;
+  height: 183px;
+  width: 417px;
+  position: relative;
+}
+#home_invited_by_ambassador p {
+  position: absolute;
+  left: 40px;
+  top: 86px;
+  width: 240px;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0;
+  padding: 0;
+}
+#home_invited_by_ambassador div {
+  position: absolute;
+  top: 118px;
+  left: 64px;
+}
+#home_invited_by_ambassador div input.input {
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  width: 205px;
+}
+#home_invited_by_ambassador div input.submit {
+  margin: 0;
+  padding: 0;
+  width: 54px;
+}
+#home_invited_by_ambassador a.help {
+  position: absolute;
+  bottom: 5px;
+  right: 77px;
+  font-size: 10px;
+  text-decoration: underline;
+  color: #999999;
+}
+#home_invited_by_ambassador a.help:hover { color: #666666; }
 #get_started_ambassador {
   height: 398px;
   width: 298px;
@@ -267,26 +336,136 @@ h2.header_secondary a:hover {
   text-decoration: underline;
   color: #333333;
 }
-#signup_section p.title {
+div.ambassador_on {
+  position: relative;
+  height: 135px;
+  background: #ffe400;
+  border: 1px solid #cccccc;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+div.ambassador_on h4 {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  padding: 14px 0 12px 14px;
+}
+div.ambassador_on p.radio {
+  position: relative;
+  margin: 0 0 0 36px;
+  padding: 0;
+  font-weight: bold;
+}
+div.ambassador_on p.radio span {
+  display: block;
+  font-weight: normal;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+div.ambassador_on p.radio input {
+  position: absolute;
+  top: 0px;
+  left: -22px;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+div.ambassador_on div.panel {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 240px;
+  height: 135px;
+  border-left: 1px solid #cccccc;
+  margin: 0;
+  padding: 0;
+  background: url('/images/ambassador_panel_on_bg.png') no-repeat 0px 0px #ffe400;
+}
+div.ambassador_on div.panel div.assigned {
+  height: 135px;
+  position: relative;
+}
+div.ambassador_on div.panel div.assigned h5 {
+  margin: 0;
+  padding: 12px 0 0 20px;
+  font-size: 11px;
+  font-weight: normal;
+  color: #666666;
+}
+div.ambassador_on div.panel div.assigned div.ambassador_agent_id {
+  height: 44px;
+  width: 240px;
+  background-position: 20px 0px;
+}
+div.ambassador_on div.panel div.assigned div.ambassador_agent_id span {
+  left: 60px;
+  top: 8px;
+}
+div.ambassador_on div.panel div.assigned p {
+  margin: 0 0 0 38px;
+  padding: 0;
+  font-size: 11px;
+  color: #666666;
+  width: 164px;
+  position: relative;
+  line-height: 12px;
+}
+div.ambassador_on div.panel div.assigned p input {
+  position: absolute;
+  top: 0;
+  left: -18px;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+div.ambassador_on div.panel div.assigned a.change_ambassador {
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  font-size: 10px;
+  color: #666666;
+  text-decoration: underline;
+}
+div.ambassador_on div.panel div.assigned a.change_ambassador:hover { color: #333333; }
+div.ambassador_on div.panel div.unassigned p {
+  margin: 0;
+  padding: 20px 0 2px 20px;
+  font-size: 11px;
+  color: #666666;
+  width: 200px;
+  line-height: 14px;
+}
+div.ambassador_on div.panel div.unassigned input.input {
+  width: 188px;
+  height: 14px;
+  margin: 0 0 4px 20px;
+}
+div.ambassador_on div.panel div.unassigned input.submit {
+  clear: left;
+  margin: 0 0 0 20px;
+}
+#signup_section div.ambassador_off p.title {
   margin: 0;
   padding: 0;
   font-weight: bold;
   font-size: 12px;
   color: #666666;
 }
-#signup_section p.radio {
+#signup_section div.ambassador_off p.radio {
   margin: 0;
   padding: 0;
   line-height: 24px;
 }
-#signup_section p.radio input {
+#signup_section div.ambassador_off p.radio input {
   padding: 0;
   margin: 0 6px 0 0;
   border: none;
   background: none;
 }
-#signup_section p.end_set { margin-bottom: 10px; }
-#signup_section fieldset.trial {
+#signup_section div.ambassador_off p.end_set { margin-bottom: 10px; }
+#signup_section div.ambassador_off div.trial {
   width: 400px;
   margin: 0 0 10px 0;
   padding: 10px;
@@ -294,15 +473,22 @@ h2.header_secondary a:hover {
   border: 1px solid #dcebff;
   position: relative;
 }
-#signup_section fieldset.trial label { font-size: 11px; }
-#signup_section fieldset.trial label span {
+#signup_section div.ambassador_off div.trial h3 {
   color: #666666;
   font-size: 16px;
   font-weight: bold;
   display: block;
-  margin-bottom: 6px;
+  margin: 0 0 6px 0;
+  padding: 0;
 }
-#signup_section fieldset.trial label input {
+#signup_section div.ambassador_off div.trial p {
+  font-size: 11px;
+  width: 290px;
+  color: #666666;
+  margin: 0;
+  padding: 0;
+}
+#signup_section div.ambassador_off div.trial input.input {
   width: 200px;
   height: 18px;
   margin-top: 10px;
