@@ -7,7 +7,7 @@
 
     <div id="signup_section">
       <h1 class="header_primary signup_banner">Sign Up</h1>
-      
+
       <h2 class="header_secondary">Sign Up <%= link_to 'Already a member?', login_path %></h2>
 
       <% form_for @user do |f| -%>
@@ -39,4 +39,8 @@
     $("#user_password_confirmation").defaultValue('Retype Password');
     $("#captcha").defaultValue('Enter Verification');
   });
+
+  function selectAmbassador() {
+    window.location = "/users/select_ambassador?ambassador_name=" + jQuery("#x_ambassador_name").val()
+  }
 </script>
