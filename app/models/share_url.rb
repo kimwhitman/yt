@@ -17,7 +17,6 @@ class ShareUrl < ActiveRecord::Base
 
   # Callbacks
   before_validation_on_create :set_token
-  before_save :format_path
 
   # Attributes
   
