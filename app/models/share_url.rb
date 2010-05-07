@@ -29,10 +29,8 @@ class ShareUrl < ActiveRecord::Base
     def set_token
       if self.token.blank?
         self.token = generate_token(4)
+      else
+        self.token = self.token.downcase
       end
-    end
-    
-    def format_path
-      self.path = self.path.downcase if self.path
-    end
+    end    
 end
