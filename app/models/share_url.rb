@@ -29,6 +29,10 @@ class ShareUrl < ActiveRecord::Base
     "#{token}"
   end
   
+  def url
+    "#{BASE_URL}#{token}"
+  end
+  
   protected
     def set_token
       if self.token.blank?

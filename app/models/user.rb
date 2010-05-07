@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :purchases, :dependent => :destroy
   has_many :invites
   has_many :ambassador_invites
+  has_one :share_url
 
   # Validations
   validates_acceptance_of :agree_to_terms
@@ -37,6 +38,7 @@ class User < ActiveRecord::Base
   after_save :setup_free_account
   after_save :setup_newsletter
   before_save :strip_ambassador_name
+  after_update :setup_share_url
 
   # Attributes
   attr_accessor :password
@@ -270,6 +272,12 @@ class User < ActiveRecord::Base
       self.account.save!
       self.account_id = self.account.id
       self.save
+    end
+
+    def setup_share_url
+      if self.share_url.blank? && !self.ambassador_name.blank?
+        self.create_share_url
+      end
     end
 
     def downcase_email
