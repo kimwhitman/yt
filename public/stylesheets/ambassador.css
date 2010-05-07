@@ -123,6 +123,7 @@
   margin: 0;
   padding: 0;
   display: block;
+  border: none;
 }
 #get_started_ambassador div.prepaid_selection {
   border: 1px solid #cccccc;
@@ -186,11 +187,11 @@
   font-size: 11px;
   color: #7590bc;
   margin: 0;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
 }
 #get_started_ambassador fieldset.user_type label input {
   display: block;
-  width: auto;
+  border: none;
 }
 #get_started_featured_ad {
   height: 48px;
