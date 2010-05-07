@@ -4,12 +4,12 @@ class ShareUrl < ActiveRecord::Base
   include TokenGenerator::Simple
   
   # Associations
-  belongs_to :shareable, :polymorphic => :true
+  belongs_to :user
+  has_many :share_url_redirects
 
   # Validations
-  validates_presence_of :shareable_id
-  validates_presence_of :shareable_type
-  validates_uniqueness_of :token, :scope => [:shareable_id, :shareable_type]
+  validates_associated :user, :if => Proc.new { |share_url| !share_url.token.blank? }
+  validates_uniqueness_of :token, :scope => [:user_id]
 
   # Scopes
 
@@ -17,15 +17,22 @@ class ShareUrl < ActiveRecord::Base
 
   # Callbacks
   before_validation_on_create :set_token
+  before_save :format_path
 
   # Attributes
   
-  def url
-    "#{BASE_URL}#{self.token}"
+  def track_redirect(params)
+    self.share_url_redirects.create!(params)
   end
   
   protected
     def set_token
-      self.token = generate_token(4)
+      if self.token.blank?
+        self.token = generate_token(4)
+      end
+    end
+    
+    def format_path
+      self.path = self.path.downcase if self.path
     end
 end
