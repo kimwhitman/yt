@@ -1,6 +1,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  # Associations
   belongs_to :account, :dependent => :destroy
   has_many :playlist_videos, :dependent => :destroy
   has_many :purchases, :dependent => :destroy
@@ -8,17 +9,8 @@ class User < ActiveRecord::Base
   has_many :ambassador_invites
   has_one :share_url
 
-  has_attached_file :photo,
-    :default_url => "/images/user_yogi.png",
-    :styles => { :small => '48x48#' },
-    :default_style => :small
-
-  # Virtual attribute for the unencrypted password
-  attr_accessor :password
-  attr_accessor :old_email
-
+  # Validations
   validates_acceptance_of :agree_to_terms
-
   validates_presence_of     :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
@@ -26,10 +18,19 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
-  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true
+  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true, :allow_blank => false
   validates_inclusion_of :newsletter_format, :in => %w(html plain)
   validates_confirmation_of :email, :on => :create
 
+  # Scopes
+
+  # Extensions
+  has_attached_file :photo,
+    :default_url => "/images/user_yogi.png",
+    :styles => { :small => '48x48#' },
+    :default_style => :small
+
+  # Callbacks
   before_save :encrypt_password
   before_save :store_old_email
   before_save :downcase_email
@@ -38,13 +39,14 @@ class User < ActiveRecord::Base
   after_save :setup_newsletter
   after_update :setup_share_url
 
-
-  # prevents a user from submitting a crafted form that bypasses activation
-  # anything else you want your user to change should be added here.
+  # Attributes
+  attr_accessor :password
+  attr_accessor :old_email
   attr_accessible :name, :email, :password, :password_confirmation,
     :wants_newsletter, :wants_promos, :photo, :photo_file_name,
     :photo_content_type, :photo_file_size, :city, :state, :country,
     :agree_to_terms, :newsletter_format, :email_confirmation, :ambassador_name
+
 
   def name
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
