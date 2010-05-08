@@ -403,6 +403,7 @@ div.returning_login div.ambassador_unassigned input.submit {
   margin: 0 0 0 10px;
   height: 20px;
   width: 52px;
+  border: none;
 }
 div.returning_login div.ambassador_assigned {
   position: absolute;
@@ -564,6 +565,7 @@ div.ambassador_on div.panel div.unassigned input.input {
 div.ambassador_on div.panel div.unassigned input.submit {
   clear: left;
   margin: 0 0 0 20px;
+  border: none;
 }
 div.ambassador_off p.title {
   margin: 0;
@@ -611,6 +613,7 @@ div.ambassador_off div.trial input.input {
   width: 200px;
   height: 18px;
   margin-top: 10px;
+  border: none;
 }
 #signup_section fieldset.basic {
   border: none;
