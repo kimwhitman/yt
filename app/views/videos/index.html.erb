@@ -35,15 +35,15 @@
   </script>
 -->
   <div id="main">
-      <% if free_video_of_week %>
+    <% if free_video_of_week %>
+    <div style="float: left; overflow:hidden;" id="container_4col">
+      <%= render :partial => 'videos/featured_video_overlay', :object => free_video_of_week, :locals => { :width => '620', :controls => false } %>
+      </div>
+    <% elsif featured_video_of_week %>
       <div style="float: left; overflow:hidden;" id="container_4col">
-        <%= render :partial => 'videos/featured_video_overlay', :object => free_video_of_week, :locals => { :width => '620', :controls => false } %>
-        </div>
-      <% elsif featured_video_of_week %>
-        <div style="float: left; overflow:hidden;" id="container_4col">
-        <%= render :partial => 'videos/featured_video_overlay', :object => featured_video_of_week, :locals => { :width => '620', :controls => false } %>
-        </div>
-      <% end %>
+      <%= render :partial => 'videos/featured_video_overlay', :object => featured_video_of_week, :locals => { :width => '620', :controls => false } %>
+      </div>
+    <% end %>
     <div style="float: right;" id="container_2col">
     <% if !logged_in? || !current_user.has_paying_subscription? %>
     <% subscription_advert_path = !logged_in? ? get_started_today_path : billing_user_path(current_user) %>
@@ -75,7 +75,8 @@
 
     <!--<div id="main_content">-->
       <div style="height: 0px; clear:both">&nbsp;</div>
-      <div id="container_4col" style="float:left; margin-top: -170px;">
+      <%= render :partial => 'search_sidebar' %>
+      <div id="container_4col" class="<%= logged_in? ? 'signed_in' : 'signed_out' %> <%= (logged_in? && !current_user.has_paying_subscription?) ? 'free' : 'paying' %>">
         <div id="page_information" style="height:50px;">
           <div id="navigation" class="breadcrub_nav">Home : Videos</div>
           <div class="arial18_green" id="main_title" style="padding-bottom: 10px;">Yoga Today Videos</div>
@@ -85,14 +86,13 @@
             <%= @videos.total_entries %> of <%= Video.count %> classes found<br>keywords: <%= @keywords %>
         </div>
         <% end %>
-        <%= render :partial => "video_listings" %>
+        <div id="x_video_listings"><%= render :partial => "video_listings" %></div>
         <div class="promo_yt365_wide">
           <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
           <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
           <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path(:membership => 12), {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
         </div>
       </div>
-      <%= render :partial => 'search_sidebar' %>
     <!--</div>-->
       <div class="ext_ads">
         <script type="text/javascript">
