@@ -1,5 +1,5 @@
 <%
-  display_mode = params[:display] || @display_mode || 'grid'
+  display_mode = params[:display] || @display_mode || 'list'
   grid_image = display_mode == 'grid' ? 'switch-view-grid-selected.png' : 'switch-view-grid.png'
   list_image = display_mode == 'list' ? 'switch-view-list-selected.png' : 'switch-view-list.png'
 %>
@@ -24,13 +24,12 @@
   <div class="search_results_bar">
     <div id="sort_by_div">
       <strong>Sort by:</strong>
-      <%= select_tag 'sort_by', options_for_select([
+      <%= select_tag 'sort_by_dropdown', options_for_select([
               ['Most Recent', 'most_recent'],
               ['Top Rated', 'top_rated'],
               ['Most Viewed', 'most_popular'],
               ['Most Discussed', 'most_discussed']
           ], params[:sort_by]) %>
-      <%= observe_field 'sort_by', :url => { :action => 'search' }, :with => "$('#sort_by, #search_form').serialize()", :loading => "$('#search_message').show()" %>
     </div>
     <div id="page_count">          
       <%= will_paginate @videos, :renderer => "SearchPaginationRenderer", :class => 'search_pagination', :params => {:search => @search_terms, :sort_by => @sorting, :keywords => @keywords} %>
@@ -56,3 +55,28 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascript_content do %>
+  <script type="text/javascript">
+    $(function(){
+      bindSortingDropdown();
+    });
+    
+    function bindSortingDropdown() {
+      $('#sort_by_dropdown').change(function(){
+        $.ajax({
+          type: 'POST',
+          url: '/videos/search',
+          data: ({ sort_by: $(this + "option:selected").val() }),
+          dataType: 'script',
+          beforeSend: function() {
+            $('#search_message').show();
+          },
+          complete: function() {
+            $('#search_message').hide();
+          }
+        });
+      });      
+    }
+  </script>
+<% end %>
