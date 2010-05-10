@@ -696,7 +696,8 @@ div.ambassador_off div.trial input.submit { border: none; }
   height: 20px;
   width: 202px;
   margin: 0 0 10px 0;
-  padding: 0;
+  padding: 0 0 0 3px;
+  line-height: 20px;
 }
 #profile_payment_info #credit_card fieldset label label.error {
   height: auto;
