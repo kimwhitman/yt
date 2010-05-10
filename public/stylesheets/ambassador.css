@@ -1432,6 +1432,7 @@ div.ambassador_agent_id span {
   font-size: 12px;
   text-decoration: underline;
 }
+#ambassador_tools div.tools_container div.track_invitations h3 a:hover { text-decoration: none; }
 #ambassador_tools div.tools_container div.track_invitations div.table {
   margin: 0 30px 15px 30px;
   background: #ffffff;
