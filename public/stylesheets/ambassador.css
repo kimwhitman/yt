@@ -50,24 +50,17 @@
 }
 #home_invited_by_ambassador div input.input {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 3px;
+  line-height: 20px;
   height: 20px;
-  width: 206px;
+  width: 203px;
   vertical-align: top;
 }
 #home_invited_by_ambassador div input.submit {
   vertical-align: top;
   margin: 0;
   padding: 0;
-  width: 54px;
-  height: 2px;
-  border: 1px solid #dddddd;
-  color: #666666;
-  background-position: -1px -1px;
-}
-#home_invited_by_ambassador div input.submit:hover {
-  border-color: #999999;
-  color: #333333;
+  border: none;
 }
 #home_invited_by_ambassador a.help {
   position: absolute;

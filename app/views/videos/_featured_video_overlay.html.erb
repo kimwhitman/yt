@@ -10,7 +10,7 @@
   <% unless logged_in? -%>
     <div id="homepage_intro_promo">
       <div class="home_hero_share">
-        <a class="learn_how" href="">Learn How</a>
+        <a class="learn_how" href="/ambassador-details">Learn How</a>
       </div>
       <div>
         <div id="home_200videos_signup">
@@ -22,7 +22,7 @@
           <div>
             <% form_tag select_ambassador_users_path do %>
               <%= text_field_tag :ambassador_name, '', :class => 'input' %>
-              <%= submit_tag 'Enter', :class => 'submit' %>
+              <%= image_submit_tag '/images/ambassador_button_enter.png', :class => 'submit' %>
             <% end %>
           </div>
           <a href="#" class="help">What's this?</a>
