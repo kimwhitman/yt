@@ -848,6 +848,7 @@ div.ambassador_off div.trial input.input {
 #profile_basic_information_form fieldset label input {
   height: 18px;
   width: 280px;
+  line-height: 20px;
   display: block;
   clear: left;
   margin: 0 0 6px 0;
