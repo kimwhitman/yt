@@ -140,6 +140,7 @@
 				margin: 0;
 				padding: 0;
 				display: block;
+				border: none;
 			}
 		}
 	}
@@ -204,10 +205,10 @@
 			font-size: 11px;
 			color: #7590bc;
 			margin: 0;
-			padding: 0 0 0 20px;
+			padding: 0 0 0 15px;
 			input {
 				display: block;
-				width: auto;
+				border: none;
 			}
 		}
 	}
@@ -239,6 +240,7 @@
 			position: absolute;
 			left: 420px;
 			bottom: 62px;
+			border: none;
 		}
 	}
 	div.join {
@@ -251,7 +253,8 @@
 		line-height: 40px;
 		input {
 			position: relative;
-			top: 6px;
+			top: 5px;
+			border: none;
 		}
 	}
 	ul {
@@ -329,14 +332,16 @@
 				div {
 					position: absolute;
 					left: 70px;
-					top: 125px;
+					top: 127px;
 					input.input {
-						width: 135px;
+						width: 132px;
+						height: 16px;
+						vertical-align: top;
+						padding: 2px 0px 2px 5px;
 					}
 					input.submit {
-						width: 42px;
-						border: 1px solid #ddd;
-						border-width: 0 1px;
+						border: none;
+						vertical-align: top;
 					}
 				}
 			}
@@ -425,6 +430,7 @@ div.returning_login {
 			margin: 0 0 0 10px;
 			height: 20px;
 			width: 52px;
+			border: none;
 		}
 	}
 	div.ambassador_assigned {
@@ -592,6 +598,7 @@ div.ambassador_on {
 			input.submit {
 				clear: left;
 				margin: 0 0 0 20px;
+				border: none;
 			}
 		}
 	}
@@ -645,6 +652,7 @@ div.ambassador_off {
 			width: 200px;
 			height: 18px;
 			margin-top: 10px;
+			border: none;
 		}
 	}		
 }
@@ -780,8 +788,7 @@ div.ambassador_off {
 		border-top: 2px solid #ccc;
 		border-bottom: 1px solid #ccc;
 		padding: 5px 0;
-		input.cancel {}
-		input.submit {}
+		input.submit { border: none;}
 	}
 }
 
@@ -975,9 +982,15 @@ div.ambassador_off {
 	div.actions {
 		border-top: 2px solid #ccc;
 		border-bottom: 1px solid #ccc;
-		padding: 5px 0;
-		input.cancel {}
-		input.submit {}
+		padding: 5px 0 5px 0;
+		margin: 0;
+		input {
+			border: none !important;
+			margin: 0;
+			padding: 0;
+			height: 25px;
+			vertical-align: top;
+		}
 	}
 }
 
@@ -1119,18 +1132,13 @@ div.ambassador_agent_id {
 			padding: 0;
 			input {
 				width: 198px;
-				height: 22px;
-				line-height: 22px;
+				height: 16px;
 				padding-left: 3px;
 			}
 		}
 		input.submit {
-			width: 68px;
 			margin-left: 5px;
-			border-left: 1px solid #ddd;
-			border-right: 1px solid #ddd;
-			_border-left: 1px solid #999;
-			_border-right: 1px solid #999;
+			border: none;
 		}
 	}
 	div.share {
@@ -1226,8 +1234,8 @@ div.ambassador_agent_id {
 			label {
 				float: left;
 				input {
-					height: 22px;
-					width: 160px;
+					height: 16px;
+					width: 190px;
 					margin-right: 5px;
 					padding-left: 3px;
 					line-height: 22px;
@@ -1235,9 +1243,7 @@ div.ambassador_agent_id {
 				}
 			}
 			input.submit {
-				float: none;
-				_position: relative;
-				_top: 4px;
+				border: none !important;
 			}
 		} 
 	}
@@ -1400,6 +1406,12 @@ div.ambassador_agent_id {
 				position: absolute;
 				right: 33px;
 				font-size: 12px;
+				img {
+					position: relative;
+					top: 3px;
+					border: none;
+					vertical-align: middle;
+				}
 			}
 		}
 		div.redeemed_rewards {
@@ -1451,7 +1463,7 @@ div.ambassador_agent_id {
 			div.actions {
 				clear: both;
 				text-align: right;
-				input.submit { position: static;}
+				input.submit { border: none; position: static;}
 				input.cancel { position: static;}
 			}
 		}
@@ -1664,8 +1676,8 @@ div.ambassador_agent_id {
 			float: none;
 			margin: 0 30px 0 30px;
 			padding: 4px 0;
-			input.preview {}
-			input.send {}
+			input.preview { border: none;}
+			input.send { border: none;}
 			input.cancel { position: absolute; right: 0px; _right: 30px;}
 		}
 	}

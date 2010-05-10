@@ -123,6 +123,7 @@
   margin: 0;
   padding: 0;
   display: block;
+  border: none;
 }
 #get_started_ambassador div.prepaid_selection {
   border: 1px solid #cccccc;
@@ -186,11 +187,11 @@
   font-size: 11px;
   color: #7590bc;
   margin: 0;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
 }
 #get_started_ambassador fieldset.user_type label input {
   display: block;
-  width: auto;
+  border: none;
 }
 #get_started_featured_ad {
   height: 48px;
@@ -218,6 +219,7 @@
   position: absolute;
   left: 420px;
   bottom: 62px;
+  border: none;
 }
 #ambassador_details div.join {
   background: #d4e4ff;
@@ -230,7 +232,8 @@
 }
 #ambassador_details div.join input {
   position: relative;
-  top: 6px;
+  top: 5px;
+  border: none;
 }
 #ambassador_details ul {
   list-style-type: none;
@@ -306,13 +309,17 @@
 #ambassador_details ul li div.create_id div {
   position: absolute;
   left: 70px;
-  top: 125px;
+  top: 127px;
 }
-#ambassador_details ul li div.create_id div input.input { width: 135px; }
+#ambassador_details ul li div.create_id div input.input {
+  width: 132px;
+  height: 16px;
+  vertical-align: top;
+  padding: 2px 0px 2px 5px;
+}
 #ambassador_details ul li div.create_id div input.submit {
-  width: 42px;
-  border: 1px solid #dddddd;
-  border-width: 0 1px;
+  border: none;
+  vertical-align: top;
 }
 #ambassador_details ul li.last { border-bottom: none; }
 h1.header_primary {
@@ -396,6 +403,7 @@ div.returning_login div.ambassador_unassigned input.submit {
   margin: 0 0 0 10px;
   height: 20px;
   width: 52px;
+  border: none;
 }
 div.returning_login div.ambassador_assigned {
   position: absolute;
@@ -557,6 +565,7 @@ div.ambassador_on div.panel div.unassigned input.input {
 div.ambassador_on div.panel div.unassigned input.submit {
   clear: left;
   margin: 0 0 0 20px;
+  border: none;
 }
 div.ambassador_off p.title {
   margin: 0;
@@ -604,6 +613,7 @@ div.ambassador_off div.trial input.input {
   width: 200px;
   height: 18px;
   margin-top: 10px;
+  border: none;
 }
 #signup_section fieldset.basic {
   border: none;
@@ -721,6 +731,7 @@ div.ambassador_off div.trial input.input {
   border-bottom: 1px solid #cccccc;
   padding: 5px 0;
 }
+#profile_payment_info div.actions input.submit { border: none; }
 #profile_billing_activity div.details {
   margin: 0;
   padding: 0;
@@ -899,7 +910,15 @@ div.ambassador_off div.trial input.input {
 #profile_basic_information_form div.actions {
   border-top: 2px solid #cccccc;
   border-bottom: 1px solid #cccccc;
-  padding: 5px 0;
+  padding: 5px 0 5px 0;
+  margin: 0;
+}
+#profile_basic_information_form div.actions input {
+  border: none !important;
+  margin: 0;
+  padding: 0;
+  height: 25px;
+  vertical-align: top;
 }
 #profile_sidebar {
   margin: 0;
@@ -1031,17 +1050,12 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget.tools fieldset.invitation label input {
   width: 198px;
-  height: 22px;
-  line-height: 22px;
+  height: 16px;
   padding-left: 3px;
 }
 #ambassador_profile_widget.tools fieldset.invitation input.submit {
-  width: 68px;
   margin-left: 5px;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-  _border-left: 1px solid #999999;
-  _border-right: 1px solid #999999;
+  border: none;
 }
 #ambassador_profile_widget.tools div.share { margin: 14px 0; }
 #ambassador_profile_widget.tools div.share span.header {
@@ -1125,18 +1139,14 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget div.introduction fieldset label { float: left; }
 #ambassador_profile_widget div.introduction fieldset label input {
-  height: 22px;
-  width: 160px;
+  height: 16px;
+  width: 190px;
   margin-right: 5px;
   padding-left: 3px;
   line-height: 22px;
   font-style: italic;
 }
-#ambassador_profile_widget div.introduction fieldset input.submit {
-  float: none;
-  _position: relative;
-  _top: 4px;
-}
+#ambassador_profile_widget div.introduction fieldset input.submit { border: none !important; }
 #ambassador_profile_widget div.confirm {
   position: relative;
   float: none;
@@ -1291,6 +1301,12 @@ div.ambassador_agent_id span {
   right: 33px;
   font-size: 12px;
 }
+#ambassador_tools div.tools_container h3.redeem_rewards span img {
+  position: relative;
+  top: 3px;
+  border: none;
+  vertical-align: middle;
+}
 #ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed {
   margin: 0 30px;
   padding: 15px 0;
@@ -1338,7 +1354,10 @@ div.ambassador_agent_id span {
   clear: both;
   text-align: right;
 }
-#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.submit { position: static; }
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.submit {
+  border: none;
+  position: static;
+}
 #ambassador_tools div.tools_container div.redeemed_rewards div.actions input.cancel { position: static; }
 #ambassador_tools div.tools_container div.rewards_terms {
   margin: 0 30px;
@@ -1545,6 +1564,8 @@ div.ambassador_agent_id span {
   margin: 0 30px 0 30px;
   padding: 4px 0;
 }
+#ambassador_tools div.tools_container div.actions input.preview { border: none; }
+#ambassador_tools div.tools_container div.actions input.send { border: none; }
 #ambassador_tools div.tools_container div.actions input.cancel {
   position: absolute;
   right: 0px;

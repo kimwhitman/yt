@@ -55,9 +55,9 @@
             </fieldset>
 
             <div class="actions">
-              <%= submit_tag 'Preview', :class => 'preview', :id => 'preview' %>
-              <%= submit_tag 'Send Invitation', :class => 'send', :id => 'send' %>
-              <%= button_to 'Cancel', profile_user_path(current_user), :class => 'cancel' -%>
+              <%= image_submit_tag 'profile_tools_button_preview.png', :class => 'preview', :id => 'preview' %>
+              <%= image_submit_tag 'profile_tools_button_send-invitation.png', :class => 'send', :id => 'send' %>
+              <%= link_to 'Cancel', profile_user_path(current_user), :class => 'cancel' -%>
             </div>
           <% end %>
 

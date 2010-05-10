@@ -12,7 +12,7 @@
          <label>
             <%= f.text_field :ambassador_name %>
           </label>
-          <%= submit_tag 'Continue', :class => 'submit' %>
+          <input type="image" class="submit" src="/images/profile_widget_button_continue.png"></input>
         </fieldset>
         <% # TODO: Need to pass a param so that a failed update returns to the containing page -%>
       <% end %>
@@ -32,7 +32,7 @@
       <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
       <fieldset>
         <legend><span><a href="#">make a change</a></span></legend>
-        <label><input type="submit" value="Confirm"></input></label>
+        <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
       </fieldset>
     </div>
   <% end %>
@@ -77,16 +77,29 @@
       <fieldset class="invitation">
         <legend><span>E-mail an invitation to:</span></legend>
         <label><%= text_field_tag :recipients %></label>
-        <%= submit_tag 'Continue', :class => "submit" %>
+        <input class="submit" type="image" src="/images/profile_widget_button_continue.png"></input>
       </fieldset>
     <% end %>
 
     <div class="share">
       <span class="header">Share your invitation:</span>
-      <span class="blocks"><img src="/images/ambassador_share_widget.png"></img></span>
+      <span class="blocks"><a class="a2a_dd" href="http://www.addtoany.com/share_save"><%= image_tag 'ambassador_share_widget.png' %></a></span>
     </div>
 
     <span class="help"><a href="#">Help</a></span>
 
   </div>
+<% end %>
+
+<% content_for :javascript_content do %>
+  <% if current_user.share_url %>
+    <script type="text/javascript">
+      a2a_config.linkname = 'Sign up for YogaToday and save!';
+      a2a_config.linkurl = '<%= current_user.share_url.url -%>';
+      a2a_config.templates = {
+        twitter: "Sign up for YogaToday and save! <%= current_user.share_url.url %>"
+      }
+      a2a.init('page');
+    </script>
+  <% end %>
 <% end %>

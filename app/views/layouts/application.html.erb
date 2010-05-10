@@ -111,9 +111,7 @@
 
       images.each { |str| preload << "'#{image_path(str)}'" }
     %>
-
-    <%= yield :javascript_content %>
-
+      
     <script type='text/javascript'>
     jQuery(document).ready(function() {
         var imgUrls = [<%= preload * ',' %>];
@@ -122,12 +120,16 @@
           img.src = imgUrls[i];
         }
       });
-
-      // used by addtoany.com
-      a2a_linkname=document.title;
-      a2a_linkurl=location.href;
+      
+      a2a_config = {
+        linkname: document.title,
+        linkurl: location.href
+      };
     </script>
+    
     <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+
+    <%= yield :javascript_content %>
 
     <% if !request.ssl? %>
       <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>

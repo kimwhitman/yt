@@ -11,7 +11,7 @@ class ShareUrlsController < ApplicationController
         redirect_to @share_url.destination
       else
         # Redirect to Ambassador URL
-        # TODO: Ambassador URL goes here
+        redirect_to "/get-started-today?ambassador=#{@share_url.user.ambassador_name}"
       end
     else
       

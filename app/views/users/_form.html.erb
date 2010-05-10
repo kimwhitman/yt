@@ -23,7 +23,7 @@
         <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
         <% form_tag select_ambassador_users_path do %>
           <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input' %>
-          <%= link_to_function 'enter', 'selectAmbassador()' %>
+          <%= link_to_function image_tag('ambassador_button_enter.png'), 'selectAmbassador()', :class => 'submit' %>
         <% end %>
       </div>
     <% end %>
@@ -104,7 +104,6 @@
 </fieldset>
 
   <div class="actions">
-    <input class="cancel" type="submit" value="Cancel"></input>
-    <%= submit_tag 'Save', :class => 'submit' %>
+    <input class="submit" type="image" src="/images/profile_button_save-changes.png"></input>
   </div>
 
