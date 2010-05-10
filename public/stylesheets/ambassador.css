@@ -633,7 +633,8 @@ div.ambassador_off div.trial input.submit { border: none; }
   width: 280px;
   padding: 0 0 0 3px;
   margin: 0 0 6px 0;
-  height: 18px;
+  height: 20px;
+  line-height: 20px;
 }
 #signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
 #signup_section fieldset.basic label.wide { width: 100%; }
@@ -679,6 +680,7 @@ div.ambassador_off div.trial input.submit { border: none; }
   border-bottom: 1px solid #cccccc;
   padding: 5px 0;
 }
+#signup_section div.actions input.submit { border: none; }
 #profile_payment_info #credit_card fieldset {
   border: none;
   margin: 0;
