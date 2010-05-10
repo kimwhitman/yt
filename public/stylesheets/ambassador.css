@@ -1237,13 +1237,20 @@ div.ambassador_agent_id span {
   font-weight: normal;
 }
 #ambassador_tools div.tools_container div.my_rewards_points {
+  display: block;
+  float: left;
+  clear: both;
   position: relative;
   border: 1px solid #cccccc;
   height: 110px;
   border-bottom-width: 4px;
+  width: 558px;
   margin: 30px 30px 0 30px;
+  _margin: 30px 15px 0 15px;
+  padding: 0;
 }
 #ambassador_tools div.tools_container div.my_rewards_points h3 {
+  position: relative;
   margin: 20px 0 0 15px;
   font-size: 20px;
   font-weight: normal;
@@ -1284,6 +1291,8 @@ div.ambassador_agent_id span {
   color: #7e9aca;
 }
 #ambassador_tools div.tools_container h3.redeem_rewards {
+  position: relative;
+  clear: left;
   margin: 0 30px;
   padding: 0 0 0 10px;
   background: #d9e8ff;
@@ -1293,16 +1302,14 @@ div.ambassador_agent_id span {
   font-size: 16px;
   font-weight: normal;
 }
-#ambassador_tools div.tools_container h3.redeem_rewards span {
+#ambassador_tools div.tools_container h3.redeem_rewards a {
   position: absolute;
-  right: 33px;
-  font-size: 12px;
+  right: 3px;
+  top: 4px;
 }
-#ambassador_tools div.tools_container h3.redeem_rewards span img {
-  position: relative;
-  top: 3px;
+#ambassador_tools div.tools_container h3.redeem_rewards a img {
   border: none;
-  vertical-align: middle;
+  vertical-align: top;
 }
 #ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed {
   margin: 0 30px;

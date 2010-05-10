@@ -1346,12 +1346,19 @@ div.ambassador_agent_id {
 			font-weight: normal;
 		}
 		div.my_rewards_points {
+			display: block;
+			float: left;
+			clear: both;
 			position: relative;
 			border: 1px solid #ccc;
 			height: 110px;
 			border-bottom-width: 4px;
+			width: 558px;
 			margin: 30px 30px 0 30px;
+			_margin: 30px 15px 0 15px;
+			padding: 0;
 			h3 {
+				position: relative;
 				margin: 20px 0 0 15px;
 				font-size: 20px;
 				font-weight: normal;
@@ -1393,6 +1400,8 @@ div.ambassador_agent_id {
 			}
 		}
 		h3.redeem_rewards {
+			position: relative;
+			clear: left;
 			margin: 0 30px;
 			padding: 0 0 0 10px;
 			background: #D9E8FF;
@@ -1401,15 +1410,13 @@ div.ambassador_agent_id {
 			line-height: 33px;
 			font-size: 16px;
 			font-weight: normal;
-			span {
+			a {
 				position: absolute;
-				right: 33px;
-				font-size: 12px;
+				right: 3px;
+				top: 4px;
 				img {
-					position: relative;
-					top: 3px;
 					border: none;
-					vertical-align: middle;
+					vertical-align: top;
 				}
 			}
 		}
