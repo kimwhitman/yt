@@ -260,14 +260,26 @@ class UsersController < ApplicationController
     else
       flash[:error] = "We could not find a person with an ambassador id of '#{ params[:ambassador_name] }'. Please check that you have typed it correctly."
     end
-    @user = User.new
-    render :template => 'users/new'
+
+    case params[:return_to]
+      when 'login'
+        redirect_to '/sessions/new'
+      else
+        @user = User.new
+        render :template => 'users/new'
+    end
   end
 
   def change_ambassador
     cookies.delete :ambassador_user_id
-    @user = User.new
-    render :template => 'users/new'
+
+    case params[:return_to]
+      when 'login'
+        redirect_to '/sessions/new'
+      else
+        @user = User.new
+        render :template => 'users/new'
+    end
   end
 
 

@@ -4,8 +4,8 @@
 
 <div class="ambassador_on">
   <h4>Prepaid Unlimited Membership with 2 week free trial</h4>
-  <p class="radio"><input type="radio"></input>Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></p>
-  <p class="radio"><input type="radio"></input>Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></p>
+  <p class="radio"><%= radio_button_tag 'membership', '365', @billing_cycle == '365' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></p>
+  <p class="radio"><%= radio_button_tag 'membership', 'spring_special', @billing_cycle == 'spring_special' %> Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></p>
 
   <div class="panel">
     <% if @ambassador_user %>
@@ -31,7 +31,6 @@
 </div>
 
 <div class="ambassador_off" style="display: none">
-
   <p class="title">Free Membership</p>
   <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
 
@@ -48,7 +47,6 @@
     <input type="text" class="input"></input>
     <input class="submit" type="submit" value="Enter"></input>
   </div>
-
 </div>
 
 <fieldset class="basic">
