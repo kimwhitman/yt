@@ -603,14 +603,20 @@ div.ambassador_off div.trial p {
   width: 290px;
   color: #666666;
   margin: 0;
+  padding: 0 0 10px 0;
+}
+div.ambassador_off div.trial input {
+  margin: 0;
   padding: 0;
+  vertical-align: top;
 }
 div.ambassador_off div.trial input.input {
   width: 200px;
-  height: 18px;
-  margin-top: 10px;
-  border: none;
+  height: 20px;
+  padding-left: 3px;
+  line-height: 20px;
 }
+div.ambassador_off div.trial input.submit { border: none; }
 #signup_section fieldset.basic {
   border: none;
   margin: 0;
@@ -627,7 +633,8 @@ div.ambassador_off div.trial input.input {
   width: 280px;
   padding: 0 0 0 3px;
   margin: 0 0 6px 0;
-  height: 18px;
+  height: 20px;
+  line-height: 20px;
 }
 #signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
 #signup_section fieldset.basic label.wide { width: 100%; }
@@ -673,6 +680,7 @@ div.ambassador_off div.trial input.input {
   border-bottom: 1px solid #cccccc;
   padding: 5px 0;
 }
+#signup_section div.actions input.submit { border: none; }
 #profile_payment_info #credit_card fieldset {
   border: none;
   margin: 0;
@@ -690,7 +698,8 @@ div.ambassador_off div.trial input.input {
   height: 20px;
   width: 202px;
   margin: 0 0 10px 0;
-  padding: 0;
+  padding: 0 0 0 3px;
+  line-height: 20px;
 }
 #profile_payment_info #credit_card fieldset label label.error {
   height: auto;
@@ -1237,13 +1246,20 @@ div.ambassador_agent_id span {
   font-weight: normal;
 }
 #ambassador_tools div.tools_container div.my_rewards_points {
+  display: block;
+  float: left;
+  clear: both;
   position: relative;
   border: 1px solid #cccccc;
   height: 110px;
   border-bottom-width: 4px;
+  width: 558px;
   margin: 30px 30px 0 30px;
+  _margin: 30px 15px 0 15px;
+  padding: 0;
 }
 #ambassador_tools div.tools_container div.my_rewards_points h3 {
+  position: relative;
   margin: 20px 0 0 15px;
   font-size: 20px;
   font-weight: normal;
@@ -1284,6 +1300,8 @@ div.ambassador_agent_id span {
   color: #7e9aca;
 }
 #ambassador_tools div.tools_container h3.redeem_rewards {
+  position: relative;
+  clear: left;
   margin: 0 30px;
   padding: 0 0 0 10px;
   background: #d9e8ff;
@@ -1293,16 +1311,14 @@ div.ambassador_agent_id span {
   font-size: 16px;
   font-weight: normal;
 }
-#ambassador_tools div.tools_container h3.redeem_rewards span {
+#ambassador_tools div.tools_container h3.redeem_rewards a {
   position: absolute;
-  right: 33px;
-  font-size: 12px;
+  right: 3px;
+  top: 4px;
 }
-#ambassador_tools div.tools_container h3.redeem_rewards span img {
-  position: relative;
-  top: 3px;
+#ambassador_tools div.tools_container h3.redeem_rewards a img {
   border: none;
-  vertical-align: middle;
+  vertical-align: top;
 }
 #ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed {
   margin: 0 30px;
@@ -1393,9 +1409,7 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container fieldset.ask_a_question input.submit {
   margin: 20px 0 0 4px;
-  width: 40px;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
+  border: none;
 }
 #ambassador_tools div.tools_container div.help {
   color: #3b5e84;

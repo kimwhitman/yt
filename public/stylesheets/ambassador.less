@@ -644,12 +644,20 @@ div.ambassador_off {
 			width: 290px;
 			color: #666;
 			margin: 0;
+			padding: 0 0 10px 0;
+		}
+		input {
+			margin: 0;
 			padding: 0;
+			vertical-align: top;
 		}
 		input.input {
 			width: 200px;
-			height: 18px;
-			margin-top: 10px;
+			height: 20px;
+			padding-left: 3px;
+			line-height: 20px;
+		}
+		input.submit {
 			border: none;
 		}
 	}		
@@ -670,7 +678,8 @@ div.ambassador_off {
 				width: 280px;
 				padding: 0 0 0 3px;
 				margin: 0 0 6px 0;
-				height: 18px;
+				height: 20px;
+				line-height: 20px;
 			}
 		}
 		label.end_set input {
@@ -719,7 +728,7 @@ div.ambassador_off {
 		border-bottom: 1px solid #ccc;
 		padding: 5px 0;
 		input.cancel {}
-		input.submit {}
+		input.submit { border: none;}
 	}
 }
 
@@ -741,7 +750,8 @@ div.ambassador_off {
 					height: 20px;
 					width: 202px;
 					margin: 0 0 10px 0;
-					padding: 0;
+					padding: 0 0 0 3px;
+					line-height: 20px;
 				}
 				label.error {
 					height: auto;
@@ -1346,12 +1356,19 @@ div.ambassador_agent_id {
 			font-weight: normal;
 		}
 		div.my_rewards_points {
+			display: block;
+			float: left;
+			clear: both;
 			position: relative;
 			border: 1px solid #ccc;
 			height: 110px;
 			border-bottom-width: 4px;
+			width: 558px;
 			margin: 30px 30px 0 30px;
+			_margin: 30px 15px 0 15px;
+			padding: 0;
 			h3 {
+				position: relative;
 				margin: 20px 0 0 15px;
 				font-size: 20px;
 				font-weight: normal;
@@ -1393,6 +1410,8 @@ div.ambassador_agent_id {
 			}
 		}
 		h3.redeem_rewards {
+			position: relative;
+			clear: left;
 			margin: 0 30px;
 			padding: 0 0 0 10px;
 			background: #D9E8FF;
@@ -1401,15 +1420,13 @@ div.ambassador_agent_id {
 			line-height: 33px;
 			font-size: 16px;
 			font-weight: normal;
-			span {
+			a {
 				position: absolute;
-				right: 33px;
-				font-size: 12px;
+				right: 3px;
+				top: 4px;
 				img {
-					position: relative;
-					top: 3px;
 					border: none;
-					vertical-align: middle;
+					vertical-align: top;
 				}
 			}
 		}
@@ -1502,9 +1519,7 @@ div.ambassador_agent_id {
 			}
 			input.submit {
 				margin: 20px 0 0 4px;
-				width: 40px;
-				border-left: 1px solid #ddd;
-				border-right: 1px solid #ddd;
+				border: none;
 			}
 		}
 		div.help {
