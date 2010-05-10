@@ -378,27 +378,29 @@ div.returning_login div.ambassador_unassigned {
   width: 440px;
   background: #f2f7ff;
   border: 1px solid #dcebff;
+  margin: 0;
+  padding: 0;
 }
 div.returning_login div.ambassador_unassigned p {
   margin: 0;
-  padding: 8px 0 0 10px;
+  padding: 6px 0 2px 10px;
   width: 290px;
   color: #666666;
   font-size: 11px;
 }
 div.returning_login div.ambassador_unassigned input.input {
-  margin: 0 0 4px 10px;
-  padding: 0;
-  width: 202px;
+  margin: 0 0 0 10px;
+  padding: 0 0 0 3px;
+  width: 199px;
   height: 20px;
+  line-height: 20px;
   display: block;
 }
-div.returning_login div.ambassador_unassigned input.submit {
-  margin: 0 0 0 10px;
-  height: 20px;
-  width: 52px;
-  border: none;
+div.returning_login div.ambassador_unassigned .submit {
+  display: block;
+  padding: 2px 0 0 10px;
 }
+div.returning_login div.ambassador_unassigned .submit img { border: none; }
 div.returning_login div.ambassador_assigned {
   position: absolute;
   left: 220px;
