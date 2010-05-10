@@ -1622,6 +1622,9 @@ div.ambassador_agent_id {
 				input {
 					display: block;
 					width: 258px;
+					padding: 0 0 0 3px;
+					height: 20px;
+					line-height: 20px;
 				}
 				span.tip {
 					display: block;
@@ -1650,14 +1653,18 @@ div.ambassador_agent_id {
 				display: block;
 				width: auto;
 				font-size: 14px;
-				line-height: 14px;
+				line-height: 20px;
 				margin-top: 4px;
 				input {
+					margin: 0;
+					padding: 0;
 					display: inline;
 					width: auto;
-					margin: 4px 0;
-					*border: none;
-					*margin: 0;
+					border: none;
+					background: none;
+					vertical-align: bottom;
+					_position: relative;
+					_top: -2px;
 				}
 			}
 			label.instruction {
@@ -1677,7 +1684,18 @@ div.ambassador_agent_id {
 			padding: 4px 0;
 			input.preview { border: none;}
 			input.send { border: none;}
-			input.cancel { position: absolute; right: 0px; _right: 30px;}
+			.cancel { 
+				position: absolute;
+				top: 45%;
+				right: 0px;
+				_right: 30px;
+				text-decoration: underline;
+				color:  @color_ambassador_font;
+				:hover {
+					text-decoration: none;
+					color: #333;
+				}
+			}
 		}
 	}
 }

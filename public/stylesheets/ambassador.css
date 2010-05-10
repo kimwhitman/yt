@@ -1509,6 +1509,9 @@ div.ambassador_agent_id span {
 #ambassador_tools div.tools_container fieldset.invitation label input {
   display: block;
   width: 258px;
+  padding: 0 0 0 3px;
+  height: 20px;
+  line-height: 20px;
 }
 #ambassador_tools div.tools_container fieldset.invitation label span.tip {
   display: block;
@@ -1536,15 +1539,19 @@ div.ambassador_agent_id span {
   display: block;
   width: auto;
   font-size: 14px;
-  line-height: 14px;
+  line-height: 20px;
   margin-top: 4px;
 }
 #ambassador_tools div.tools_container fieldset.invitation label.default input {
+  margin: 0;
+  padding: 0;
   display: inline;
   width: auto;
-  margin: 4px 0;
-  *border: none;
-  *margin: 0;
+  border: none;
+  background: none;
+  vertical-align: bottom;
+  _position: relative;
+  _top: -2px;
 }
 #ambassador_tools div.tools_container fieldset.invitation label.instruction {
   width: 400px;
@@ -1563,8 +1570,15 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container div.actions input.preview { border: none; }
 #ambassador_tools div.tools_container div.actions input.send { border: none; }
-#ambassador_tools div.tools_container div.actions input.cancel {
+#ambassador_tools div.tools_container div.actions .cancel {
   position: absolute;
+  top: 45%;
   right: 0px;
   _right: 30px;
+  text-decoration: underline;
+  color: #4778c5;
+}
+#ambassador_tools div.tools_container div.actions .cancel:hover {
+  text-decoration: none;
+  color: #333333;
 }
