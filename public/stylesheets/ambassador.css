@@ -603,14 +603,20 @@ div.ambassador_off div.trial p {
   width: 290px;
   color: #666666;
   margin: 0;
+  padding: 0 0 10px 0;
+}
+div.ambassador_off div.trial input {
+  margin: 0;
   padding: 0;
+  vertical-align: top;
 }
 div.ambassador_off div.trial input.input {
   width: 200px;
-  height: 18px;
-  margin-top: 10px;
-  border: none;
+  height: 20px;
+  padding-left: 3px;
+  line-height: 20px;
 }
+div.ambassador_off div.trial input.submit { border: none; }
 #signup_section fieldset.basic {
   border: none;
   margin: 0;
