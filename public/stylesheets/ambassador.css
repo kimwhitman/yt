@@ -1400,9 +1400,7 @@ div.ambassador_agent_id span {
 }
 #ambassador_tools div.tools_container fieldset.ask_a_question input.submit {
   margin: 20px 0 0 4px;
-  width: 40px;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
+  border: none;
 }
 #ambassador_tools div.tools_container div.help {
   color: #3b5e84;
