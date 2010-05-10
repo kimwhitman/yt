@@ -29,7 +29,7 @@
               <%= link_to image_tag('ambassador_sharing_preview_twitter.png', :class => 'network'), "http://twitter.com/home?status=Come check out YogaToday and save! #{current_user.share_url.url}" %>
               <%= link_to 'Twitter', "http://twitter.com/home?status=Come check out YogaToday and save! #{current_user.share_url.url}", :class => 'network' %>
               <p>Use our default Invitation or Tweet in your own words. Be sure to keep the special link in your post so you can earn points for each follower that becomes a prepaid subscriber.</p>
-              <a class="network_button" href="#"><img src="/images/ambassador_sharing_button_twitter.png"></a>
+              <%= link_to image_tag('/images/ambassador_sharing_button_twitter.png'), "http://twitter.com/home?status=Come check out YogaToday and save! #{current_user.share_url.url}", :class => 'network_button' %>
             </li>
             <li>
               <a href="#"><img class="network" src="/images/ambassador_sharing_preview_delicious.png" /></a>
