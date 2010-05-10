@@ -3,7 +3,7 @@
   <h4>My Profile</h4>
   <ul>
     <li><%= link_to_unless_current 'Basic Information', profile_user_path(current_user)  %></li>
-    <li><a href="#">My Yoga Queue (4)</a></li>
+    <li><%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %></li>
 
     <% if current_user.ambassador_name %>
     <li><%= link_to_unless_current 'Ambassador Tools', ambassador_tools_invite_by_email_user_path(current_user) %></li>

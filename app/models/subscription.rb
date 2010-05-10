@@ -160,6 +160,7 @@ class Subscription < ActiveRecord::Base
 
   # TODO: needs unit test
   def upgrade_to_premium(_renewal_period = 1)
+    logger.debug "Subscription: #{ _renewal_period }"
     self.saved_subscription_plan_id = self.subscription_plan_id
     sp = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period)
     self.subscription_plan = sp

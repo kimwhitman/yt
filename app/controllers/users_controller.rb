@@ -6,6 +6,22 @@ class UsersController < ApplicationController
     :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription, :select_ambassador,
       :change_ambassador]
   before_filter :setup_ambassador, :only => [:ambassador_tools_invite_by_email, :ambassador_tools_widget_invite_by_email]
+  before_filter :fetch_ambassador, :only => [:new, :create, :select_ambassador, :billing]
+
+
+  def new
+    @user = User.new
+    @user.wants_newsletter = true
+    @user.wants_promos = true
+
+    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
+      @billing_cycle = params[:membership]
+    else
+      @billing_cycle = '1'
+    end
+
+    redirect_to profile_user_path(current_user) if logged_in?
+  end
 
   def create
     @user = User.new params[:user]
@@ -71,20 +87,6 @@ class UsersController < ApplicationController
     @current_user.country = current_user.country.nil? ? "United States" : current_user.country
   end
 
-  def new
-    @user = User.new
-    @user.wants_newsletter = true
-    @user.wants_promos = true
-
-    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
-      @billing_cycle = params[:membership]
-    else
-      @billing_cycle = '1'
-    end
-
-    redirect_to profile_user_path(current_user) if logged_in?
-  end
-
   # Member actions
   def billing
     @user = current_user
@@ -110,7 +112,7 @@ class UsersController < ApplicationController
       return
     end
 
-    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
+    if !params[:membership].blank? && %w(free 1 4 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     elsif @user.has_paying_subscription?
       @billing_cycle = @user.account.subscription.renewal_period.to_s
@@ -118,14 +120,17 @@ class UsersController < ApplicationController
       @billing_cycle = '1'
     end
 
-    if request.post? || request.put?
 
+    # Billing submission
+    if request.post? || request.put?
       @address = SubscriptionAddress.new(:first_name => @creditcard.first_name,
                   :last_name => @creditcard.last_name)
 
       if valid_billing?
         account_upgrade = !@user.has_paying_subscription?
         @user.account.subscription.upgrade_to_premium(@billing_cycle.to_i)
+
+        @user.set_ambassador(cookies[:ambassador_user_id])
 
         migrate_cart!
 
@@ -254,7 +259,6 @@ class UsersController < ApplicationController
   end
 
   def select_ambassador
-    @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name])
     if @ambassador_user
       cookies[:ambassador_user_id] = @ambassador_user.id.to_s
     else
@@ -271,6 +275,7 @@ class UsersController < ApplicationController
   end
 
   def change_ambassador
+    @change_ambassador = true
     cookies.delete :ambassador_user_id
 
     case params[:return_to]
@@ -299,6 +304,14 @@ class UsersController < ApplicationController
       ambassador_invite_with_default_body = current_user.ambassador_invite_with_default_body
       ambassador_params[:body] = ambassador_invite_with_default_body.body if ambassador_invite_with_default_body
       @ambassador_invite = AmbassadorInvite.new(ambassador_params)
+    end
+
+    def fetch_ambassador
+      @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if params[:ambassador_name]
+logger.debug "***** COOKIE #{ cookies[:ambassador_user_id] }"
+      @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
+      # TODO
+      #@ambassador_user = current_user.ambassador if @ambassador_user.nil?
     end
 
 

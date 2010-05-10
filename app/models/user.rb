@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :invites
   has_many :ambassador_invites
   has_one :share_url
+  belongs_to :ambassador, :class_name => 'User'
 
   # Validations
   validates_acceptance_of :agree_to_terms
@@ -213,6 +214,16 @@ class User < ActiveRecord::Base
       end
     else
       false
+    end
+  end
+
+  def set_ambassador!(ambassador_user_id)
+    # If the user has an ambassador id and a paid plan then associate the two users
+    unless ambassador_user_id.nil?
+      if true # subscription plan is paid?
+        self.ambassador = User.find(ambassador_user_id)
+        self.save
+      end
     end
   end
 

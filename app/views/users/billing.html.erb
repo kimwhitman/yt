@@ -12,20 +12,22 @@
     <% if @user.has_paying_subscription? %>
       <%
         subscription = @user.account.subscription
-        plan         = subscription.subscription_plan
+        plan = subscription.subscription_plan
       %>
 
       <% if subscription.amount > 0 %>
-      <h3>You are currently using card <%= subscription.card_number %> (expires on <%= subscription.card_expiration %>).</h3>
-      <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %>  for <%= number_to_currency(subscription.amount)%></h3>
+        <h3>You are currently using card <%= subscription.card_number %> (expires on <%= subscription.card_expiration %>).</h3>
+        <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %>  for <%= number_to_currency(subscription.amount)%></h3>
       <% end %>
 
       <% if plan.name == 'Premium' && plan.renewal_period == 12 %>
-      <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
+        <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
       <% elsif plan.name == 'Premium' && plan.renewal_period == 1 %>
-      <h3>You are signed up for monthly billing</h3>
+        <h3>You are signed up for monthly billing</h3>
+      <% elsif plan.name == 'Spring Signup Special' && plan.renewal_period == 4 %>
+        <h3>You are signed up for the Spring Special. After the four month period has ended you will be billed monthly.</h3>
       <% else %>
-      <h3>You are signed up for a free account</h3>
+        <h3>You are signed up for a free account</h3>
       <% end %>
 
       <p><strong><em>For security purposes, your personal information is not shown here.</em></strong></p>
@@ -42,47 +44,58 @@
     <div id="container_4col" style="float:left;">
       <div id="profile_payment_info">
 
-        <div class="ambassador_on">
-          <h4>Prepaid Unlimited Membership with 2 week free trial</h4>
-          <p class="radio"><input type="radio"></input>Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></p>
-          <p class="radio"><input type="radio"></input>Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></p>
-          <div class="panel">
-            <div class="assigned">
-              <h5>Your Ambassador</h5>
-              <div class="ambassador_agent_id">
-                <span>joinSunny26</span>
+        <% if current_user.ambassador.nil? && (@ambassador_user || @change_ambassador) %>
+          <div class="ambassador_on">
+            <h4>Prepaid Unlimited Membership with 2 week free trial</h4>
+            <p class="radio"><%= radio_button_tag 'membership', 'Premium', @billing_cycle == '12' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></p>
+            <p class="radio"><%= radio_button_tag 'membership', '4', @billing_cycle == '4' %> Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></p>
+            <div class="panel">
+              <% if @ambassador_user %>
+                <div class="assigned">
+                  <h5>Your Ambassador</h5>
+                  <div class="ambassador_agent_id">
+                    <span><%= @ambassador_user.ambassador_name %></span>
+                  </div>
+                  <%= hidden_field_tag :ambassador_user_id, @ambassador_user.id %>
+                  <p><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</p>
+                  <%= link_to 'Not your ambassador?', change_ambassador_users_path, :class => 'change_ambassador', :method => :post %>
+                </div>
+              <% else %>
+                <div class="unassigned">
+                  <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
+                  <% form_tag select_ambassador_users_path do %>
+                    <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input' %>
+                    <%= link_to_function image_tag('ambassador_button_enter.png'), 'selectAmbassador()', :class => 'submit' %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if current_user.ambassador || (@ambassador_user.nil? && @change_ambassador.nil?) %>
+          <div class="ambassador_off">
+            <p class="title">Free Membership</p>
+            <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
+
+            <p class="title">Monthly Unlimited Membership</p>
+            <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
+
+            <p class="title">Prepaid Unlimited Membership</p>
+            <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
+            <!-- <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p> -->
+
+            <% if current_user.ambassador.nil? %>
+              <div class="trial">
+                <h3>2 Week Free Trial</h3>
+                <p>Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.</p>
+                <input type="text" class="input"></input>
+                <input class="submit" type="submit" value="Enter"></input>
               </div>
-              <p><input type="checkbox">Notify this Ambassador by e-mail when I subscribe.</p>
-              <a href="#" class="change_ambassador">Not your Ambassador?</a>
-            </div>
-            <div class="unassigned" style="display: none;">
-              <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
-              <input type="text" class="input"></input>
-              <input type="image" class="submit" src="/images/ambassador_button_enter.png"></input>
-            </div>
+            <% end %>
           </div>
-        </div>
+        <% end %>
 
-        <div class="ambassador_off" style="display: none">
-
-          <p class="title">Free Membership</p>
-          <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
-
-          <p class="title">Monthly Unlimited Membership</p>
-          <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
-
-          <p class="title">Prepaid Unlimited Membership</p>
-          <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
-          <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p>
-
-          <div class="trial">
-            <h3>2 Week Free Trial</h3>
-            <p>Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.</p>
-            <input type="text" class="input"></input>
-            <input type="image" class="submit" src="/images/ambassador_button_enter.png"></input>
-          </div>
-
-        </div>
 
         <div id="credit_card">
           <fieldset>

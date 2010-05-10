@@ -42,7 +42,9 @@ var billing = {
         'agree_to_terms': 'required'
       },
       messages: {
-        'creditcard[number]': "A valid credit card is required",
+        <% unless RAILS_ENV == 'development' %>
+          'creditcard[number]': "A valid credit card is required",
+        <% end %>
         'creditcard[verification_value]': "A Verification Value is required",
         'creditcard[first_name]': "Your First Name is required",
         'creditcard[last_name]': "Your Last Name is required",
