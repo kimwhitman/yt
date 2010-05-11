@@ -70,20 +70,21 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
+    logger.debug "DEBUG: Subscription charge Amount=#{ amount }"
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
+      logger.debug "DEBUG: Subscription charge success"
 
       # dates to be used by SubscriptionPayment
       start_date = self.next_renewal_at
       end_date   = self.next_renewal_at.advance(:months => self.renewal_period)
-
       update_attributes(:next_renewal_at => end_date, :state => 'active')
 
-      logger.debug("DEBUG Charge by adding new payment")
-
+      logger.debug("DEBUG: Charge by adding new payment")
       subscription_payments.create(:account => account, :amount => amount,
         :transaction_id => @response.authorization,
         :start_date => start_date,
-        :end_date => end_date) unless amount == 0
+        :end_date => end_date,
+        :payment_method => "Card #{ self.card_number }") unless amount == 0
 
       billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
 
@@ -367,22 +368,23 @@ class Subscription < ActiveRecord::Base
 
         # Does the subscription plan need to move to another plan when this one expires?
         if subscription.subscription_plan.transitions_to_subscription_plan
+          new_plan = subscription.subscription_plan.transitions_to_subscription_plan
           p "Subscription plan has expired. Transitioning to new plan: #{ subscription.subscription_plan.name }"
           subscription.saved_subscription_plan_id = subscription.subscription_plan_id
           subscription.subscription_plan_id = subscription.subscription_plan.transitions_to_subscription_plan_id
-          subscription.amount = subscription.subscription_plan.amount
-          subscription.next_renewal_at = Time.now.advance(:months => subscription.subscription_plan.renewal_period)
+          subscription.renewal_period = new_plan.renewal_period
+          subscription.amount = new_plan.amount
+          subscription.save
           p subscription
+          p "DEBUG: New subscription plan Amount=$#{ subscription.amount }"
         end
 
         if subscription.subscription_plan.name != 'Free'
           if subscription.charge
-            # comment out to avaid double receipts
+            # comment out to avoid double receipts
             #SubscriptionNotifier.deliver_charge_receipt(subscription.subscription_payments.last)
             p "#{Time.now} Charged"
             subscription.save
-
-            # TODO Is this Subscription/SubscriptionPlan eligible for an Ambassador reward?
             subscription.account.users.last.apply_ambassador_points!
           else
             SubscriptionNotifier.deliver_charge_failure(subscription)

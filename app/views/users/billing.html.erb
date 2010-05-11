@@ -79,7 +79,8 @@
             <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
             <p class="title">Prepaid Unlimited Membership</p>
             <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
-            <!-- <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p> -->
+            <p class="radio end_set"><%= radio_button_tag 'membership', 'Spring Signup Special', @billing_cycle == 'Spring Signup Special' %> Spring Signup Special: Four months for $34.95 - saves you 13%</p>
+
 
             <% if current_user.ambassador.nil? %>
               <div class="trial">

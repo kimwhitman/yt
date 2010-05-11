@@ -229,15 +229,17 @@ class User < ActiveRecord::Base
 
   def apply_ambassador_points!
     if self.ambassador && !self.has_rewarded_ambassador? && self.account.subscription.subscription_plan.generates_ambassador_reward?
-      self.ambassador.increment(:points_earned)
-      self.ambassador.increment(:points_current)
-      self.ambassador.increment(:successful_referrals_count)
+      logger.debug "DEBUG: Applying ambassador points #{ self.ambassador.id } #{ !self.has_rewarded_ambassador? } #{ self.account.subscription.subscription_plan.generates_ambassador_reward? }"
+      self.ambassador.increment!(:points_earned)
+      self.ambassador.increment!(:points_current)
+      self.ambassador.increment!(:successful_referrals_count)
       if self.notify_ambassador_of_reward?
         # TODO Send an email notification to the ambassador
         #UserMailer.deliver_ambassador_reward_notification(ambassador, self)
       end
       self.has_rewarded_ambassador = true
       self.save
+      logger.debug "DEBUG: Applied #{ self.ambassador.inspect }"
     end
   end
 
