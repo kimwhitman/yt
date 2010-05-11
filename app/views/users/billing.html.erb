@@ -76,11 +76,11 @@
         <% if current_user.ambassador || (@ambassador_user.nil? && @change_ambassador.nil?) %>
           <div class="ambassador_off">
             <p class="title">Free Membership</p>
-            <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
+            <label class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</label>
             <p class="title">Monthly Unlimited Membership</p>
-            <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
+            <label class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</label>
             <p class="title">Prepaid Unlimited Membership</p>
-            <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
+            <label class="radio end_set"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</label>
             <!-- <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p> -->
 
             <% if current_user.ambassador.nil? %>
