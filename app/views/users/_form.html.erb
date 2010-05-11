@@ -81,11 +81,6 @@
     <%= f.password_field :password_confirmation %>
   </label>
 
-  <label class="spam wide end_set">
-    anti-spam check
-    <%= show_simple_captcha(:image_style => 'simply_black', :size => 30) %>
-  </label>
-
   <label class="checkbox">
     <%= f.check_box :wants_newsletter %>
     Send me the weekly Yoga Today newsletter and weekly class update.
