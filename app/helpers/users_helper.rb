@@ -30,7 +30,7 @@ module UsersHelper
     if subscription_payment
       billing_period(subscription_payment)
     else
-      '-'
+      'n/a'
     end
   end
 
@@ -44,7 +44,7 @@ module UsersHelper
         "$#{ subscription_payment.amount }"
       end
     else
-      '-'
+      'n/a'
     end
   end
 end
