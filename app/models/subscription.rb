@@ -37,10 +37,10 @@ class Subscription < ActiveRecord::Base
     # Clear out payment info if switching to CC from PayPal
     destroy_gateway_record(paypal) if paypal?
 
-    Rails.logger.info "Attempting to store credit card details for Account ID: #{self.account_id}"
-    Rails.logger.debug gateway.class
-    Rails.logger.debug "Gateway options: #{gateway.options.inspect}"
-    Rails.logger.debug "Card info: #{creditcard.inspect}"
+    Rails.logger.info "DEBUG Attempting to store credit card details for Account ID: #{self.account_id}"
+    Rails.logger.debug "DEBUG #{ gateway.class }"
+    Rails.logger.debug "DEBUG Gateway options: #{gateway.options.inspect}"
+    Rails.logger.debug "DEBUG Card info: #{creditcard.inspect}"
 
     @response = if billing_id.blank?
       gateway.store(creditcard, gw_options)
@@ -70,7 +70,6 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
-
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
 
       # dates to be used by SubscriptionPayment
@@ -79,7 +78,7 @@ class Subscription < ActiveRecord::Base
 
       update_attributes(:next_renewal_at => end_date, :state => 'active')
 
-      logger.debug("Charge by adding new payment")
+      logger.debug("DEBUG Charge by adding new payment")
 
       subscription_payments.create(:account => account, :amount => amount,
         :transaction_id => @response.authorization,
@@ -159,14 +158,25 @@ class Subscription < ActiveRecord::Base
   end
 
   # TODO: needs unit test
-  def upgrade_to_premium(_renewal_period = 1)
-    logger.debug "Subscription: #{ _renewal_period }"
+  def upgrade_to_premium(_renewal_period = 1, ambassador_user_id = nil)
     self.saved_subscription_plan_id = self.subscription_plan_id
     sp = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period)
+    logger.debug "Subscription upgrade: Name=#{ sp.name }"
     self.subscription_plan = sp
     self.amount = sp.amount
     self.renewal_period = _renewal_period
     self.save!
+    self.account.users.last.set_ambassador!(ambassador_user_id)
+  end
+
+  def upgrade_plan(subscription_plan, ambassador_user_id = nil)
+    logger.debug "Subscription upgrade: Name=#{ subscription_plan.name }"
+    self.saved_subscription_plan_id = self.subscription_plan_id
+    self.subscription_plan = subscription_plan
+    self.amount = subscription_plan.amount
+    self.renewal_period = subscription_plan.renewal_period
+    self.save!
+    self.account.users.last.set_ambassador!(ambassador_user_id)
   end
 
   # TODO: needs unit test
@@ -197,10 +207,15 @@ class Subscription < ActiveRecord::Base
       self.billing_id = @response.token unless @response.token.blank?
 
       if new_record?
+        # =======================================================================================================
+        # NOTE: This all looks like non-functional code in this part of the condition, and may need to be deleted
+        # The code is always going into the 'else' part
+        # =======================================================================================================
         if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight
           if subscription_plan.trial_period?
-            logger.info("in trial")
+            logger.info("DEBUG Trial period #{ subscription_plan.trial_period }")
             self.next_renewal_at = Time.now.advance(:months => subscription_plan.trial_period)
+            self.state = 'trial'
           else
             charge_amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : amount
             if amount == 0 || gateway.options[:test] == 'true' || (@response = gateway.purchase(charge_amount * 100, billing_id)).success?
@@ -227,6 +242,7 @@ class Subscription < ActiveRecord::Base
               return false
             end
           end
+          self.save!
         end
       else
         # amount_changed? looks dangerous here,
@@ -234,10 +250,9 @@ class Subscription < ActiveRecord::Base
         # ...or downgrading their account. But downgrades don't trigger set_billing.
         # And even if they did, they wouldn't cause a credit card charge.
         # -- ARRON WASHINGTON
-
         if !next_renewal_at? || next_renewal_at < 1.day.from_now.at_midnight || amount_changed?
           self.amount = subscription_plan.setup_amount? ? subscription_plan.setup_amount : subscription_plan.amount
-          logger.info("amount = #{amount.to_s}")
+          logger.debug("Amount = #{amount.to_s}")
 
           # To test rejected charge
           # if ((gateway.options[:test] == 'true') && card_number.include?('1111'))
@@ -253,7 +268,7 @@ class Subscription < ActiveRecord::Base
           # transaction_id is calculated differently between gateways, so
           # this will get us a valid one
           if gateway.class == ActiveMerchant::Billing::BogusGateway
-            logger.info "Using BogusGateway"
+            logger.debug "Using BogusGateway"
             @response = gateway.purchase(amount_in_pennies, cc)
             trans_id = @response.success? ? 1 : 'err'
           else
@@ -261,24 +276,30 @@ class Subscription < ActiveRecord::Base
             trans_id = @response.authorization
           end
 
-          logger.debug("Response is #{@response}")
+          logger.debug("Response is #{ @response.inspect }")
 
           if amount == 0 || @response.success? || gateway.options[:test] == 'true'
             self.state = 'active'
 
             # dates to be used by SubscriptionPayment
             start_date = self.next_renewal_at
-            end_date   = Time.now.advance(:months => renewal_period)
+            if self.subscription_plan.is_trial?
+              end_date = Time.now.advance(self.subscription_plan.trial_period_type.to_sym => self.subscription_plan.trial_period)
+            else
+              end_date = Time.now.advance(:months => renewal_period)
+            end
 
             logger.debug("Set billing by adding new payment for existing record")
 
             self.next_renewal_at = end_date
             self.save!
+            logger.debug "DEBUG Subscription=#{ self.inspect }"
 
             subscription_payments.create(:account => account, :amount => amount,
               :transaction_id => trans_id,
               :start_date => start_date,
-              :end_date => end_date)
+              :end_date => end_date,
+              :payment_method => "Card #{ self.card_number }")
 
             billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
           else
@@ -336,5 +357,58 @@ class Subscription < ActiveRecord::Base
         end
       end
       false
+    end
+
+    def self.charge_due_accounts
+      subscriptions = Subscription.find_due
+      subscriptions.each do |subscription|
+        puts "Name: #{ subscription.account.users.last.name } Plan: #{ subscription.subscription_plan }"
+        p subscription
+
+        # Does the subscription plan need to move to another plan when this one expires?
+        if subscription.subscription_plan.transitions_to_subscription_plan
+          p "Subscription plan has expired. Transitioning to new plan: #{ subscription.subscription_plan.name }"
+          subscription.saved_subscription_plan_id = subscription.subscription_plan_id
+          subscription.subscription_plan_id = subscription.subscription_plan.transitions_to_subscription_plan_id
+          subscription.amount = subscription.subscription_plan.amount
+          subscription.next_renewal_at = Time.now.advance(:months => subscription.subscription_plan.renewal_period)
+          p subscription
+        end
+
+        if subscription.subscription_plan.name != 'Free'
+          if subscription.charge
+            # comment out to avaid double receipts
+            #SubscriptionNotifier.deliver_charge_receipt(subscription.subscription_payments.last)
+            p "#{Time.now} Charged"
+            subscription.save
+
+            # TODO Is this Subscription/SubscriptionPlan eligible for an Ambassador reward?
+            subscription.account.users.last.apply_ambassador_points!
+          else
+            SubscriptionNotifier.deliver_charge_failure(subscription)
+            puts "#{Time.now} Failed to charge #{subscription.inspect}"
+          end
+        else
+          puts "#{Time.now} Not charging free #{subscription.inspect}"
+        end
+
+        p "=================================================="
+      end
+      true
+    end
+
+    def charge_past_due_accounts
+      subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (45.days.ago .. Date.today ) })
+      subscriptions.each do |subscription|
+        p subscription
+        if subscription.charge
+          puts "#{Time.now} Charged #{subscription.inspect}"
+          subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => true})
+        else
+          SubscriptionNotifier.deliver_charge_failure(subscription)
+          puts "#{Time.now} Failed to charge #{subscription.inspect}"
+          subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => false})
+        end
+      end
     end
 end

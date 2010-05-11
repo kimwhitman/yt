@@ -6,8 +6,8 @@
   <div class="ambassador_on">
     <fieldset>
       <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>
-      <label><%= radio_button_tag 'membership', 12, @billing_cycle == '12' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></label>
-      <label><%= radio_button_tag 'membership', 4, @billing_cycle == '4' %> Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></label>
+      <label><%= radio_button_tag 'membership', 'Premium Trial', @billing_cycle == 'Premium Trial' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></label>
+      <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></label>
     </fieldset>
     <div class="panel">
       <% if @ambassador_user %>
@@ -43,13 +43,14 @@
 
     <p class="title">Prepaid Unlimited Membership</p>
     <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
-    <p class="radio end_set">Spring Signup Special: Four months for $34.95 - saves you 13%</p>
+    <p class="radio end_set"><%= radio_button_tag 'membership', 'Spring Signup Special', @billing_cycle == 'Spring Signup Special' %> Spring Signup Special: Four months for $34.95 - saves you 13%</p>
 
     <div class="trial">
       <h3>2 Week Free Trial</h3>
       <p>Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.</p>
-      <input type="text" class="input"></input>
-      <input class="submit" type="submit" value="Enter"></input>
+      <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input' %>
+      <%= link_to_function image_tag('ambassador_button_enter.png'), 'selectAmbassador()', :class => 'submit' %>
+
     </div>
   </div>
 <% end %>

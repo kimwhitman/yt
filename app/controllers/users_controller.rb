@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.new
     @user.wants_newsletter = true
     @user.wants_promos = true
+    setup_fake_values
 
     if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
@@ -87,10 +88,16 @@ class UsersController < ApplicationController
   def billing
     @user = current_user
     @user.attributes = params[:user]
-
     # @user.add_to_base("You must agree to Membership Terms and Details") unless @user.agree_to_terms?
-
     @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
+    if request.get? && Rails.env == 'development'
+      @creditcard.number = '1'
+      @creditcard.verification_value = '123'
+      #@creditcard.year = Time.now.year + 1
+      @creditcard.first_name = 'John'
+      @creditcard.last_name = 'Smith'
+      @user.agree_to_terms = 1
+    end
 
     begin
       @date = Date.parse("#{@creditcard.month}/#{@creditcard.year}")
@@ -108,25 +115,42 @@ class UsersController < ApplicationController
       return
     end
 
-    if !params[:membership].blank? && %w(free 1 4 12).include?(params[:membership])
+    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     elsif @user.has_paying_subscription?
       @billing_cycle = @user.account.subscription.renewal_period.to_s
     else
-      @billing_cycle = '1'
+      # GB 5/11/10 Not allowing a default plan selection anymore as it can be confusing
+      # Validation now also ensures that a plan has been selected
+      #@billing_cycle = '1'
+    end
+
+    if !params[:membership].blank? && ['Premium Trial'].include?(params[:membership])
+      @billing_cycle = 'Premium Trial'
+      @subscription_plan = SubscriptionPlan.find_by_name_and_trial_period('Premium', 14)
+    end
+
+    if !params[:membership].blank? && ['Spring Signup Special Trial'].include?(params[:membership])
+      @billing_cycle = 'Spring Signup Special Trial'
+      @subscription_plan = SubscriptionPlan.find_by_name_and_trial_period('Spring Signup Special', 14)
     end
 
 
-    # Billing submission
+
+    # BILLING SUBMISSION
     if request.post? || request.put?
       @address = SubscriptionAddress.new(:first_name => @creditcard.first_name,
-                  :last_name => @creditcard.last_name)
+        :last_name => @creditcard.last_name)
 
       if valid_billing?
         account_upgrade = !@user.has_paying_subscription?
-        @user.account.subscription.upgrade_to_premium(@billing_cycle.to_i)
 
-        @user.set_ambassador(cookies[:ambassador_user_id])
+        # Changing to a paid plan
+        if @subscription_plan
+          @user.account.subscription.upgrade_plan(@subscription_plan, cookies[:ambassador_user_id])
+        else
+          @user.account.subscription.upgrade_to_premium(@billing_cycle.to_i, cookies[:ambassador_user_id])
+        end
 
         migrate_cart!
 
@@ -163,7 +187,11 @@ class UsersController < ApplicationController
         end
 
         errors = @creditcard.errors.full_messages + @address.errors.full_messages + @user.account.subscription.errors.full_messages
-        logger.info "Subscription Error: #{errors}"
+        if @billing_cycle.nil? && @subscription_plan.nil?
+          errors << "You must select a membership type."
+          @user.errors.add_to_base "You must select a membership type."
+        end
+        logger.debug "DEBUG: Subscription Error: #{ errors.join("<br/>") }"
         flash[:error_messages] = errors.join("<br/>")
       end
 
@@ -264,8 +292,11 @@ class UsersController < ApplicationController
     case params[:return_to]
       when 'login'
         redirect_to '/sessions/new'
+      when 'billing'
+        redirect_to billing_user_path(current_user)
       else
         @user = User.new
+        setup_fake_values
         render :template => 'users/new'
     end
   end
@@ -277,8 +308,11 @@ class UsersController < ApplicationController
     case params[:return_to]
       when 'login'
         redirect_to '/sessions/new'
+      when 'billing'
+        redirect_to billing_user_path(current_user)
       else
         @user = User.new
+        setup_fake_values
         render :template => 'users/new'
     end
   end
@@ -303,11 +337,18 @@ class UsersController < ApplicationController
     end
 
     def fetch_ambassador
-      @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if params[:ambassador_name]
-logger.debug "***** COOKIE #{ cookies[:ambassador_user_id] }"
+      @ambassador_user = current_user.ambassador if current_user
+      @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
       @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
-      # TODO
-      #@ambassador_user = current_user.ambassador if @ambassador_user.nil?
+    end
+
+    def setup_fake_values
+      if Rails.env == 'development'
+        @user.name = Faker::Name.last_name
+        @user.email = @user.email_confirmation = Faker::Internet.email
+        @user.password = @user.password_confirmation = Faker::Name.first_name << Faker::Name.last_name
+        logger.debug "DEBUG User=#{ @user.inspect }"
+      end
     end
 
 
@@ -315,6 +356,7 @@ logger.debug "***** COOKIE #{ cookies[:ambassador_user_id] }"
   private
 
     def valid_billing?
-      @user.valid? && @creditcard.valid? && @address.valid?
+      logger.debug "DEBUG: Validating billing_cycle=#{ @billing_cycle } SubscriptionPlan=#{ @subscription_plan }"
+      @user.valid? && @creditcard.valid? && @address.valid? && (@billing_cycle || @subscription_plan)
     end
 end

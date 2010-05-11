@@ -37,14 +37,14 @@ module UsersHelper
   def current_membership_amount
     subscription_payment = current_user.account.subscription_payments.find(:first,
       :conditions => ['now() BETWEEN start_date AND end_date'])
-    if subscription_payment
-      if subscription_payment.payment_method == SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD
-        'FREE'
-      else
-        "$#{ subscription_payment.amount }"
-      end
+    if subscription_payment && subscription_payment.payment_method == SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD
+      'FREE'
     else
-      'n/a'
+      if current_user.account.subscription.subscription_plan.is_trial?
+        "$#{ current_user.account.subscription.subscription_plan.transitions_to_subscription_plan.amount }"
+      else
+        "$#{ current_user.account.subscription.subscription_plan.amount }"
+      end
     end
   end
 

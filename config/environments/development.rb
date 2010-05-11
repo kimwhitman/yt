@@ -3,6 +3,7 @@
 HOST = 'yogatoday.local'
 
 config.gem 'deadweight'
+config.gem 'faker', :version => '0.3.1'
 
 # In the development environment your application's code is reloaded on
 # every request.  This slows down response time but is perfect for development
