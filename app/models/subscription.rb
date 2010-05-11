@@ -384,7 +384,6 @@ class Subscription < ActiveRecord::Base
             # comment out to avoid double receipts
             #SubscriptionNotifier.deliver_charge_receipt(subscription.subscription_payments.last)
             p "#{Time.now} Charged"
-            subscription.save
             subscription.account.users.last.apply_ambassador_points!
           else
             SubscriptionNotifier.deliver_charge_failure(subscription)

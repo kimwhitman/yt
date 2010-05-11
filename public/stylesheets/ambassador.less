@@ -464,7 +464,8 @@ div.returning_login {
 				color: #333;
 			}
 		}
-		p.checkbox {
+		label.checkbox {
+			display: block;
 			font-size: 11px;
 			color: #666;
 			margin: 0;
@@ -560,7 +561,8 @@ div.ambassador_on {
 					top: 8px;
 				}
 			}
-			p {
+			label {
+				display: block;
 				margin: 0 0 0 38px;
 				padding: 0;
 				font-size: 11px;
@@ -629,7 +631,8 @@ div.ambassador_off {
 		font-size: 12px;
 		color: #666;
 	}
-	p.radio {
+	label.radio {
+		display: block;
 		margin: 0;
 		padding: 0;
 		line-height: 24px;
@@ -640,8 +643,8 @@ div.ambassador_off {
 			background: none;
 		}
 	}
-	p.end_set {
-		margin-bottom: 10px;
+	.end_set {
+		margin-bottom: 10px !important;
 	}
 	div.trial {
 		width: 400px;
@@ -676,8 +679,8 @@ div.ambassador_off {
 			padding-left: 3px;
 			line-height: 20px;
 		}
-		input.submit {
-			border: none;
+		.submit {
+			img {	border: none;}
 		}
 	}		
 }

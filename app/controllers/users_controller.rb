@@ -135,6 +135,10 @@ class UsersController < ApplicationController
       @subscription_plan = SubscriptionPlan.find_by_name_and_trial_period('Spring Signup Special', 14)
     end
 
+    if !params[:membership].blank? && ['Spring Signup Special'].include?(params[:membership])
+      @billing_cycle = 'Spring Signup Special'
+      @subscription_plan = SubscriptionPlan.find_by_name_and_renewal_period('Spring Signup Special', 4)
+    end
 
 
     # BILLING SUBMISSION

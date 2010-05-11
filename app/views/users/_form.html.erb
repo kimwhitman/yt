@@ -17,7 +17,7 @@
             <span><%= @ambassador_user.ambassador_name %></span>
           </div>
           <%= hidden_field_tag :ambassador_user_id, @ambassador_user.id %>
-          <p><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</p>
+          <label><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</label>
           <%= link_to 'Not your ambassador?', change_ambassador_users_path, :class => 'change_ambassador', :method => :post %>
         </div>
       <% else %>
@@ -36,14 +36,14 @@
 <% if @ambassador_user.nil? && @change_ambassador.nil? %>
   <div class="ambassador_off">
     <p class="title">Free Membership</p>
-    <p class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</p>
+    <label class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</label>
 
     <p class="title">Monthly Unlimited Membership</p>
-    <p class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</p>
+    <label class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</label>
 
     <p class="title">Prepaid Unlimited Membership</p>
-    <p class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</p>
-    <p class="radio end_set"><%= radio_button_tag 'membership', 'Spring Signup Special', @billing_cycle == 'Spring Signup Special' %> Spring Signup Special: Four months for $34.95 - saves you 13%</p>
+    <label class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</label>
+    <label class="radio end_set"><%= radio_button_tag 'membership', 'Spring Signup Special', @billing_cycle == 'Spring Signup Special' %> Spring Signup Special: Four months for $34.95 - saves you 13%</label>
 
     <div class="trial">
       <h3>2 Week Free Trial</h3>

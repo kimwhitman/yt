@@ -433,7 +433,8 @@ div.returning_login div.ambassador_assigned a.change_ambassador {
   text-decoration: underline;
 }
 div.returning_login div.ambassador_assigned a.change_ambassador:hover { color: #333333; }
-div.returning_login div.ambassador_assigned p.checkbox {
+div.returning_login div.ambassador_assigned label.checkbox {
+  display: block;
   font-size: 11px;
   color: #666666;
   margin: 0;
@@ -443,7 +444,7 @@ div.returning_login div.ambassador_assigned p.checkbox {
   left: 248px;
   width: 180px;
 }
-div.returning_login div.ambassador_assigned p.checkbox input {
+div.returning_login div.ambassador_assigned label.checkbox input {
   position: absolute;
   left: -18px;
   top: 0px;
@@ -529,7 +530,8 @@ div.ambassador_on div.panel div.assigned div.ambassador_agent_id span {
   left: 60px;
   top: 8px;
 }
-div.ambassador_on div.panel div.assigned p {
+div.ambassador_on div.panel div.assigned label {
+  display: block;
   margin: 0 0 0 38px;
   padding: 0;
   font-size: 11px;
@@ -538,7 +540,7 @@ div.ambassador_on div.panel div.assigned p {
   position: relative;
   line-height: 12px;
 }
-div.ambassador_on div.panel div.assigned p input {
+div.ambassador_on div.panel div.assigned label input {
   position: absolute;
   top: 0;
   left: -18px;
@@ -589,18 +591,19 @@ div.ambassador_off p.title {
   font-size: 12px;
   color: #666666;
 }
-div.ambassador_off p.radio {
+div.ambassador_off label.radio {
+  display: block;
   margin: 0;
   padding: 0;
   line-height: 24px;
 }
-div.ambassador_off p.radio input {
+div.ambassador_off label.radio input {
   padding: 0;
   margin: 0 6px 0 0;
   border: none;
   background: none;
 }
-div.ambassador_off p.end_set { margin-bottom: 10px; }
+div.ambassador_off .end_set { margin-bottom: 10px !important; }
 div.ambassador_off div.trial {
   width: 400px;
   margin: 0 0 10px 0;
@@ -635,7 +638,7 @@ div.ambassador_off div.trial input.input {
   padding-left: 3px;
   line-height: 20px;
 }
-div.ambassador_off div.trial input.submit { border: none; }
+div.ambassador_off div.trial .submit img { border: none; }
 #signup_section fieldset.basic {
   border: none;
   margin: 0;
