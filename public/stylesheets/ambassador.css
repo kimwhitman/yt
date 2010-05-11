@@ -529,7 +529,8 @@ div.ambassador_on div.panel div.assigned div.ambassador_agent_id span {
   left: 60px;
   top: 8px;
 }
-div.ambassador_on div.panel div.assigned p {
+div.ambassador_on div.panel div.assigned label {
+  display: block;
   margin: 0 0 0 38px;
   padding: 0;
   font-size: 11px;
@@ -538,7 +539,7 @@ div.ambassador_on div.panel div.assigned p {
   position: relative;
   line-height: 12px;
 }
-div.ambassador_on div.panel div.assigned p input {
+div.ambassador_on div.panel div.assigned label input {
   position: absolute;
   top: 0;
   left: -18px;
