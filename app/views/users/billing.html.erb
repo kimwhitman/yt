@@ -46,9 +46,11 @@
 
         <% if current_user.ambassador.nil? && (@ambassador_user || @change_ambassador) %>
           <div class="ambassador_on">
-            <h4>Prepaid Unlimited Membership with 2 week free trial</h4>
-            <p class="radio"><%= radio_button_tag 'membership', 'Premium Trial', @billing_cycle == 'Premium Trial' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></p>
-            <p class="radio"><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></p>
+            <fieldset>
+              <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>
+              <label><%= radio_button_tag 'membership', 'Premium Trial', @billing_cycle == 'Premium Trial' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></label>
+              <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $39.95 - saves you 20%</span></label>
+            </fieldset>
             <div class="panel">
               <% if @ambassador_user %>
                 <div class="assigned">
@@ -57,7 +59,7 @@
                     <span><%= @ambassador_user.ambassador_name %></span>
                   </div>
                   <%= hidden_field_tag :ambassador_user_id, @ambassador_user.id %>
-                  <p><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</p>
+                  <label><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</label>
                   <%= link_to 'Not your ambassador?', change_ambassador_users_path(:return_to => 'billing'), :class => 'change_ambassador', :method => :post %>
                 </div>
               <% else %>

@@ -636,7 +636,7 @@ div.ambassador_off div.trial input.input {
   padding-left: 3px;
   line-height: 20px;
 }
-div.ambassador_off div.trial input.submit { border: none; }
+div.ambassador_off div.trial .submit img { border: none; }
 #signup_section fieldset.basic {
   border: none;
   margin: 0;
