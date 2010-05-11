@@ -47,4 +47,13 @@ module UsersHelper
       'n/a'
     end
   end
+
+  def ambassador_navigation_links
+    [{:title => 'Invite by E-mail', :path => ambassador_tools_invite_by_email_user_path(current_user) },
+      {:title => 'Invite by Sharing', :path => ambassador_tools_invite_by_sharing_user_path(current_user)},
+      {:title => 'My Invitations', :path => ambassador_tools_my_invitations_user_path(current_user)},
+      {:title => 'My Reward', :path => ambassador_tools_my_rewards_user_path(current_user)},
+      {:title => 'Help', :path => ambassador_tools_help_user_path(current_user)}
+    ]
+  end
 end
