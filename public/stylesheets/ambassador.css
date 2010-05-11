@@ -1085,6 +1085,7 @@ div.ambassador_agent_id span {
   display: block;
   margin-left: 10px;
 }
+#ambassador_profile_widget.tools div.share span.blocks img { border: none; }
 #ambassador_profile_widget.tools span.help {
   position: absolute;
   bottom: 14px;
