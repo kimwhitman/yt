@@ -83,7 +83,7 @@
 
     <div class="share">
       <span class="header">Share your invitation:</span>
-      <span class="blocks"><a class="a2a_dd" href="http://www.addtoany.com/share_save"><%= image_tag 'ambassador_share_widget.png' %></a></span>
+      <span class="blocks"><%= link_to image_tag('ambassador_share_widget.png'), ambassador_tools_invite_by_sharing_user_path(current_user) %></span>
     </div>
 
     <span class="help"><%= link_to 'Help', ambassador_tools_help_user_path(current_user) %></span>
