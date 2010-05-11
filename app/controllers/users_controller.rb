@@ -296,7 +296,7 @@ class UsersController < ApplicationController
     end
 
     def setup_ambassador
-      ambassador_params = { :recipients => params[:recipients] }
+      ambassador_params = { :recipients => params[:recipients], :from => current_user.email }
       ambassador_invite_with_default_body = current_user.ambassador_invite_with_default_body
       ambassador_params[:body] = ambassador_invite_with_default_body.body if ambassador_invite_with_default_body
       @ambassador_invite = AmbassadorInvite.new(ambassador_params)
