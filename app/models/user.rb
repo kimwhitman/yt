@@ -220,10 +220,24 @@ class User < ActiveRecord::Base
   def set_ambassador!(ambassador_user_id)
     # If the user has an ambassador id and a paid plan then associate the two users
     unless ambassador_user_id.nil?
-      if true # subscription plan is paid?
+      if self.has_paying_subscription?
         self.ambassador = User.find(ambassador_user_id)
         self.save
       end
+    end
+  end
+
+  def apply_ambassador_points!
+    if self.ambassador && !self.has_rewarded_ambassador? && self.account.subscription.subscription_plan.generates_ambassador_reward?
+      self.ambassador.increment(:points_earned)
+      self.ambassador.increment(:points_current)
+      self.ambassador.increment(:successful_referrals_count)
+      if self.notify_ambassador_of_reward?
+        # TODO Send an email notification to the ambassador
+        #UserMailer.deliver_ambassador_reward_notification(ambassador, self)
+      end
+      self.has_rewarded_ambassador = true
+      self.save
     end
   end
 
