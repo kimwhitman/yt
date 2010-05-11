@@ -22,7 +22,7 @@
       <%= link_to 'Not your ambassador?', change_ambassador_users_path(:return_to => 'login'), :class => 'change_ambassador', :method => :post %>
       <p class="checkbox"><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</p>
     </div>
-  <% else %>
+  <% elsif current_page?(login_path) %>
     <div class="ambassador_unassigned">
       <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
 <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input' %>
