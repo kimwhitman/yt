@@ -1,0 +1,12 @@
+<%= render :partial => 'header.plain.erb', :locals => {:header_title => 'Welcome to YogaToday!'} %>
+
+Hello <%= @user.name %>
+
+Congratulations! <%= @rewarding_user.name %> has signed up for a paid account, and you have received an ambassador point.
+
+Thanks and Love from everyone at Yoga Today:)
+
+<%= root_url.sub('http:', '').gsub('/', '') %>
+
+<%= render :partial => 'footer.plain.erb',
+    :locals => { :follow => true, :tos => true, :privacy => true, :unsubscribe => true, :no_reply => true } %>

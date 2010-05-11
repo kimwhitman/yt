@@ -58,6 +58,14 @@ class UserMailer < ActionMailer::Base
     set_content_type(user)
   end
 
+  def ambassador_reward_notification(user, rewarding_user)
+    subject "Ambassador Reward"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user, :rewarding_user => rewarding_user
+  end
+
+
   private
 
     def set_content_type(user)
