@@ -433,7 +433,8 @@ div.returning_login div.ambassador_assigned a.change_ambassador {
   text-decoration: underline;
 }
 div.returning_login div.ambassador_assigned a.change_ambassador:hover { color: #333333; }
-div.returning_login div.ambassador_assigned p.checkbox {
+div.returning_login div.ambassador_assigned label.checkbox {
+  display: block;
   font-size: 11px;
   color: #666666;
   margin: 0;
@@ -443,7 +444,7 @@ div.returning_login div.ambassador_assigned p.checkbox {
   left: 248px;
   width: 180px;
 }
-div.returning_login div.ambassador_assigned p.checkbox input {
+div.returning_login div.ambassador_assigned label.checkbox input {
   position: absolute;
   left: -18px;
   top: 0px;

@@ -22,7 +22,7 @@
         </div>
         <%= hidden_field_tag :ambassador_user_id, @ambassador_user.id %>
         <%= link_to 'Not your ambassador?', change_ambassador_users_path(:return_to => 'login'), :class => 'change_ambassador', :method => :post %>
-        <p class="checkbox"><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</p>
+        <label class="checkbox"><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</label>
       </div>
     <% else  %>
       <div class="ambassador_unassigned">
