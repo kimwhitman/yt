@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.new_account '/signup/:plan', :controller => 'accounts', :action => 'new', :plan => nil
   map.login  '/login',  :controller => 'Sessions', :action => 'new'
   map.logout '/logout', :controller => 'Sessions', :action => 'destroy'
-  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   map.resources :ambassador_invites
   map.resources :users,
@@ -74,7 +73,7 @@ ActionController::Routing::Routes.draw do |map|
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
 
   # This has to be the last route before the defaults
-  map.share_url '/:id', :controller => 'share_urls', :action => 'show'
+  map.share_url '/sr/:id', :controller => 'share_urls', :action => 'show'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

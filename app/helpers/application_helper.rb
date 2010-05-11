@@ -148,4 +148,14 @@ module ApplicationHelper
   def states
     ["", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
   end
+
+  def social_share_url(url, site = :facebook, title = "Yoga Today - Yoga Delivered Today")
+    url = CGI::escape(url)
+    title = CGI::escape(title)
+
+    case site
+      when :facebook : "http://www.facebook.com/sharer.php?u=#{url}&t=#{title}"
+      when :delicious : "http://del.icio.us/post?url=#{url}&title=#{title}"
+    end
+  end
 end

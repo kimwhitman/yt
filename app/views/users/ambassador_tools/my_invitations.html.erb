@@ -19,6 +19,7 @@
 
           <div class="track_invitations">
             <h3>E-mail Invitations (<%= current_user.invitations_count %>) <%= link_to 'Send an invitation', ambassador_tools_invite_by_email_user_path(current_user) %></h3>
+            <% if current_user.invitations_count > 0 -%>
             <div class="table">
               <ul>
                 <% @ambassador_invites.each do |ambassador_invite| %>
@@ -26,6 +27,7 @@
                 <% end %>
               </ul>
             </div>
+            <% end -%>
           </div>
         </div>
 

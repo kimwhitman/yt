@@ -4,7 +4,6 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include SslRequirement
-  include SimpleCaptcha::ControllerHelpers
   #include ExceptionNotifiable
   #before_filter :login_required
 
@@ -16,6 +15,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # :secret => '779a6e2f0fe7736f0a73da4a7d9f13d4'
 
   filter_parameter_logging :password, :creditcard
+
+  before_filter :check_for_ambassador
 
   def signed_in?
     ! current_user.nil?
@@ -95,6 +96,12 @@ class ApplicationController < ActionController::Base
         redirect_to '/'
       else
         super(ex)
+      end
+    end
+
+    def check_for_ambassador
+      if params.keys.include?('ambassador') and session[:ambassador].nil?
+        session[:ambassador] = params['ambassador']
       end
     end
 

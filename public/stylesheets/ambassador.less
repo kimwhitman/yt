@@ -63,24 +63,17 @@
 		line-height: 20px;
 		input.input {
 			margin: 0;
-			padding: 0;
+			padding: 0 0 0 3px;
+			line-height: 20px;
 			height: 20px;
-			width: 206px;
+			width: 203px;
 			vertical-align: top;
 		}
 		input.submit {
 			vertical-align: top;
 			margin: 0;
 			padding: 0;
-			width: 54px;
-			height: 2px;
-			border: 1px solid #ddd;
-			color: #666;
-			background-position: -1px -1px;
-			:hover {
-				border-color: #999;
-				color: #333;
-			}
+			border: none;
 		}
 	}
 	a.help {
@@ -133,6 +126,7 @@
 			input.input {
 				width: 202px;
 				height: 20px;
+				line-height: 20px;
 				margin: 4px 0;
 				padding: 0 0 0 3px;
 			}
@@ -412,25 +406,29 @@ div.returning_login {
 		width: 440px;
 		background: @color_background;
 		border: 1px solid @color_border;
+		margin: 0;
+		padding: 0;
 		p {
 			margin: 0;
-			padding: 8px 0 0 10px;
+			padding: 6px 0 2px 10px;
 			width: 290px;
 			color: #666;
 			font-size: 11px;
 		}
 		input.input {
-			margin: 0 0 4px 10px;
-			padding: 0;
-			width: 202px;
+			margin: 0 0 0 10px;
+			padding: 0 0 0 3px;
+			width: 199px;
 			height: 20px;
+			line-height: 20px;
 			display: block;
 		}
-		input.submit {
-			margin: 0 0 0 10px;
-			height: 20px;
-			width: 52px;
-			border: none;
+		.submit {
+			display: block;
+			padding: 2px 0 0 10px;
+			img {
+				border: none;
+			}
 		}
 	}
 	div.ambassador_assigned {
@@ -495,31 +493,42 @@ div.ambassador_on {
 	border: 1px solid #ccc;
 	margin: 0 0 10px 0;
 	padding: 0;
-	h4 {
-		font-size: 12px;
-		font-weight: bold;
-		margin: 0;
-		padding: 14px 0 12px 14px;
-	}
-	p.radio {
+	fieldset {
 		position: relative;
-		margin: 0 0 0 36px;
+		left: 36px;
+		top: 42px;
+		border: none;
+		margin: 0;
 		padding: 0;
-		font-weight: bold;
-		span {
-			display: block;
-			font-weight: normal;
-			margin: 0 0 10px 0;
-			padding: 0;
-		}
-		input {
+		legend span {
 			position: absolute;
-			top: 0px;
+			top: -28px;
 			left: -22px;
-			border: none;
-			background: none;
-			margin: 0;
+			font-size: 12px;
+			font-weight: bold;
+			color: #666;
+		}
+		label {
+			position: relative;
+			margin: 0 0 0 0;
 			padding: 0;
+			font-weight: bold;
+			color: #666;
+			span {
+				display: block;
+				font-weight: normal;
+				margin: 0;
+				padding: 0 0 10px 0;
+			}
+			input {
+				position: absolute;
+				top: 0px;
+				left: -22px;
+				border: none;
+				background: none;
+				margin: 0;
+				padding: 0;
+			}
 		}
 	}
 	div.panel {
@@ -591,14 +600,22 @@ div.ambassador_on {
 				line-height: 14px;
 			}
 			input.input {
-				width: 188px;
-				height: 14px;
+				width: 185px;
+				height: 20px;
+				line-height: 20px;
 				margin: 0 0 4px 20px;
+				padding: 0 0 0 3px;
 			}
-			input.submit {
+			.submit {
 				clear: left;
-				margin: 0 0 0 20px;
+				margin: 0;
+				padding: 0;
 				border: none;
+				img {
+					border: none;
+					margin: 0 0 0 20px;
+					padding: 0;
+				}
 			}
 		}
 	}
@@ -646,12 +663,20 @@ div.ambassador_off {
 			width: 290px;
 			color: #666;
 			margin: 0;
+			padding: 0 0 10px 0;
+		}
+		input {
+			margin: 0;
 			padding: 0;
+			vertical-align: top;
 		}
 		input.input {
 			width: 200px;
-			height: 18px;
-			margin-top: 10px;
+			height: 20px;
+			padding-left: 3px;
+			line-height: 20px;
+		}
+		input.submit {
 			border: none;
 		}
 	}		
@@ -672,7 +697,8 @@ div.ambassador_off {
 				width: 280px;
 				padding: 0 0 0 3px;
 				margin: 0 0 6px 0;
-				height: 18px;
+				height: 20px;
+				line-height: 20px;
 			}
 		}
 		label.end_set input {
@@ -721,7 +747,7 @@ div.ambassador_off {
 		border-bottom: 1px solid #ccc;
 		padding: 5px 0;
 		input.cancel {}
-		input.submit {}
+		input.submit { border: none;}
 	}
 }
 
@@ -743,7 +769,8 @@ div.ambassador_off {
 					height: 20px;
 					width: 202px;
 					margin: 0 0 10px 0;
-					padding: 0;
+					padding: 0 0 0 3px;
+					line-height: 20px;
 				}
 				label.error {
 					height: auto;
@@ -929,6 +956,7 @@ div.ambassador_off {
 			input {
 				height: 18px;
 				width: 280px;
+				line-height: 20px;
 				display: block;
 				clear: left;
 				margin: 0 0 6px 0;
@@ -1152,6 +1180,9 @@ div.ambassador_agent_id {
 		span.blocks {
 			display: block;
 			margin-left: 10px;
+			img {
+				border: none;
+			}
 		}
 	}
 	span.help {
@@ -1347,12 +1378,19 @@ div.ambassador_agent_id {
 			font-weight: normal;
 		}
 		div.my_rewards_points {
+			display: block;
+			float: left;
+			clear: both;
 			position: relative;
 			border: 1px solid #ccc;
 			height: 110px;
 			border-bottom-width: 4px;
+			width: 558px;
 			margin: 30px 30px 0 30px;
+			_margin: 30px 15px 0 15px;
+			padding: 0;
 			h3 {
+				position: relative;
 				margin: 20px 0 0 15px;
 				font-size: 20px;
 				font-weight: normal;
@@ -1394,6 +1432,8 @@ div.ambassador_agent_id {
 			}
 		}
 		h3.redeem_rewards {
+			position: relative;
+			clear: left;
 			margin: 0 30px;
 			padding: 0 0 0 10px;
 			background: #D9E8FF;
@@ -1402,15 +1442,13 @@ div.ambassador_agent_id {
 			line-height: 33px;
 			font-size: 16px;
 			font-weight: normal;
-			span {
+			a {
 				position: absolute;
-				right: 33px;
-				font-size: 12px;
+				right: 3px;
+				top: 4px;
 				img {
-					position: relative;
-					top: 3px;
 					border: none;
-					vertical-align: middle;
+					vertical-align: top;
 				}
 			}
 		}
@@ -1503,9 +1541,7 @@ div.ambassador_agent_id {
 			}
 			input.submit {
 				margin: 20px 0 0 4px;
-				width: 40px;
-				border-left: 1px solid #ddd;
-				border-right: 1px solid #ddd;
+				border: none;
 			}
 		}
 		div.help {
@@ -1546,6 +1582,9 @@ div.ambassador_agent_id {
 					float: right;
 					font-size: 12px;
 					text-decoration: underline;
+					:hover {
+						text-decoration: none;
+					}
 				}
 			}
 			div.table {
@@ -1623,6 +1662,9 @@ div.ambassador_agent_id {
 				input {
 					display: block;
 					width: 258px;
+					padding: 0 0 0 3px;
+					height: 20px;
+					line-height: 20px;
 				}
 				span.tip {
 					display: block;
@@ -1651,14 +1693,18 @@ div.ambassador_agent_id {
 				display: block;
 				width: auto;
 				font-size: 14px;
-				line-height: 14px;
+				line-height: 20px;
 				margin-top: 4px;
 				input {
+					margin: 0;
+					padding: 0;
 					display: inline;
 					width: auto;
-					margin: 4px 0;
-					*border: none;
-					*margin: 0;
+					border: none;
+					background: none;
+					vertical-align: bottom;
+					_position: relative;
+					_top: -2px;
 				}
 			}
 			label.instruction {
@@ -1678,7 +1724,18 @@ div.ambassador_agent_id {
 			padding: 4px 0;
 			input.preview { border: none;}
 			input.send { border: none;}
-			input.cancel { position: absolute; right: 0px; _right: 30px;}
+			.cancel { 
+				position: absolute;
+				top: 45%;
+				right: 0px;
+				_right: 30px;
+				text-decoration: underline;
+				color:  @color_ambassador_font;
+				:hover {
+					text-decoration: none;
+					color: #333;
+				}
+			}
 		}
 	}
 }

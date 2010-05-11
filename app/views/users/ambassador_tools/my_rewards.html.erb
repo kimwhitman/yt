@@ -18,15 +18,15 @@
         <div class="tools_container">
 
           <div class="my_rewards_points">
-            <h3>1 point = 1 free month Unlimited Membership</h3>
-            <p>Earn a point for every successful prepaid subscription referral when you invite your friends and family to Yoga Today. Each point you earn as a Yoga Today Ambassador is worth a free month of Yoga Today.</p>
+           <h3>1 point = 1 free month Unlimited Membership</h3>
+           <p>Earn a point for every successful prepaid subscription referral when you invite your friends and family to Yoga Today. Each point you earn as a Yoga Today Ambassador is worth a free month of Yoga Today.</p>
             <div class="my_points">
               <span class="header">My Points</span>
               <span id="x_my_points" class="count"><%= current_user.points_current %></span>
             </div>
           </div>
 
-          <h3 class="redeem_rewards">My Rewards <span><%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png'), 'add_one_month()', :id => 'x_add_one_month') %></span></h3>
+          <h3 class="redeem_rewards">My Rewards <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png'), 'add_one_month()', :id => 'x_add_one_month') %></h3>
           <div class="redeemed_rewards">
 
             <div class="unredeemed" style="display: none;">
@@ -56,7 +56,7 @@
           <div class="rewards_terms">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur odio enim, ultrices sed pharetra tempor, sagitis nec metus. Cras vitae turpis risus.</p>
             <p>Nuliam placerat, dui vitae pellentesque elementum, leo est blandit mauris, a tincidunt leo purus vel turpis. Suspendisse potenti. Morbi magna massa, pretium at vestibulium sed, ultrices at nibh.</p>
-            <p>To See your rewards in action, visit the <a href="#">Billing Activity</a> page in your Profile.</p>
+            <p>To See your rewards in action, visit the <%= link_to 'Billing Activity', billing_history_user_path(current_user) %> page in your Profile.</p>
           </div>
 
         </div>

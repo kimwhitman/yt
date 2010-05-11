@@ -1,7 +1,7 @@
 <div id="ambassador_profile_widget" class="program">
 
   <% if current_user.ambassador_name.nil? %>
-    <p class="header">Ambassador Program <%= link_to 'Learn More', ambassador_tools_help_user_path(current_user) %></p>
+    <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
     <img class="greeting" src="/images/ambassador_greeting.png" />
 
     <div class="introduction">
@@ -40,7 +40,7 @@
 
 <% if current_user.ambassador_name %>
   <div id="ambassador_profile_widget" class="tools">
-    <p class="header">Ambassador Tools <span>Quick-view</span> <%= link_to 'Learn More', ambassador_tools_help_user_path(current_user) %></p>
+    <p class="header">Ambassador Tools <span>Quick-view</span> <%= link_to 'Learn More', '/ambassador-details' %></p>
     <div class="ambassador_agent_id">
       <span><%= current_user.ambassador_name %></span>
     </div>
@@ -83,10 +83,10 @@
 
     <div class="share">
       <span class="header">Share your invitation:</span>
-      <span class="blocks"><a class="a2a_dd" href="http://www.addtoany.com/share_save"><%= image_tag 'ambassador_share_widget.png' %></a></span>
+      <span class="blocks"><%= link_to image_tag('ambassador_share_widget.png'), ambassador_tools_invite_by_sharing_user_path(current_user) %></span>
     </div>
 
-    <span class="help"><a href="#">Help</a></span>
+    <span class="help"><%= link_to 'Help', ambassador_tools_help_user_path(current_user) %></span>
 
   </div>
 <% end %>
