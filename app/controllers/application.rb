@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 
   filter_parameter_logging :password, :creditcard
 
+  before_filter :check_for_ambassador
+
   def signed_in?
     ! current_user.nil?
   end
@@ -95,6 +97,12 @@ class ApplicationController < ActionController::Base
         redirect_to '/'
       else
         super(ex)
+      end
+    end
+
+    def check_for_ambassador
+      if params.keys.include?('ambassador') and session[:ambassador].nil?
+        session[:ambassador] = params['ambassador']
       end
     end
 

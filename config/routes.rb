@@ -74,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
 
   # This has to be the last route before the defaults
-  map.share_url '/:id', :controller => 'share_urls', :action => 'show'
+  map.share_url '/sr/:id', :controller => 'share_urls', :action => 'show'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
