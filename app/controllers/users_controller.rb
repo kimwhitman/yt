@@ -84,6 +84,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def select_ambassador_name
+    @ambassador_name = params[:user][:ambassador_name]
+    redirect_to profile_user_path(current_user, :verify_ambassador_name => @ambassador_name)
+  end
+
   def profile
     @current_user.country = current_user.country.nil? ? "United States" : current_user.country
   end

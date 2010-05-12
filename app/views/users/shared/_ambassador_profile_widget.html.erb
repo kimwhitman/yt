@@ -1,39 +1,34 @@
 <div id="ambassador_profile_widget" class="program">
 
-  <% if current_user.ambassador_name.nil? %>
+  <% if current_user.ambassador_name.nil? && params[:verify_ambassador_name].blank? %>
     <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
     <img class="greeting" src="/images/ambassador_greeting.png" />
 
     <div class="introduction">
       <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
-      <% form_for current_user do |f| -%>
+      <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
         <fieldset>
           <legend><span>Choose your Ambassador ID</span></legend>
-         <label>
+          <label>
             <%= f.text_field :ambassador_name %>
           </label>
           <input type="image" class="submit" src="/images/profile_widget_button_continue.png"></input>
         </fieldset>
-        <% # TODO: Need to pass a param so that a failed update returns to the containing page -%>
       <% end %>
     </div>
-
-    <script type="text/javascript" charset="utf-8">
-      $(document).ready(function() {
-        $("#user_ambassador_name").defaultValue('hint: keep it simple...');
-      });
-    </script>
   <% end %>
 
-  <% # TODO When does this appear? After submission? %>
-  <% if false && current_user.ambassador_name %>
-    <div class="confirm" style="">
-      <div class="ambassador_agent_id"><span><%= current_user.ambassador_name %></span></div>
+  <% if params[:verify_ambassador_name] %>
+    <div class="confirm">
+      <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
       <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
-      <fieldset>
-        <legend><span><a href="#">make a change</a></span></legend>
-        <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
-      </fieldset>
+      <% form_for current_user do |f| -%>
+        <fieldset>
+          <legend><span><%= link_to 'make a change', profile_user_path(current_user) %></span></legend>
+          <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
+          <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
+        </fieldset>
+      <% end %>
     </div>
   <% end %>
 </div>
@@ -91,6 +86,7 @@
   </div>
 <% end %>
 
+
 <% content_for :javascript_content do %>
   <% if current_user.share_url %>
     <script type="text/javascript">
@@ -102,4 +98,10 @@
       a2a.init('page');
     </script>
   <% end %>
+
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $("#user_ambassador_name").defaultValue('hint: keep it simple...');
+    });
+  </script>
 <% end %>

@@ -278,7 +278,7 @@ input.empty {
 }
 
 #matin_content div.get_started a {
-	border: none;
+  border: none;
 }
 
 #main .StudioSessions_promo {
@@ -319,15 +319,15 @@ input.empty {
 }
 
 #main_content .community_promo img {
-	border: none;
+  border: none;
 }
 
 #main_content .community_promo div span {
-	color: #143A78;
+  color: #143A78;
 }
 
 #main_content .community_promo div span:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 #main_content .community_promo .photo {
@@ -772,8 +772,8 @@ input.empty {
 
 .video_list_buttons {
   float: right;
-	padding-right: 20px;
-	_padding-right: 0px;
+  padding-right: 20px;
+  _padding-right: 0px;
 }
 
 .buy_button {
@@ -900,18 +900,18 @@ input.empty {
 }
 
 #container_4col.signed_in {
-  margin-top: 0; 
+  margin-top: 0;
 }
 
 #container_4col.signed_in.free {
-  margin-top: -200px; 
-  *margin-top: -220px; 
-  _margin-top: -240px;  
+  margin-top: -200px;
+  *margin-top: -220px;
+  _margin-top: -240px;
 }
 
 #container_4col.signed_out {
-  margin-top: -200px; 
-  *margin-top: -220px; 
+  margin-top: -200px;
+  *margin-top: -220px;
   _margin-top: -240px;
 }
 
