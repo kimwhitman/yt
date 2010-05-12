@@ -19,15 +19,20 @@
 
           <div class="track_invitations">
             <h3>E-mail Invitations (<%= current_user.invitations_count %>) <%= link_to 'Send an invitation', ambassador_tools_invite_by_email_user_path(current_user) %></h3>
-            <% if current_user.invitations_count > 0 -%>
             <div class="table">
+              <% if current_user.invitations_count > 0 -%>
               <ul>
                 <% @ambassador_invites.each do |ambassador_invite| %>
                   <li><span class="name">x<%= ambassador_invite.recipients %></span> <span class="date"><%= ambassador_invite.created_at.strftime('%b %d, %Y') %></span></li>
                 <% end %>
               </ul>
+              <% else %>
+              <h4>You currently have sent no invitations.</h4>
+              <p>To earn free Yoga Today, start by inviting your friends and family to subscribe.</p>
+              <%= link_to 'Invite by Email', ambassador_tools_invite_by_email_user_path(current_user), :class => 'by_email' %>
+              <%= link_to 'Invite by Sharing', ambassador_tools_invite_by_sharing_user_path(current_user) %>
+              <% end -%>
             </div>
-            <% end -%>
           </div>
         </div>
 
