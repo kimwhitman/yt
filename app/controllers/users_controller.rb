@@ -18,7 +18,11 @@ class UsersController < ApplicationController
     if !params[:membership].blank? #&& %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     else
-      @billing_cycle = '1'
+      if @ambassador_user
+        @billing_cycle = 'Premium Trial'
+      else
+        @billing_cycle = 'free'
+      end
     end
 
     redirect_to profile_user_path(current_user) if logged_in?
@@ -293,6 +297,7 @@ class UsersController < ApplicationController
 
   def select_ambassador
     if @ambassador_user
+      @billing_cycle = 'Premium Trial'
       cookies[:ambassador_user_id] = @ambassador_user.id.to_s
     else
       flash[:error] = "We could not find a person with an ambassador id of '#{ params[:ambassador_name] }'. Please check that you have typed it correctly."
@@ -320,6 +325,7 @@ class UsersController < ApplicationController
       when 'billing'
         redirect_to billing_user_path(current_user)
       else
+        @billing_cycle = 'Premium Trial'
         @user = User.new
         setup_fake_values
         render :template => 'users/new'

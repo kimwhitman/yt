@@ -73,10 +73,6 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-  $(document).ready(function() {
-    //jQuery('#preview').colorbox({iframe:true, width:"700px", height:"600px" });
-  });
-
   function preview_email() {
     jQuery.fn.colorbox({href:"<%= ambassador_tools_preview_email_user_path(current_user) %>?message=" + escape(jQuery('#ambassador_invite_body').val()) });
   }
