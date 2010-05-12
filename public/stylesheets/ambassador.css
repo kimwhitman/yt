@@ -187,6 +187,12 @@
   display: block;
   border: none;
 }
+#get_started_ambassador fieldset.user_type label input img { border: none; }
+#get_started_ambassador fieldset.user_type label a {
+  display: block;
+  border: none;
+}
+#get_started_ambassador fieldset.user_type label a img { border: none; }
 #get_started_featured_ad {
   height: 48px;
   width: 100%;
