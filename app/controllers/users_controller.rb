@@ -273,7 +273,7 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_my_invitations
-    @ambassador_invites = current_user.ambassador_invites.find(:all, :conditions => ["state = ?", 'active'])
+    @ambassador_invites = current_user.ambassador_invites.all
     render :template => 'users/ambassador_tools/my_invitations'
   end
 
@@ -352,6 +352,8 @@ class UsersController < ApplicationController
     end
 
     def fetch_ambassador
+      cookies[:ambassador_user_id] = params[:ambassador_user_id] if params[:ambassador_user_id]
+
       @ambassador_user = current_user.ambassador if current_user
       @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
       @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
