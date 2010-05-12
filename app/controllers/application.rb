@@ -103,6 +103,7 @@ class ApplicationController < ActionController::Base
       if params.keys.include?('ambassador') && cookies[:ambassador_user_id].nil?
         ambassador = User.find_by_ambassador_name(params[:ambassador])
         cookies[:ambassador_user_id] = ambassador.id.to_s unless ambassador.nil?
+        redirect_to request.request_uri
       end
     end
 
