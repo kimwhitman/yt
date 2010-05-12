@@ -1434,6 +1434,8 @@ div.ambassador_agent_id span {
 #ambassador_tools div.tools_container fieldset.ask_a_question label input {
   width: 224px;
   height: 20px;
+  line-height: 20px;
+  padding: 0 0 0 3px;
 }
 #ambassador_tools div.tools_container fieldset.ask_a_question input.submit {
   margin: 20px 0 0 4px;
