@@ -187,6 +187,12 @@
   display: block;
   border: none;
 }
+#get_started_ambassador fieldset.user_type label input img { border: none; }
+#get_started_ambassador fieldset.user_type label a {
+  display: block;
+  border: none;
+}
+#get_started_ambassador fieldset.user_type label a img { border: none; }
 #get_started_featured_ad {
   height: 48px;
   width: 100%;
@@ -1168,12 +1174,11 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget div.introduction fieldset label { float: left; }
 #ambassador_profile_widget div.introduction fieldset label input {
-  height: 16px;
+  height: 20px;
   width: 190px;
   margin-right: 5px;
-  padding-left: 3px;
-  line-height: 22px;
-  font-style: italic;
+  padding: 0 0 0 3px;
+  line-height: 20px;
 }
 #ambassador_profile_widget div.introduction fieldset input.submit { border: none !important; }
 #ambassador_profile_widget div.confirm {

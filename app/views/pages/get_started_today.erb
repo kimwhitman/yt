@@ -36,8 +36,7 @@
         <% end %>
 
         <fieldset class="user_type">
-          <% #image_tag("/images/get_started_button_continue-with-sign-up.png") %>
-          <label>I'm new <%= submit_tag 'Get started' %></label>
+          <label>I'm new <%= image_submit_tag "/images/get_started_button_continue-with-sign-up.png" %></label>
           <label>I'm a returning user <%= link_to image_tag("/images/get_started_button_continue-with-login.png"), new_session_path %></label>
         </fieldset>
       <% end %>
