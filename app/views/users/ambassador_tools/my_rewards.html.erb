@@ -26,7 +26,7 @@
             </div>
           </div>
 
-          <% if current_user.points_current > 0 %>
+          <% if current_user.points_current >= 0 %>
             <h3 class="redeem_rewards">My Rewards <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png'), 'add_one_month()', :id => 'x_add_one_month') %></h3>
             <div class="redeemed_rewards">
 
@@ -34,24 +34,21 @@
                 <h4 style="display: none;">Click "Add +1 Month" to use points for free months of Yoga Today.</h4>
                 <h4>You currently have no points available for rewards.</h4>
                 <p>To earn free Yoga Today, start by inviting your friends and family to subscribe.</p>
-                <a class="by_email" href="#">Invite by E-mail</a><a href="#">Invite by Sharing</a>
+                <%= link_to 'Invite by Email', ambassador_tools_invite_by_email_user_path(current_user), :class => 'by_email' %>
+                <%= link_to 'Invite by Sharing', ambassador_tools_invite_by_sharing_user_path(current_user) %>
               </div>
 
               <ul id="x_added_months">
               </ul>
 
-              <div id="x_my_rewards_actions" class="actions" style="display:none">
-                <%= link_to_function 'Cancel', 'cancel_rewards()' %>
-                <input type="submit" class="cancel" value="Cancel"></input>
-                <% form_tag redeem_points_user_path(current_user) do %>
+              <% form_tag redeem_points_user_path(current_user) do %>
+              <div id="x_my_rewards_actions" class="actions" style="display: none;">
+                <%= link_to_function 'Cancel', 'cancel_rewards()', :class => 'cancel' %>
                   <%= hidden_field_tag :redeemed_points, 0, :id => 'x_redeemed_points' %>
                   <input type="image" class="submit" src="/images/profile_tools_button_submit.png"></input>
-                <% end %>
               </div>
+              <% end %>
 
-              <div id="x_my_rewards_instructions" class="actions">
-                <p>Click "Add +1 Month" to use points for free months of Yoga Today</p>
-              </div>
             </div>
           <% end %>
 

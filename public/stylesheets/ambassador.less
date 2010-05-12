@@ -1504,10 +1504,28 @@ div.ambassador_agent_id {
 				}
 			}
 			div.actions {
+				position: relative;
 				clear: both;
-				text-align: right;
-				input.submit { border: none; position: static;}
-				input.cancel { position: static;}
+				input.submit {
+					vertical-align: top;
+					position: static;
+					border: none; 
+					margin: 0; 
+					padding: 0;
+				}
+				.cancel { 
+					position: absolute;
+					color: @color_ambassador_font;
+					text-decoration: underline;
+					margin: 0;
+					padding: 0;
+					vertical-align: top;
+					line-height: 14px;
+					:hover {
+						text-decoration: none;
+						color: #333;
+					}
+				}
 			}
 		}
 		div.rewards_terms {
@@ -1542,6 +1560,8 @@ div.ambassador_agent_id {
 				input {
 					width: 224px;
 					height: 20px;
+					line-height: 20px;
+					padding: 0 0 0 3px;
 				}
 			}
 			input.submit {
@@ -1598,6 +1618,24 @@ div.ambassador_agent_id {
 				height: 180px;
 				overflow: scroll;
 				border-top: 1px solid #ccc;
+				h4 {
+					padding: 0;
+					margin: 15px 0 0 15px;
+					font-weight: bold;
+					color: #000;
+					font-size: 12px;
+				}
+				p {
+					padding: 0;
+					margin: 0 0 6px 15px;
+				}
+				a {
+					color: #333;
+					text-decoration: underline;
+				}
+				a.by_email {
+					margin: 0 10px 0 15px;
+				}
 				ul {
 					padding: 0;
 					margin: 15px 35px 20px 15px;
@@ -1727,11 +1765,11 @@ div.ambassador_agent_id {
 			float: none;
 			margin: 0 30px 0 30px;
 			padding: 4px 0;
-			input.preview { border: none;}
-			input.send { border: none;}
+			.preview img { border: none; vertical-align: top;}
+			input.send { border: none; margin: 0; padding: 0; vertical-align: top;}
 			.cancel { 
 				position: absolute;
-				top: 45%;
+				top: 10px;
 				right: 0px;
 				_right: 30px;
 				text-decoration: underline;
