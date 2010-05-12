@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     :member => { :profile => :any, :billing => :any, :billing_history => :get, :membership_terms => :get,
       :cancel_membership => :any, :ambassador_tools_invite_by_email => :get, :ambassador_tools_invite_by_sharing => :get,
       :ambassador_tools_my_invitations => :get, :ambassador_tools_my_rewards => :get, :ambassador_tools_help => :get,
-      :ambassador_tools_widget_invite_by_email => :post, :redeem_points => :post }
+      :ambassador_tools_widget_invite_by_email => :post, :ambassador_tools_preview_email => :get, :redeem_points => :post }
 
   map.resources :users do |users|
     users.resource :confirmation, :only => [:new, :create]

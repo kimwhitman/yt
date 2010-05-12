@@ -263,6 +263,11 @@ class UsersController < ApplicationController
     render :template => 'users/ambassador_tools/invite_by_sharing'
   end
 
+  def ambassador_tools_preview_email
+    @message = params[:message]
+    render :template => 'users/ambassador_tools/preview_email', :layout => false
+  end
+
   def ambassador_tools_my_invitations
     @ambassador_invites = current_user.ambassador_invites.find(:all, :conditions => ["state = ?", 'active'])
     render :template => 'users/ambassador_tools/my_invitations'

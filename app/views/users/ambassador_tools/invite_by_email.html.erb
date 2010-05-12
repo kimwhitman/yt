@@ -55,7 +55,7 @@
             </fieldset>
 
             <div class="actions">
-              <%= image_submit_tag 'profile_tools_button_preview.png', :class => 'preview', :id => 'preview' %>
+              <%= link_to_function image_tag('profile_tools_button_preview.png'), 'preview_email()', :class => 'preview', :id => 'preview' %>
               <%= image_submit_tag 'profile_tools_button_send-invitation.png', :class => 'send', :id => 'send' %>
               <%= link_to 'Cancel', profile_user_path(current_user), :class => 'cancel' -%>
             </div>
@@ -71,3 +71,13 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    //jQuery('#preview').colorbox({iframe:true, width:"700px", height:"600px" });
+  });
+
+  function preview_email() {
+    jQuery.fn.colorbox({href:"<%= ambassador_tools_preview_email_user_path(current_user) %>?message=" + escape(jQuery('#ambassador_invite_body').val()) });
+  }
+</script>
