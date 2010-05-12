@@ -54,8 +54,14 @@ class UserMailer < ActionMailer::Base
     recipients "#{user.name} <#{user.email}>"
     from "YogaToday <info@yogatoday.com>"
     body :user => user
-
     set_content_type(user)
+  end
+
+  def ambassador_invite(ambassador, from, recipient, email_subject, message)
+    subject email_subject
+    recipients "#{ recipient } <#{ recipient }>"
+    from "YogaToday <#{ from }>"
+    body :message => message, :ambassador => ambassador
   end
 
   def ambassador_reward_notification(user, rewarding_user)
