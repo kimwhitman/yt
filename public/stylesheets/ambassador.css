@@ -1174,12 +1174,11 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget div.introduction fieldset label { float: left; }
 #ambassador_profile_widget div.introduction fieldset label input {
-  height: 16px;
+  height: 20px;
   width: 190px;
   margin-right: 5px;
-  padding-left: 3px;
-  line-height: 22px;
-  font-style: italic;
+  padding: 0 0 0 3px;
+  line-height: 20px;
 }
 #ambassador_profile_widget div.introduction fieldset input.submit { border: none !important; }
 #ambassador_profile_widget div.confirm {
