@@ -158,4 +158,15 @@ module ApplicationHelper
       when :delicious : "http://del.icio.us/post?url=#{url}&title=#{title}"
     end
   end
+
+  def remote_check_box_tag(id, remote_url, condition, with = '')
+    with = "'#{ with }&value=' + this.checked"
+
+    "<input id=\"#{ id }\" type=\"checkbox\" #{ 'checked ' if condition }
+      onClick=\"#{ remote_function(:url => remote_url, :with => with) }\">"
+  end
+
+  def notifying_ambassador
+    (current_user && current_user.notify_ambassador_of_reward?) || cookies[:notify_ambassador_of_reward] == 'true'
+  end
 end

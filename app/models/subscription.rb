@@ -159,7 +159,7 @@ class Subscription < ActiveRecord::Base
   end
 
   # TODO: needs unit test
-  def upgrade_to_premium(_renewal_period = 1, ambassador_user_id = nil)
+  def upgrade_to_premium(_renewal_period = 1, ambassador_user_id = nil, notify_ambassador_of_reward = false)
     self.saved_subscription_plan_id = self.subscription_plan_id
     sp = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period)
     logger.debug "Subscription upgrade: Name=#{ sp.name }"
@@ -167,17 +167,17 @@ class Subscription < ActiveRecord::Base
     self.amount = sp.amount
     self.renewal_period = _renewal_period
     self.save!
-    self.account.users.last.set_ambassador!(ambassador_user_id)
+    self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
   end
 
-  def upgrade_plan(subscription_plan, ambassador_user_id = nil)
+  def upgrade_plan(subscription_plan, ambassador_user_id = nil, notify_ambassador_of_reward = false)
     logger.debug "Subscription upgrade: Name=#{ subscription_plan.name }"
     self.saved_subscription_plan_id = self.subscription_plan_id
     self.subscription_plan = subscription_plan
     self.amount = subscription_plan.amount
     self.renewal_period = subscription_plan.renewal_period
     self.save!
-    self.account.users.last.set_ambassador!(ambassador_user_id)
+    self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
   end
 
   # TODO: needs unit test

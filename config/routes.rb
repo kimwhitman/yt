@@ -13,7 +13,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :ambassador_invites
   map.resources :users,
-    :collection => { :check_email => :post, :subscription => :get, :select_ambassador => :any, :change_ambassador => :post },
+    :collection => { :check_email => :post, :subscription => :get, :select_ambassador => :any, :change_ambassador => :post,
+      :notify_ambassador => :post },
     :member => { :profile => :any, :billing => :any, :billing_history => :get, :membership_terms => :get,
       :cancel_membership => :any, :ambassador_tools_invite_by_email => :get, :ambassador_tools_invite_by_sharing => :get,
       :ambassador_tools_my_invitations => :get, :ambassador_tools_my_rewards => :get, :ambassador_tools_help => :get,

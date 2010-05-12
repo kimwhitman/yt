@@ -64,9 +64,10 @@ class PagesController < ApplicationController
 
   private
 
-    def fetch_ambassador
-      @ambassador_user = current_user.ambassador if current_user
-      @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
-      @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
-    end
+  def fetch_ambassador
+    cookies[:ambassador_user_id] = params[:ambassador_user_id] if params[:ambassador_user_id]
+    @ambassador_user = current_user.ambassador if current_user
+    @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
+    @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
+  end
 end

@@ -17,7 +17,7 @@
             <span><%= @ambassador_user.ambassador_name %></span>
           </div>
           <%= hidden_field_tag :ambassador_user_id, @ambassador_user.id %>
-          <label><%= check_box_tag :notify_ambassador %>Notify this Ambassador by e-mail when I subscribe.</label>
+          <label><%= remote_check_box_tag('notify_ambassador', notify_ambassador_users_path, notifying_ambassador) %> Notify this Ambassador by e-mail when I subscribe.</label>
           <%= link_to 'Not your ambassador?', change_ambassador_users_path, :class => 'change_ambassador', :method => :post %>
         </div>
       <% else %>

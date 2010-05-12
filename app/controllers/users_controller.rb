@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
   before_filter :login_required,
     :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription, :select_ambassador,
-      :change_ambassador]
+      :change_ambassador, :notify_ambassador]
   before_filter :setup_ambassador, :only => [:ambassador_tools_invite_by_email, :ambassador_tools_widget_invite_by_email]
   before_filter :fetch_ambassador, :only => [:new, :create, :select_ambassador, :billing]
 
@@ -332,6 +332,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def notify_ambassador
+    if current_user
+      current_user.notify_ambassador_of_reward = params[:value]
+      current_user.save
+    end
+    cookies[:notify_ambassador_of_reward] = params[:value]
+
+    render :update do |page|
+    end
+  end
+
 
 
   protected
@@ -353,7 +364,6 @@ class UsersController < ApplicationController
 
     def fetch_ambassador
       cookies[:ambassador_user_id] = params[:ambassador_user_id] if params[:ambassador_user_id]
-
       @ambassador_user = current_user.ambassador if current_user
       @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
       @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]

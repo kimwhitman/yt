@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
-  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true, :allow_blank => false
+  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true
   validates_inclusion_of :newsletter_format, :in => %w(html plain)
   validates_confirmation_of :email, :on => :create
 
@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   before_save :store_old_email
   before_save :downcase_email
   before_save :initialize_confirmation_token
+  before_save :validate_ambassador_name
   after_save :setup_free_account
   after_save :setup_newsletter
   before_save :strip_ambassador_name
@@ -217,11 +218,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def set_ambassador!(ambassador_user_id)
+  def set_ambassador!(ambassador_user_id, notify)
     # If the user has an ambassador id and a paid plan then associate the two users
     unless ambassador_user_id.nil?
       if self.has_paying_subscription?
         self.ambassador = User.find(ambassador_user_id)
+        self.notify_ambassador_of_reward = true if notify
         self.save
       end
     end
@@ -233,9 +235,9 @@ class User < ActiveRecord::Base
       self.ambassador.increment!(:points_earned)
       self.ambassador.increment!(:points_current)
       self.ambassador.increment!(:successful_referrals_count)
-      #if self.notify_ambassador_of_reward?
+      if self.notify_ambassador_of_reward?
         UserMailer.deliver_ambassador_reward_notification(ambassador, self)
-      #end
+      end
       self.has_rewarded_ambassador = true
       self.save
       logger.debug "DEBUG: Applied #{ self.ambassador.inspect }"
@@ -312,5 +314,10 @@ class User < ActiveRecord::Base
 
     def strip_ambassador_name
       self.ambassador_name = self.ambassador_name.strip unless self.ambassador_name.nil?
+    end
+
+    def validate_ambassador_name
+      # We allow nil values for ambassador name, but not empty strings
+      false if self.ambassador_name == ''
     end
 end
