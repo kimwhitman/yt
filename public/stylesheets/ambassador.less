@@ -1504,10 +1504,28 @@ div.ambassador_agent_id {
 				}
 			}
 			div.actions {
+				position: relative;
 				clear: both;
-				text-align: right;
-				input.submit { border: none; position: static;}
-				input.cancel { position: static;}
+				input.submit {
+					vertical-align: top;
+					position: static;
+					border: none; 
+					margin: 0; 
+					padding: 0;
+				}
+				.cancel { 
+					position: absolute;
+					color: @color_ambassador_font;
+					text-decoration: underline;
+					margin: 0;
+					padding: 0;
+					vertical-align: top;
+					line-height: 14px;
+					:hover {
+						text-decoration: none;
+						color: #333;
+					}
+				}
 			}
 		}
 		div.rewards_terms {

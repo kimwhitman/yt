@@ -1392,14 +1392,29 @@ div.ambassador_agent_id span {
   float: right;
 }
 #ambassador_tools div.tools_container div.redeemed_rewards div.actions {
+  position: relative;
   clear: both;
-  text-align: right;
 }
 #ambassador_tools div.tools_container div.redeemed_rewards div.actions input.submit {
-  border: none;
+  vertical-align: top;
   position: static;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
-#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.cancel { position: static; }
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions .cancel {
+  position: absolute;
+  color: #4778c5;
+  text-decoration: underline;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  line-height: 14px;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions .cancel:hover {
+  text-decoration: none;
+  color: #333333;
+}
 #ambassador_tools div.tools_container div.rewards_terms {
   margin: 0 30px;
   padding: 4px 0 0 0;
