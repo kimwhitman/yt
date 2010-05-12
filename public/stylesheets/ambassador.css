@@ -1611,7 +1611,7 @@ div.ambassador_agent_id span {
   margin: 0 30px 0 30px;
   padding: 4px 0;
 }
-#ambassador_tools div.tools_container div.actions input.preview { border: none; }
+#ambassador_tools div.tools_container div.actions .preview img { border: none; }
 #ambassador_tools div.tools_container div.actions input.send { border: none; }
 #ambassador_tools div.tools_container div.actions .cancel {
   position: absolute;
