@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user.wants_promos = true
     setup_fake_values
 
-    if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
+    if !params[:membership].blank? #&& %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     else
       @billing_cycle = '1'

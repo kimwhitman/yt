@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_filter :fetch_ambassador, :only => [:get_started_today]
+
   def home
     @home_page = true
     @user_story = UserStory.published.by_publish_at(:limit => 1).first
@@ -57,4 +59,14 @@ class PagesController < ApplicationController
       send_file "#{RAILS_ROOT}/public#{params[:media_kit]}"
     end
   end
+
+
+
+  private
+
+    def fetch_ambassador
+      @ambassador_user = current_user.ambassador if current_user
+      @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
+      @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
+    end
 end
