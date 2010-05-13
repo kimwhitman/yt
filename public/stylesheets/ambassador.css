@@ -305,22 +305,116 @@
   width: 300px;
   height: 190px;
 }
-#ambassador_details ul li div.create_id { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
-#ambassador_details ul li div.create_id div {
+#ambassador_details ul li div.login { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.login h4 {
+  font-size: 14px;
+  color: #4778c5;
+  margin: 0;
+  padding: 25px 0 0 25px;
+}
+#ambassador_details ul li div.login fieldset {
+  border: none;
+  margin: 0 0 0 25px;
+  padding: 0;
+}
+#ambassador_details ul li div.login fieldset label {
+  display: block;
+  font-size: 11px;
+  color: #999999;
+}
+#ambassador_details ul li div.login fieldset label input {
+  display: block;
+  padding: 0 0 0 3;
+  margin: 0;
+  line-height: 20px;
+  height: 20px;
+  width: 238px;
+}
+#ambassador_details ul li div.login input.submit {
+  margin: 5px 0 0 25px;
+  border: none;
+}
+#ambassador_details ul li div.login span.signup {
+  position: absolute;
+  bottom: 28px;
+  left: 84px;
+  font-size: 11px;
+  color: #666666;
+}
+#ambassador_details ul li div.login span.signup a { text-decoration: underline; }
+#ambassador_details ul li div.login span.signup a:hover { text-decoration: none; }
+#ambassador_details ul li div.create { background: url('/images/ambassador_details_1_create.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.create p {
+  color: #666666;
+  margin: 0;
+  padding: 102px 0 0 30px;
+  font-size: 12px;
+}
+#ambassador_details ul li div.create fieldset {
   position: absolute;
   left: 70px;
   top: 127px;
-}
-#ambassador_details ul li div.create_id div input.input {
-  width: 132px;
-  height: 16px;
-  vertical-align: top;
-  padding: 2px 0px 2px 5px;
-}
-#ambassador_details ul li div.create_id div input.submit {
+  padding: 0;
+  margin: 0;
   border: none;
-  vertical-align: top;
 }
+#ambassador_details ul li div.create fieldset label {
+  margin: 0;
+  padding: 0;
+}
+#ambassador_details ul li div.create fieldset label input {
+  vertical-align: top;
+  height: 20px;
+  width: 132px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0 0 0 3px;
+}
+#ambassador_details ul li div.create input.submit { border: none; }
+#ambassador_details ul li div.confirm { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.confirm h4 {
+  font-size: 14px;
+  color: #4778c5;
+  margin: 0;
+  padding: 25px 0 0 25px;
+}
+#ambassador_details ul li div.confirm p {
+  color: #666666;
+  font-size: 11px;
+  margin: 0;
+  padding: 10px 25px 0 25px;
+}
+#ambassador_details ul li div.confirm div.ambassador_agent_id {
+  width: 300px;
+  height: 50px;
+  background-position: 25px 10px;
+}
+#ambassador_details ul li div.confirm div.ambassador_agent_id span {
+  top: 16px;
+  left: 62px;
+}
+#ambassador_details ul li div.confirm fieldset {
+  position: absolute;
+  bottom: 15px;
+  width: 300px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#ambassador_details ul li div.confirm fieldset legend span {
+  position: absolute;
+  right: 25px;
+  top: 0px;
+  font-size: 11px;
+  color: #666666;
+  text-decoration: underline;
+}
+#ambassador_details ul li div.confirm fieldset legend span:hover { text-decoration: none; }
+#ambassador_details ul li div.confirm fieldset label {
+  margin: 0 0 0 25px;
+  padding: 0;
+}
+#ambassador_details ul li div.confirm fieldset label input.submit { border: none; }
 #ambassador_details ul li.last { border-bottom: none; }
 h1.header_primary {
   color: #3a7a15;

@@ -19,36 +19,53 @@
           </dl>
 
           <% if current_user %>
-            <div class="preview create_id">
-              <div>
-                <% if params[:verify_ambassador_name].blank? %>
-                  <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
-                    <fieldset>
-                      <label>
-                        <%= f.text_field :ambassador_name, :class => 'input' %>
-                        <%= hidden_field_tag :redirect_to, 'ambassador-details' %>
-                      </label>
-                      <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
-                    </fieldset>
-                  <% end %>
+          
+          <% if params[:verify_ambassador_name].blank? %>
+            <div class="preview create">
+              <p>To join, create an Ambassador ID</p>
+                <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
+                  <fieldset>
+                    <label>
+                      <%= f.text_field :ambassador_name, :class => 'input' %>
+                      <%= hidden_field_tag :redirect_to, 'ambassador-details' %>
+                    </label>
+                    <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+                  </fieldset>
                 <% end %>
+            </div>
+            <% end %>
 
-                <% # RYAN STYLE THIS!!! This is the confirmation step %>
-                <% if params[:verify_ambassador_name] %>
-                  <div class="confirm">
-                    <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
-                    <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
-                    <% form_for current_user do |f| -%>
-                      <fieldset>
-                        <legend><span><%= link_to 'make a change', 'ambassador-details' %></span></legend>
-                        <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
-                        <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
-                      </fieldset>
-                    <% end %>
-                  </div>
+            <% if params[:verify_ambassador_name] %>
+              <div class="preview confirm">
+                <h4>Confirm Ambassador ID</h4>
+                <p>This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
+                <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
+                <% form_for current_user do |f| -%>
+                  <fieldset>
+                    <legend><span><%= link_to 'make a change', 'ambassador-details' %></span></legend>
+                    <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
+                    <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
+                  </fieldset>
                 <% end %>
               </div>
-            </div>
+            <% end %>
+
+          <% else %>
+            <div class="preview login">
+
+              <h4>Login</h4>
+              <fieldset>
+                <label>e-mail address
+                  <input type="text"></input>
+                </label>
+                <label>password
+                  <input type="text"></input>
+                </label>
+              </fieldset>
+              <input type="image" src="/images/ambassador_details_button_login.png" class="submit"></input>
+              <span class="signup">Not a member yet? <a href="#">Sign Up</a></span>
+          
+            </div>          
           <% end %>
         </li>
 
