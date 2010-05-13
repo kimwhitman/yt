@@ -43,7 +43,7 @@
                   <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
                   <% form_for current_user do |f| -%>
                     <fieldset>
-                      <legend><span><%= link_to 'make a change', profile_user_path(current_user) %></span></legend>
+                      <legend><span><%= link_to 'make a change', 'ambassador-details' %></span></legend>
                       <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
                       <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
                     </fieldset>

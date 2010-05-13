@@ -1,40 +1,3 @@
-<div id="ambassador_profile_widget" class="program">
-
-  <% if current_user.ambassador_name.nil? && params[:verify_ambassador_name].blank? %>
-    <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
-    <img class="greeting" src="/images/ambassador_greeting.png" />
-
-    <div class="introduction">
-      <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
-      <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
-        <fieldset>
-          <legend><span>Choose your Ambassador ID</span></legend>
-          <label>
-            <%= f.text_field :ambassador_name %>
-          </label>
-          <input type="image" class="submit" src="/images/profile_widget_button_continue.png"></input>
-        </fieldset>
-      <% end %>
-    </div>
-  <% end %>
-
-  <% if params[:verify_ambassador_name] %>
-  <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
-  <img class="greeting" src="/images/ambassador_greeting.png" />
-    <div class="confirm">
-      <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
-      <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
-      <% form_for current_user do |f| -%>
-        <fieldset>
-          <legend><span><%= link_to 'make a change', profile_user_path(current_user) %></span></legend>
-          <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
-          <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
-        </fieldset>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-
 <% if current_user.ambassador_name %>
   <div id="ambassador_profile_widget" class="tools">
     <p class="header">Ambassador Tools <span>Quick-view</span> <%= link_to 'Learn More', '/ambassador-details' %></p>
@@ -85,6 +48,42 @@
 
     <span class="help"><%= link_to 'Help', ambassador_tools_help_user_path(current_user) %></span>
 
+  </div>
+<% else %>
+  <div id="ambassador_profile_widget" class="program">
+    <% if current_user.ambassador_name.nil? && params[:verify_ambassador_name].blank? %>
+      <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
+      <img class="greeting" src="/images/ambassador_greeting.png" />
+
+      <div class="introduction">
+        <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
+        <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
+          <fieldset>
+            <legend><span>Choose your Ambassador ID</span></legend>
+            <label>
+              <%= f.text_field :ambassador_name %>
+            </label>
+            <input type="image" class="submit" src="/images/profile_widget_button_continue.png"></input>
+          </fieldset>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if params[:verify_ambassador_name] %>
+    <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
+    <img class="greeting" src="/images/ambassador_greeting.png" />
+      <div class="confirm">
+        <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
+        <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
+        <% form_for current_user do |f| -%>
+          <fieldset>
+            <legend><span><%= link_to 'make a change', profile_user_path(current_user) %></span></legend>
+            <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
+            <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
+          </fieldset>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>
 
