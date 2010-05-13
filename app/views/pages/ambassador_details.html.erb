@@ -19,9 +19,39 @@
           </dl>
           <div class="preview create_id">
             <div>
-            <input class="input" type="text"></input>
-            <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+              <!--
+              <input class="input" type="text"></input>
+              <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+            -->
+
+              <% if current_user && current_user.ambassador_name.nil? && params[:verify_ambassador_name].blank? %>
+                <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
+                  <fieldset>
+                    <label>
+                      <%= f.text_field :ambassador_name, :class => 'input' %>
+                      <%= hidden_field_tag :redirect_to, 'ambassador-details' %>
+                    </label>
+                    <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+                  </fieldset>
+                <% end %>
+              <% end %>
+
+              <% # RYAN STYLE THIS!!! This is the confirmation step %>
+              <% if params[:verify_ambassador_name] %>
+                <div class="confirm">
+                  <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
+                  <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
+                  <% form_for current_user do |f| -%>
+                    <fieldset>
+                      <legend><span><%= link_to 'make a change', profile_user_path(current_user) %></span></legend>
+                      <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
+                      <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
+                    </fieldset>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
+
           </div>
         </li>
 

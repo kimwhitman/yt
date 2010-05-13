@@ -86,7 +86,12 @@ class UsersController < ApplicationController
 
   def select_ambassador_name
     @ambassador_name = params[:user][:ambassador_name]
-    redirect_to profile_user_path(current_user, :verify_ambassador_name => @ambassador_name)
+    case params[:redirect_to]
+      when 'ambassador-details'
+        redirect_to '/ambassador-details/?verify_ambassador_name=' + @ambassador_name
+      else
+        redirect_to profile_user_path(current_user, :verify_ambassador_name => @ambassador_name)
+    end
   end
 
   def profile
