@@ -971,7 +971,7 @@ div.ambassador_off div.trial .submit img { border: none; }
 }
 #profile_sidebar ul li {
   font-size: 12px;
-  color: #999999;
+  color: #333333;
 }
 #profile_sidebar ul li a { color: #999999; }
 #profile_sidebar ul li a:hover {
@@ -1180,6 +1180,7 @@ div.ambassador_agent_id span {
   padding: 0 0 0 3px;
   line-height: 20px;
 }
+#ambassador_profile_widget div.introduction fieldset label input.empty { font-style: italic; }
 #ambassador_profile_widget div.introduction fieldset input.submit { border: none !important; }
 #ambassador_profile_widget div.confirm {
   position: relative;
