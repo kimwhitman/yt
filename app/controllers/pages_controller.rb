@@ -60,6 +60,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def ask_question
+    redirect_to contact_path(:message => params[:message])
+  end
+
 
 
   private

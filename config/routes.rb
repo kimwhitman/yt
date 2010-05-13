@@ -12,6 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'Sessions', :action => 'destroy'
 
   map.resources :ambassador_invites
+  map.resources :pages,
+    :collection => { :ask_question => :post }
   map.resources :users,
     :collection => { :check_email => :post, :subscription => :get, :select_ambassador => :any, :change_ambassador => :post,
       :notify_ambassador => :post },
