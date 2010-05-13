@@ -1227,6 +1227,7 @@ div.ambassador_agent_id span {
   margin: 0 10px 10px 0;
   padding: 0;
 }
+#ambassador_profile_widget div.confirm fieldset label input.submit { border: none; }
 #ambassador_tools_navigation {
   height: 26px;
   display: block;
