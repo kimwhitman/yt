@@ -19,6 +19,8 @@
   <% end %>
 
   <% if params[:verify_ambassador_name] %>
+  <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
+  <img class="greeting" src="/images/ambassador_greeting.png" />
     <div class="confirm">
       <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
       <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
