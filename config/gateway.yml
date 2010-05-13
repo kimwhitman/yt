@@ -1,10 +1,19 @@
-# PA Test ccount
+# PA Test Account
+# ==================================
+# https://test.authorize.net/ui/themes/anetcerttest/Logon.aspx
+# Login: garyblessington1
+# Password: Argon2010
+# Login: planetarg0n
+# Password: 7ByPH7Rw8j
+# ==================================
 # Current API Login ID:  3434tjLVAP5
 # Current Transaction Key:  34vY3SvY4425sP53
+# ==================================
+# Note, if using a test Authorize.net account, remember to change the gateway setting in config.yml
 
 development:
-  login: '2zSn67VN'
-  password: '4R74qSk8t4UZd8jZ'
+  login: '3434tjLVAP5'
+  password: '34vY3SvY4425sP53'
   test: 'true'
 staging:
   login: '2zSn67VN'

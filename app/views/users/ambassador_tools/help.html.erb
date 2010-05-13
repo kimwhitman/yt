@@ -17,13 +17,15 @@
 
         <div class="tools_container">
 
-          <fieldset class="ask_a_question">
-            <legend><span>Ask a question:</span></legend>
-            <label>
-              <input type="text"></input>
-            </label>
-              <input class="submit" type="image" src="/images/ambassador_button_ask.png"></input>
-          </fieldset>
+          <% form_tag ask_question_pages_path do %>
+            <fieldset class="ask_a_question">
+              <legend><span>Ask a question:</span></legend>
+              <label>
+                <%= text_field_tag :message %>
+              </label>
+              <%= image_submit_tag "/images/ambassador_button_ask.png", :class => 'submit' %>
+            </fieldset>
+          <% end %>
 
           <h2 class="header">Ambassador Help</h2>
 
