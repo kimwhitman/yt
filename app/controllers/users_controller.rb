@@ -265,6 +265,8 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_invite_by_email
+    @ambassador_invite.subject = 'A special invitation to Yoga Today' if @ambassador_invite.subject.nil?
+    @ambassador_invite.body = "Hey!\nMaybe you've seen this before, but I've found a great way to practice yoga more often. It's an on-line video studio called Yoga Today, and now they're offering a free 2 week trial. You should look into it and give it a try.\n\nGood luck with your practice!" if @ambassador_invite.body.nil?
     render :template => 'users/ambassador_tools/invite_by_email'
   end
 
