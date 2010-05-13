@@ -215,12 +215,12 @@
   height: 463px;
   background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
 }
-#ambassador_details div.hero input {
+#ambassador_details div.hero a.join_now {
   position: absolute;
   left: 420px;
   bottom: 62px;
-  border: none;
 }
+#ambassador_details div.hero a.join_now img { border: none; }
 #ambassador_details div.join {
   background: #d4e4ff;
   height: 40px;
@@ -230,11 +230,11 @@
   padding: 0;
   line-height: 40px;
 }
-#ambassador_details div.join input {
+#ambassador_details div.join a.join_now {
   position: relative;
   top: 5px;
-  border: none;
 }
+#ambassador_details div.join a.join_now img { border: none; }
 #ambassador_details ul {
   list-style-type: none;
   background: #edf4ff;
