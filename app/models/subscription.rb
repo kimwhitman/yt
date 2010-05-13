@@ -40,30 +40,32 @@ class Subscription < ActiveRecord::Base
     Rails.logger.info "DEBUG Attempting to store credit card details for Account ID: #{self.account_id}"
     Rails.logger.debug "DEBUG #{ gateway.class }"
     Rails.logger.debug "DEBUG Gateway options: #{gateway.options.inspect}"
-    Rails.logger.debug "DEBUG Card info: #{creditcard.inspect}"
 
     @response = if billing_id.blank?
+      Rails.logger.debug "DEBUG Gateway store"
       gateway.store(creditcard, gw_options)
     else
+      Rails.logger.debug "DEBUG Gateway update"
       gateway.update(billing_id, creditcard, gw_options)
     end
+    Rails.logger.debug "DEBUG Response=#{ @response.inspect }"
 
     self.card_number = creditcard.display_number
     self.card_expiration = "%02d-%d" % [creditcard.expiry_date.month, creditcard.expiry_date.year]
 
     if @response.success?
-      Rails.logger.info "Successfully set credit card details for Account ID: #{self.account_id}"
-      Rails.logger.info "MESSAGE: #{@response.message}; TOKEN: #{@response.token}"
+      Rails.logger.info "DEBUG Successfully set credit card details for Account ID: #{self.account_id}"
+      Rails.logger.info "DEBUG  #{@response.message}; TOKEN: #{@response.token}"
       if set_billing(creditcard)
         true
       else
-        Rails.logger.info "An error occured setting billing: #{errors.full_messages.join(',')}"
-        Rails.logger.info "Gateway options: #{gateway.options.inspect}"
+        Rails.logger.info "DEBUG An error occured setting billing: #{errors.full_messages.join(',')}"
+        Rails.logger.info "DEBUG Gateway options: #{gateway.options.inspect}"
         false  # EAE this was missing - causing silent rejections
       end
     else
-      Rails.logger.info "Failed to set credit card details for Account ID: #{self.account_id}"
-      Rails.logger.info "Here's what the gateway said: #{@response.message}"
+      Rails.logger.info "DEBUG Failed to set credit card details for Account ID: #{self.account_id}"
+      Rails.logger.info "DEBUG Here's what the gateway said: #{@response.message}"
       errors.add_to_base(@response.message)
       false
     end
