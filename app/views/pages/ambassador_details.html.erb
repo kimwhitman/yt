@@ -19,20 +19,19 @@
           </dl>
 
           <% if current_user %>
-          
-          <% if params[:verify_ambassador_name].blank? %>
-            <div class="preview create">
-              <p>To join, create an Ambassador ID</p>
-                <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
-                  <fieldset>
-                    <label>
-                      <%= f.text_field :ambassador_name, :class => 'input' %>
-                      <%= hidden_field_tag :redirect_to, 'ambassador-details' %>
-                    </label>
-                    <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
-                  </fieldset>
-                <% end %>
-            </div>
+            <% if params[:verify_ambassador_name].blank? %>
+              <div class="preview create">
+                <p>To join, create an Ambassador ID</p>
+                  <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
+                    <fieldset>
+                      <label>
+                        <%= f.text_field :ambassador_name, :class => 'input' %>
+                        <%= hidden_field_tag :redirect_to, 'ambassador-details' %>
+                      </label>
+                      <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+                    </fieldset>
+                  <% end %>
+              </div>
             <% end %>
 
             <% if params[:verify_ambassador_name] %>
@@ -42,7 +41,7 @@
                 <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
                 <% form_for current_user do |f| -%>
                   <fieldset>
-                    <legend><span><%= link_to 'make a change', 'ambassador-details' %></span></legend>
+                    <legend><span><%= link_to 'make a change', '/ambassador-details' %></span></legend>
                     <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
                     <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
                   </fieldset>
@@ -52,20 +51,21 @@
 
           <% else %>
             <div class="preview login">
-
               <h4>Login</h4>
-              <fieldset>
-                <label>e-mail address
-                  <input type="text"></input>
-                </label>
-                <label>password
-                  <input type="text"></input>
-                </label>
-              </fieldset>
-              <input type="image" src="/images/ambassador_details_button_login.png" class="submit"></input>
-              <span class="signup">Not a member yet? <a href="#">Sign Up</a></span>
-          
-            </div>          
+              <% form_for :session, :url => session_path do |f| -%>
+                <fieldset>
+                  <label>e-mail address
+                    <%= f.text_field :email %>
+                  </label>
+                  <label>password
+                    <%= f.password_field :password %>
+                  </label>
+                </fieldset>
+                <%= image_submit_tag "/images/ambassador_details_button_login.png", :class => "submit" %>
+              <% end %>
+
+              <span class="signup">Not a member yet? <%= link_to 'Sign Up', sign_up_path %></span>
+            </div>
           <% end %>
         </li>
 
