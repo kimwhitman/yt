@@ -1,21 +1,20 @@
 # PA Test Account
 # ==================================
 # https://test.authorize.net/ui/themes/anetcerttest/Logon.aspx
-# Login: garyblessington1
+# Login: PlanetArgon1
 # Password: Argon2010
-# or
-# Login: planetarg0n
-# Password: 7ByPH7Rw8j
 # ==================================
-# Current API Login ID:  3434tjLVAP5
-# Current Transaction Key:  34vY3SvY4425sP53
+# Payment gateway: 286776
+# ==================================
+# Current API Login ID:  7y4UnQPW5hd
+# Current Transaction Key:  78dy5J4mvF56Qwxs
 # ==================================
 # Note, if using a test Authorize.net account, remember to change the gateway setting in config.yml
 
 development:
-  login: '3434tjLVAP5'
-  password: '34vY3SvY4425sP53'
-  test: 'true'
+  login: '7y4UnQPW5hd'
+  password: '78dy5J4mvF56Qwxs'
+  test: 'false'
 staging:
   login: '2zSn67VN'
   password: '4R74qSk8t4UZd8jZ'

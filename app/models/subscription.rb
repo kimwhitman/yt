@@ -1,21 +1,28 @@
 class Subscription < ActiveRecord::Base
+  # Associations
   belongs_to :account
   belongs_to :subscription_plan
   has_many :subscription_payments, :dependent => :destroy
   has_many :billing_transactions, :as => :billing, :dependent => :destroy
 
+  # Validations
+  validates_numericality_of :renewal_period, :only_integer => true, :greater_than => 0
+  validate_on_create :card_storage
+
+  # Scopes
+  named_scope :active, :conditions => ['state = ? AND last_attempt_successful != ?', 'active', false], :order => 'next_renewal_at ASC'
+  named_scope :paid, :include => [:subscription_plan], :conditions => ['name != ?', 'Free']
+
+  # Extensions
+
+  # Callbacks
   before_create :set_renewal_at
   before_destroy :destroy_gateway_record!
 
+  # Attributes
   attr_accessor :creditcard, :address
   attr_reader :response
 
-  named_scope :active, :conditions => ['state = ? AND last_attempt_successful != ?', 'active', false], :order => 'next_renewal_at ASC'
-  named_scope :paid, :include => [:subscription_plan], :conditions => ['name != ?', 'Free']
-  # renewal_period is the number of months to bill at a time
-  # default is 1
-  validates_numericality_of :renewal_period, :only_integer => true, :greater_than => 0
-  validate_on_create :card_storage
 
   def plan=(plan)
     [:amount, :user_limit, :renewal_period].each do |f|
@@ -55,12 +62,13 @@ class Subscription < ActiveRecord::Base
 
     if @response.success?
       Rails.logger.info "DEBUG Successfully set credit card details for Account ID: #{self.account_id}"
-      Rails.logger.info "DEBUG  #{@response.message}; TOKEN: #{@response.token}"
+      Rails.logger.info "DEBUG Response=#{@response.message}; Token=#{@response.token}"
       if set_billing(creditcard)
+        Rails.logger.debug "DEBUG set_billing complete"
         true
       else
-        Rails.logger.info "DEBUG An error occured setting billing: #{errors.full_messages.join(',')}"
-        Rails.logger.info "DEBUG Gateway options: #{gateway.options.inspect}"
+        Rails.logger.debug "DEBUG An error occured setting billing: #{errors.full_messages.join(',')}"
+        Rails.logger.debug "DEBUG Gateway options: #{gateway.options.inspect}"
         false  # EAE this was missing - causing silent rejections
       end
     else
@@ -265,7 +273,7 @@ class Subscription < ActiveRecord::Base
           #   return false
           # end
 
-          logger.debug("Attempting to charge card")
+          logger.debug("Attempting to charge card #{ amount_in_pennies } pennies")
 
           # support using BogusGateway when testing (based on config.yml)
           # transaction_id is calculated differently between gateways, so
@@ -278,12 +286,10 @@ class Subscription < ActiveRecord::Base
             @response = gateway.purchase(amount_in_pennies, billing_id)
             trans_id = @response.authorization
           end
-
           logger.debug("Response is #{ @response.inspect }")
 
           if amount == 0 || @response.success? || gateway.options[:test] == 'true'
             self.state = 'active'
-
             # dates to be used by SubscriptionPayment
             start_date = self.next_renewal_at
             if self.subscription_plan.is_trial?
@@ -293,7 +299,6 @@ class Subscription < ActiveRecord::Base
             end
 
             logger.debug("Set billing by adding new payment for existing record")
-
             self.next_renewal_at = end_date
             self.save!
             logger.debug "DEBUG Subscription=#{ self.inspect }"
@@ -303,9 +308,13 @@ class Subscription < ActiveRecord::Base
               :start_date => start_date,
               :end_date => end_date,
               :payment_method => "Card #{ self.card_number }")
+            logger.debug "DEBUG Added subscription payment"
 
-            billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
+            logger.debug "DEBUG Adding billing transaction (#{ self.billing_transactions.count }): #{ trans_id } #{ amount * 100 }"
+            bi = billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
+            logger.debug "DEBUG Added billing transaction (#{ self.billing_transactions.count }) #{ bi.valid? }"
           else
+            logger.debug "DEBUG Failed #{ @response }"
             restore_saved_plan
             errors.add_to_base(@response.message)
             return false
@@ -313,10 +322,9 @@ class Subscription < ActiveRecord::Base
         else
           self.state = 'active'
         end
-
+        logger.debug "DEBUG Before saving Valid=#{ self.valid? } Subscription=#{ self.inspect }"
         self.save!
       end
-
       true
     end
 
