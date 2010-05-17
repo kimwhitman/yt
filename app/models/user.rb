@@ -140,6 +140,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_free_subscription?
+    self.account.subscription.subscription_plan.internal_name == 'free'
+  end
+
+  def has_premium_free_subscription?
+    self.account.subscription.subscription_plan.internal_name == 'premium_monthly_free'
+  end
+
   def has_active_card?
     has_paying_subscription? && !account.subscription.card_expired?
   end
@@ -199,10 +207,15 @@ class User < ActiveRecord::Base
 
         subscription = self.account.subscription
         (1..redeemed_points).each do |point|
+          # If this is a user with a free account then we need to change their subscription plan
+          if self.has_free_subscription?
+            subscription.subscription_plan_id = SubscriptionPlan.find_by_internal_name('premium_monthly_free').id
+          end
+
           start_date = subscription.next_renewal_at
           end_date = start_date.advance(:months => 1)
-
           subscription.next_renewal_at = end_date
+
           subscription.save
 
           self.account.subscription_payments << SubscriptionPayment.create(

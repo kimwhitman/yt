@@ -22,22 +22,24 @@
           <p class="value"><%= membership_type %></p>
         </div>
 
-        <div class="details period">
-          <p class="title">Current membership period</p>
-          <p class="value"><%= current_membership_period %></p>
-        </div>
+        <% unless current_user.has_free_subscription? || current_user.has_premium_free_subscription? %>
+          <div class="details period">
+            <p class="title">Current membership period</p>
+            <p class="value"><%= current_membership_period %></p>
+          </div>
 
-        <div class="details date">
-          <p class="title">Next payment date</p>
-          <p class="value"><%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %></p>
-        </div>
+          <div class="details date">
+            <p class="title">Next payment date</p>
+            <p class="value"><%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %></p>
+          </div>
 
-        <div class="details">
-          <p class="title">Amount</p>
-          <p class="value">
-            <%= current_membership_amount %>
-          </p>
-        </div>
+          <div class="details">
+            <p class="title">Amount</p>
+            <p class="value">
+              <%= current_membership_amount %>
+            </p>
+          </div>
+        <% end %>
 
         <h2>Recent Billing Activity <!-- <a href="#">Show All</a> --></h2>
 

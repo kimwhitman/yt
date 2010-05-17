@@ -79,6 +79,43 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def charge_due
+    # Does the subscription plan need to move to another plan when this one expires?
+    if self.subscription_plan.transitions_to_subscription_plan
+      new_plan = self.subscription_plan.transitions_to_subscription_plan
+      puts "Subscription plan (#{ self.subscription_plan.id }) has expired. Transitioning to new plan: #{ self.subscription_plan.name }"
+      self.saved_subscription_plan_id = self.subscription_plan_id
+      self.subscription_plan_id = self.subscription_plan.transitions_to_subscription_plan_id
+      self.renewal_period = new_plan.renewal_period
+      self.amount = new_plan.amount
+      self.save
+      puts "New subscription plan (#{ self.subscription_plan.id }) Amount=$#{ self.amount }"
+    end
+
+    # Does this user have a Premium Free account, gained through reward points?
+    # If so, revert them back to a free account
+    if self.account.users.last.has_premium_free_subscription?
+      self.subscription_plan_id = SubscriptionPlan.find_by_internal_name('free').id
+      self.save
+      puts "Has been moved back to a Free subscription"
+    end
+
+    if self.subscription_plan.internal_name != 'free'
+      if self.charge
+        # comment out to avoid double receipts
+        #SubscriptionNotifier.deliver_charge_receipt(self.subscription_payments.last)
+        p "#{Time.now} Charged"
+        self.account.users.last.apply_ambassador_points!
+        puts "#{ Time.now } Success"
+      else
+        SubscriptionNotifier.deliver_charge_failure(self)
+        puts "#{ Time.now } Failed to charge"
+      end
+    else
+      puts "#{ Time.now } Not charging - free"
+    end
+  end
+
   def charge
     logger.debug "DEBUG: Subscription charge Amount=#{ amount }"
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
@@ -100,6 +137,7 @@ class Subscription < ActiveRecord::Base
 
       true
     else
+      logger.debug "DEBUG: Subscription charge failure. amount=#{ amount_in_pennies } billing_id=#{ billing_id } response=#{ @response.inspect }"
       errors.add_to_base(@response.message)
       false
     end
@@ -278,15 +316,18 @@ class Subscription < ActiveRecord::Base
           # support using BogusGateway when testing (based on config.yml)
           # transaction_id is calculated differently between gateways, so
           # this will get us a valid one
-          if gateway.class == ActiveMerchant::Billing::BogusGateway
-            logger.debug "Using BogusGateway"
-            @response = gateway.purchase(amount_in_pennies, cc)
-            trans_id = @response.success? ? 1 : 'err'
-          else
-            @response = gateway.purchase(amount_in_pennies, billing_id)
-            trans_id = @response.authorization
+          # Purchase
+          if amount > 0
+            if gateway.class == ActiveMerchant::Billing::BogusGateway
+              logger.debug "Using BogusGateway"
+              @response = gateway.purchase(amount_in_pennies, cc)
+              trans_id = @response.success? ? 1 : 'err'
+            else
+              @response = gateway.purchase(amount_in_pennies, billing_id)
+              trans_id = @response.authorization
+            end
+            logger.debug("Response is #{ @response.inspect }")
           end
-          logger.debug("Response is #{ @response.inspect }")
 
           if amount == 0 || @response.success? || gateway.options[:test] == 'true'
             self.state = 'active'
@@ -301,20 +342,19 @@ class Subscription < ActiveRecord::Base
             logger.debug("Set billing by adding new payment for existing record")
             self.next_renewal_at = end_date
             self.save!
-            logger.debug "DEBUG Subscription=#{ self.inspect }"
 
             subscription_payments.create(:account => account, :amount => amount,
               :transaction_id => trans_id,
               :start_date => start_date,
               :end_date => end_date,
               :payment_method => "Card #{ self.card_number }")
-            logger.debug "DEBUG Added subscription payment"
 
-            logger.debug "DEBUG Adding billing transaction (#{ self.billing_transactions.count }): #{ trans_id } #{ amount * 100 }"
-            bi = billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
-            logger.debug "DEBUG Added billing transaction (#{ self.billing_transactions.count }) #{ bi.valid? }"
+            if amount > 0
+              logger.debug "DEBUG Adding BillingTransaction authorization_code=#{ trans_id } amount=#{ amount * 100 }"
+              billing_transactions.create(:authorization_code => trans_id, :amount => (amount * 100))
+            end
           else
-            logger.debug "DEBUG Failed #{ @response }"
+            logger.debug "DEBUG Failed response=#{ @response.inspect }"
             restore_saved_plan
             errors.add_to_base(@response.message)
             return false
@@ -322,7 +362,6 @@ class Subscription < ActiveRecord::Base
         else
           self.state = 'active'
         end
-        logger.debug "DEBUG Before saving Valid=#{ self.valid? } Subscription=#{ self.inspect }"
         self.save!
       end
       true
@@ -373,37 +412,9 @@ class Subscription < ActiveRecord::Base
     def self.charge_due_accounts
       subscriptions = Subscription.find_due
       subscriptions.each do |subscription|
-        puts "Name: #{ subscription.account.users.last.name } Plan: #{ subscription.subscription_plan }"
-        p subscription
-
-        # Does the subscription plan need to move to another plan when this one expires?
-        if subscription.subscription_plan.transitions_to_subscription_plan
-          new_plan = subscription.subscription_plan.transitions_to_subscription_plan
-          p "Subscription plan has expired. Transitioning to new plan: #{ subscription.subscription_plan.name }"
-          subscription.saved_subscription_plan_id = subscription.subscription_plan_id
-          subscription.subscription_plan_id = subscription.subscription_plan.transitions_to_subscription_plan_id
-          subscription.renewal_period = new_plan.renewal_period
-          subscription.amount = new_plan.amount
-          subscription.save
-          p subscription
-          p "DEBUG: New subscription plan Amount=$#{ subscription.amount }"
-        end
-
-        if subscription.subscription_plan.name != 'Free'
-          if subscription.charge
-            # comment out to avoid double receipts
-            #SubscriptionNotifier.deliver_charge_receipt(subscription.subscription_payments.last)
-            p "#{Time.now} Charged"
-            subscription.account.users.last.apply_ambassador_points!
-          else
-            SubscriptionNotifier.deliver_charge_failure(subscription)
-            puts "#{Time.now} Failed to charge #{subscription.inspect}"
-          end
-        else
-          puts "#{Time.now} Not charging free #{subscription.inspect}"
-        end
-
-        p "=================================================="
+        puts "Name: #{ subscription.account.users.last.name } Plan: #{ subscription.subscription_plan } (ID=#{ subscription.subscription_plan.id })"
+        subscription.charge_due
+        puts "=================================================="
       end
       true
     end

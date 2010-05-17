@@ -14,7 +14,8 @@
 development:
   login: '7y4UnQPW5hd'
   password: '78dy5J4mvF56Qwxs'
-  test: 'false'
+  # NOTE: Also change test to 'true' if using Bogus gateway
+  test: 'true'
 staging:
   login: '2zSn67VN'
   password: '4R74qSk8t4UZd8jZ'
