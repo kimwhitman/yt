@@ -1,34 +1,31 @@
 <% if current_user.ambassador_name %>
   <div id="ambassador_profile_widget" class="tools">
-    <p class="header">Ambassador Tools <span>Quick-view</span> <%= link_to 'Learn More', '/ambassador-details' %></p>
+    <p class="header"><%= link_to 'Ambassador Tools <span>Quick-view</span>', ambassador_tools_invite_by_email_user_path(current_user) %> <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
     <div class="ambassador_agent_id">
-      <span><%= current_user.ambassador_name %></span>
+      <span><a href="#"><%= current_user.ambassador_name %></a></span>
     </div>
-
     <div class="stats">
-
     <table>
       <tr>
-        <td>Invitations</td>
-        <td class="count"><%= current_user.invitations_count %></td>
+        <td><%= link_to 'Invitations', ambassador_tools_invite_by_email_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.invitations_count %></a></td>
       </tr>
       <tr>
-        <td>Successful Referrals</td>
-        <td class="count"><%= current_user.successful_referrals_count %></td>
+        <td><%= link_to 'Successful Referrals', ambassador_tools_invite_by_email_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.successful_referrals_count %></a></td>
       </tr>
       <tr>
-        <td>Points Earned</td>
-        <td class="count"><%= current_user.points_earned %></td>
+        <td><%= link_to 'Points Earned', ambassador_tools_my_rewards_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.points_earned %></a></td>
       </tr>
       <tr class="last">
-        <td>Points Used</td>
-        <td class="count"><%= current_user.points_used %></td>
+        <td><%= link_to 'Points Used', ambassador_tools_my_rewards_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.points_used %></a></td>
       </tr>
       </table>
-
       <div class="points">
-        <span class="header">My Points</span>
-        <span class="count"><%= current_user.points_current %></span>
+        <span class="header"><%= link_to 'My Points', ambassador_tools_my_rewards_user_path(current_user) %></span>
+        <span class="count"><a href="#"><%= current_user.points_current %></a></span>
       </div>
 
     </div>
@@ -52,7 +49,7 @@
 <% else %>
   <div id="ambassador_profile_widget" class="program">
     <% if current_user.ambassador_name.nil? && params[:verify_ambassador_name].blank? %>
-      <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
+      <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
       <img class="greeting" src="/images/ambassador_greeting.png" />
 
       <div class="introduction">
@@ -70,7 +67,7 @@
     <% end %>
 
     <% if params[:verify_ambassador_name] %>
-    <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details' %></p>
+    <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
     <img class="greeting" src="/images/ambassador_greeting.png" />
       <div class="confirm">
         <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
