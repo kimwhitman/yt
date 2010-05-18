@@ -1125,6 +1125,7 @@ div.ambassador_agent_id span a { color: #666666; }
   line-height: 18px;
   padding-left: 5px;
 }
+#ambassador_profile_widget.tools div.stats table td a { display: block; }
 #ambassador_profile_widget.tools div.stats table td.count {
   border-width: 0 0 1px 0;
   font-weight: bold;
