@@ -7,6 +7,7 @@ class UsersController < ApplicationController
       :change_ambassador, :notify_ambassador]
   before_filter :setup_ambassador, :only => [:ambassador_tools_invite_by_email, :ambassador_tools_widget_invite_by_email]
   before_filter :fetch_ambassador, :only => [:new, :create, :select_ambassador, :billing]
+  before_filter :setup_ambassador_email, :only => [:ambassador_tools_widget_invite_by_email, :ambassador_tools_invite_by_email]
 
 
   def new
@@ -270,8 +271,6 @@ class UsersController < ApplicationController
   end
 
   def ambassador_tools_invite_by_email
-    @ambassador_invite.subject = 'A special invitation to Yoga Today' if @ambassador_invite.subject.nil?
-    @ambassador_invite.body = "Hey!\nMaybe you've seen this before, but I've found a great way to practice yoga more often. It's an on-line video studio called Yoga Today, and now they're offering a free 2 week trial. You should look into it and give it a try.\n\nGood luck with your practice!" if @ambassador_invite.body.nil?
     render :template => 'users/ambassador_tools/invite_by_email'
   end
 
@@ -401,5 +400,10 @@ class UsersController < ApplicationController
     def valid_billing?
       logger.debug "DEBUG: Validating billing_cycle=#{ @billing_cycle } SubscriptionPlan=#{ @subscription_plan }"
       @user.valid? && @creditcard.valid? && @address.valid? && (@billing_cycle || @subscription_plan)
+    end
+
+    def setup_ambassador_email
+      @ambassador_invite.subject = 'A special invitation to Yoga Today' if @ambassador_invite.subject.nil?
+      @ambassador_invite.body = "Hey!\nMaybe you've seen this before, but I've found a great way to practice yoga more often. It's an on-line video studio called Yoga Today, and now they're offering a free 2 week trial. You should look into it and give it a try.\n\nGood luck with your practice!" if @ambassador_invite.body.nil?
     end
 end
