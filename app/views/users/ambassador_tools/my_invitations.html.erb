@@ -23,7 +23,7 @@
               <% if current_user.invitations_count > 0 -%>
               <ul>
                 <% @ambassador_invites.each do |ambassador_invite| %>
-                  <li><span class="name">x<%= ambassador_invite.recipients %></span> <span class="date"><%= ambassador_invite.created_at.strftime('%b %d, %Y') %></span></li>
+                  <li><span class="name"><%= ambassador_invite.recipients %></span> <span class="date"><%= ambassador_invite.created_at.strftime('%b %d, %Y') %></span></li>
                 <% end %>
               </ul>
               <% else %>
