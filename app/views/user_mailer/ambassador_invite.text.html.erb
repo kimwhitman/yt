@@ -37,7 +37,7 @@
 <div style="position: relative;"><img src="http://<%= HOST %>/images/yogatoday_email_ambassador_id_sidebar.png"></img>
 <span style="position: absolute; top: 18px; left: 50px; font-family: Arial, sans-serif, Verdana; font-size: 13px; color: #666666; font-style: italic;"><%= @ambassador.ambassador_name %></span>
 </div>
-<p style="font-family: Arial, sans-serif, Verdana; font-size: 11px; color: #333333; text-align: center; padding: 15px 0; margin: 0;"><%= link_to 'Sign up now', sign_up_url(:ambassador_user_id => @ambassador.id) %></p>
+<p style="font-family: Arial, sans-serif, Verdana; font-size: 11px; color: #333333; text-align: center; padding: 15px 0; margin: 0;"><a href="<%= @url %>">Sign up now</a></p>
 </td>
 </tr>
 

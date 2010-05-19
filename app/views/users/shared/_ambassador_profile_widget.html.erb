@@ -25,7 +25,7 @@
       </table>
       <div class="points">
         <span class="header"><%= link_to 'My Points', ambassador_tools_my_rewards_user_path(current_user) %></span>
-        <span class="count"><a href="#"><%= current_user.points_current %></a></span>
+        <span class="count"><%= link_to current_user.points_current, ambassador_tools_my_rewards_user_path(current_user) %></a></span>
       </div>
 
     </div>

@@ -61,7 +61,8 @@ class UserMailer < ActionMailer::Base
     subject email_subject
     recipients "#{ recipient } <#{ recipient }>"
     from "YogaToday <#{ from }>"
-    body :message => message, :ambassador => ambassador
+    url = ShareUrl.create(:user_id => ambassador.id, :destination => "http://#{ HOST }/sign-up?ambassador_user_id=#{ ambassador.id }").url
+    body :message => message, :ambassador => ambassador, :url => url
     @content_type = 'text/html'
   end
 
