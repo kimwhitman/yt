@@ -3,7 +3,7 @@
   <div id="page_container">
     <div id="page_information">
       <%= breadcrumb("My Account") %>
-      <div class="arial18_green" id="main_title">Profile</div>
+      <div class="arial18_green" id="main_title">My Profile: Ambassador Tools</div>
     </div>
   </div>
 
@@ -26,7 +26,7 @@
             </div>
           </div>
 
-          <% if current_user.points_current >= 0 %>
+          <% if current_user.points_current > 0 %>
             <h3 class="redeem_rewards">My Rewards <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png'), 'add_one_month()', :id => 'x_add_one_month') %></h3>
             <div class="redeemed_rewards">
 
@@ -50,12 +50,12 @@
               <% end %>
 
             </div>
+          <% else %>
+          <h3 class="redeem_rewards">My Rewards <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png', :style => 'opacity: .5;'), 'add_one_month()', :id => 'x_add_one_month') %></h3>
           <% end %>
 
           <div class="rewards_terms">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur odio enim, ultrices sed pharetra tempor, sagitis nec metus. Cras vitae turpis risus.</p>
-            <p>Nuliam placerat, dui vitae pellentesque elementum, leo est blandit mauris, a tincidunt leo purus vel turpis. Suspendisse potenti. Morbi magna massa, pretium at vestibulium sed, ultrices at nibh.</p>
-            <p>To See your rewards in action, visit the <%= link_to 'Billing Activity', billing_history_user_path(current_user) %> page in your Profile.</p>
+            <p>&nbsp;</p>
           </div>
 
         </div>
