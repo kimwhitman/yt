@@ -18,6 +18,7 @@ test:
 cucumber:
   gateway: bogus
 staging:
-  gateway: bogus
+  #gateway: bogus
+  gateway: authorize_net_cim
 production:
   gateway: authorize_net_cim
