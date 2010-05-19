@@ -1091,6 +1091,7 @@ div.ambassador_agent_id span {
   font-weight: normal;
   color: #666666;
 }
+div.ambassador_agent_id span a { color: #666666; }
 #container_4col.ambassador_pages { position: relative; }
 #ambassador_profile_widget.tools div.ambassador_agent_id {
   float: none;
@@ -1124,6 +1125,7 @@ div.ambassador_agent_id span {
   line-height: 18px;
   padding-left: 5px;
 }
+#ambassador_profile_widget.tools div.stats table td a { display: block; }
 #ambassador_profile_widget.tools div.stats table td.count {
   border-width: 0 0 1px 0;
   font-weight: bold;
@@ -1144,6 +1146,7 @@ div.ambassador_agent_id span {
   font-size: 14px;
   color: #7e9aca;
 }
+#ambassador_profile_widget.tools div.stats div.points span.header a { color: #7e9aca; }
 #ambassador_profile_widget.tools div.stats div.points span.count {
   position: absolute;
   width: 40px;
@@ -1157,6 +1160,7 @@ div.ambassador_agent_id span {
   font-style: italic;
   color: #7e9aca;
 }
+#ambassador_profile_widget.tools div.stats div.points span.count a { color: #7e9aca; }
 #ambassador_profile_widget.tools fieldset.invitation {
   position: relative;
   border: none;
@@ -1228,7 +1232,8 @@ div.ambassador_agent_id span {
   font-size: 12px;
   font-weight: normal;
 }
-#ambassador_profile_widget p.header a {
+#ambassador_profile_widget p.header a { color: #7e9aca; }
+#ambassador_profile_widget p.header a.more {
   font-size: 12px;
   position: absolute;
   right: 10px;
@@ -1237,7 +1242,7 @@ div.ambassador_agent_id span {
   text-decoration: underline;
   _top: -7px;
 }
-#ambassador_profile_widget p.header a:hover { text-decoration: none; }
+#ambassador_profile_widget p.header a.more:hover { text-decoration: none; }
 #ambassador_profile_widget img.greeting {
   margin: 14px 10px 0px 10px;
   display: block;
