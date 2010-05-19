@@ -26,10 +26,10 @@
               <%= link_to(image_tag("ambassador_sharing_button_facebook.png"), social_share_url(current_user.share_url.url, :facebook), :class => 'network_button', :target => '_blank') -%>
             </li>
             <li>
-              <%= link_to(image_tag('ambassador_sharing_preview_twitter.png', :class => 'network'), "http://twitter.com/home?status=Come check out YogaToday and save! #{current_user.share_url.url}", :target => '_blank') %>
-              <%= link_to 'Twitter', "http://twitter.com/home?status=Come check out YogaToday and save! #{current_user.share_url.url}", :class => 'network', :target => '_blank' %>
+              <%= link_to(image_tag('ambassador_sharing_preview_twitter.png', :class => 'network'), "http://twitter.com/home?status=Check it out! One of my favorite sites, Yoga Today, is offering a FREE two-week trial when you visit: #{current_user.share_url.url}", :target => '_blank') %>
+              <%= link_to 'Twitter', "http://twitter.com/home?status=Check it out! One of my favorite sites, Yoga Today, is offering a FREE two-week trial when you visit: #{current_user.share_url.url}", :class => 'network', :target => '_blank' %>
               <p>Use our default Invitation or Tweet in your own words. Be sure to keep the special link in your post so you can earn points for each follower that becomes a prepaid subscriber.</p>
-              <%= link_to image_tag('/images/ambassador_sharing_button_twitter.png'), "http://twitter.com/home?status=Come check out YogaToday and save! #{current_user.share_url.url}", :class => 'network_button', :target => '_blank' %>
+              <%= link_to image_tag('/images/ambassador_sharing_button_twitter.png'), "http://twitter.com/home?status=Check it out! One of my favorite sites, Yoga Today, is offering a FREE two-week trial when you visit: #{current_user.share_url.url}", :class => 'network_button', :target => '_blank' %>
             </li>
             <li>
               <%= link_to(image_tag("ambassador_sharing_preview_delicious.png", :class => 'network'), social_share_url(current_user.share_url.url, :delicious), :target => '_blank') -%>
