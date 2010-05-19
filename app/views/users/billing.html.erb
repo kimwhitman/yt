@@ -43,8 +43,7 @@
 
     <div id="container_4col" style="float:left;">
       <div id="profile_payment_info">
-
-        <% if current_user.ambassador.nil? && (@ambassador_user || @change_ambassador) %>
+        <% if current_user.ambassador_id.nil? && (@ambassador_user || @change_ambassador) %>
           <div class="ambassador_on">
             <fieldset>
               <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>

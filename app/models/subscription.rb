@@ -2,6 +2,7 @@ class Subscription < ActiveRecord::Base
   # Associations
   belongs_to :account
   belongs_to :subscription_plan
+  belongs_to :saved_subscription_plan, :class_name => 'SubscriptionPlan'
   has_many :subscription_payments, :dependent => :destroy
   has_many :billing_transactions, :as => :billing, :dependent => :destroy
 
@@ -210,7 +211,7 @@ class Subscription < ActiveRecord::Base
   def upgrade_to_premium(_renewal_period = 1, ambassador_user_id = nil, notify_ambassador_of_reward = false)
     self.saved_subscription_plan_id = self.subscription_plan_id
     sp = SubscriptionPlan.find_by_name_and_renewal_period('Premium', _renewal_period)
-    logger.debug "Subscription upgrade: Name=#{ sp.name }"
+    logger.debug "DEBUG Subscription upgrade: Name=#{ sp.name }"
     self.subscription_plan = sp
     self.amount = sp.amount
     self.renewal_period = _renewal_period
@@ -219,13 +220,24 @@ class Subscription < ActiveRecord::Base
   end
 
   def upgrade_plan(subscription_plan, ambassador_user_id = nil, notify_ambassador_of_reward = false)
-    logger.debug "Subscription upgrade: Name=#{ subscription_plan.name }"
+    logger.debug "DEBUG Subscription upgrade: Name=#{ subscription_plan.name }"
     self.saved_subscription_plan_id = self.subscription_plan_id
     self.subscription_plan = subscription_plan
     self.amount = subscription_plan.amount
     self.renewal_period = subscription_plan.renewal_period
     self.save!
     self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
+  end
+
+  def revert_plan!
+    if self.saved_subscription_plan
+      logger.debug "DEBUG Subscription reverting: Current=#{ self.subscription_plan.name } Previous=#{ self.saved_subscription_plan.name }"
+      self.amount = self.saved_subscription_plan.amount
+      self.renewal_period = self.saved_subscription_plan.renewal_period
+      self.subscription_plan_id = self.saved_subscription_plan_id
+      self.save!
+      self.account.users.last.reset_ambassador!
+    end
   end
 
   # TODO: needs unit test

@@ -184,14 +184,16 @@ class UsersController < ApplicationController
             redirect_to billing_user_url(@user)
           end
         else
-
           @user.errors.add_to_base "We were unable to obtain account authorization"
           errors = @user.account.subscription.errors.full_messages
           logger.info "Subscription Error: #{errors}"
           flash[:error_messages] = errors.join("<br/>")
+          # GB 5/19/10: Adding a revert so that we do not end up with people having access to plans that
+          # they have not paid for
+          @user.account.subscription.revert_plan!
           @user.account.subscription.reload
+          @user.reload
         end
-
       else
         @creditcard.errors.full_messages.each do |message|
           @user.errors.add_to_base message
@@ -378,8 +380,9 @@ class UsersController < ApplicationController
         @ambassador_user = User.find_by_ambassador_name(params[:ambassador])
         cookies[:ambassador_user_id] = @ambassador_user.id.to_s if @ambassador_user
       end
-      cookies[:ambassador_user_id] = params[:ambassador_user_id] if @ambassador_user.nil? && params[:ambassador_user_id]
+
       @ambassador_user = current_user.ambassador if current_user
+      cookies[:ambassador_user_id] = params[:ambassador_user_id] if @ambassador_user.nil? && params[:ambassador_user_id]
       @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
       @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
 
@@ -387,8 +390,8 @@ class UsersController < ApplicationController
         cookies.delete :ambassador_user_id
         @ambassador_user = nil
       end
+      logger.debug "DEBUG AmbassadorID=#{ @ambassador_user.id if @ambassador_user } CurrentUser.ambassador_id=#{ current_user.ambassador_id if current_user }"
     end
-
 
     def setup_fake_values
       if Rails.env == 'development'
@@ -404,7 +407,7 @@ class UsersController < ApplicationController
   private
 
     def valid_billing?
-      logger.debug "DEBUG: Validating billing_cycle=#{ @billing_cycle } SubscriptionPlan=#{ @subscription_plan }"
+      logger.debug "DEBUG Validating billing_cycle=#{ @billing_cycle } SubscriptionPlan=#{ @subscription_plan }"
       @user.valid? && @creditcard.valid? && @address.valid? && (@billing_cycle || @subscription_plan)
     end
 

@@ -242,6 +242,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def reset_ambassador!
+    # Only allow an ambassador id to be reset if there are no previous payments
+    # This prevents somebody from ever having multiple ambassador points awarded out
+    unless ambassador_id.nil?
+      if self.account.subscription.subscription_payments.empty?
+        self.ambassador_id = nil
+        self.save
+      end
+    end
+  end
+
   def apply_ambassador_points!
     if self.ambassador && !self.has_rewarded_ambassador? && self.account.subscription.subscription_plan.generates_ambassador_reward?
       logger.debug "DEBUG: Applying ambassador points #{ self.ambassador.id } #{ !self.has_rewarded_ambassador? } #{ self.account.subscription.subscription_plan.generates_ambassador_reward? }"
