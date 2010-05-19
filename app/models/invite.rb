@@ -23,7 +23,8 @@ class Invite < ActiveRecord::Base
   def deliver!
     if self.is_a?(AmbassadorInvite)
       UserMailer.deliver_ambassador_invite(self.user, self.from, self.recipients, self.subject, self.body)
-      self.user.increment!(:invitations_count)
+      recipients_count = self.recipients.split(',').size
+      recipients_count.times { self.user.increment!(:invitations_count) }
     end
   end
 
