@@ -62,6 +62,7 @@ class UserMailer < ActionMailer::Base
     recipients "#{ recipient } <#{ recipient }>"
     from "YogaToday <#{ from }>"
     body :message => message, :ambassador => ambassador
+    @content_type = 'text/html'
   end
 
   def ambassador_reward_notification(user, rewarding_user)
