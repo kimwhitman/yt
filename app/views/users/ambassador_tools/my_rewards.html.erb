@@ -26,7 +26,7 @@
             </div>
           </div>
 
-          <% if current_user.points_current >= 0 %>
+          <% if current_user.points_current > 0 %>
             <h3 class="redeem_rewards">My Rewards <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png'), 'add_one_month()', :id => 'x_add_one_month') %></h3>
             <div class="redeemed_rewards">
 
