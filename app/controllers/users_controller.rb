@@ -375,7 +375,7 @@ class UsersController < ApplicationController
 
     def fetch_ambassador
       if params[:ambassador]
-        ambassador = User.find_by_ambassador_name(params[:ambassador])
+        @ambassador_user = User.find_by_ambassador_name(params[:ambassador])
         cookies[:ambassador_user_id] = @ambassador_user.id.to_s if @ambassador_user
       end
       cookies[:ambassador_user_id] = params[:ambassador_user_id] if @ambassador_user.nil? && params[:ambassador_user_id]
@@ -383,11 +383,12 @@ class UsersController < ApplicationController
       @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
       @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
 
-      if current_user && current_user.id == @ambassador_user.id
-        cookies[:ambassador_user_id] = nil
+      if current_user && @ambassador_user && current_user.id == @ambassador_user.id
+        cookies.delete :ambassador_user_id
         @ambassador_user = nil
       end
     end
+
 
     def setup_fake_values
       if Rails.env == 'development'

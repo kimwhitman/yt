@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :creditcard
 
   before_filter :check_for_ambassador
+  before_filter :remove_invalid_ambassador_cookie
 
   def signed_in?
     ! current_user.nil?
@@ -116,5 +117,11 @@ class ApplicationController < ActionController::Base
     # It won't let get unloaded from memory, and generates errors up the ass.
     def user_class
       User
+    end
+
+    def remove_invalid_ambassador_cookie
+      if current_user && current_user.ambassador_name
+        cookies.delete :ambassador_user_id if current_user.id == cookies[:ambassador_user_id]
+      end
     end
 end
