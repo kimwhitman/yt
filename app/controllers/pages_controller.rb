@@ -64,6 +64,10 @@ class PagesController < ApplicationController
     redirect_to contact_path(:message => params[:message])
   end
 
+  def get_started_today
+    @billing_cycle = 'Premium Trial'
+  end
+
 
 
   private

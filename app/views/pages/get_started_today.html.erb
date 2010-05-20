@@ -34,7 +34,7 @@
 
             <fieldset class="user_type">
               <label>I'm new <%= image_submit_tag "/images/get_started_button_continue-with-sign-up.png" %></label>
-              <label>I'm a returning user <%= link_to image_tag("/images/get_started_button_continue-with-login.png"), new_session_path %></label>
+              <label>I'm a returning user <%= link_to_function image_tag("/images/get_started_button_continue-with-login.png"), 'returning_user_signup()' %></label>
             </fieldset>
           <% end %>
         <% end %>
@@ -138,6 +138,11 @@
   }
 
   function selectAmbassador() {
-    window.location = "/users/select_ambassador?ambassador_name=" + jQuery("#x_ambassador_name").val()
+    window.location = "/users/select_ambassador?ambassador_name=" + jQuery("#x_ambassador_name").val();
+  }
+  
+  function returning_user_signup() {
+    path = "<%= current_user ? billing_user_path(current_user) : new_session_path %>";
+    window.location = path + "?membership=" + jQuery("input[name=membership]:checked").val(); 
   }
 </script>
