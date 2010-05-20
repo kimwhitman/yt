@@ -1733,6 +1733,7 @@ div.ambassador_agent_id span a { color: #666666; }
 #ambassador_tools div.tools_container fieldset.invitation label.instruction {
   width: 400px;
   font-size: 16px;
+  line-height: 20px;
   display: block;
   clear: left;
   padding: 30px 0 50px 0;
