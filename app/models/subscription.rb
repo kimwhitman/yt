@@ -118,6 +118,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
+    puts "Name: #{ subscription.account.users.last.name } Plan: #{ subscription.subscription_plan } (ID=#{ subscription.subscription_plan.id })"
     logger.debug "DEBUG: Subscription charge Amount=#{ amount }"
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
       logger.debug "DEBUG: Subscription charge success"
@@ -133,9 +134,7 @@ class Subscription < ActiveRecord::Base
         :start_date => start_date,
         :end_date => end_date,
         :payment_method => "Card #{ self.card_number }") unless amount == 0
-
       billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
-
       true
     else
       logger.debug "DEBUG: Subscription charge failure. amount=#{ amount_in_pennies } billing_id=#{ billing_id } response=#{ @response.inspect }"
@@ -424,7 +423,6 @@ class Subscription < ActiveRecord::Base
     def self.charge_due_accounts
       subscriptions = Subscription.find_due
       subscriptions.each do |subscription|
-        puts "Name: #{ subscription.account.users.last.name } Plan: #{ subscription.subscription_plan } (ID=#{ subscription.subscription_plan.id })"
         subscription.charge_due
         puts "=================================================="
       end

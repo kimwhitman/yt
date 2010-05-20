@@ -11,15 +11,24 @@
 # ==================================
 # Note, if using a test Authorize.net account, remember to change the gateway setting in config.yml
 
+# If using the PRODUCTION account in development or staging, you will also need to comment out
+# the section for (ActiveMerchant::Billing::Base.gateway_mode) in development.rb/staging.rb
+
 development:
+  # NOTE: Bogus gateway will be used if test is set to true
+  #test: 'true'
+
+  # Test Authorize.net account
   login: '7y4UnQPW5hd'
   password: '78dy5J4mvF56Qwxs'
-  # NOTE: Also change test to 'true' if using Bogus gateway
-  test: 'true'
+
+  # Production Authorize.net account
+  #login: '2zSn67VN'
+  #password: '4R74qSk8t4UZd8jZ'
 staging:
   login: '2zSn67VN'
   password: '4R74qSk8t4UZd8jZ'
-  #test: 'true'
+  test: 'true'
 production:
   login: '2zSn67VN'
   password: '4R74qSk8t4UZd8jZ'
