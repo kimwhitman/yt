@@ -26,7 +26,7 @@
   </script>
 <% end %>
 
-<div id="container_2col" style="float:right; margin-top: 10px; padding-bottom: 25px;">
+<div id="container_2col" style="float:right; margin-top: 10px; padding-bottom: 25px; _margin-right: -15px;">
 <% form_tag url_for(:action => 'search'), :name => "search_form", :id => "search_form", :style => "margin-bottom: 20px;" do %>
 <div class='search_header' style="margin-bottom: 5px;">
   <%= link_to_function "Reset All Search Filters", "$('input[type=checkbox]').attr('checked', false);$('#keywords').val('');" %>
@@ -133,6 +133,7 @@
       <br />
     <% end %>
   </div>
+</div>
 </div>
 <br>
 <br>

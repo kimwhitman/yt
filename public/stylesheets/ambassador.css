@@ -50,24 +50,17 @@
 }
 #home_invited_by_ambassador div input.input {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 3px;
+  line-height: 20px;
   height: 20px;
-  width: 206px;
+  width: 203px;
   vertical-align: top;
 }
 #home_invited_by_ambassador div input.submit {
   vertical-align: top;
   margin: 0;
   padding: 0;
-  width: 54px;
-  height: 2px;
-  border: 1px solid #dddddd;
-  color: #666666;
-  background-position: -1px -1px;
-}
-#home_invited_by_ambassador div input.submit:hover {
-  border-color: #999999;
-  color: #333333;
+  border: none;
 }
 #home_invited_by_ambassador a.help {
   position: absolute;
@@ -116,6 +109,7 @@
 #get_started_ambassador div.welcome div.ambassador_assign input.input {
   width: 202px;
   height: 20px;
+  line-height: 20px;
   margin: 4px 0;
   padding: 0 0 0 3px;
 }
@@ -193,6 +187,12 @@
   display: block;
   border: none;
 }
+#get_started_ambassador fieldset.user_type label input img { border: none; }
+#get_started_ambassador fieldset.user_type label a {
+  display: block;
+  border: none;
+}
+#get_started_ambassador fieldset.user_type label a img { border: none; }
 #get_started_featured_ad {
   height: 48px;
   width: 100%;
@@ -215,12 +215,12 @@
   height: 463px;
   background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
 }
-#ambassador_details div.hero input {
+#ambassador_details div.hero a.join_now {
   position: absolute;
   left: 420px;
   bottom: 62px;
-  border: none;
 }
+#ambassador_details div.hero a.join_now img { border: none; }
 #ambassador_details div.join {
   background: #d4e4ff;
   height: 40px;
@@ -230,11 +230,11 @@
   padding: 0;
   line-height: 40px;
 }
-#ambassador_details div.join input {
+#ambassador_details div.join a.join_now {
   position: relative;
   top: 5px;
-  border: none;
 }
+#ambassador_details div.join a.join_now img { border: none; }
 #ambassador_details ul {
   list-style-type: none;
   background: #edf4ff;
@@ -305,22 +305,116 @@
   width: 300px;
   height: 190px;
 }
-#ambassador_details ul li div.create_id { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
-#ambassador_details ul li div.create_id div {
+#ambassador_details ul li div.login { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.login h4 {
+  font-size: 14px;
+  color: #4778c5;
+  margin: 0;
+  padding: 25px 0 0 25px;
+}
+#ambassador_details ul li div.login fieldset {
+  border: none;
+  margin: 0 0 0 25px;
+  padding: 0;
+}
+#ambassador_details ul li div.login fieldset label {
+  display: block;
+  font-size: 11px;
+  color: #999999;
+}
+#ambassador_details ul li div.login fieldset label input {
+  display: block;
+  padding: 0 0 0 3;
+  margin: 0;
+  line-height: 20px;
+  height: 20px;
+  width: 238px;
+}
+#ambassador_details ul li div.login input.submit {
+  margin: 5px 0 0 25px;
+  border: none;
+}
+#ambassador_details ul li div.login span.signup {
+  position: absolute;
+  bottom: 28px;
+  left: 84px;
+  font-size: 11px;
+  color: #666666;
+}
+#ambassador_details ul li div.login span.signup a { text-decoration: underline; }
+#ambassador_details ul li div.login span.signup a:hover { text-decoration: none; }
+#ambassador_details ul li div.create { background: url('/images/ambassador_details_1_create.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.create p {
+  color: #666666;
+  margin: 0;
+  padding: 102px 0 0 30px;
+  font-size: 12px;
+}
+#ambassador_details ul li div.create fieldset {
   position: absolute;
   left: 70px;
   top: 127px;
-}
-#ambassador_details ul li div.create_id div input.input {
-  width: 132px;
-  height: 16px;
-  vertical-align: top;
-  padding: 2px 0px 2px 5px;
-}
-#ambassador_details ul li div.create_id div input.submit {
+  padding: 0;
+  margin: 0;
   border: none;
-  vertical-align: top;
 }
+#ambassador_details ul li div.create fieldset label {
+  margin: 0;
+  padding: 0;
+}
+#ambassador_details ul li div.create fieldset label input {
+  vertical-align: top;
+  height: 20px;
+  width: 132px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0 0 0 3px;
+}
+#ambassador_details ul li div.create input.submit { border: none; }
+#ambassador_details ul li div.confirm { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.confirm h4 {
+  font-size: 14px;
+  color: #4778c5;
+  margin: 0;
+  padding: 25px 0 0 25px;
+}
+#ambassador_details ul li div.confirm p {
+  color: #666666;
+  font-size: 11px;
+  margin: 0;
+  padding: 10px 25px 0 25px;
+}
+#ambassador_details ul li div.confirm div.ambassador_agent_id {
+  width: 300px;
+  height: 50px;
+  background-position: 25px 10px;
+}
+#ambassador_details ul li div.confirm div.ambassador_agent_id span {
+  top: 16px;
+  left: 62px;
+}
+#ambassador_details ul li div.confirm fieldset {
+  position: absolute;
+  bottom: 15px;
+  width: 300px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#ambassador_details ul li div.confirm fieldset legend span {
+  position: absolute;
+  right: 25px;
+  top: 0px;
+  font-size: 11px;
+  color: #666666;
+  text-decoration: underline;
+}
+#ambassador_details ul li div.confirm fieldset legend span:hover { text-decoration: none; }
+#ambassador_details ul li div.confirm fieldset label {
+  margin: 0 0 0 25px;
+  padding: 0;
+}
+#ambassador_details ul li div.confirm fieldset label input.submit { border: none; }
 #ambassador_details ul li.last { border-bottom: none; }
 h1.header_primary {
   color: #3a7a15;
@@ -384,26 +478,29 @@ div.returning_login div.ambassador_unassigned {
   width: 440px;
   background: #f2f7ff;
   border: 1px solid #dcebff;
+  margin: 0;
+  padding: 0;
 }
 div.returning_login div.ambassador_unassigned p {
   margin: 0;
-  padding: 8px 0 0 10px;
+  padding: 6px 0 2px 10px;
   width: 290px;
   color: #666666;
   font-size: 11px;
 }
 div.returning_login div.ambassador_unassigned input.input {
-  margin: 0 0 4px 10px;
-  padding: 0;
-  width: 202px;
+  margin: 0 0 0 10px;
+  padding: 0 0 0 3px;
+  width: 199px;
   height: 20px;
+  line-height: 20px;
   display: block;
 }
-div.returning_login div.ambassador_unassigned input.submit {
-  margin: 0 0 0 10px;
-  height: 20px;
-  width: 52px;
+div.returning_login div.ambassador_unassigned .submit {
+  display: block;
+  padding: 2px 0 0 10px;
 }
+div.returning_login div.ambassador_unassigned .submit img { border: none; }
 div.returning_login div.ambassador_assigned {
   position: absolute;
   left: 220px;
@@ -436,7 +533,8 @@ div.returning_login div.ambassador_assigned a.change_ambassador {
   text-decoration: underline;
 }
 div.returning_login div.ambassador_assigned a.change_ambassador:hover { color: #333333; }
-div.returning_login div.ambassador_assigned p.checkbox {
+div.returning_login div.ambassador_assigned label.checkbox {
+  display: block;
   font-size: 11px;
   color: #666666;
   margin: 0;
@@ -446,7 +544,7 @@ div.returning_login div.ambassador_assigned p.checkbox {
   left: 248px;
   width: 180px;
 }
-div.returning_login div.ambassador_assigned p.checkbox input {
+div.returning_login div.ambassador_assigned label.checkbox input {
   position: absolute;
   left: -18px;
   top: 0px;
@@ -463,25 +561,36 @@ div.ambassador_on {
   margin: 0 0 10px 0;
   padding: 0;
 }
-div.ambassador_on h4 {
+div.ambassador_on fieldset {
+  position: relative;
+  left: 36px;
+  top: 42px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+div.ambassador_on fieldset legend span {
+  position: absolute;
+  top: -28px;
+  left: -22px;
   font-size: 12px;
   font-weight: bold;
-  margin: 0;
-  padding: 14px 0 12px 14px;
+  color: #666666;
 }
-div.ambassador_on p.radio {
+div.ambassador_on fieldset label {
   position: relative;
-  margin: 0 0 0 36px;
+  margin: 0 0 0 0;
   padding: 0;
   font-weight: bold;
+  color: #666666;
 }
-div.ambassador_on p.radio span {
+div.ambassador_on fieldset label span {
   display: block;
   font-weight: normal;
-  margin: 0 0 10px 0;
-  padding: 0;
+  margin: 0;
+  padding: 0 0 10px 0;
 }
-div.ambassador_on p.radio input {
+div.ambassador_on fieldset label input {
   position: absolute;
   top: 0px;
   left: -22px;
@@ -521,7 +630,8 @@ div.ambassador_on div.panel div.assigned div.ambassador_agent_id span {
   left: 60px;
   top: 8px;
 }
-div.ambassador_on div.panel div.assigned p {
+div.ambassador_on div.panel div.assigned label {
+  display: block;
   margin: 0 0 0 38px;
   padding: 0;
   font-size: 11px;
@@ -530,7 +640,7 @@ div.ambassador_on div.panel div.assigned p {
   position: relative;
   line-height: 12px;
 }
-div.ambassador_on div.panel div.assigned p input {
+div.ambassador_on div.panel div.assigned label input {
   position: absolute;
   top: 0;
   left: -18px;
@@ -557,13 +667,22 @@ div.ambassador_on div.panel div.unassigned p {
   line-height: 14px;
 }
 div.ambassador_on div.panel div.unassigned input.input {
-  width: 188px;
-  height: 14px;
+  width: 185px;
+  height: 20px;
+  line-height: 20px;
   margin: 0 0 4px 20px;
+  padding: 0 0 0 3px;
 }
-div.ambassador_on div.panel div.unassigned input.submit {
+div.ambassador_on div.panel div.unassigned .submit {
   clear: left;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+div.ambassador_on div.panel div.unassigned .submit img {
+  border: none;
   margin: 0 0 0 20px;
+  padding: 0;
 }
 div.ambassador_off p.title {
   margin: 0;
@@ -572,18 +691,19 @@ div.ambassador_off p.title {
   font-size: 12px;
   color: #666666;
 }
-div.ambassador_off p.radio {
+div.ambassador_off label.radio {
+  display: block;
   margin: 0;
   padding: 0;
   line-height: 24px;
 }
-div.ambassador_off p.radio input {
+div.ambassador_off label.radio input {
   padding: 0;
   margin: 0 6px 0 0;
   border: none;
   background: none;
 }
-div.ambassador_off p.end_set { margin-bottom: 10px; }
+div.ambassador_off .end_set { margin-bottom: 10px !important; }
 div.ambassador_off div.trial {
   width: 400px;
   margin: 0 0 10px 0;
@@ -605,19 +725,27 @@ div.ambassador_off div.trial p {
   width: 290px;
   color: #666666;
   margin: 0;
+  padding: 0 0 10px 0;
+}
+div.ambassador_off div.trial input {
+  margin: 0;
   padding: 0;
+  vertical-align: top;
 }
 div.ambassador_off div.trial input.input {
   width: 200px;
-  height: 18px;
-  margin-top: 10px;
+  height: 20px;
+  padding-left: 3px;
+  line-height: 20px;
 }
+div.ambassador_off div.trial .submit img { border: none; }
 #signup_section fieldset.basic {
   border: none;
   margin: 0;
   padding: 0;
 }
 #signup_section fieldset.basic label {
+  position: relative;
   float: left;
   font-size: 11px;
   color: #999999;
@@ -628,7 +756,13 @@ div.ambassador_off div.trial input.input {
   width: 280px;
   padding: 0 0 0 3px;
   margin: 0 0 6px 0;
-  height: 18px;
+  height: 20px;
+  line-height: 20px;
+}
+#signup_section fieldset.basic label label.form_error {
+  position: absolute;
+  top: 16px;
+  left: 288px;
 }
 #signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
 #signup_section fieldset.basic label.wide { width: 100%; }
@@ -674,6 +808,7 @@ div.ambassador_off div.trial input.input {
   border-bottom: 1px solid #cccccc;
   padding: 5px 0;
 }
+#signup_section div.actions input.submit { border: none; }
 #profile_payment_info #credit_card fieldset {
   border: none;
   margin: 0;
@@ -691,7 +826,8 @@ div.ambassador_off div.trial input.input {
   height: 20px;
   width: 202px;
   margin: 0 0 10px 0;
-  padding: 0;
+  padding: 0 0 0 3px;
+  line-height: 20px;
 }
 #profile_payment_info #credit_card fieldset label label.error {
   height: auto;
@@ -728,6 +864,7 @@ div.ambassador_off div.trial input.input {
   border-bottom: 1px solid #cccccc;
   padding: 5px 0;
 }
+#profile_payment_info div.actions input.submit { border: none; }
 #profile_billing_activity div.details {
   margin: 0;
   padding: 0;
@@ -848,6 +985,7 @@ div.ambassador_off div.trial input.input {
 #profile_basic_information_form fieldset label input {
   height: 18px;
   width: 280px;
+  line-height: 20px;
   display: block;
   clear: left;
   margin: 0 0 6px 0;
@@ -933,7 +1071,7 @@ div.ambassador_off div.trial input.input {
 }
 #profile_sidebar ul li {
   font-size: 12px;
-  color: #999999;
+  color: #333333;
 }
 #profile_sidebar ul li a { color: #999999; }
 #profile_sidebar ul li a:hover {
@@ -959,6 +1097,7 @@ div.ambassador_agent_id span {
   font-weight: normal;
   color: #666666;
 }
+div.ambassador_agent_id span a { color: #666666; }
 #container_4col.ambassador_pages { position: relative; }
 #ambassador_profile_widget.tools div.ambassador_agent_id {
   float: none;
@@ -992,6 +1131,7 @@ div.ambassador_agent_id span {
   line-height: 18px;
   padding-left: 5px;
 }
+#ambassador_profile_widget.tools div.stats table td a { display: block; }
 #ambassador_profile_widget.tools div.stats table td.count {
   border-width: 0 0 1px 0;
   font-weight: bold;
@@ -1012,19 +1152,21 @@ div.ambassador_agent_id span {
   font-size: 14px;
   color: #7e9aca;
 }
+#ambassador_profile_widget.tools div.stats div.points span.header a { color: #7e9aca; }
 #ambassador_profile_widget.tools div.stats div.points span.count {
   position: absolute;
   width: 40px;
   text-align: center;
-  bottom: 18px;
-  *bottom: 15px;
+  bottom: 15px;
   right: 11px;
+  *right: 9px;
   font-weight: bold;
   font-size: 28px;
   line-height: 28px;
   font-style: italic;
   color: #7e9aca;
 }
+#ambassador_profile_widget.tools div.stats div.points span.count a { color: #7e9aca; }
 #ambassador_profile_widget.tools fieldset.invitation {
   position: relative;
   border: none;
@@ -1046,17 +1188,12 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget.tools fieldset.invitation label input {
   width: 198px;
-  height: 22px;
-  line-height: 22px;
+  height: 16px;
   padding-left: 3px;
 }
 #ambassador_profile_widget.tools fieldset.invitation input.submit {
-  width: 68px;
   margin-left: 5px;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-  _border-left: 1px solid #999999;
-  _border-right: 1px solid #999999;
+  border: none;
 }
 #ambassador_profile_widget.tools div.share { margin: 14px 0; }
 #ambassador_profile_widget.tools div.share span.header {
@@ -1069,6 +1206,7 @@ div.ambassador_agent_id span {
   display: block;
   margin-left: 10px;
 }
+#ambassador_profile_widget.tools div.share span.blocks img { border: none; }
 #ambassador_profile_widget.tools span.help {
   position: absolute;
   bottom: 14px;
@@ -1100,7 +1238,8 @@ div.ambassador_agent_id span {
   font-size: 12px;
   font-weight: normal;
 }
-#ambassador_profile_widget p.header a {
+#ambassador_profile_widget p.header a { color: #7e9aca; }
+#ambassador_profile_widget p.header a.more {
   font-size: 12px;
   position: absolute;
   right: 10px;
@@ -1109,7 +1248,7 @@ div.ambassador_agent_id span {
   text-decoration: underline;
   _top: -7px;
 }
-#ambassador_profile_widget p.header a:hover { text-decoration: none; }
+#ambassador_profile_widget p.header a.more:hover { text-decoration: none; }
 #ambassador_profile_widget img.greeting {
   margin: 14px 10px 0px 10px;
   display: block;
@@ -1140,18 +1279,14 @@ div.ambassador_agent_id span {
 }
 #ambassador_profile_widget div.introduction fieldset label { float: left; }
 #ambassador_profile_widget div.introduction fieldset label input {
-  height: 22px;
-  width: 160px;
+  height: 20px;
+  width: 190px;
   margin-right: 5px;
-  padding-left: 3px;
-  line-height: 22px;
-  font-style: italic;
+  padding: 0 0 0 3px;
+  line-height: 20px;
 }
-#ambassador_profile_widget div.introduction fieldset input.submit {
-  float: none;
-  _position: relative;
-  _top: 4px;
-}
+#ambassador_profile_widget div.introduction fieldset label input.empty { font-style: italic; }
+#ambassador_profile_widget div.introduction fieldset input.submit { border: none !important; }
 #ambassador_profile_widget div.confirm {
   position: relative;
   float: none;
@@ -1197,6 +1332,7 @@ div.ambassador_agent_id span {
   margin: 0 10px 10px 0;
   padding: 0;
 }
+#ambassador_profile_widget div.confirm fieldset label input.submit { border: none; }
 #ambassador_tools_navigation {
   height: 26px;
   display: block;
@@ -1245,13 +1381,20 @@ div.ambassador_agent_id span {
   font-weight: normal;
 }
 #ambassador_tools div.tools_container div.my_rewards_points {
+  display: block;
+  float: left;
+  clear: both;
   position: relative;
   border: 1px solid #cccccc;
   height: 110px;
   border-bottom-width: 4px;
+  width: 558px;
   margin: 30px 30px 0 30px;
+  _margin: 30px 15px 0 15px;
+  padding: 0;
 }
 #ambassador_tools div.tools_container div.my_rewards_points h3 {
+  position: relative;
   margin: 20px 0 0 15px;
   font-size: 20px;
   font-weight: normal;
@@ -1282,8 +1425,7 @@ div.ambassador_agent_id span {
   position: absolute;
   width: 40px;
   text-align: center;
-  bottom: 32px;
-  *bottom: 27px;
+  bottom: 30px;
   right: 31px;
   font-weight: bold;
   font-size: 24px;
@@ -1292,6 +1434,8 @@ div.ambassador_agent_id span {
   color: #7e9aca;
 }
 #ambassador_tools div.tools_container h3.redeem_rewards {
+  position: relative;
+  clear: left;
   margin: 0 30px;
   padding: 0 0 0 10px;
   background: #d9e8ff;
@@ -1301,10 +1445,14 @@ div.ambassador_agent_id span {
   font-size: 16px;
   font-weight: normal;
 }
-#ambassador_tools div.tools_container h3.redeem_rewards span {
+#ambassador_tools div.tools_container h3.redeem_rewards a {
   position: absolute;
-  right: 33px;
-  font-size: 12px;
+  right: 3px;
+  top: 4px;
+}
+#ambassador_tools div.tools_container h3.redeem_rewards a img {
+  border: none;
+  vertical-align: top;
 }
 #ambassador_tools div.tools_container div.redeemed_rewards div.unredeemed {
   margin: 0 30px;
@@ -1350,11 +1498,29 @@ div.ambassador_agent_id span {
   float: right;
 }
 #ambassador_tools div.tools_container div.redeemed_rewards div.actions {
+  position: relative;
   clear: both;
-  text-align: right;
 }
-#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.submit { position: static; }
-#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.cancel { position: static; }
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions input.submit {
+  vertical-align: top;
+  position: static;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions .cancel {
+  position: absolute;
+  color: #4778c5;
+  text-decoration: underline;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  line-height: 14px;
+}
+#ambassador_tools div.tools_container div.redeemed_rewards div.actions .cancel:hover {
+  text-decoration: none;
+  color: #333333;
+}
 #ambassador_tools div.tools_container div.rewards_terms {
   margin: 0 30px;
   padding: 4px 0 0 0;
@@ -1389,12 +1555,12 @@ div.ambassador_agent_id span {
 #ambassador_tools div.tools_container fieldset.ask_a_question label input {
   width: 224px;
   height: 20px;
+  line-height: 20px;
+  padding: 0 0 0 3px;
 }
 #ambassador_tools div.tools_container fieldset.ask_a_question input.submit {
   margin: 20px 0 0 4px;
-  width: 40px;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
+  border: none;
 }
 #ambassador_tools div.tools_container div.help {
   color: #3b5e84;
@@ -1431,13 +1597,31 @@ div.ambassador_agent_id span {
   font-size: 12px;
   text-decoration: underline;
 }
+#ambassador_tools div.tools_container div.track_invitations h3 a:hover { text-decoration: none; }
 #ambassador_tools div.tools_container div.track_invitations div.table {
   margin: 0 30px 15px 30px;
   background: #ffffff;
   height: 180px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   border-top: 1px solid #cccccc;
 }
+#ambassador_tools div.tools_container div.track_invitations div.table h4 {
+  padding: 0;
+  margin: 15px 0 0 15px;
+  font-weight: bold;
+  color: #000000;
+  font-size: 12px;
+}
+#ambassador_tools div.tools_container div.track_invitations div.table p {
+  padding: 0;
+  margin: 0 0 6px 15px;
+}
+#ambassador_tools div.tools_container div.track_invitations div.table a {
+  color: #333333;
+  text-decoration: underline;
+}
+#ambassador_tools div.tools_container div.track_invitations div.table a.by_email { margin: 0 10px 0 15px; }
 #ambassador_tools div.tools_container div.track_invitations div.table ul {
   padding: 0;
   margin: 15px 35px 20px 15px;
@@ -1449,14 +1633,19 @@ div.ambassador_agent_id span {
   margin: 0;
   display: block;
   clear: both;
+  background: url('/images/ambassador_bg_table-x-separator.gif') repeat-x 0px 13px;
 }
 #ambassador_tools div.tools_container div.track_invitations div.table ul li span.name {
+  background: #ffffff;
   color: #333333;
   float: left;
+  padding-right: 5px;
 }
 #ambassador_tools div.tools_container div.track_invitations div.table ul li span.date {
+  background: #ffffff;
   font-size: 11px;
   float: right;
+  padding-left: 5px;
 }
 #ambassador_tools div.tools_container ul.invitation_networks {
   list-style-type: none;
@@ -1508,6 +1697,9 @@ div.ambassador_agent_id span {
 #ambassador_tools div.tools_container fieldset.invitation label input {
   display: block;
   width: 258px;
+  padding: 0 0 0 3px;
+  height: 20px;
+  line-height: 20px;
 }
 #ambassador_tools div.tools_container fieldset.invitation label span.tip {
   display: block;
@@ -1535,19 +1727,24 @@ div.ambassador_agent_id span {
   display: block;
   width: auto;
   font-size: 14px;
-  line-height: 14px;
+  line-height: 20px;
   margin-top: 4px;
 }
 #ambassador_tools div.tools_container fieldset.invitation label.default input {
+  margin: 0;
+  padding: 0;
   display: inline;
   width: auto;
-  margin: 4px 0;
-  *border: none;
-  *margin: 0;
+  border: none;
+  background: none;
+  vertical-align: bottom;
+  _position: relative;
+  _top: -2px;
 }
 #ambassador_tools div.tools_container fieldset.invitation label.instruction {
   width: 400px;
   font-size: 16px;
+  line-height: 20px;
   display: block;
   clear: left;
   padding: 30px 0 50px 0;
@@ -1560,8 +1757,25 @@ div.ambassador_agent_id span {
   margin: 0 30px 0 30px;
   padding: 4px 0;
 }
-#ambassador_tools div.tools_container div.actions input.cancel {
+#ambassador_tools div.tools_container div.actions .preview img {
+  border: none;
+  vertical-align: top;
+}
+#ambassador_tools div.tools_container div.actions input.send {
+  border: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+#ambassador_tools div.tools_container div.actions .cancel {
   position: absolute;
+  top: 10px;
   right: 0px;
   _right: 30px;
+  text-decoration: underline;
+  color: #4778c5;
+}
+#ambassador_tools div.tools_container div.actions .cancel:hover {
+  text-decoration: none;
+  color: #333333;
 }

@@ -54,9 +54,25 @@ class UserMailer < ActionMailer::Base
     recipients "#{user.name} <#{user.email}>"
     from "YogaToday <info@yogatoday.com>"
     body :user => user
-
     set_content_type(user)
   end
+
+  def ambassador_invite(ambassador, from, recipient, email_subject, message)
+    subject email_subject
+    recipients "#{ recipient } <#{ recipient }>"
+    from "YogaToday <#{ from }>"
+    url = ShareUrl.create(:user_id => ambassador.id, :destination => "http://#{ HOST }/sign-up?ambassador_user_id=#{ ambassador.id }").url
+    body :message => message, :ambassador => ambassador, :url => url
+    @content_type = 'text/html'
+  end
+
+  def ambassador_reward_notification(user, rewarding_user)
+    subject "Ambassador Reward"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user, :rewarding_user => rewarding_user
+  end
+
 
   private
 

@@ -36,11 +36,12 @@ class Video < ActiveRecord::Base
   }
   named_scope :published, lambda { { :conditions => [ 'is_public = ? AND published_at <= ?', true, Time.zone.now ] } }
   named_scope :upcoming, lambda { { :conditions => [ 'is_public = ? AND published_at > ?', true, Time.zone.now ], :order => 'published_at ASC' } }
-  named_scope :this_week, lambda { { :conditions => {:published_at => (Date.today.beginning_of_week .. Date.today.next_week)}, :order => 'published_at ASC' }}
+  named_scope :this_week, lambda { { :conditions => {:published_at => (Time.zone.today.beginning_of_week..Time.zone.today.next_week)}, :order => 'published_at ASC' }}
 
-  named_scope :after_this_week, lambda { { :conditions => ['published_at >= ?', Date.today.next_week], :order => 'published_at ASC' } }
+  named_scope :after_this_week, lambda { { :conditions => ['published_at >= ?', Time.zone.today.next_week], :order => 'published_at ASC' } }
 
-  named_scope :recently_released, lambda { { :conditions => { :published_at => (2.weeks.ago.beginning_of_week .. 1.weeks.ago.end_of_week) }, :order => 'published_at ASC' } }
+  named_scope :recently_released, lambda { { :conditions => 
+    { :published_at => (2.weeks.ago.beginning_of_week..1.weeks.ago.end_of_week) }, :order => 'published_at ASC' } }
 
   named_scope :by_title, :order => 'title ASC'
   named_scope :by_most_recent, :order => 'videos.created_at DESC'

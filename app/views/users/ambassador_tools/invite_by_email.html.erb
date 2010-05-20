@@ -3,7 +3,7 @@
   <div id="page_container">
     <div id="page_information">
       <%= breadcrumb("My Account") %>
-      <div class="arial18_green" id="main_title">Profile</div>
+      <div class="arial18_green" id="main_title">My Profile: Ambassador Tools</div>
     </div>
   </div>
 
@@ -55,9 +55,9 @@
             </fieldset>
 
             <div class="actions">
-              <%= submit_tag 'Preview', :class => 'preview', :id => 'preview' %>
-              <%= submit_tag 'Send Invitation', :class => 'send', :id => 'send' %>
-              <%= button_to 'Cancel', profile_user_path(current_user), :class => 'cancel' -%>
+              <%= link_to_function image_tag('profile_tools_button_preview.png'), 'preview_email()', :class => 'preview', :id => 'preview' %>
+              <%= image_submit_tag 'profile_tools_button_send-invitation.png', :class => 'send', :id => 'send' %>
+              <%= link_to 'Cancel', profile_user_path(current_user), :class => 'cancel' -%>
             </div>
           <% end %>
 
@@ -71,3 +71,9 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  function preview_email() {
+    jQuery.fn.colorbox({href:"<%= ambassador_tools_preview_email_user_path(current_user) %>?message=" + escape(jQuery('#ambassador_invite_body').val()) });
+  }
+</script>

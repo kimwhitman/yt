@@ -63,24 +63,17 @@
 		line-height: 20px;
 		input.input {
 			margin: 0;
-			padding: 0;
+			padding: 0 0 0 3px;
+			line-height: 20px;
 			height: 20px;
-			width: 206px;
+			width: 203px;
 			vertical-align: top;
 		}
 		input.submit {
 			vertical-align: top;
 			margin: 0;
 			padding: 0;
-			width: 54px;
-			height: 2px;
-			border: 1px solid #ddd;
-			color: #666;
-			background-position: -1px -1px;
-			:hover {
-				border-color: #999;
-				color: #333;
-			}
+			border: none;
 		}
 	}
 	a.help {
@@ -133,6 +126,7 @@
 			input.input {
 				width: 202px;
 				height: 20px;
+				line-height: 20px;
 				margin: 4px 0;
 				padding: 0 0 0 3px;
 			}
@@ -206,9 +200,12 @@
 			color: #7590bc;
 			margin: 0;
 			padding: 0 0 0 15px;
-			input {
+			input, a {
 				display: block;
 				border: none;
+				img {
+					border: none;
+				}
 			}
 		}
 	}
@@ -236,11 +233,13 @@
 		width: 941px;
 		height: 463px;
 		background: url('/images/ambassador_details_hero.png') no-repeat 0px 0px;
-		input {
+		a.join_now {
 			position: absolute;
 			left: 420px;
 			bottom: 62px;
-			border: none;
+			img {
+				border: none;
+			}
 		}
 	}
 	div.join {
@@ -251,10 +250,12 @@
 		margin: 0;
 		padding: 0;
 		line-height: 40px;
-		input {
+		a.join_now {
 			position: relative;
 			top: 5px;
-			border: none;
+			img {
+				border: none;
+			}
 		}
 	}
 	ul {
@@ -320,6 +321,7 @@
 					}
 				}
 			}
+
 			div.preview {
 				position: absolute;
 				top: 12px;
@@ -327,21 +329,132 @@
 				width: 300px;
 				height: 190px;
 			}
-			div.create_id {
+			div.login {
 				background: url('/images/ambassador_details_1.png') no-repeat 0px 0px;
-				div {
+				h4 {
+					font-size: 14px;
+					color: @color_ambassador_font;
+					margin: 0;
+					padding: 25px 0 0 25px;
+				}
+				fieldset {
+					border: none;
+					margin: 0 0 0 25px;
+					padding: 0;
+					label {
+						display: block;
+						font-size: 11px;
+						color: #999;
+						input {
+							display: block;
+							padding: 0 0 0 3;
+							margin: 0;
+							line-height: 20px;
+							height: 20px;
+							width: 238px;
+						}
+					}
+				}
+				input.submit {
+					margin: 5px 0 0 25px;
+					border: none;
+				}
+				span.signup {
+					position: absolute;
+					bottom: 28px;
+					left: 84px;
+					font-size: 11px;
+					color: #666;
+					a {
+						color: ;
+						text-decoration: underline;
+						:hover {
+							text-decoration: none;
+						}
+					}
+				}
+			}
+
+			div.create {
+				background: url('/images/ambassador_details_1_create.png') no-repeat 0px 0px;
+				p {
+					color: #666;
+					margin: 0;
+					padding: 102px 0 0 30px;
+					font-size: 12px;
+				}
+				fieldset {
 					position: absolute;
 					left: 70px;
 					top: 127px;
-					input.input {
-						width: 132px;
-						height: 16px;
-						vertical-align: top;
-						padding: 2px 0px 2px 5px;
+					padding: 0;
+					margin: 0;
+					border: none;
+					label {
+						margin: 0;
+						padding: 0;
+						input {
+							vertical-align: top;
+							height: 20px;
+							width: 132px;
+							line-height: 20px;
+							margin: 0;
+							padding: 0 0 0 3px;
+						}
 					}
-					input.submit {
-						border: none;
-						vertical-align: top;
+				}
+				input.submit {
+					border: none;
+				}
+			}
+			
+			div.confirm {
+				background: url('/images/ambassador_details_1.png') no-repeat 0px 0px;
+				h4 {
+					font-size: 14px;
+					color: @color_ambassador_font;
+					margin: 0;
+					padding: 25px 0 0 25px;
+				}
+				p {
+					color: #666;
+					font-size: 11px;
+					margin: 0;
+					padding: 10px 25px 0 25px;
+				}
+				div.ambassador_agent_id {
+					width: 300px;
+					height: 50px;
+					background-position: 25px 10px;
+					span {
+						top: 16px;
+						left: 62px;
+					}
+				}
+				fieldset {
+					position: absolute;
+					bottom: 15px;
+					width: 300px;
+					border: none;
+					margin: 0;
+					padding: 0;
+					legend span {
+						position: absolute;
+						right: 25px;
+						top: 0px;
+						font-size: 11px;
+						color: #666;
+						text-decoration: underline;
+						:hover {
+							text-decoration: none;
+						}
+					}
+					label {
+						margin: 0 0 0 25px;
+						padding: 0;
+						input.submit {
+							border: none;
+						}
 					}
 				}
 			}
@@ -412,24 +525,29 @@ div.returning_login {
 		width: 440px;
 		background: @color_background;
 		border: 1px solid @color_border;
+		margin: 0;
+		padding: 0;
 		p {
 			margin: 0;
-			padding: 8px 0 0 10px;
+			padding: 6px 0 2px 10px;
 			width: 290px;
 			color: #666;
 			font-size: 11px;
 		}
 		input.input {
-			margin: 0 0 4px 10px;
-			padding: 0;
-			width: 202px;
+			margin: 0 0 0 10px;
+			padding: 0 0 0 3px;
+			width: 199px;
 			height: 20px;
+			line-height: 20px;
 			display: block;
 		}
-		input.submit {
-			margin: 0 0 0 10px;
-			height: 20px;
-			width: 52px;
+		.submit {
+			display: block;
+			padding: 2px 0 0 10px;
+			img {
+				border: none;
+			}
 		}
 	}
 	div.ambassador_assigned {
@@ -465,7 +583,8 @@ div.returning_login {
 				color: #333;
 			}
 		}
-		p.checkbox {
+		label.checkbox {
+			display: block;
 			font-size: 11px;
 			color: #666;
 			margin: 0;
@@ -494,31 +613,42 @@ div.ambassador_on {
 	border: 1px solid #ccc;
 	margin: 0 0 10px 0;
 	padding: 0;
-	h4 {
-		font-size: 12px;
-		font-weight: bold;
-		margin: 0;
-		padding: 14px 0 12px 14px;
-	}
-	p.radio {
+	fieldset {
 		position: relative;
-		margin: 0 0 0 36px;
+		left: 36px;
+		top: 42px;
+		border: none;
+		margin: 0;
 		padding: 0;
-		font-weight: bold;
-		span {
-			display: block;
-			font-weight: normal;
-			margin: 0 0 10px 0;
-			padding: 0;
-		}
-		input {
+		legend span {
 			position: absolute;
-			top: 0px;
+			top: -28px;
 			left: -22px;
-			border: none;
-			background: none;
-			margin: 0;
+			font-size: 12px;
+			font-weight: bold;
+			color: #666;
+		}
+		label {
+			position: relative;
+			margin: 0 0 0 0;
 			padding: 0;
+			font-weight: bold;
+			color: #666;
+			span {
+				display: block;
+				font-weight: normal;
+				margin: 0;
+				padding: 0 0 10px 0;
+			}
+			input {
+				position: absolute;
+				top: 0px;
+				left: -22px;
+				border: none;
+				background: none;
+				margin: 0;
+				padding: 0;
+			}
 		}
 	}
 	div.panel {
@@ -550,7 +680,8 @@ div.ambassador_on {
 					top: 8px;
 				}
 			}
-			p {
+			label {
+				display: block;
 				margin: 0 0 0 38px;
 				padding: 0;
 				font-size: 11px;
@@ -590,13 +721,22 @@ div.ambassador_on {
 				line-height: 14px;
 			}
 			input.input {
-				width: 188px;
-				height: 14px;
+				width: 185px;
+				height: 20px;
+				line-height: 20px;
 				margin: 0 0 4px 20px;
+				padding: 0 0 0 3px;
 			}
-			input.submit {
+			.submit {
 				clear: left;
-				margin: 0 0 0 20px;
+				margin: 0;
+				padding: 0;
+				border: none;
+				img {
+					border: none;
+					margin: 0 0 0 20px;
+					padding: 0;
+				}
 			}
 		}
 	}
@@ -610,7 +750,8 @@ div.ambassador_off {
 		font-size: 12px;
 		color: #666;
 	}
-	p.radio {
+	label.radio {
+		display: block;
 		margin: 0;
 		padding: 0;
 		line-height: 24px;
@@ -621,8 +762,8 @@ div.ambassador_off {
 			background: none;
 		}
 	}
-	p.end_set {
-		margin-bottom: 10px;
+	.end_set {
+		margin-bottom: 10px !important;
 	}
 	div.trial {
 		width: 400px;
@@ -644,12 +785,21 @@ div.ambassador_off {
 			width: 290px;
 			color: #666;
 			margin: 0;
+			padding: 0 0 10px 0;
+		}
+		input {
+			margin: 0;
 			padding: 0;
+			vertical-align: top;
 		}
 		input.input {
 			width: 200px;
-			height: 18px;
-			margin-top: 10px;
+			height: 20px;
+			padding-left: 3px;
+			line-height: 20px;
+		}
+		.submit {
+			img {	border: none;}
 		}
 	}		
 }
@@ -660,6 +810,7 @@ div.ambassador_off {
 		margin: 0;
 		padding: 0;
 		label {
+			position: relative;
 			float: left;
 			font-size: 11px;
 			color: #999;
@@ -669,7 +820,13 @@ div.ambassador_off {
 				width: 280px;
 				padding: 0 0 0 3px;
 				margin: 0 0 6px 0;
-				height: 18px;
+				height: 20px;
+				line-height: 20px;
+			}
+			label.form_error {
+				position: absolute;
+				top: 16px;
+				left: 288px;
 			}
 		}
 		label.end_set input {
@@ -718,7 +875,7 @@ div.ambassador_off {
 		border-bottom: 1px solid #ccc;
 		padding: 5px 0;
 		input.cancel {}
-		input.submit {}
+		input.submit { border: none;}
 	}
 }
 
@@ -740,7 +897,8 @@ div.ambassador_off {
 					height: 20px;
 					width: 202px;
 					margin: 0 0 10px 0;
-					padding: 0;
+					padding: 0 0 0 3px;
+					line-height: 20px;
 				}
 				label.error {
 					height: auto;
@@ -785,8 +943,7 @@ div.ambassador_off {
 		border-top: 2px solid #ccc;
 		border-bottom: 1px solid #ccc;
 		padding: 5px 0;
-		input.cancel {}
-		input.submit {}
+		input.submit { border: none;}
 	}
 }
 
@@ -927,6 +1084,7 @@ div.ambassador_off {
 			input {
 				height: 18px;
 				width: 280px;
+				line-height: 20px;
 				display: block;
 				clear: left;
 				margin: 0 0 6px 0;
@@ -1007,7 +1165,7 @@ div.ambassador_off {
 		margin: 0;
 		li {
 			font-size: 12px;
-			color: #999;
+			color: #333;
 			a {
 				color: #999;
 				:hover {
@@ -1036,6 +1194,7 @@ div.ambassador_agent_id {
 		font-size: 18px;
 		font-weight: normal;
 		color: #666;
+		a { color: #666;}
 	}
 }
 
@@ -1073,6 +1232,7 @@ div.ambassador_agent_id {
 				border-width: 0 1px 1px 0;
 				line-height: 18px;
 				padding-left: 5px;
+				a { display: block;}
 			}
 			td.count {
 				border-width: 0 0 1px 0;
@@ -1095,19 +1255,21 @@ div.ambassador_agent_id {
 				right: 0px;
 				font-size: 14px;
 				color: @color_header_font;
+				a { color:  @color_header_font;}
 			}
 			span.count {
 				position: absolute;
 				width: 40px;
 				text-align: center;
-				bottom: 18px;
-				*bottom: 15px;
+				bottom: 15px;
 				right: 11px;
+				*right: 9px;
 				font-weight: bold;
 				font-size: 28px;
 				line-height: 28px;
 				font-style: italic;
 				color: @color_header_font;
+				a { color:  @color_header_font;}
 			}
 		}
 	}
@@ -1130,18 +1292,13 @@ div.ambassador_agent_id {
 			padding: 0;
 			input {
 				width: 198px;
-				height: 22px;
-				line-height: 22px;
+				height: 16px;
 				padding-left: 3px;
 			}
 		}
 		input.submit {
-			width: 68px;
 			margin-left: 5px;
-			border-left: 1px solid #ddd;
-			border-right: 1px solid #ddd;
-			_border-left: 1px solid #999;
-			_border-right: 1px solid #999;
+			border: none;
 		}
 	}
 	div.share {
@@ -1155,6 +1312,9 @@ div.ambassador_agent_id {
 		span.blocks {
 			display: block;
 			margin-left: 10px;
+			img {
+				border: none;
+			}
 		}
 	}
 	span.help {
@@ -1193,7 +1353,8 @@ div.ambassador_agent_id {
 			font-size: 12px;
 			font-weight: normal;
 		}
-		a {
+		a { color: @color_header_font;}
+		a.more {
 			font-size: 12px;
 			position: absolute;
 			right: 10px;
@@ -1237,18 +1398,18 @@ div.ambassador_agent_id {
 			label {
 				float: left;
 				input {
-					height: 22px;
-					width: 160px;
+					height: 20px;
+					width: 190px;
 					margin-right: 5px;
-					padding-left: 3px;
-					line-height: 22px;
-					font-style: italic;
+					padding: 0 0 0 3px;
+					line-height: 20px;
 				}
+				input.empty {
+					font-style: italic;
+				} 
 			}
 			input.submit {
-				float: none;
-				_position: relative;
-				_top: 4px;
+				border: none !important;
 			}
 		} 
 	}
@@ -1296,6 +1457,9 @@ div.ambassador_agent_id {
 				float: right;
 				margin: 0 10px 10px 0;
 				padding: 0;
+				input.submit {
+					border: none;
+				}
 			}
 		}
 	}
@@ -1352,12 +1516,19 @@ div.ambassador_agent_id {
 			font-weight: normal;
 		}
 		div.my_rewards_points {
+			display: block;
+			float: left;
+			clear: both;
 			position: relative;
 			border: 1px solid #ccc;
 			height: 110px;
 			border-bottom-width: 4px;
+			width: 558px;
 			margin: 30px 30px 0 30px;
+			_margin: 30px 15px 0 15px;
+			padding: 0;
 			h3 {
+				position: relative;
 				margin: 20px 0 0 15px;
 				font-size: 20px;
 				font-weight: normal;
@@ -1387,8 +1558,7 @@ div.ambassador_agent_id {
 					position: absolute;
 					width: 40px;
 					text-align: center;
-					bottom: 32px;
-					*bottom: 27px;
+					bottom: 30px;
 					right: 31px;
 					font-weight: bold;
 					font-size: 24px;
@@ -1399,6 +1569,8 @@ div.ambassador_agent_id {
 			}
 		}
 		h3.redeem_rewards {
+			position: relative;
+			clear: left;
 			margin: 0 30px;
 			padding: 0 0 0 10px;
 			background: #D9E8FF;
@@ -1407,10 +1579,14 @@ div.ambassador_agent_id {
 			line-height: 33px;
 			font-size: 16px;
 			font-weight: normal;
-			span {
+			a {
 				position: absolute;
-				right: 33px;
-				font-size: 12px;
+				right: 3px;
+				top: 4px;
+				img {
+					border: none;
+					vertical-align: top;
+				}
 			}
 		}
 		div.redeemed_rewards {
@@ -1460,10 +1636,28 @@ div.ambassador_agent_id {
 				}
 			}
 			div.actions {
+				position: relative;
 				clear: both;
-				text-align: right;
-				input.submit { position: static;}
-				input.cancel { position: static;}
+				input.submit {
+					vertical-align: top;
+					position: static;
+					border: none; 
+					margin: 0; 
+					padding: 0;
+				}
+				.cancel { 
+					position: absolute;
+					color: @color_ambassador_font;
+					text-decoration: underline;
+					margin: 0;
+					padding: 0;
+					vertical-align: top;
+					line-height: 14px;
+					:hover {
+						text-decoration: none;
+						color: #333;
+					}
+				}
 			}
 		}
 		div.rewards_terms {
@@ -1498,13 +1692,13 @@ div.ambassador_agent_id {
 				input {
 					width: 224px;
 					height: 20px;
+					line-height: 20px;
+					padding: 0 0 0 3px;
 				}
 			}
 			input.submit {
 				margin: 20px 0 0 4px;
-				width: 40px;
-				border-left: 1px solid #ddd;
-				border-right: 1px solid #ddd;
+				border: none;
 			}
 		}
 		div.help {
@@ -1545,14 +1739,36 @@ div.ambassador_agent_id {
 					float: right;
 					font-size: 12px;
 					text-decoration: underline;
+					:hover {
+						text-decoration: none;
+					}
 				}
 			}
 			div.table {
 				margin: 0 30px 15px 30px;
 				background: #fff;
 				height: 180px;
-				overflow: scroll;
+				overflow-x: hidden;
+				overflow-y: scroll;
 				border-top: 1px solid #ccc;
+				h4 {
+					padding: 0;
+					margin: 15px 0 0 15px;
+					font-weight: bold;
+					color: #000;
+					font-size: 12px;
+				}
+				p {
+					padding: 0;
+					margin: 0 0 6px 15px;
+				}
+				a {
+					color: #333;
+					text-decoration: underline;
+				}
+				a.by_email {
+					margin: 0 10px 0 15px;
+				}
 				ul {
 					padding: 0;
 					margin: 15px 35px 20px 15px;
@@ -1563,8 +1779,9 @@ div.ambassador_agent_id {
 						margin: 0;
 						display: block;
 						clear: both;
-						span.name {color: #333; float: left;}
-						span.date {font-size: 11px; float: right;}
+						background: url('/images/ambassador_bg_table-x-separator.gif') repeat-x 0px 13px;
+						span.name {background: #fff; color: #333; float: left; padding-right: 5px;}
+						span.date {background: #fff; font-size: 11px; float: right; padding-left: 5px;}
 					}
 				}
 			}
@@ -1622,6 +1839,9 @@ div.ambassador_agent_id {
 				input {
 					display: block;
 					width: 258px;
+					padding: 0 0 0 3px;
+					height: 20px;
+					line-height: 20px;
 				}
 				span.tip {
 					display: block;
@@ -1650,19 +1870,24 @@ div.ambassador_agent_id {
 				display: block;
 				width: auto;
 				font-size: 14px;
-				line-height: 14px;
+				line-height: 20px;
 				margin-top: 4px;
 				input {
+					margin: 0;
+					padding: 0;
 					display: inline;
 					width: auto;
-					margin: 4px 0;
-					*border: none;
-					*margin: 0;
+					border: none;
+					background: none;
+					vertical-align: bottom;
+					_position: relative;
+					_top: -2px;
 				}
 			}
 			label.instruction {
 				width: 400px;
 				font-size: 16px;
+				line-height: 20px;
 				display: block;
 				clear: left;
 				padding: 30px 0 50px 0;
@@ -1675,9 +1900,20 @@ div.ambassador_agent_id {
 			float: none;
 			margin: 0 30px 0 30px;
 			padding: 4px 0;
-			input.preview {}
-			input.send {}
-			input.cancel { position: absolute; right: 0px; _right: 30px;}
+			.preview img { border: none; vertical-align: top;}
+			input.send { border: none; margin: 0; padding: 0; vertical-align: top;}
+			.cancel { 
+				position: absolute;
+				top: 10px;
+				right: 0px;
+				_right: 30px;
+				text-decoration: underline;
+				color:  @color_ambassador_font;
+				:hover {
+					text-decoration: none;
+					color: #333;
+				}
+			}
 		}
 	}
 }

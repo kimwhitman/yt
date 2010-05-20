@@ -10,7 +10,7 @@
   <% unless logged_in? -%>
     <div id="homepage_intro_promo">
       <div class="home_hero_share">
-        <a class="learn_how" href="">Learn How</a>
+        <a class="learn_how" href="/ambassador-details">Learn How</a>
       </div>
       <div>
         <div id="home_200videos_signup">
@@ -21,15 +21,14 @@
           <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
           <div>
             <% form_tag select_ambassador_users_path do %>
-              <%= text_field_tag :ambassador_name, '', :class => 'input' %>
-              <%= submit_tag 'Enter', :class => 'submit' %>
+              <%= text_field_tag :ambassador_name, (@ambassador_user ? @ambassador_user.ambassador_name : ''), :class => 'input' %>
+              <%= image_submit_tag '/images/ambassador_button_enter.png', :class => 'submit' %>
             <% end %>
           </div>
-          <a href="#" class="help">What's this?</a>
+          <a href="/ambassador-details" class="help">What's this?</a>
         </div>
 
-        <a href="#"><img src="/images/home_ad_spring-special.png"></img></a>
-
+        <%= link_to image_tag('home_ad_spring-special.png'), '/get-started-today', {:title => "Get Started Today"} -%>
         <%= link_to image_tag( 'home_ad_free-class.png' ), this_weeks_free_video_videos_path, {:title => "Watch this week's free video"} -%>
       </div>
     </div>

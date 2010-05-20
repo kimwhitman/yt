@@ -1,74 +1,31 @@
-<div id="ambassador_profile_widget" class="program">
-
-  <% if current_user.ambassador_name.nil? %>
-    <p class="header">Ambassador Program <%= link_to 'Learn More', ambassador_tools_help_user_path(current_user) %></p>
-    <img class="greeting" src="/images/ambassador_greeting.png" />
-
-    <div class="introduction">
-      <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
-      <% form_for current_user do |f| -%>
-        <fieldset>
-          <legend><span>Choose your Ambassador ID</span></legend>
-         <label>
-            <%= f.text_field :ambassador_name %>
-          </label>
-          <%= submit_tag 'Continue', :class => 'submit' %>
-        </fieldset>
-        <% # TODO: Need to pass a param so that a failed update returns to the containing page -%>
-      <% end %>
-    </div>
-
-    <script type="text/javascript" charset="utf-8">
-      $(document).ready(function() {
-        $("#user_ambassador_name").defaultValue('hint: keep it simple...');
-      });
-    </script>
-  <% end %>
-
-  <% # TODO When does this appear? After submission? %>
-  <% if false && current_user.ambassador_name %>
-    <div class="confirm" style="">
-      <div class="ambassador_agent_id"><span><%= current_user.ambassador_name %></span></div>
-      <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
-      <fieldset>
-        <legend><span><a href="#">make a change</a></span></legend>
-        <label><input type="submit" value="Confirm"></input></label>
-      </fieldset>
-    </div>
-  <% end %>
-</div>
-
 <% if current_user.ambassador_name %>
   <div id="ambassador_profile_widget" class="tools">
-    <p class="header">Ambassador Tools <span>Quick-view</span> <%= link_to 'Learn More', ambassador_tools_help_user_path(current_user) %></p>
+    <p class="header"><%= link_to 'Ambassador Tools <span>Quick-view</span>', ambassador_tools_invite_by_email_user_path(current_user) %> <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
     <div class="ambassador_agent_id">
-      <span><%= current_user.ambassador_name %></span>
+      <span><a href="#"><%= current_user.ambassador_name %></a></span>
     </div>
-
     <div class="stats">
-
     <table>
       <tr>
-        <td>Invitations</td>
-        <td class="count"><%= current_user.invitations_count %></td>
+        <td><%= link_to 'Invitations', ambassador_tools_invite_by_email_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.invitations_count %></a></td>
       </tr>
       <tr>
-        <td>Successful Referrals</td>
-        <td class="count"><%= current_user.successful_referrals_count %></td>
+        <td><%= link_to 'Successful Referrals', ambassador_tools_invite_by_email_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.successful_referrals_count %></a></td>
       </tr>
       <tr>
-        <td>Points Earned</td>
-        <td class="count"><%= current_user.points_earned %></td>
+        <td><%= link_to 'Points Earned', ambassador_tools_my_rewards_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.points_earned %></a></td>
       </tr>
       <tr class="last">
-        <td>Points Used</td>
-        <td class="count"><%= current_user.points_used %></td>
+        <td><%= link_to 'Points Used', ambassador_tools_my_rewards_user_path(current_user) %></td>
+        <td class="count"><a href="#"><%= current_user.points_used %></a></td>
       </tr>
       </table>
-
       <div class="points">
-        <span class="header">My Points</span>
-        <span class="count"><%= current_user.points_current %></span>
+        <span class="header"><%= link_to 'My Points', ambassador_tools_my_rewards_user_path(current_user) %></span>
+        <span class="count"><%= link_to current_user.points_current, ambassador_tools_my_rewards_user_path(current_user) %></a></span>
       </div>
 
     </div>
@@ -77,19 +34,56 @@
       <fieldset class="invitation">
         <legend><span>E-mail an invitation to:</span></legend>
         <label><%= text_field_tag :recipients %></label>
-        <%= submit_tag 'Continue', :class => "submit" %>
+        <input class="submit" type="image" src="/images/profile_widget_button_continue.png"></input>
       </fieldset>
     <% end %>
 
     <div class="share">
       <span class="header">Share your invitation:</span>
-      <span class="blocks"><a class="a2a_dd" href="http://www.addtoany.com/share_save"><%= image_tag 'ambassador_share_widget.png' %></a></span>
+      <span class="blocks"><%= link_to image_tag('ambassador_share_widget.png'), ambassador_tools_invite_by_sharing_user_path(current_user) %></span>
     </div>
 
-    <span class="help"><a href="#">Help</a></span>
+    <span class="help"><%= link_to 'Help', ambassador_tools_help_user_path(current_user) %></span>
 
   </div>
+<% else %>
+  <div id="ambassador_profile_widget" class="program">
+    <% if current_user.ambassador_name.nil? && params[:verify_ambassador_name].blank? %>
+      <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
+      <img class="greeting" src="/images/ambassador_greeting.png" />
+
+      <div class="introduction">
+        <p>Choose an Ambassador ID to share with others. Then use our Ambassador Tools to invite your friends to subscribe. Each Referral that becomes a prepaid subscriber earns you a point and a free month Unlimited Membership.</p>
+        <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
+          <fieldset>
+            <legend><span>Choose your Ambassador ID</span></legend>
+            <label>
+              <%= f.text_field :ambassador_name %>
+            </label>
+            <input type="image" class="submit" src="/images/profile_widget_button_continue.png"></input>
+          </fieldset>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if params[:verify_ambassador_name] %>
+    <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
+    <img class="greeting" src="/images/ambassador_greeting.png" />
+      <div class="confirm">
+        <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
+        <p>Please confirm your Ambassador ID. This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
+        <% form_for current_user do |f| -%>
+          <fieldset>
+            <legend><span><%= link_to 'make a change', profile_user_path(current_user) %></span></legend>
+            <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
+            <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
+          </fieldset>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
+
 
 <% content_for :javascript_content do %>
   <% if current_user.share_url %>
@@ -102,4 +96,10 @@
       a2a.init('page');
     </script>
   <% end %>
+
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $("#user_ambassador_name").defaultValue('hint: keep it simple...');
+    });
+  </script>
 <% end %>

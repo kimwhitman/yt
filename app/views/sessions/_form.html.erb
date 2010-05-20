@@ -11,17 +11,28 @@
       Remember me. I come here often.
     </label>
   </fieldset>
-  <div class="ambassador_unassigned" style="display: none;">
-    <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
-    <input type="text" class="input"></input>
-    <input type="submit" class="submit" value="Enter"></input>
-  </div>
-  <div class="ambassador_assigned">
-    <h5>Your Ambassador</h5>
-    <div class="ambassador_agent_id">
-      <span>joinSunny26</span>
-    </div>
-    <a href="#" class="change_ambassador">Not your Ambassador?</a>
-    <p class="checkbox"><input type="checkbox"></input>Notify this Ambassador by e-mail when I subscribe.</p>
-  </div>
+
+  <% if current_page?(login_path) -%>
+
+    <% if @ambassador_user %>
+      <div class="ambassador_assigned">
+        <h5>Your Ambassador</h5>
+        <div class="ambassador_agent_id">
+          <span><%= @ambassador_user.ambassador_name %></span>
+        </div>
+        <%= hidden_field_tag :ambassador_user_id, @ambassador_user.id %>
+        <%= link_to 'Not your ambassador?', change_ambassador_users_path(:return_to => 'login'), :class => 'change_ambassador', :method => :post %>
+        <label class="checkbox">
+          <%= remote_check_box_tag('notify_ambassador', notify_ambassador_users_path, notifying_ambassador) %>
+          Notify this Ambassador by e-mail when I subscribe.
+        </label>
+      </div>
+    <% else  %>
+      <div class="ambassador_unassigned">
+        <p>To credit an Ambassador and begin your 2 week free trial, please enter a valid Ambassador ID:</p>
+        <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input' %>
+        <%= link_to_function image_tag('ambassador_button_enter.png'), 'selectAmbassador()', :class => 'submit' %>
+      </div>
+    <% end %>
+  <% end -%>
 </div>

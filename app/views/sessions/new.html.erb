@@ -30,4 +30,8 @@
     $("#session_email").defaultValue('E-mail address');
     $("#session_password").defaultValue('Password');
   });
+
+  function selectAmbassador() {
+    window.location = "/users/select_ambassador?ambassador_name=" + jQuery("#x_ambassador_name").val() + '&return_to=login'
+  }
 </script>

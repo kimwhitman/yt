@@ -11,7 +11,8 @@ require_payment_info_for_trials: false
 # Credit card gateway: One of brain_tree, authorize_net_cim, payment_express, or trust_commerce
 
 development:
-  gateway: bogus
+  gateway: authorize_net_cim
+  #gateway: bogus
 test:
   gateway: bogus
 cucumber:

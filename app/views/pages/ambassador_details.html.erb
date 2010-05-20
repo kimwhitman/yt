@@ -1,10 +1,11 @@
+<% title 'Ambassador Program' %>
 <div id="main">
   <div id="main_content">
     <div id="ambassador_details">
       <div class="header">
         <img src="/images/ambassador_details_header.png" alt="Join the Yoga Today Ambassador Program" />
       </div>
-      <div class="hero"><input type="image" src="/images/ambassador_details_button_join-now.png"></input></div>
+      <div class="hero"><%= link_to image_tag("/images/ambassador_details_button_join-now.png"), sign_up_path, :class => 'join_now' %></div>
       <ul>
         <li>
           <span class="token">1</span>
@@ -16,12 +17,56 @@
             <dd>niahBrown <span>Nice to meet you.</span></dd>
             <dd>xbnr1799dan <span class="red">Different, but not very friendly.</dd>
           </dl>
-          <div class="preview create_id">
-            <div>
-            <input class="input" type="text"></input>
-            <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+
+          <% if current_user %>
+            <% if params[:verify_ambassador_name].blank? %>
+              <div class="preview create">
+                <p>To join, create an Ambassador ID</p>
+                  <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
+                    <fieldset>
+                      <label>
+                        <%= f.text_field :ambassador_name, :class => 'input' %>
+                        <%= hidden_field_tag :redirect_to, 'ambassador-details' %>
+                      </label>
+                      <input class="submit" type="image" src="/images/ambassador_details_button_join.png"></input>
+                    </fieldset>
+                  <% end %>
+              </div>
+            <% end %>
+
+            <% if params[:verify_ambassador_name] %>
+              <div class="preview confirm">
+                <h4>Confirm Ambassador ID</h4>
+                <p>This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
+                <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
+                <% form_for current_user do |f| -%>
+                  <fieldset>
+                    <legend><span><%= link_to 'make a change', '/ambassador-details' %></span></legend>
+                    <%= f.hidden_field :ambassador_name, :value => params[:verify_ambassador_name] %>
+                    <label><input type="image" class="submit" src="/images/profile_widget_button_confirm.png"></input></label>
+                  </fieldset>
+                <% end %>
+              </div>
+            <% end %>
+
+          <% else %>
+            <div class="preview login">
+              <h4>Login</h4>
+              <% form_for :session, :url => session_path do |f| -%>
+                <fieldset>
+                  <label>e-mail address
+                    <%= f.text_field :email %>
+                  </label>
+                  <label>password
+                    <%= f.password_field :password %>
+                  </label>
+                </fieldset>
+                <%= image_submit_tag "/images/ambassador_details_button_login.png", :class => "submit" %>
+              <% end %>
+
+              <span class="signup">Not a member yet? <%= link_to 'Sign Up', sign_up_path %></span>
             </div>
-          </div>
+          <% end %>
         </li>
 
         <li>
@@ -31,7 +76,7 @@
           <p>You can use the invitations we've written for you, or write your own messages.</p>
           <div class="preview"><img src="/images/ambassador_details_2.png" /></div>
         </li>
-        
+
         <li>
           <span class="token">3</span>
           <h3>Earn Points from referrals that subscribe</h3>
@@ -48,7 +93,7 @@
           <div class="preview"><img src="/images/ambassador_details_4.png" /></div>
         </li>
       </ul>
-      <div class="join"><input type="image" src="/images/ambassador_details_button_join-now.png"></input></div>        
+      <div class="join"><%= link_to image_tag("/images/ambassador_details_button_join-now.png"), sign_up_path, :class => 'join_now' %></input></div>
     </div>
   </div>
 </div>

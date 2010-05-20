@@ -3,6 +3,11 @@ class SessionsController < ApplicationController
   skip_before_filter :login_required, :except => :destroy
   skip_before_filter :verify_authenticity_token, :only => :create
 
+
+  def new
+    @ambassador_user = User.find(cookies[:ambassador_user_id]) if cookies[:ambassador_user_id]
+  end
+
   def create
     @user = User.authenticate(params[:session][:email], params[:session][:password])
 
@@ -103,15 +108,15 @@ class SessionsController < ApplicationController
 
   private
 
-  def flash_failure_after_create
-    flash.now[:failure] = "Bad email or password"
-  end
+    def flash_failure_after_create
+      flash.now[:failure] = "Bad email or password"
+    end
 
-  def flash_success_after_create
-    flash[:success] = "Signed in."
-  end
+    def flash_success_after_create
+      flash[:success] = "Signed in."
+    end
 
-  def flash_notice_after_create
-    flash[:notice] = "User has not confirmed email"
-  end
+    def flash_notice_after_create
+      flash[:notice] = "User has not confirmed email"
+    end
 end

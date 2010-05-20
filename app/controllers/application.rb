@@ -4,7 +4,6 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include SslRequirement
-  include SimpleCaptcha::ControllerHelpers
   #include ExceptionNotifiable
   #before_filter :login_required
 
@@ -17,9 +16,13 @@ class ApplicationController < ActionController::Base
 
   filter_parameter_logging :password, :creditcard
 
+  before_filter :check_for_ambassador
+  before_filter :remove_invalid_ambassador_cookie
+
   def signed_in?
     ! current_user.nil?
   end
+
 
   protected
 
@@ -98,11 +101,27 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def check_for_ambassador
+      if params.keys.include?('ambassador') && cookies[:ambassador_user_id].nil?
+        ambassador = User.find_by_ambassador_name(params[:ambassador])
+        if ambassador
+          cookies[:ambassador_user_id] = ambassador.id.to_s unless ambassador.nil?
+          redirect_to request.request_uri
+        end
+      end
+    end
+
     # This works around some fucked-up weird problem that only happens
     # in development mode.
     # When you reference 'User' in AuthenticatedSystem
     # It won't let get unloaded from memory, and generates errors up the ass.
     def user_class
       User
+    end
+
+    def remove_invalid_ambassador_cookie
+      if current_user && current_user.ambassador_name
+        cookies.delete :ambassador_user_id if current_user.id == cookies[:ambassador_user_id]
+      end
     end
 end

@@ -3,7 +3,7 @@
   <h4>My Profile</h4>
   <ul>
     <li><%= link_to_unless_current 'Basic Information', profile_user_path(current_user)  %></li>
-    <li><a href="#">My Yoga Queue (4)</a></li>
+    <li><%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %></li>
 
     <% if current_user.ambassador_name %>
     <li><%= link_to_unless_current 'Ambassador Tools', ambassador_tools_invite_by_email_user_path(current_user) %></li>
@@ -14,7 +14,7 @@
     <% end %>
 
     <% if current_user.has_paying_subscription? || current_user.had_paying_subscription? %>
-    <li><%= link_to_unless_current 'Billing Activity', billing_history_user_path(current_user) %></li>
+      <li><%= link_to_unless_current 'Billing Activity', billing_history_user_path(current_user) %></li>
     <% end %>
 
   </ul>
@@ -22,11 +22,11 @@
     <li><%= link_to_unless_current 'Membership Terms and Details', membership_terms_user_path(current_user) %></li>
     <li>
       <% if current_user.has_downgraded_to_free? %>
-      <%= link_to_unless_current 'Reactivate Membership', billing_user_path(current_user) %>
+        <%= link_to_unless_current 'Reactivate Membership', billing_user_path(current_user) %>
       <% elsif !current_user.has_paying_subscription?  %>
         <%= link_to_unless_current 'Subscribe to Yoga Today', billing_user_path(current_user)  %>
       <% else %>
-      <%= link_to_unless_current 'Cancel Membership', cancel_membership_user_path(current_user)  %>
+        <%= link_to_unless_current 'Cancel Membership', cancel_membership_user_path(current_user)  %>
       <% end %>
     </li>
   </ul>

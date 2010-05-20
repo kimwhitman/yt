@@ -1,1 +1,55 @@
-THIS IS THE EMAIL PREVIEW PAGE
+<html>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor='#ffffff' >
+
+<STYLE>
+</STYLE>
+
+<table width="560px" height="100%" cellpadding="10" cellspacing="0" class="backgroundTable" >
+<tr>
+<td>
+
+<table width="540px" cellpadding="0" cellspacing="0" class="primaryTable">
+
+<tr>
+<td width="348px" style="font-size: 8px;">&nbsp;</td>
+<td width="192px" bgcolor="#ffe400" style="font-size: 8px; border-top: 1px solid #cccccc; border-left: 1px solid #cccccc; border-right: 1px solid #cccccc; background-color: #ffe400;">&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#f2f7ff" valign="top" width="348px" style="background: url('/images/yogatoday_email_gradient.png') repeat-y top right #f2f7ff;">
+<p style="font-family: Arial, sans-serif, Verdana; font-size: 12px; color: #333333; padding: 20px; margin: 0;">
+  <%= h @message %>
+</p>
+<p style="font-family: Arial, sans-serif, Verdana; font-size: 12px; color: #333333; padding: 0 20px 10px 20px; margin: 0;">To take advantage of your 2 week free trial, follow this invitation or use my Ambassador ID when you Sign Up.</p>
+
+<p style="font-family: Arial, sans-serif, Verdana; font-size: 12px; color: #43679f; padding: 0 20px 6px 20px; margin: 0;">My Ambassador ID:</p>
+
+<div style="height: 45px; width: 332px;"><img src="/images/yogatoday_email_ambassador_id_large.png"></img>
+<span style="display: block; margin: -37px 0 0 54px; font-family: Arial, sans-serif, Verdana; font-size: 16px; color: #666666; font-style: italic;"><%= current_user.ambassador_name %></span>
+</div>
+<img src="/images/yogatoday_email_border_grey.png"></img>
+
+<div style="height: 71px;">
+<img style="border: none; margin: 40px 20px 10px 24px; padding: 0;" src="/images/yogatoday_email_button_share-this-email.png"></img>
+</div>
+
+</td>
+<td valign="top" width="192px" bgcolor="ffe400" style="border-bottom: 1px solid #cccccc; border-left: 1px solid #cccccc; border-right: 1px solid #cccccc; background-color: #ffe400;">
+<img src="/images/yogatoday_email_logo.png"></img>
+<h2 style="font-family: Arial, sans-serif, Verdana; font-size: 18px; color: #666666; margin: 0 15px; padding: 0;">Try Yoga Today for 2 weeks. Free.</h2>
+<p style="font-family: Arial, sans-serif, Verdana; font-size: 12px; color: #666666; padding: 10px 15px; margin: 0;">With this invitation, you can choose one of our prepaid memberships and enjoy your first two weeks free. You can cancel anytime.</p>
+<div style="height: 50px; width: 190px;"><img src="/images/yogatoday_email_ambassador_id_sidebar.png"></img>
+<span style="display: block; margin:-32px 0 0 48px; font-family: Arial, sans-serif, Verdana; font-size: 13px; color: #666666; font-style: italic;"><%= current_user.ambassador_name %></span>
+</div>
+<p style="font-family: Arial, sans-serif, Verdana; font-size: 11px; color: #333333; text-align: center; padding: 15px 0; margin: 0;">Sign up now</p>
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

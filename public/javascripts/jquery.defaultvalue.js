@@ -86,7 +86,7 @@
             'class' : $input.attr('class')+' empty',
             'style' : $input.attr('style'),
             'tabindex' : $input.attr('tabindex'),
-            'size' : $input.attr('size'), // MSM - added
+            'size' : $input.attr('size') // MSM - added
           });
 
           $el.focus(function(){

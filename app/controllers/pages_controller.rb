@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_filter :fetch_ambassador, :only => [:get_started_today, :home]
+
   def home
     @home_page = true
     @user_story = UserStory.published.by_publish_at(:limit => 1).first
@@ -55,6 +57,35 @@ class PagesController < ApplicationController
     @for_web_media_kits = MediaKit.find(:all, :order => 'rank DESC', :conditions => {:media_kit_type => "For Web"})
     if request.post?
       send_file "#{RAILS_ROOT}/public#{params[:media_kit]}"
+    end
+  end
+
+  def ask_question
+    redirect_to contact_path(:message => params[:message])
+  end
+
+  def get_started_today
+    @billing_cycle = 'Premium Trial'
+  end
+
+
+
+  private
+
+  def fetch_ambassador
+    if params[:ambassador]
+      @ambassador_user = User.find_by_ambassador_name(params[:ambassador])
+      cookies[:ambassador_user_id] = @ambassador_user.id.to_s if @ambassador_user
+    end
+
+    @ambassador_user = current_user.ambassador if current_user
+    cookies[:ambassador_user_id] = params[:ambassador_user_id] if @ambassador_user.nil? && params[:ambassador_user_id]
+    @ambassador_user = User.find_by_ambassador_name(params[:ambassador_name]) if @ambassador_user.nil? && params[:ambassador_name]
+    @ambassador_user = User.find(cookies[:ambassador_user_id]) if @ambassador_user.nil? && cookies[:ambassador_user_id]
+
+    if current_user && @ambassador_user && current_user.id == @ambassador_user.id
+      cookies.delete :ambassador_user_id
+      @ambassador_user = nil
     end
   end
 end

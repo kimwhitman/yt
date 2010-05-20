@@ -1,6 +1,4 @@
 class Invite < ActiveRecord::Base
-  include AASM
-
   # Associations
   belongs_to :user
   has_many :share_urls, :as => :shareable, :dependent => :destroy
@@ -14,19 +12,13 @@ class Invite < ActiveRecord::Base
   # Scopes
 
   # Extensions
-  aasm_column :state
-  aasm_initial_state :draft
-  aasm_state :draft
-  aasm_state :active, :enter => :send_invitation
-  aasm_event :activate do
-    transitions :to => :active, :from => :draft
-  end
 
   # Callbacks
   after_validation_on_create :set_default_body_for_user
   after_validation_on_update :set_default_body_for_user
 
   # Attributes
+
 
 
   private
@@ -39,9 +31,4 @@ class Invite < ActiveRecord::Base
       end
     end
 
-    def send_invitation
-      # TODO Call mailer...
-
-      self.user.increment!(:invitations_count) if self.type == 'AmbassadorInvite'
-    end
 end

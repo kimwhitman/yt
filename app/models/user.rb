@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :invites
   has_many :ambassador_invites
   has_one :share_url
+  belongs_to :ambassador, :class_name => 'User'
 
   # Validations
   validates_acceptance_of :agree_to_terms
@@ -18,7 +19,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
-  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true, :allow_blank => false
+  validates_uniqueness_of   :ambassador_name, :case_sensitive => false, :within => 3..12, :allow_nil => true
   validates_inclusion_of :newsletter_format, :in => %w(html plain)
   validates_confirmation_of :email, :on => :create
 
@@ -35,6 +36,7 @@ class User < ActiveRecord::Base
   before_save :store_old_email
   before_save :downcase_email
   before_save :initialize_confirmation_token
+  before_save :validate_ambassador_name
   after_save :setup_free_account
   after_save :setup_newsletter
   before_save :strip_ambassador_name
@@ -138,6 +140,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_free_subscription?
+    self.account.subscription.subscription_plan.internal_name == 'free'
+  end
+
+  def has_premium_free_subscription?
+    self.account.subscription.subscription_plan.internal_name == 'premium_monthly_free'
+  end
+
   def has_active_card?
     has_paying_subscription? && !account.subscription.card_expired?
   end
@@ -197,10 +207,15 @@ class User < ActiveRecord::Base
 
         subscription = self.account.subscription
         (1..redeemed_points).each do |point|
+          # If this is a user with a free account then we need to change their subscription plan
+          if self.has_free_subscription?
+            subscription.subscription_plan_id = SubscriptionPlan.find_by_internal_name('premium_monthly_free').id
+          end
+
           start_date = subscription.next_renewal_at
           end_date = start_date.advance(:months => 1)
-
           subscription.next_renewal_at = end_date
+
           subscription.save
 
           self.account.subscription_payments << SubscriptionPayment.create(
@@ -213,6 +228,43 @@ class User < ActiveRecord::Base
       end
     else
       false
+    end
+  end
+
+  def set_ambassador!(ambassador_user_id, notify)
+    # If the user has an ambassador id and a paid plan then associate the two users
+    unless ambassador_user_id.nil?
+      if self.has_paying_subscription?
+        self.ambassador = User.find(ambassador_user_id)
+        self.notify_ambassador_of_reward = true if notify
+        self.save
+      end
+    end
+  end
+
+  def reset_ambassador!
+    # Only allow an ambassador id to be reset if there are no previous payments
+    # This prevents somebody from ever having multiple ambassador points awarded out
+    unless ambassador_id.nil?
+      if self.account.subscription.subscription_payments.empty?
+        self.ambassador_id = nil
+        self.save
+      end
+    end
+  end
+
+  def apply_ambassador_points!
+    if self.ambassador && !self.has_rewarded_ambassador? && self.account.subscription.subscription_plan.generates_ambassador_reward?
+      logger.debug "DEBUG: Applying ambassador points #{ self.ambassador.id } #{ !self.has_rewarded_ambassador? } #{ self.account.subscription.subscription_plan.generates_ambassador_reward? }"
+      self.ambassador.increment!(:points_earned)
+      self.ambassador.increment!(:points_current)
+      self.ambassador.increment!(:successful_referrals_count)
+      if self.notify_ambassador_of_reward?
+        UserMailer.deliver_ambassador_reward_notification(ambassador, self)
+      end
+      self.has_rewarded_ambassador = true
+      self.save
+      logger.debug "DEBUG: Applied #{ self.ambassador.inspect }"
     end
   end
 
@@ -286,5 +338,10 @@ class User < ActiveRecord::Base
 
     def strip_ambassador_name
       self.ambassador_name = self.ambassador_name.strip unless self.ambassador_name.nil?
+    end
+
+    def validate_ambassador_name
+      # We allow nil values for ambassador name, but not empty strings
+      false if self.ambassador_name == ''
     end
 end

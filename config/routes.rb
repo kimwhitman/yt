@@ -10,15 +10,18 @@ ActionController::Routing::Routes.draw do |map|
   map.new_account '/signup/:plan', :controller => 'accounts', :action => 'new', :plan => nil
   map.login  '/login',  :controller => 'Sessions', :action => 'new'
   map.logout '/logout', :controller => 'Sessions', :action => 'destroy'
-  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   map.resources :ambassador_invites
+  map.resources :pages,
+    :collection => { :ask_question => :post }
   map.resources :users,
-    :collection => { :check_email => :post, :subscription => :get, :select_ambassador => :any, :change_ambassador => :post },
+    :collection => { :check_email => :post, :subscription => :get, :select_ambassador => :any, :change_ambassador => :post,
+      :notify_ambassador => :post },
     :member => { :profile => :any, :billing => :any, :billing_history => :get, :membership_terms => :get,
       :cancel_membership => :any, :ambassador_tools_invite_by_email => :get, :ambassador_tools_invite_by_sharing => :get,
       :ambassador_tools_my_invitations => :get, :ambassador_tools_my_rewards => :get, :ambassador_tools_help => :get,
-      :ambassador_tools_widget_invite_by_email => :post, :redeem_points => :post }
+      :ambassador_tools_widget_invite_by_email => :post, :ambassador_tools_preview_email => :get, :redeem_points => :post,
+      :select_ambassador_name => :put }
 
   map.resources :users do |users|
     users.resource :confirmation, :only => [:new, :create]
@@ -74,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
 
   # This has to be the last route before the defaults
-  map.share_url '/:id', :controller => 'share_urls', :action => 'show'
+  map.share_url '/sr/:id', :controller => 'share_urls', :action => 'show'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

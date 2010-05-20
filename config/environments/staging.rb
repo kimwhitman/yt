@@ -20,6 +20,8 @@ config.action_view.cache_template_loading            = true
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
 config.action_mailer.default_url_options = { :host => HOST, :only_path => false }
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.perform_deliveries = true
 
 # Delve Platform Values
 # ENV['organization_id'] = '59b93524ab7c4d62b53d7553360c2b87'

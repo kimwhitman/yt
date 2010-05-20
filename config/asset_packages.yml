@@ -20,6 +20,9 @@ javascripts:
   - jquery.metadata
   - jquery.rating
   - jquery.scrollTo
+  - jquery.timeago
+  - search
+  - jquery.colorbox-min
 - dev:
   - jquery
   - jquery-ui
@@ -33,5 +36,6 @@ stylesheets:
   - jquery.jcarousel
   - yoga_carousel_skin
   - ambassador
+  - colorbox
 - admin:
   - admin
