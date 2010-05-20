@@ -301,7 +301,7 @@ class UsersController < ApplicationController
   def redeem_points
     if current_user.redeem_points(params[:redeemed_points].to_i)
       flash[:notice] = "Your points have been redeemed."
-      redirect_to billing_user_path(current_user)
+      redirect_to billing_history_user_path(current_user)
     else
       flash[:notice] = "An error occurred while trying to redeem your points."
       render :template => 'users/ambassador_tools/my_rewards'
