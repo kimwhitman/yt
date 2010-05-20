@@ -745,6 +745,7 @@ div.ambassador_off div.trial .submit img { border: none; }
   padding: 0;
 }
 #signup_section fieldset.basic label {
+  position: relative;
   float: left;
   font-size: 11px;
   color: #999999;
@@ -757,6 +758,11 @@ div.ambassador_off div.trial .submit img { border: none; }
   margin: 0 0 6px 0;
   height: 20px;
   line-height: 20px;
+}
+#signup_section fieldset.basic label label.form_error {
+  position: absolute;
+  top: 16px;
+  left: 288px;
 }
 #signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
 #signup_section fieldset.basic label.wide { width: 100%; }
