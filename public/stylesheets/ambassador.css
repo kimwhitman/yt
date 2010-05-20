@@ -1602,7 +1602,8 @@ div.ambassador_agent_id span a { color: #666666; }
   margin: 0 30px 15px 30px;
   background: #ffffff;
   height: 180px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   border-top: 1px solid #cccccc;
 }
 #ambassador_tools div.tools_container div.track_invitations div.table h4 {
@@ -1632,14 +1633,19 @@ div.ambassador_agent_id span a { color: #666666; }
   margin: 0;
   display: block;
   clear: both;
+  background: url('/images/ambassador_bg_table-x-separator.gif') repeat-x 0px 13px;
 }
 #ambassador_tools div.tools_container div.track_invitations div.table ul li span.name {
+  background: #ffffff;
   color: #333333;
   float: left;
+  padding-right: 5px;
 }
 #ambassador_tools div.tools_container div.track_invitations div.table ul li span.date {
+  background: #ffffff;
   font-size: 11px;
   float: right;
+  padding-left: 5px;
 }
 #ambassador_tools div.tools_container ul.invitation_networks {
   list-style-type: none;
