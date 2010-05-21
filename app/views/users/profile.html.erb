@@ -15,8 +15,8 @@
 
         <% form_for(current_user, :html => {:multipart => true}) do |f| %>
 
-        <h2>Basic Information <span>Account Type: Unlimited Member</span></h2>
-        
+        <h2>Basic Information <span>Account Type: <%= current_user.account.subscription.subscription_plan.name %> Member</span></h2>
+
         <div class="avatar">
           <%= image_tag(current_user.photo.url) %>
           <span>My Photo</span>
@@ -25,28 +25,28 @@
             <%= f.file_field :photo %>
           </div>
         </div>
-        
+
         <fieldset>
           <label class="end_set">
             user name
             <%= f.text_field :name %>
           </label>
-          
+
           <label>
             new password
             <%= f.password_field :password, :value => ";9p=4-32" %>
           </label>
-          
+
           <label class="end_set">
             confirm new password
             <%= f.password_field :password_confirmation, :value => ";9p=4-32" %>
           </label>
-          
+
           <label>
             e-mail address
             <%= f.text_field :email %>
           </label>
-          
+
           <label>
             city
             <%= f.text_field :city %>
@@ -56,12 +56,12 @@
             state
             <%= f.select :state, states %>
           </label>
-          
+
           <label class="country end_set">
             country
             <%= f.select :country, countries, {:selected => current_user.country}, :onchange => "if(this.value != 'United States') { document.getElementById('user_state').value = '';}" %>
           </label>
-          
+
           <label class="checkbox">
             <%= f.check_box :wants_newsletter %>
             Send me the weekly Yoga Today newsletter and weekly class update.
@@ -80,10 +80,10 @@
           <label class="radio">
             <%= f.radio_button :newsletter_format, 'plain' %>
             Plain Text E-mail
-          </label>       
-          
+          </label>
+
         </fieldset>
-        
+
         <div class="actions">
           <input class="submit" type="image" src="/images/profile_button_save-changes.png"></input>
         </div>
@@ -91,7 +91,7 @@
         <% end %>
 
       </div>
-      
+
     </div>
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
