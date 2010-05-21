@@ -759,12 +759,8 @@ div.ambassador_off div.trial .submit img { border: none; }
   height: 20px;
   line-height: 20px;
 }
-#signup_section fieldset.basic label label.form_error {
-  position: absolute;
-  top: 16px;
-  left: 288px;
-}
 #signup_section fieldset.basic label.end_set input { margin-bottom: 18px; }
+#signup_section fieldset.basic label.end_set label.form_error { margin-top: -10px; }
 #signup_section fieldset.basic label.wide { width: 100%; }
 #signup_section fieldset.basic label.column { width: 320px; }
 #signup_section fieldset.basic label.checkbox {
