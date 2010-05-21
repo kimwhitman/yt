@@ -904,15 +904,15 @@ input.empty {
 }
 
 #container_4col.signed_in.free {
-  margin-top: -200px;
-  *margin-top: -220px;
-  _margin-top: -240px;
+  margin-top: -71px;
+  *margin-top: -91px;
+  _margin-top: -111px;
 }
 
 #container_4col.signed_out {
-  margin-top: -200px;
-  *margin-top: -220px;
-  _margin-top: -240px;
+  margin-top: -71px;
+  *margin-top: -91px;
+  _margin-top: -111px;
 }
 
 .container_8col2 {

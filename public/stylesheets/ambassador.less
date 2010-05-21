@@ -810,6 +810,7 @@ div.ambassador_off {
 		margin: 0;
 		padding: 0;
 		label {
+			position: relative;
 			float: left;
 			font-size: 11px;
 			color: #999;
@@ -823,8 +824,13 @@ div.ambassador_off {
 				line-height: 20px;
 			}
 		}
-		label.end_set input {
-			margin-bottom: 18px;
+		label.end_set {
+			input {
+				margin-bottom: 18px;
+			}
+			label.form_error {
+				margin-top: -10px;
+			}
 		}
 		label.wide {
 			width: 100%;
@@ -1255,9 +1261,9 @@ div.ambassador_agent_id {
 				position: absolute;
 				width: 40px;
 				text-align: center;
-				bottom: 18px;
-				*bottom: 15px;
+				bottom: 15px;
 				right: 11px;
+				*right: 9px;
 				font-weight: bold;
 				font-size: 28px;
 				line-height: 28px;
@@ -1552,8 +1558,7 @@ div.ambassador_agent_id {
 					position: absolute;
 					width: 40px;
 					text-align: center;
-					bottom: 32px;
-					*bottom: 27px;
+					bottom: 30px;
 					right: 31px;
 					font-weight: bold;
 					font-size: 24px;
@@ -1743,7 +1748,8 @@ div.ambassador_agent_id {
 				margin: 0 30px 15px 30px;
 				background: #fff;
 				height: 180px;
-				overflow: scroll;
+				overflow-x: hidden;
+				overflow-y: scroll;
 				border-top: 1px solid #ccc;
 				h4 {
 					padding: 0;
@@ -1773,8 +1779,9 @@ div.ambassador_agent_id {
 						margin: 0;
 						display: block;
 						clear: both;
-						span.name {color: #333; float: left;}
-						span.date {font-size: 11px; float: right;}
+						background: url('/images/ambassador_bg_table-x-separator.gif') repeat-x 0px 13px;
+						span.name {background: #fff; color: #333; float: left; padding-right: 5px;}
+						span.date {background: #fff; font-size: 11px; float: right; padding-left: 5px;}
 					}
 				}
 			}
@@ -1880,6 +1887,7 @@ div.ambassador_agent_id {
 			label.instruction {
 				width: 400px;
 				font-size: 16px;
+				line-height: 20px;
 				display: block;
 				clear: left;
 				padding: 30px 0 50px 0;
