@@ -73,6 +73,13 @@ class UserMailer < ActionMailer::Base
     body :user => user, :rewarding_user => rewarding_user
   end
 
+  def new_ambassador(user)
+    subject "Ambassador Program"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user
+  end
+
 
   private
 

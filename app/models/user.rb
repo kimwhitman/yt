@@ -36,10 +36,11 @@ class User < ActiveRecord::Base
   before_save :store_old_email
   before_save :downcase_email
   before_save :initialize_confirmation_token
+  before_save :strip_ambassador_name
   before_save :validate_ambassador_name
+  before_save :send_new_ambassador_mail
   after_save :setup_free_account
   after_save :setup_newsletter
-  before_save :strip_ambassador_name
   after_update :setup_share_url
 
   # Attributes
@@ -344,5 +345,11 @@ class User < ActiveRecord::Base
     def validate_ambassador_name
       # We allow nil values for ambassador name, but not empty strings
       false if self.ambassador_name == ''
+    end
+
+    def send_new_ambassador_mail
+      if self.ambassador_name_changed?
+        UserMailer.deliver_new_ambassador(self)
+      end
     end
 end
