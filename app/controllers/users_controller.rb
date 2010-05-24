@@ -67,6 +67,10 @@ class UsersController < ApplicationController
 
     current_user.attributes = params[:user]
 
+    if current_user.ambassador_name_changed?
+      flash[:success] = "Welcome to the Progam, Ambassador #{ current_user.ambassador_name }. Your ID is now ready to share."
+    end
+
     if current_user.save
       respond_to do |format|
         format.html do
