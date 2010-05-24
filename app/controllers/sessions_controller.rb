@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
     @user = User.authenticate(params[:session][:email], params[:session][:password])
 
     if @user.nil?
-
       respond_to do |format|
         format.html do
           flash[:error] = "Bad email or password"
@@ -35,6 +34,12 @@ class SessionsController < ApplicationController
         # Migrate over the user playlist from session --> DB
         migrate_playlist!
         migrate_cart!
+
+        if self.current_user.points_earned_since_last_login > 0
+          flash[:notice] = "Fantastic! While you were away, your Ambassador activity has earned you #{ self.current_user.points_earned_since_last_login > 1 ? self.current_user.points_earned_since_last_login.to_s + " points" : self.current_user.points_earned_since_last_login.to_s + " point" }. <a href=\"#{ ambassador_tools_my_rewards_user_path(self.current_user) }\">Use your points</a>"
+          self.current_user.points_earned_since_last_login = 0
+          self.current_user.save
+        end
 
         respond_to do |format|
           format.html { flash_success_after_create; redirect_back_or_default(root_url) }

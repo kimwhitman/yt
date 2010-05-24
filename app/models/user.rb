@@ -259,6 +259,7 @@ class User < ActiveRecord::Base
       self.ambassador.increment!(:points_earned)
       self.ambassador.increment!(:points_current)
       self.ambassador.increment!(:successful_referrals_count)
+      self.ambassador.increment!(:points_earned_since_last_login)
       if self.notify_ambassador_of_reward?
         UserMailer.deliver_ambassador_reward_notification(ambassador, self)
       end

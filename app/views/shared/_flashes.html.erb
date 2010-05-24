@@ -1,7 +1,8 @@
 <div id="flash">
 <% if flash[:notice] %>
   <div class="notice">
-    <%= html_escape(flash[:notice]) %>
+    <%#= html_escape(flash[:notice]) %>
+    <%= flash[:notice] %>
   </div>
 <% end %>
 <% if flash[:error] || flash[:failure] %>

@@ -84,7 +84,7 @@ class Subscription < ActiveRecord::Base
     # Does the subscription plan need to move to another plan when this one expires?
     if self.subscription_plan.transitions_to_subscription_plan
       new_plan = self.subscription_plan.transitions_to_subscription_plan
-      puts "Subscription plan (#{ self.subscription_plan.id }) has expired. Transitioning to new plan: #{ self.subscription_plan.name }"
+      puts "Subscription plan '#{ self.subscription_plan.name }' (#{ self.subscription_plan.id }) has expired. Transitioning to new plan '#{ new_plan.name }' (#{ new_plan.id })"
       self.saved_subscription_plan_id = self.subscription_plan_id
       self.subscription_plan_id = self.subscription_plan.transitions_to_subscription_plan_id
       self.renewal_period = new_plan.renewal_period
@@ -118,7 +118,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
-    puts "Name: #{ subscription.account.users.last.name } Plan: #{ subscription.subscription_plan } (ID=#{ subscription.subscription_plan.id })"
+    puts "Name: #{ self.account.users.last.name } Plan: #{ self.subscription_plan } (ID=#{ self.subscription_plan.id })"
     logger.debug "DEBUG: Subscription charge Amount=#{ amount }"
     if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
       logger.debug "DEBUG: Subscription charge success"
@@ -185,6 +185,14 @@ class Subscription < ActiveRecord::Base
 
   def self.find_due(renew_at = Time.now)
     active.find(:all, :include => [:account, :subscription_plan], :conditions => ["subscription_plans.name != 'Free' AND DATE(next_renewal_at) = ?", Date.today])
+  end
+
+  def due?
+    self.next_renewal_at.to_date == Date.today
+  end
+
+  def past_due?
+    self.next_renewal_at.to_date > Date.today
   end
 
   def paypal?
