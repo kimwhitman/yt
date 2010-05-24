@@ -10,9 +10,12 @@
     <%= html_escape(flash[:error] || flash[:failure]) %>
   </div>
 <% end %>
+    success
 <% if flash[:success] %>
+    success
   <div class="success">
-    <%= html_escape(flash[:success]) %>
+    <%#= html_escape(flash[:success]) %>
+    <%= flash[:success] %>
   </div>
 <% end %>
 </div>
