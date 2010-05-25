@@ -262,6 +262,16 @@ input.empty {
   border: none;
 }
 
+#main_content .flash span {
+	display: block;
+	padding: .8em;
+  margin-bottom: 1em;
+  border: 2px solid #dddddd;
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+}
+
 #main_content .home_promo {
   width: 300px;
   float: left;
