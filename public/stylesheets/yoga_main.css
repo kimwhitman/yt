@@ -1490,6 +1490,10 @@ div.notice {
   color: #D53F12;
 }
 
+#flash {
+	clear: both;
+}
+
 #flash .error {
   padding: .7em;
   margin-bottom: 1em;
