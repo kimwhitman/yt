@@ -30,14 +30,9 @@
             <h3 class="redeem_rewards">My Rewards <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png'), 'add_one_month()', :id => 'x_add_one_month') %></h3>
             <div class="redeemed_rewards">
 
-              <div class="unredeemed" style="display: none;">
-                <h4 style="display: none;">Click "Add +1 Month" to use points for free months of Yoga Today.</h4>
-                <h4>You currently have no points available for rewards.</h4>
-                <p>To earn free Yoga Today, start by inviting your friends and family to subscribe.</p>
-                <%= link_to 'Invite by Email', ambassador_tools_invite_by_email_user_path(current_user), :class => 'by_email' %>
-                <%= link_to 'Invite by Sharing', ambassador_tools_invite_by_sharing_user_path(current_user) %>
+              <div class="unredeemed">
+                <h4>Click "Add +1 Month" to use points for free months of Yoga Today.</h4>
               </div>
-
               <ul id="x_added_months">
               </ul>
 
@@ -51,18 +46,17 @@
 
             </div>
           <% else %>
-          <h3 class="redeem_rewards">My Rewards</h3>
-          <!-- <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png', :style => 'opacity: .5;'), 'add_one_month()', :id => 'x_add_one_month') %> -->
-          <div class="redeemed_rewards">
-
-            <div class="unredeemed">
-              <h4 style="display: none;">Click "Add +1 Month" to use points for free months of Yoga Today.</h4>
-              <h4>You currently have no points available for rewards.</h4>
-              <p>To earn free Yoga Today, start by inviting your friends and family to subscribe.</p>
-              <%= link_to 'Invite by Email', ambassador_tools_invite_by_email_user_path(current_user), :class => 'by_email' %>
-              <%= link_to 'Invite by Sharing', ambassador_tools_invite_by_sharing_user_path(current_user) %>
+            <h3 class="redeem_rewards">My Rewards</h3>
+            <!-- <%= link_to_function(image_tag('/images/profile_tools_button_add-1-month.png', :style => 'opacity: .5;'), 'add_one_month()', :id => 'x_add_one_month') %> -->
+            <div class="redeemed_rewards">
+              <div class="unredeemed">
+                <h4 style="display: none;">Click "Add +1 Month" to use points for free months of Yoga Today.</h4>
+                <h4>You currently have no points available for rewards.</h4>
+                <p>To earn free Yoga Today, start by inviting your friends and family to subscribe.</p>
+                <%= link_to 'Invite by Email', ambassador_tools_invite_by_email_user_path(current_user), :class => 'by_email' %>
+                <%= link_to 'Invite by Sharing', ambassador_tools_invite_by_sharing_user_path(current_user) %>
+              </div>
             </div>
-          </div>
           <% end %>
 
           <div class="rewards_terms">
@@ -87,6 +81,7 @@
   function add_one_month() {
     jQuery("#x_my_rewards_instructions").hide();
     jQuery("#x_my_rewards_actions").show();
+    jQuery(".unredeemed").hide();
     if (points_current > 0) {
       points_current -= 1;
       if (points_current == 0) {
@@ -107,6 +102,7 @@
     jQuery('#x_add_one_month').show();
     if (points_current == <%= current_user.points_current %>) {
       jQuery("#x_my_rewards_actions").hide();
+      jQuery(".unredeemed").show();
     }
     jQuery('#x_redeemed_points').val(<%= current_user.points_current %> - points_current);
   }

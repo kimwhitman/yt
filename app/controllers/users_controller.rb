@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     if current_user.save
       respond_to do |format|
         format.html do
-          flash[:user_notice] = "<span style='font-size: 14px; color: #488A1A'>Your changes have been saved.</span>"
+          flash[:user_notice] = "<span style='font-size: 14px; color: #488A1A'>Your changes have been saved.</span>" if flash[:success].blank?
           redirect_to profile_user_url(current_user)
         end
       end
