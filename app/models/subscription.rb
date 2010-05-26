@@ -223,6 +223,9 @@ class Subscription < ActiveRecord::Base
     self.amount = sp.amount
     self.renewal_period = _renewal_period
     self.save!
+    user = self.account.users.last
+    user.has_used_ambassador_plans = true
+    user.save
     #self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
   end
 
@@ -233,6 +236,9 @@ class Subscription < ActiveRecord::Base
     self.amount = subscription_plan.amount
     self.renewal_period = subscription_plan.renewal_period
     self.save!
+    user = self.account.users.last
+    user.has_used_ambassador_plans = true
+    user.save
     #self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
   end
 
