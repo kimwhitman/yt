@@ -223,7 +223,7 @@ class Subscription < ActiveRecord::Base
     self.amount = sp.amount
     self.renewal_period = _renewal_period
     self.save!
-    self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
+    #self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
   end
 
   def upgrade_plan(subscription_plan, ambassador_user_id = nil, notify_ambassador_of_reward = false)
@@ -233,7 +233,7 @@ class Subscription < ActiveRecord::Base
     self.amount = subscription_plan.amount
     self.renewal_period = subscription_plan.renewal_period
     self.save!
-    self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
+    #self.account.users.last.set_ambassador!(ambassador_user_id, notify_ambassador_of_reward)
   end
 
   def revert_plan!
@@ -243,7 +243,7 @@ class Subscription < ActiveRecord::Base
       self.renewal_period = self.saved_subscription_plan.renewal_period
       self.subscription_plan_id = self.saved_subscription_plan_id
       self.save!
-      self.account.users.last.reset_ambassador!
+      #self.account.users.last.reset_ambassador!
     end
   end
 
