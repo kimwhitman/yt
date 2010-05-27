@@ -235,11 +235,13 @@ class User < ActiveRecord::Base
   def set_ambassador!(ambassador_user_id, notify)
     # If the user has an ambassador id and a paid plan then associate the two users
     unless ambassador_user_id.nil?
-      if self.has_paying_subscription?
+      #if self.has_paying_subscription?
         self.ambassador = User.find(ambassador_user_id)
         self.notify_ambassador_of_reward = true if notify
         self.save
-      end
+      #end
+    else
+      false
     end
   end
 
@@ -330,7 +332,9 @@ class User < ActiveRecord::Base
 
     def setup_share_url
       if self.share_url.blank? && !self.ambassador_name.blank?
-        self.create_share_url
+        self.create_share_url(:destination => "http://#{ HOST }/sign-up?ambassador=#{ self.ambassador_name }")
+        #self.share_url.destination = "http://#{ HOST }/sign-up?ambassador=#{ ambassador.name }"
+        #self.share_url.save
       end
     end
 

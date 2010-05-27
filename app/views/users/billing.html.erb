@@ -43,7 +43,7 @@
 
     <div id="container_4col" style="float:left;">
       <div id="profile_payment_info">
-        <% if current_user.ambassador_id.nil? && (@ambassador_user || @change_ambassador) %>
+        <% if current_user.has_used_ambassador_plans == false && (@ambassador_user || @change_ambassador) %>
           <div class="ambassador_on">
             <fieldset>
               <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>
@@ -72,7 +72,7 @@
           </div>
         <% end %>
 
-        <% if current_user.ambassador || (@ambassador_user.nil? && @change_ambassador.nil?) %>
+        <% if current_user.has_used_ambassador_plans || (@ambassador_user.nil? && @change_ambassador.nil?) %>
           <div class="ambassador_off">
             <p class="title">Free Membership</p>
             <label class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</label>

@@ -31,7 +31,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new params[:user]
-
     @user.valid?
 
     if @user.errors.count == 0 && @user.save
@@ -39,6 +38,15 @@ class UsersController < ApplicationController
 
       UserMailer.deliver_welcome(@user) if free_user
       self.current_user = @user
+
+      # Assign user to ambassador
+      unless cookies[:ambassador_user_id].blank?
+        ambassador = User.find_by_id(cookies[:ambassador_user_id])
+        if ambassador
+          self.current_user.set_ambassador!(ambassador.id, cookies[:notify_ambassador_of_reward])
+        end
+        cookies.delete :ambassador_user_id
+      end
 
       respond_to do |format|
         format.html do
@@ -74,7 +82,7 @@ class UsersController < ApplicationController
     if current_user.save
       respond_to do |format|
         format.html do
-          flash[:user_notice] = "<span style='font-size: 14px; color: #488A1A'>Your changes have been saved.</span>"
+          flash[:user_notice] = "<span style='font-size: 14px; color: #488A1A'>Your changes have been saved.</span>" if flash[:success].blank?
           redirect_to profile_user_url(current_user)
         end
       end
@@ -286,6 +294,7 @@ class UsersController < ApplicationController
 
   def ambassador_tools_preview_email
     @message = params[:message]
+    @ambassador = current_user
     render :template => 'users/ambassador_tools/preview_email', :layout => false
   end
 
