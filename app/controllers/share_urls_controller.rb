@@ -2,9 +2,15 @@ class ShareUrlsController < ApplicationController
   before_filter :fetch_share_url
 
   def show
+    if request.env['X_HTTP_REFERER'].blank?
+      http_referer = request.env['HTTP_REFERER']
+    else
+      http_referer = request.env['X_HTTP_REFERER']
+    end
+
     if @share_url
-      @share_url.track_redirect({ :referrer => request.env['HTTP_REFERER'], :remote_ip => request.remote_ip,
-      :domain => request.env['HTTP_REFERER']}.merge(logged_in? ? {:user => current_user} : {}))
+      @share_url.track_redirect({ :referrer => http_referer, :remote_ip => request.remote_ip,
+      :domain => http_referer}.merge(logged_in? ? {:user => current_user} : {}))
 
       if @share_url.destination
         # Redirect to destination
