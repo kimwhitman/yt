@@ -7,6 +7,7 @@ class ShareUrlsController < ApplicationController
     else
       http_referer = request.env['X_HTTP_REFERER']
     end
+    RAILS_DEFAULT_LOGGER.warn("DEBUG: #{request.env.inspect}")
 
     if @share_url
       @share_url.track_redirect({ :referrer => http_referer, :remote_ip => request.remote_ip,
