@@ -5,6 +5,8 @@ class AddTrialFieldsToSubscriptionPlan < ActiveRecord::Migration
 
     add_index :subscription_plans, :transitions_to_subscription_plan_id
 
+    SubscriptionPlan.reset_column_information
+
     SubscriptionPlan.create(:name => 'Spring Signup Special', :amount => 0,
       :trial_period => 14, :trial_period_type => 'days',
       :transitions_to_subscription_plan_id => SubscriptionPlan.find_by_name('Spring Signup Special').id)
