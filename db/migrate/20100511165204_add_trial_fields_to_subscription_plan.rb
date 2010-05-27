@@ -1,9 +1,9 @@
 class AddTrialFieldsToSubscriptionPlan < ActiveRecord::Migration
   def self.up
-    #add_column :subscription_plans, :trial_period_type, :string
-    #add_column :subscription_plans, :transitions_to_subscription_plan_id, :integer
+    add_column :subscription_plans, :trial_period_type, :string
+    add_column :subscription_plans, :transitions_to_subscription_plan_id, :integer
 
-    #add_index :subscription_plans, :transitions_to_subscription_plan_id
+    add_index :subscription_plans, :transitions_to_subscription_plan_id
 
     SubscriptionPlan.reset_column_information
 
