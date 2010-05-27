@@ -2,7 +2,7 @@
       :header_message => "There were problems with your registration."
 %>
 
-<% if @ambassador_user || @change_ambassador %>
+<% if @show_ambassador_plans == true && (@ambassador_user || @change_ambassador) %>
   <div class="ambassador_on">
     <fieldset>
       <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>
@@ -33,7 +33,7 @@
   </div>
 <% end %>
 
-<% if @ambassador_user.nil? && @change_ambassador.nil? %>
+<% if @show_ambassador_plans == false || (@ambassador_user.nil? && @change_ambassador.nil?) %>
   <div class="ambassador_off">
     <p class="title">Free Membership</p>
     <label class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</label>
@@ -48,7 +48,7 @@
     <div class="trial">
       <h3>2 Week Free Trial</h3>
       <p>Enter a valid Ambassador ID with your prepaid subscription and enjoy a 2 week free trial before your account is billed. Cancel any time.</p>
-      <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input' %>
+      <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input', :value => @ambassador_user ? @ambassador_user.ambassador_name : '' %>
       <%= link_to_function image_tag('ambassador_button_enter.png'), 'selectAmbassador()', :class => 'submit' %>
 
     </div>

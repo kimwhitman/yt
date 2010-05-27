@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user.wants_newsletter = true
     @user.wants_promos = true
     setup_fake_values
-
+    @show_ambassador_plans = params[:ambassador_plans] == '0' ? false : true
     if !params[:membership].blank? #&& %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     else
@@ -322,6 +322,7 @@ class UsersController < ApplicationController
   end
 
   def select_ambassador
+    @show_ambassador_plans = true
     if @ambassador_user
       @billing_cycle = 'Premium Trial'
       cookies[:ambassador_user_id] = @ambassador_user.id.to_s
