@@ -1,13 +1,13 @@
 class Admin::UsersController < Admin::BaseController
   active_scaffold :users do |config|
-    list_columns = edit_columns = [:name, :photo, :email, :city, :state, :country, :wants_newsletter, :membership_type]
-    edit_columns.delete(:membership_type)
-    config.list.columns = list_columns
-    config.show.columns = list_columns
-    config.update.columns = edit_columns
-    config.update.multipart = true
-    config.actions.exclude  :create
-  end
+      list_columns = edit_columns = [:name, :photo, :email, :city, :state, :country, :wants_newsletter, :membership_type]
+      edit_columns.delete(:membership_type)
+      config.list.columns = list_columns
+      config.show.columns = list_columns
+      config.update.columns = edit_columns
+      config.update.multipart = true
+      config.actions.exclude  :create
+    end
 
   def remove_photo
     user = User.find(params[:record])
@@ -22,4 +22,8 @@ class Admin::UsersController < Admin::BaseController
       }
     end
   end
+
+  # def index
+  #   @users = User.paginate(:all, :page => params[:page], :per_page => 50, :order => 'name')
+  # end
 end

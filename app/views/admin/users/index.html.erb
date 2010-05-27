@@ -1,0 +1,30 @@
+<%= will_paginate @users %>
+
+<table class="active-scaffold">
+  <thead>
+    <tr>
+      <th><p>Name</p></th>
+      <th><p>Email</p></th>
+      <th><p>Subscription</p></th>
+      <th><p>Next Bill Date</p></th>
+      <th><p>Amb.<br />ID</p></th>
+      <th><p>Amb.<br />Points</p></th>
+      <th><p>Amb.<br />Points Earned</p></th>
+      <th><p>Amb.<br />Points Used</p></th>
+    </tr>
+  </thead>
+  <% @users.each do |user| %>
+    <tr class="record">
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.account.subscription.subscription_plan.name %></td>
+      <td><%= user.account.subscription.next_renewal_at unless user.account.subscription.subscription_plan.amount == 0 %></td>
+      <td><%= user.ambassador_name %></td>
+      <td><%= user.points_current %></td>
+      <td><%= user.points_earned %></td>
+      <td><%= user.points_used %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @users %>
