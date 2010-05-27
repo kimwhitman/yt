@@ -19,7 +19,7 @@ class ShareUrl < ActiveRecord::Base
   # Attributes
 
   def track_redirect(params)
-    params[:referrer] = URI.parse(params[:referrer]).host if params[:referrer]
+    params[:domain] = URI.parse(params[:referrer]).host if params[:referrer]
     self.share_url_redirects.create!(params)
   end
 
