@@ -76,6 +76,8 @@ Rails::Initializer.run do |config|
   config.cache_store = :file_store, 'tmp/cache'
 end
 
+require 'string_extensions'
+
 require 'association_proxy'
 require "#{RAILS_ROOT}/config/initializers/net_http_patch.rb" # Rails Lazy Loading in production
 ExceptionNotifier.exception_recipients = %w(bugs@planetargon.com)

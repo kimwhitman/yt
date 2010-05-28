@@ -44,6 +44,8 @@ ActionController::Routing::Routes.draw do |map|
   map.admin_root '/admin', :controller => 'admin/base', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :users
+    admin.resources :site_searches,
+      :collection => { :search => :get, :select_search_result => :get, :view_results => :any }
   end
 
 
