@@ -35,6 +35,7 @@
       <%= link_to_unless_current 'Analytics', url_for(:controller => 'admin/analytics') %> |
       <%= link_to_unless_current 'Share URLs', url_for(:controller => 'admin/share_urls') %> |
       <%= link_to_unless_current 'Share URL Redirects', url_for(:controller => 'admin/share_url_redirects') %>
+      <%= link_to 'Return to public site', '/' %>
     </p>
     <p><%= flash[:notice]  %> </p>
 

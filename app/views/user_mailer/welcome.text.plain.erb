@@ -13,8 +13,10 @@ Thanks and Love from everyone at Yoga Today:)
 Order # <%= @user.account.subscription.id %>
 Name: <%= @user.name %>
 Order Date: <%= Time.now.strftime "%m/%d/%Y" %>
-Credit Card Number: <%= @user.last_payment.get_card_number %>
-Amount Charged: <%= number_to_currency(@user.last_payment.amount) %>
+<% if @user.last_payment %>
+  Credit Card Number: <%= @user.last_payment.get_card_number %>
+  Amount Charged: <%= number_to_currency(@user.last_payment.amount) %>
+<% end %>
 
 <%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.
 
