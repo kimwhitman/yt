@@ -145,7 +145,7 @@ class UsersController < ApplicationController
     if !params[:membership].blank? && %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
     elsif @user.has_paying_subscription?
-      @billing_cycle = @user.account.subscription.renewal_period.to_s
+      @billing_cycle = @user.account.subscription.subscription_plan.name #.renewal_period.to_s
     else
       # GB 5/11/10 Not allowing a default plan selection anymore as it can be confusing
       # Validation now also ensures that a plan has been selected
@@ -166,7 +166,6 @@ class UsersController < ApplicationController
       @billing_cycle = 'Spring Signup Special'
       @subscription_plan = SubscriptionPlan.find_by_name_and_renewal_period('Spring Signup Special', 4)
     end
-
 
     # BILLING SUBMISSION
     if request.post? || request.put?
