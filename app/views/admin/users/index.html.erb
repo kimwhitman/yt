@@ -21,7 +21,13 @@
       <td><%= subscription.subscription_plan.name %></td>
       <td><%= subscription.next_renewal_at.strftime('%b %e %Y') if subscription.subscription_plan.amount > 0 || subscription.subscription_plan.is_trial? %></td>
       <td><%= user.ambassador_name %></td>
-      <td><%= user.points_current %>/<%= user.points_earned %>/<%= user.points_used %></td>
+      <td>
+        <% unless user.ambassador_name.blank? %>
+          <%= user.points_current %>/<%= user.points_earned %>/<%= user.points_used %>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </td>
       <td><%= user.created_at.strftime('%b %e %Y %H:%M') %></td>
       <td>
         <%= link_to 'View', admin_user_path(user) %> |
