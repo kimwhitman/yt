@@ -8,21 +8,26 @@
       <th><p>Subscription</p></th>
       <th><p>Next Bill Date</p></th>
       <th><p>Amb.<br />ID</p></th>
-      <th><p>Amb.<br />Points</p></th>
-      <th><p>Amb.<br />Points Earned</p></th>
-      <th><p>Amb.<br />Points Used</p></th>
+      <th><p>Amb. Points<br />Current/Earned/Used</p></th>
+      <th><p>Signup Date</p></th>
+      <th></th>
     </tr>
   </thead>
   <% @users.each do |user| %>
+    <% subscription = user.account.subscription %>
     <tr class="record">
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= user.account.subscription.subscription_plan.name %></td>
-      <td><%= user.account.subscription.next_renewal_at unless user.account.subscription.subscription_plan.amount == 0 %></td>
+      <td><%= subscription.subscription_plan.name %></td>
+      <td><%= subscription.next_renewal_at.strftime('%b %e %Y') if subscription.subscription_plan.amount > 0 || subscription.subscription_plan.is_trial? %></td>
       <td><%= user.ambassador_name %></td>
-      <td><%= user.points_current %></td>
-      <td><%= user.points_earned %></td>
-      <td><%= user.points_used %></td>
+      <td><%= user.points_current %>/<%= user.points_earned %>/<%= user.points_used %></td>
+      <td><%= user.created_at.strftime('%b %e %Y %H:%M') %></td>
+      <td>
+        <%= link_to 'View', admin_user_path(user) %> |
+        <%= link_to 'Edit', edit_admin_user_path(user) %> |
+        <%= link_to 'Delete', admin_user_path(user), :method => :delete, :confirm => "Are you sure you want to delete #{ user.name }'s account?" %>
+      </td>
     </tr>
   <% end %>
 </table>
