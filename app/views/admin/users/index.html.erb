@@ -14,11 +14,12 @@
     </tr>
   </thead>
   <% @users.each do |user| %>
+    <% subscription = user.account.subscription %>
     <tr class="record">
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= user.account.subscription.subscription_plan.name %></td>
-      <td><%= user.account.subscription.next_renewal_at.strftime('%b %e %Y') unless user.account.subscription.subscription_plan.amount == 0 %></td>
+      <td><%= subscription.subscription_plan.name %></td>
+      <td><%= subscription.next_renewal_at.strftime('%b %e %Y') unless subscription.subscription_plan.amount == 0 || subscription.subscription_plan.is_trial? %></td>
       <td><%= user.ambassador_name %></td>
       <td><%= user.points_current %>/<%= user.points_earned %>/<%= user.points_used %></td>
       <td><%= user.created_at.strftime('%b %e %Y %H:%M') %></td>
