@@ -27,7 +27,7 @@
               <p>Choose one of our prepaid memberships, and your first two weeks are free. Cancel any time.</p>
               <fieldset>
                 <label><%= radio_button_tag 'membership', 'Premium Trial', @billing_cycle == 'Premium Trial' %> Yoga Today 365 <span>A full year for just $89.95 - saves you 25%</span></label>
-                <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $34.95 - saves you 20%</span></label>
+                <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $34.95 - saves you 13%</span></label>
               </fieldset>
             </div>
 
@@ -140,9 +140,9 @@
   function selectAmbassador() {
     window.location = "/users/select_ambassador?ambassador_name=" + jQuery("#x_ambassador_name").val();
   }
-  
+
   function returning_user_signup() {
     path = "<%= current_user ? billing_user_path(current_user) : new_session_path %>";
-    window.location = path + "?membership=" + jQuery("input[name=membership]:checked").val(); 
+    window.location = path + "?membership=" + jQuery("input[name=membership]:checked").val();
   }
 </script>

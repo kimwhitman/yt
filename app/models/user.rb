@@ -332,9 +332,7 @@ class User < ActiveRecord::Base
 
     def setup_share_url
       if self.share_url.blank? && !self.ambassador_name.blank?
-        self.create_share_url(:destination => "http://#{ HOST }/sign-up?ambassador=#{ self.ambassador_name }")
-        #self.share_url.destination = "http://#{ HOST }/sign-up?ambassador=#{ ambassador.name }"
-        #self.share_url.save
+        self.create_share_url(:destination => "http://#{ HOST }/get-started-today?ambassador=#{ self.ambassador_name }")
       end
     end
 

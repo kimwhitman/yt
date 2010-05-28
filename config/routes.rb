@@ -38,8 +38,14 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot-password', :controller => 'sessions', :action => 'forgot'
   map.reset_password '/reset-password/:token', :controller => 'sessions', :action => 'reset'
 
-  # admin-level stuff
+
+
+  # ADMIN
   map.admin_root '/admin', :controller => 'admin/base', :action => 'index'
+  map.namespace :admin do |admin|
+    admin.resources :users
+  end
+
 
   # Root-level routes.
   map.with_options :controller => 'sessions' do |sessions|
