@@ -9,13 +9,12 @@
   <div id="main_content">
     <div id="container_4col" style="float:left;">
       <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
-<p>
-Members enjoy unlimited streaming access to Yoga Today's entire library and are eligible to download classes at our special subscriber's rate. </p>
+        <p>Members enjoy unlimited streaming access to Yoga Today's entire library and are eligible to download classes at our special subscriber's rate. </p>
         <% if current_user.has_paying_subscription? %>
           <ul style="margin:0px; padding-left:15px;">
-            <li>The subscription price for your Yoga Today membership is <%= number_to_currency(current_user.account.subscription.subscription_plan.amount.to_f) %>/month.</li>
+            <li>The subscription price for your Yoga Today membership is <%= display_membership_price_per_period %>.</li>
             <li>Billing occurs automatically at the beginning of each period.</li>
-            <li>Your next payment is scheduled to be debited on <%= current_account.subscription.next_renewal_at.strftime('%m/%d/%Y') %>.</li>
+            <li>Your next payment is scheduled to be debited on <%= current_user.account.subscription.next_renewal_at.strftime('%m/%d/%Y') %>.</li>
              <li>You may cancel at any time. Membership terminates at the end of the billing cycle. No refunds are offered for partial months.</li>
           </ul>
         <% else %>

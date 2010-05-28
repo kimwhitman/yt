@@ -169,4 +169,15 @@ module ApplicationHelper
   def notifying_ambassador
     (current_user && current_user.notify_ambassador_of_reward?) || cookies[:notify_ambassador_of_reward] == 'true'
   end
+
+  def display_membership_price_per_period
+    if current_user.account.subscription.subscription_plan.is_trial?
+      subscription_plan = current_user.account.subscription.subscription_plan.transitions_to_subscription_plan
+    else
+      subscription_plan = current_user.account.subscription.subscription_plan
+    end
+    amount = number_to_currency(subscription_plan.amount.to_f)
+    period = subscription_plan.renewal_period == 1 ? '/month' : " for #{ subscription_plan.renewal_period } months"
+    "#{ amount }#{ period }"
+  end
 end
