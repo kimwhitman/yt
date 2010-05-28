@@ -3,6 +3,7 @@
 <div id="header_information">
   <% if logged_in? -%>
      <span>Welcome, <%= current_user.first_name -%></span>
+     <%= link_to 'Admin', '/admin' if current_user.admin? %>
      <%= link_to 'My Profile', profile_user_path(current_user) %>
      <%= link_to "My Yoga Queue (#{user_playlist.size})", playlist_path, :id => 'playlist_link' %>
   <% end -%>

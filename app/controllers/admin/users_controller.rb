@@ -24,7 +24,8 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
-    @users = User.paginate(:all, :page => params[:page], :per_page => 20,
+    @users = User.paginate(:all, :page => params[:page], :per_page => 100,
+      :include => :account,
       :order => 'created_at DESC')
   end
 end
