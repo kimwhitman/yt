@@ -1,0 +1,16 @@
+<%= render :partial => 'header.plain.erb', :locals => {:header_title => 'Welcome to YogaToday!'} %>
+
+Hello <%= @user.name %>
+
+Welcome to the Yoga Today Community! Your Free Membership has been created and you now have on-line streaming access to our free weekly classes.
+
+Be sure to visit your Profile page to upload a photo so that other members will recognize you when you rate, review and discuss classes.
+
+Classes added to your Yoga Queue will be saved for your return when you log out
+
+Thanks and Love from everyone at Yoga Today:)
+
+<%= root_url.sub('http:', '').gsub('/', '') %>
+
+<%= render :partial => 'footer.plain.erb',
+    :locals => {:follow => true, :tos => true, :privacy => true, :unsubscribe => true, :no_reply => true } %>

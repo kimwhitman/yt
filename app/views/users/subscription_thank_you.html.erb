@@ -10,10 +10,26 @@
     <div id="container_4col" style="float:left;">
       <div class="form_row" style="border-top:solid; border-top-width:1px; border-top-color:#dadad5; ">
        <p>Welcome to Yoga Today!</p>
+
+       <% if current_user.account.subscription.subscription_plan.is_trial? %>
+        <p>Your 2-week free trial has been activated!</p>
+       <% end %>
+
        <p><%= link_to 'Click here', videos_path %> to begin enjoying your Yoga Today videos!</p>
        <p>Order number: <%= current_account.subscription.id %></p>
        <p>Order placed: <%= Time.now.strftime "%m/%d/%Y" %></p>
-       <p>Order total: <%= number_to_currency(current_account.subscription.amount) %></p>
+       <p>Order total: <%= number_to_currency(current_account.subscription.subscription_plan.amount) %></p>
+
+       <% if current_user.account.subscription.subscription_plan.is_trial? %>
+        <p><%= display_membership_price %> is scheduled to be debited from your card ending in <%= current_user.account.subscription.subscription_payments.last.payment_method.last(4) %> on <%= current_user.account.subscription.next_renewal_at.strftime('%m/%d/%Y') %>.</p>
+        <p>Your card will not be charged until your two-week free trial has expired.</p>
+        <% if current_user.account.subscription.subscription_plan.renewal_period == 12 %>
+          <p>Billing recurs automatically for annual memberships.</p>
+        <% end %>
+        <p>Cancel anytime on or before <%= current_user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %> and you will not be billed.</p>
+        <p>To cancel, click "My Profile", "Cancel Membership".</p>
+      <% end %>
+
       </div>
     </div>
     <div id="container_2col" style="float:right">

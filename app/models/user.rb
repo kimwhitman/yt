@@ -153,6 +153,10 @@ class User < ActiveRecord::Base
     has_paying_subscription? && !account.subscription.card_expired?
   end
 
+  def last_payment
+    self.account.subscription.subscription_payments.find(:first, :order => 'created_at DESC')
+  end
+
   # Did the user at some point HAVE a paying subscription?
   def had_paying_subscription?
     self.account.subscription_payments.count > 0

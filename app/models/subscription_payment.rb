@@ -30,4 +30,11 @@ class SubscriptionPayment < ActiveRecord::Base
     end
     true
   end
+
+  # The card number is not stored by itself. Instead it is preceded by some text. Don't ask me why...
+  def get_card_number(digits = 0)
+    if self.payment_method && self.payment_method.first(4) == 'Card'
+      self.payment_method.split(' ').last.last(digits)
+    end
+  end
 end

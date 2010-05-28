@@ -1,14 +1,49 @@
 <%= render :partial => 'header.plain.erb', :locals => {:header_title => 'Welcome to YogaToday!'} %>
 
-Hello <%= @user.name %>
+Hello <%= @user.name %>,
 
-Welcome to the Yoga Today Community! Your Free Membership has been created and you now have on-line streaming access to our free weekly classes.
+Welcome to the Yoga Today Community! We’re pleased to inform you that your subscription has been successfully processed and you now have unlimited streaming access to the Yoga Today Library. As an Unlimited Member, you also qualify for our special subscriber’s rate of $2.99 for downloaded classes.
 
-Be sure to visit your Profile page to upload a photo so that other members will recognize you when you rate, review and discuss classes.
+Be sure to visit your page to create an avatar so that other members will recognize you when you rate, review and discuss classes.
 
-Classes added to your Yoga Queue will be saved for your return when you log out
+Classes added to your Yoga Queue will be saved for your return when you log out. to begin practicing with us right away!
 
 Thanks and Love from everyone at Yoga Today:)
+
+Order # <%= @user.account.subscription.id %>
+Name: <%= @user.name %>
+Order Date: <%= Time.now.strftime "%m/%d/%Y" %>
+Credit Card Number: <%= @user.last_payment.get_card_number %>
+Amount Charged: <%= number_to_currency(@user.last_payment.amount) %>
+
+<%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.
+
+<% if @user.account.subscription.subscription_plan.is_trial? %>
+  Your card will not be charged until your two-week free trial has expired.
+
+  <% if current_user.account.subscription.subscription_plan.renewal_period == 12 %>
+    Billing recurs automatically for annual memberships.
+
+  <% end %>
+  Cancel anytime on or before <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %> and you will not be billed.
+
+<% end %>
+To Cancel, click "Profile", “Cancel Membership.
+
+Membership Terms:
+
+Billing occurs automatically at the beginning of each period and your next payment is scheduled to be debited on <%= @user.account.subscription.next_renewal_at.strftime("%A, %e %B %Y") %>. You may cancel at any time by visiting http://www.yogatoday.com, logging into your account, clicking on “My Profile” and selecting “Cancel Membership.” Sorry, no refunds can be offered for partial months.
+
+For details about the Yoga Today Terms of Service, visit http://www.yogatoday.com/terms-and-conditions
+
+Our privacy policy can be accessed at http://www.yogatoday.com/privacy-policy
+
+This email was sent to you as part of your Yoga Today membership. If you would like to stop receiving these emails please visit your Profile page, uncheck “Yes, send me news from YogaToday.com,” and save your changes.
+Please do not reply to this email.
+
+For more information about your account, please visit http://www.yogatoday.com/faqs
+
+If you require further assistance, please contact support@yogatoday.com
 
 <%= root_url.sub('http:', '').gsub('/', '') %>
 
