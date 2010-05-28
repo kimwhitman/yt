@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
         end
 
         respond_to do |format|
-          format.html { flash_success_after_create; redirect_back_or_default(root_url) }
+          format.html { flash_success_after_create; redirect_back_or_default(profile_user_path(self.current_user)) }
           format.js   { render :text => "Authorized", :status => :ok }
         end
       # else
