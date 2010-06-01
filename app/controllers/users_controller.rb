@@ -349,7 +349,7 @@ class UsersController < ApplicationController
       when 'login'
         redirect_to '/sessions/new'
       when 'billing'
-        redirect_to billing_user_path(current_user)
+        redirect_to billing_user_path(current_user, :change_ambassador => true)
       else
         @billing_cycle = 'Premium Trial'
         @user = User.new
