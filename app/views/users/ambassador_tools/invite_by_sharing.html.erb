@@ -20,10 +20,10 @@
 
           <ul class="invitation_networks">
             <li>
-              <%= link_to(image_tag("ambassador_sharing_preview_facebook.png", :class => 'network'), social_share_url(current_user.share_url.url, :facebook), {:target => '_blank'}) -%>
-              <%= link_to("Facebook", social_share_url(current_user.share_url.url, :facebook), {:class => 'network', :target => '_blank'}) -%>
+              <%= link_to(image_tag("ambassador_sharing_preview_facebook.png", :class => 'network'), social_share_url(current_user.share_url.destination, :facebook), {:target => '_blank'}) -%>
+              <%= link_to("Facebook", social_share_url(current_user.share_url.destination, :facebook), {:class => 'network', :target => '_blank'}) -%>
               <p>Post an invitation to your Facebook profile. For each friend that begins a prepaid subscription following your invitation, you'll earn 1 point and a month of Yoga Today free!</p>
-              <%= link_to(image_tag("ambassador_sharing_button_facebook.png"), social_share_url(current_user.share_url.url, :facebook), :class => 'network_button', :target => '_blank') -%>
+              <%= link_to(image_tag("ambassador_sharing_button_facebook.png"), social_share_url(current_user.share_url.destination, :facebook), :class => 'network_button', :target => '_blank') -%>
             </li>
             <li>
               <%= link_to(image_tag('ambassador_sharing_preview_twitter.png', :class => 'network'), "http://twitter.com/home?status=Check it out! One of my favorite sites, @YogaToday, is offering a FREE two-week trial when you visit: #{current_user.share_url.url}", :target => '_blank') %>
@@ -33,7 +33,7 @@
             </li>
             <li>
               <%= link_to(image_tag("ambassador_sharing_preview_delicious.png", :class => 'network'), social_share_url(current_user.share_url.url, :delicious), :target => '_blank') -%>
-              <%= link_to("Del.icio.us", social_share_url(current_user.share_url.url, :facebook), :class => 'network', :target => '_blank') -%>
+              <%= link_to("Del.icio.us", social_share_url(current_user.share_url.url, :delicious), :class => 'network', :target => '_blank') -%>
               <p>Your Ambassador invitation makes a fresh bookmark. Share your invitation with del.icio.us and earn points when members of the del.icio.us network begin a prepaid subscription following your special bookmark.</p>
               <%= link_to(image_tag("ambassador_sharing_button_delicious.png"), social_share_url(current_user.share_url.url, :delicious), :class => 'network_button', :target => '_blank') -%>
             </li>
