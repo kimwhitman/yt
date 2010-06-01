@@ -55,7 +55,7 @@
               <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $34.95 - saves you 13%</span></label>
             </fieldset>
             <div class="panel">
-              <% if @ambassador_user %>
+              <% if @ambassador_user && params[:change_ambassador].blank? %>
                 <div class="assigned">
                   <h5>Your Ambassador</h5>
                   <div class="ambassador_agent_id">

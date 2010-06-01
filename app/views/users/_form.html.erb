@@ -2,7 +2,7 @@
       :header_message => "There were problems with your registration."
 %>
 
-<% if @show_ambassador_plans == true && (@ambassador_user || @change_ambassador) %>
+<% if @ambassador_user || @change_ambassador %>
 
 <fieldset>
   <label><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. <span>Enjoy Yoga Today's free weekly classes.</span></label>
@@ -40,7 +40,7 @@
   </div>
 <% end %>
 
-<% if @show_ambassador_plans == false || (@ambassador_user.nil? && @change_ambassador.nil?) %>
+<% if @ambassador_user.nil? && @change_ambassador.nil? %>
   <div class="ambassador_off">
     <p class="title">Free Membership</p>
     <label class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</label>
