@@ -371,6 +371,56 @@
   padding: 0 0 0 3px;
 }
 #ambassador_details ul li div.create input.submit { border: none; }
+#ambassador_details ul li div.invite { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
+#ambassador_details ul li div.invite h4 {
+  font-size: 14px;
+  color: #4778c5;
+  margin: 0;
+  padding: 25px 0 0 25px;
+}
+#ambassador_details ul li div.invite p {
+  color: #666666;
+  font-size: 11px;
+  margin: 0;
+  padding: 10px 25px 0 25px;
+}
+#ambassador_details ul li div.invite div.ambassador_agent_id {
+  width: 300px;
+  height: 50px;
+  background-position: 25px 10px;
+}
+#ambassador_details ul li div.invite div.ambassador_agent_id span {
+  top: 16px;
+  left: 62px;
+}
+#ambassador_details ul li div.invite fieldset.invitation {
+  position: relative;
+  border: none;
+  margin: 15px 0 0 15px;
+  padding: 0;
+  float: none;
+}
+#ambassador_details ul li div.invite fieldset.invitation legend span {
+  position: absolute;
+  top: -18px;
+  left: 10px;
+  font-size: 11px;
+  color: #7e9aca;
+}
+#ambassador_details ul li div.invite fieldset.invitation label {
+  float: left;
+  margin: 0 0 0 10px;
+  padding: 0;
+}
+#ambassador_details ul li div.invite fieldset.invitation label input {
+  width: 170px;
+  height: 16px;
+  padding-left: 3px;
+}
+#ambassador_details ul li div.invite fieldset.invitation input.submit {
+  margin-left: 5px;
+  border: none;
+}
 #ambassador_details ul li div.confirm { background: url('/images/ambassador_details_1.png') no-repeat 0px 0px; }
 #ambassador_details ul li div.confirm h4 {
   font-size: 14px;
@@ -559,14 +609,6 @@ div.ambassador_on {
   background: #ffe400;
   border: 1px solid #cccccc;
   margin: 0 0 10px 0;
-  padding: 0;
-}
-div.ambassador_on fieldset {
-  position: relative;
-  left: 36px;
-  top: 42px;
-  border: none;
-  margin: 0;
   padding: 0;
 }
 div.ambassador_on fieldset {

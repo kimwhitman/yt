@@ -49,6 +49,21 @@
               </div>
             <% end %>
 
+            <% if params[:verify_ambassador_name] %>
+              <div class="preview invite">
+                <h4>Your Ambassador ID</h4>
+                <p>Invite others to the Yoga Today community.</p>
+                <div class="ambassador_agent_id"><span><%= params[:verify_ambassador_name] %></span></div>
+
+                <fieldset class="invitation">
+                  <legend><span>E-mail an invitation to:</span></legend>
+                  <label><%= text_field_tag :recipients %></label>
+                  <input class="submit" type="image" src="/images/profile_widget_button_continue.png"></input>
+                </fieldset>
+                
+              </div>
+            <% end %>
+
           <% else %>
             <div class="preview login">
               <h4>Login</h4>
