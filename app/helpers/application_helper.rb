@@ -150,8 +150,8 @@ module ApplicationHelper
   end
 
   def social_share_url(url, site = :facebook, title = "Yoga Today - Yoga Delivered Today")
-    url = CGI::escape(url)
-    title = CGI::escape(title)
+    # url = CGI::escape(url)
+    # title = CGI::escape(title)
 
     case site
       when :facebook : "http://www.facebook.com/sharer.php?u=#{url}"
