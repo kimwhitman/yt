@@ -24,6 +24,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
+    @show_search = true
     @users = User.paginate(:all, :page => params[:page], :per_page => 100,
       :include => { :account => { :subscription => :subscription_plan } },
       :order => 'created_at DESC')

@@ -43,26 +43,30 @@
       <%= link_to_unless_current 'Share URL Redirects', url_for(:controller => 'admin/share_url_redirects') %>
       <%= link_to 'Return to public site', '/' %>
     </p>
-    <p><input id="search" style="width: 300px" type="text" value="Search by name, email, ambassador id..." onClick="this.value=''"/></p>
+    <% if @show_search %>
+      <p><input id="search" style="width: 300px" type="text" value="Search by name, email, ambassador id..." onClick="this.value=''"/></p>
+    <% end %>
     <p><%= flash[:notice]  %> </p>
 
     <%= yield %>
 
-    <script type="text/javascript">
-      // Autocomplete for site stock/fund search
-      jQuery.noConflict();
-      var options = {
-        script: "/admin/site_searches/search?",
-        varname: "search_term",
-        json: false,
-        maxresults: 13,
-        minchars: 2,
-        cache: false,
-        delay: 500,
-        timeout: 5000,
-        callback: function (obj) { admin_select_search_result(obj.id); }
-      };
-      var as = new bsn.AutoSuggest('search', options);
-    </script>
+    <% if @show_search %>
+      <script type="text/javascript">
+        // Autocomplete for site stock/fund search
+        jQuery.noConflict();
+        var options = {
+          script: "/admin/site_searches/search?",
+          varname: "search_term",
+          json: false,
+          maxresults: 13,
+          minchars: 2,
+          cache: false,
+          delay: 500,
+          timeout: 5000,
+          callback: function (obj) { admin_select_search_result(obj.id); }
+        };
+        var as = new bsn.AutoSuggest('search', options);
+      </script>
+    <% end %>
   </body>
 </html>
