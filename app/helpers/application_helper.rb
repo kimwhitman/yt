@@ -154,7 +154,7 @@ module ApplicationHelper
     title = CGI::escape(title)
 
     case site
-      when :facebook : "http://www.facebook.com/sharer.php?u=#{url}&t=#{title}"
+      when :facebook : "http://www.facebook.com/sharer.php?u=#{url}"
       when :delicious : "http://del.icio.us/post?url=#{url}&title=#{title}"
     end
   end
