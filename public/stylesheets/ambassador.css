@@ -569,6 +569,14 @@ div.ambassador_on fieldset {
   margin: 0;
   padding: 0;
 }
+div.ambassador_on fieldset {
+  position: relative;
+  left: 36px;
+  top: 42px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 div.ambassador_on fieldset legend span {
   position: absolute;
   top: -28px;

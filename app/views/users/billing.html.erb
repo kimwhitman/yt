@@ -44,6 +44,10 @@
     <div id="container_4col" style="float:left;">
       <div id="profile_payment_info">
         <% if current_user.has_used_ambassador_plans == false && (@ambassador_user || @change_ambassador) %>
+          <fieldset>
+            <label><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. <span>Enjoy Yoga Today's free weekly classes.</span></label>
+            <label><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> Monthly Unlimited Membership <span>$9.99/month, recurring billing.</span></label>
+          </fieldset>
           <div class="ambassador_on">
             <fieldset>
               <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>

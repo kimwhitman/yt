@@ -3,12 +3,19 @@
 %>
 
 <% if @show_ambassador_plans == true && (@ambassador_user || @change_ambassador) %>
+
+<fieldset>
+  <label><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. <span>Enjoy Yoga Today's free weekly classes.</span></label>
+  <label><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> Monthly Unlimited Membership <span>$9.99/month, recurring billing.</span></label>
+</fieldset>
+
   <div class="ambassador_on">
     <fieldset>
       <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>
       <label><%= radio_button_tag 'membership', 'Premium Trial', @billing_cycle == 'Premium Trial' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></label>
       <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $34.95 - saves you 13%</span></label>
     </fieldset>
+
     <div class="panel">
       <% if @ambassador_user %>
         <div class="assigned">
