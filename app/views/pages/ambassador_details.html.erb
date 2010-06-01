@@ -19,7 +19,7 @@
           </dl>
 
           <% if current_user %>
-            <% if params[:verify_ambassador_name].blank? %>
+            <% if current_user.ambassador_name.blank? && params[:verify_ambassador_name].blank? %>
               <div class="preview create">
                 <p>To join, create an Ambassador ID</p>
                   <% form_for current_user, :url => select_ambassador_name_user_path(current_user) do |f| -%>
@@ -34,7 +34,7 @@
               </div>
             <% end %>
 
-            <% if params[:verify_ambassador_name] %>
+            <% if current_user.ambassador_name.blank? && params[:verify_ambassador_name] %>
               <div class="preview confirm">
                 <h4>Confirm Ambassador ID</h4>
                 <p>This will be your permanent ID that is shared with others when you invite them to the Yoga Today community.</p>
