@@ -4,10 +4,13 @@
 
 <% if @ambassador_user || @change_ambassador %>
 
-<fieldset>
-  <label><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. <span>Enjoy Yoga Today's free weekly classes.</span></label>
-  <label><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> Monthly Unlimited Membership <span>$9.99/month, recurring billing.</span></label>
-</fieldset>
+  <div class="ambassador_off">
+    <p class="title">Free Membership</p>
+    <label class="radio end_set"><%= radio_button_tag 'membership', 'free', @billing_cycle == 'free' %> Free. Enjoy Yoga Today's free weekly classes.</label>
+
+    <p class="title">Monthly Unlimited Membership</p>
+    <label class="radio end_set"><%= radio_button_tag 'membership', '1', @billing_cycle == '1' %> $9.99/month, recurring billing.</label>
+  </div>
 
   <div class="ambassador_on">
     <fieldset>
