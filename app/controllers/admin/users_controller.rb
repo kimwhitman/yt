@@ -33,5 +33,6 @@ class Admin::UsersController < Admin::BaseController
   def show
     @user = User.find(params[:id])
     @subscription_payments = @user.account.subscription.subscription_payments
+    @billing_transactions = @user.account.subscription.billing_transactions
   end
 end

@@ -26,7 +26,7 @@
 
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <h4>Payments</h4>
-    <table class="active-scaffold">
+    <table class="active-scaffold" style="width:500px">
       <thead>
         <tr><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th></tr>
       </thead>
@@ -35,6 +35,20 @@
           <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
           <td>$<%= subscription_payment.amount %></td>
           <td><%= subscription_payment.payment_method %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <br />
+    <h4>Transactions</h4>
+    <table class="active-scaffold" style="width:500px">
+      <thead>
+        <tr><th><p>Date</p></th><th><p>Amount</p></th></tr>
+      </thead>
+      <% @billing_transactions.each do |billing_transaction| %>
+        <tr class="record">
+          <td><%= billing_transaction.created_at.strftime('%B %e, %Y') %></td>
+          <td>$<%= billing_transaction.amount.to_f / 100 %></td>
         </tr>
       <% end %>
     </table>
