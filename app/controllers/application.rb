@@ -102,11 +102,13 @@ class ApplicationController < ActionController::Base
     end
 
     def check_for_ambassador
-      if params.keys.include?('ambassador') && cookies[:ambassador_user_id].nil?
-        ambassador = User.find_by_ambassador_name(params[:ambassador])
-        if ambassador
-          cookies[:ambassador_user_id] = ambassador.id.to_s unless ambassador.nil?
-          redirect_to request.request_uri
+      unless request.env["HTTP_USER_AGENT"] =~ /facebook/i
+        if params.keys.include?('ambassador') && cookies[:ambassador_user_id].nil?
+          ambassador = User.find_by_ambassador_name(params[:ambassador])
+          if ambassador
+            cookies[:ambassador_user_id] = ambassador.id.to_s unless ambassador.nil?
+            redirect_to request.request_uri
+          end
         end
       end
     end
