@@ -28,13 +28,14 @@
     <h4>Payments</h4>
     <table class="active-scaffold" style="width:500px">
       <thead>
-        <tr><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th></tr>
+        <tr><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th><th><p>Transaction ID</p></th></tr>
       </thead>
       <% @subscription_payments.each do |subscription_payment| %>
         <tr class="record">
           <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
           <td>$<%= subscription_payment.amount %></td>
           <td><%= subscription_payment.payment_method %></td>
+          <td><%= subscription_payment.transaction_id %></td>
         </tr>
       <% end %>
     </table>
@@ -43,12 +44,14 @@
     <h4>Transactions</h4>
     <table class="active-scaffold" style="width:500px">
       <thead>
-        <tr><th><p>Date</p></th><th><p>Amount</p></th></tr>
+        <tr><th><p>ID</p></th><th><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th></tr>
       </thead>
       <% @billing_transactions.each do |billing_transaction| %>
         <tr class="record">
+          <td><%= billing_transaction.id %></td>
           <td><%= billing_transaction.created_at.strftime('%B %e, %Y') %></td>
           <td>$<%= billing_transaction.amount.to_f / 100 %></td>
+          <td><%= billing_transaction.authorization_code %></td>
         </tr>
       <% end %>
     </table>
