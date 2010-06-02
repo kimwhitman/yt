@@ -29,4 +29,9 @@ class Admin::UsersController < Admin::BaseController
       :include => { :account => { :subscription => :subscription_plan } },
       :order => 'created_at DESC')
   end
+
+  def show
+    @user = User.find(params[:id])
+    @subscription_payments = @user.account.subscription.subscription_payments
+  end
 end

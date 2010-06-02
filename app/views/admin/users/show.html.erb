@@ -1,0 +1,42 @@
+<div class="active-scaffold">
+  <div class="show-view admin/users-view view">
+    <h4>Test</h4>
+    <dl>
+      <dt>Name</dt>
+      <dd><%= @user.name %></dd>
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
+      <dt>City</dt>
+      <dd><%= @user.city || '-' %></dd>
+      <dt>State</dt>
+      <dd><%= @user.state || '-' %></dd>
+      <dt>Country</dt>
+      <dd><%= @user.country || '-' %></dd>
+      <dt>Current Subscription</dt>
+      <dd><%= @user.account.subscription.subscription_plan.name %></dd>
+      <dt>Next Renewal</dt>
+      <dd><%= @user.account.subscription.next_renewal_at.strftime('%B %e, %Y') %></dd>
+      <dt>Sub - Last Updated</dt>
+      <dd><%= @user.account.subscription.updated_at.strftime('%B %e, %Y') %></dd>
+      <dt>Sub - Card Number</dt>
+      <dd><%= @user.account.subscription.card_number %></dd>
+      <dt>Sub - Card Exp.</dt>
+      <dd><%= @user.account.subscription.card_expiration %></dd>
+    </dl>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <h4>Payments</h4>
+    <table class="active-scaffold">
+      <thead>
+        <tr><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th></tr>
+      </thead>
+      <% @subscription_payments.each do |subscription_payment| %>
+        <tr class="record">
+          <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
+          <td>$<%= subscription_payment.amount %></td>
+          <td><%= subscription_payment.payment_method %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
