@@ -19,19 +19,20 @@
       <dt>Sub - Last Updated</dt>
       <dd><%= @user.account.subscription.updated_at.strftime('%B %e, %Y') %></dd>
       <dt>Sub - Card Number</dt>
-      <dd><%= @user.account.subscription.card_number %></dd>
+      <dd><%= @user.account.subscription.card_number || '-' %></dd>
       <dt>Sub - Card Exp.</dt>
-      <dd><%= @user.account.subscription.card_expiration %></dd>
+      <dd><%= @user.account.subscription.card_expiration || '-' %></dd>
     </dl>
 
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <h4>Payments</h4>
-    <table class="active-scaffold" style="width:500px">
+    <table class="active-scaffold" style="width:650px">
       <thead>
-        <tr><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th><th><p>Transaction ID</p></th></tr>
+        <tr><th><p>ID</p></th><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th><th><p>Transaction ID</p></th></tr>
       </thead>
       <% @subscription_payments.each do |subscription_payment| %>
         <tr class="record">
+          <td><%= subscription_payment.id %></td>
           <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
           <td>$<%= subscription_payment.amount %></td>
           <td><%= subscription_payment.payment_method %></td>
@@ -42,7 +43,7 @@
 
     <br />
     <h4>Transactions</h4>
-    <table class="active-scaffold" style="width:500px">
+    <table class="active-scaffold" style="width:650px">
       <thead>
         <tr><th><p>ID</p></th><th><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th></tr>
       </thead>

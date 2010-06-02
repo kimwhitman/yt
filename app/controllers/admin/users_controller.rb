@@ -1,13 +1,15 @@
 class Admin::UsersController < Admin::BaseController
   active_scaffold :users do |config|
-      list_columns = edit_columns = [:name, :photo, :email, :city, :state, :country, :wants_newsletter, :membership_type]
-      edit_columns.delete(:membership_type)
-      config.list.columns = list_columns
-      config.show.columns = list_columns
-      config.update.columns = edit_columns
-      config.update.multipart = true
-      config.actions.exclude  :create
-    end
+    list_columns = edit_columns = [:name, :photo, :email, :city, :state, :country, :wants_newsletter, :membership_type]
+    edit_columns.delete(:membership_type)
+    config.list.columns = list_columns
+    config.show.columns = list_columns
+    config.update.columns = edit_columns
+    config.update.multipart = true
+    config.actions.exclude  :create
+  end
+
+  before_filter :show_search
 
   def remove_photo
     user = User.find(params[:record])
@@ -24,7 +26,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
-    @show_search = true
     @users = User.paginate(:all, :page => params[:page], :per_page => 100,
       :include => { :account => { :subscription => :subscription_plan } },
       :order => 'created_at DESC')
@@ -35,4 +36,12 @@ class Admin::UsersController < Admin::BaseController
     @subscription_payments = @user.account.subscription.subscription_payments
     @billing_transactions = @user.account.subscription.billing_transactions
   end
+
+
+
+  private
+
+    def show_search
+      @show_search = true
+    end
 end

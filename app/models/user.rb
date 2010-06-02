@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
     !read_attribute(:name).blank?? read_attribute(:name) : "Anonymous"
   end
+
   def wants_newsletter=(value)
     write_attribute(:wants_newsletter,value)
     @newsletter_changed = true

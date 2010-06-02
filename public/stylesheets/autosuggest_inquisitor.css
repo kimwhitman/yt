@@ -103,6 +103,7 @@ div.autosuggest ul li a span
   display: block;
   padding: 3px 6px;
   font-weight: bold;
+  font-family: Arial, "MS Trebuchet", sans-serif;
 }
 
 div.autosuggest ul li a span small

@@ -11,7 +11,7 @@ class SiteSearch
 
     @users.each do |user|
       results_count += 1
-      results << "<rs id=\"#{ user.id }|User\" info=\"User\">#{ user.name } (#{ user.account.subscription.subscription_plan.name })</rs>"
+      results << "<rs id=\"#{ user.id }|User\" info=\"User - Subscription:#{ user.account.subscription.subscription_plan.name } Amb. ID:#{ user.ambassador_name }\">#{ user.name } - #{ user.email }</rs>"
     end
 
     #results << "<rs id=\"#{ search_term }|Results\" info=\"See all results\"> </rs>" unless results_count <= 1
@@ -26,7 +26,7 @@ class SiteSearch
       search_term = search_term.sanitize
       @users = User.find(:all,
         :include => { :account => { :subscription => :subscription_plan } },
-        :conditions => ["lower(users.name) LIKE '%#{ search_term.downcase }%' OR email = ? OR lower(ambassador_name) = ?", search_term, search_term.downcase],
+        :conditions => "lower(users.name) LIKE '%#{ search_term.downcase }%' OR lower(email) LIKE '%#{ search_term.downcase }%' OR lower(ambassador_name) LIKE '%#{ search_term.downcase }%'",
         :limit => 10,
         :order => 'users.name')
     end
