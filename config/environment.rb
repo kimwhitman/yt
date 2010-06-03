@@ -77,6 +77,7 @@ Rails::Initializer.run do |config|
 end
 
 require 'string_extensions'
+require 'active_record_extensions'
 
 require 'association_proxy'
 require "#{RAILS_ROOT}/config/initializers/net_http_patch.rb" # Rails Lazy Loading in production
