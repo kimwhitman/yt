@@ -5,8 +5,8 @@
     <title><%= yield(:title) || 'Yoga Today' %></title>
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="title" content="Yoga Today" />
-    <meta name="description" content="Discover a new way to do yoga. Search, stream, and download from our library of over 200 one-hour video classes –in settings that harmonize with the postures and at the level and intensity that’s best for you." />
-    <link rel="image_src" href="http://yogatoday.com/images/yogatoday-logo.gif" />
+    <meta name="description" content="<%= yield(:meta_description) || 'Discover a new way to do yoga. Search, stream, and download from our library of over 200 one-hour video classes –in settings that harmonize with the postures and at the level and intensity that’s best for you.' -%>" />
+    <link rel="image_src" href="<%= yield(:meta_image_src) || 'http://yogatoday.com/images/yogatoday-logo.gif' -%>" />
 
     <% if Rails.env == 'development' %>
       <%= javascript_include_merged :dev %>
