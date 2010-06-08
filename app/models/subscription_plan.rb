@@ -28,4 +28,9 @@ class SubscriptionPlan < ActiveRecord::Base
   def is_trial?
     !self.trial_period.blank? && !self.trial_period_type.blank?
   end
+
+  def is_free?
+    self.name == 'Free'
+  end
+
 end
