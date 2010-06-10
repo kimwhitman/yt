@@ -18,7 +18,9 @@ Order Date: <%= Time.now.strftime "%m/%d/%Y" %>
   Amount Charged: <%= number_to_currency(@user.last_payment.amount) %>
 <% end %>
 
-<%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.
+<% unless @user.account.subscription.subscription_plan.is_free? %>
+  <%= number_to_currency(@user.membership_price.to_f) %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.
+<% end %>
 
 <% if @user.account.subscription.subscription_plan.is_trial? %>
   Your card will not be charged until your two-week free trial has expired.

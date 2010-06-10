@@ -277,6 +277,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def membership_price
+    if self.account.subscription.subscription_plan.is_trial?
+      subscription_plan = self.account.subscription.subscription_plan.transitions_to_subscription_plan
+    else
+      subscription_plan = self.account.subscription.subscription_plan
+    end
+    subscription_plan.amount
+  end
+
 
 
   protected

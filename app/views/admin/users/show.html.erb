@@ -35,7 +35,11 @@
       <% @subscription_payments.each do |subscription_payment| %>
         <tr class="record">
           <td><%= subscription_payment.id %></td>
-          <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
+          <% if subscription_payment.start_date %>
+            <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
+          <% else %>
+            <td>No start date for this payment</td>
+          <% end %>
           <td>$<%= subscription_payment.amount %></td>
           <td><%= subscription_payment.payment_method %></td>
           <td><%= subscription_payment.transaction_id %></td>

@@ -183,11 +183,6 @@ module ApplicationHelper
   end
 
   def display_membership_price
-    if current_user.account.subscription.subscription_plan.is_trial?
-      subscription_plan = current_user.account.subscription.subscription_plan.transitions_to_subscription_plan
-    else
-      subscription_plan = current_user.account.subscription.subscription_plan
-    end
-    "#{ number_to_currency(subscription_plan.amount.to_f) }"
+    "#{ number_to_currency(current_user.membership_price.to_f) }"
   end
 end
