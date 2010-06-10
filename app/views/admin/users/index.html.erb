@@ -20,9 +20,9 @@
       <td><%= user.email %></td>
       <td><%= subscription.subscription_plan.name %></td>
       <td>
-        <% '<strong>' if subscription.next_renewal_at < Time.zone.now %>
+        <%= '<strong>' if subscription.next_renewal_at < Time.zone.now %>
         <%= subscription.next_renewal_at.strftime('%b %e %Y') if subscription.subscription_plan.amount > 0 || subscription.subscription_plan.is_trial? %>
-        <% '</strong>' if subscription.next_renewal_at < Time.zone.now %>
+        <%= '</strong>' if subscription.next_renewal_at < Time.zone.now %>
       </td>
       <td><%= user.ambassador_name %></td>
       <td>
