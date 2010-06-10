@@ -444,7 +444,7 @@ class Subscription < ActiveRecord::Base
     end
 
     def charge_past_due_accounts
-      subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (45.days.ago .. Date.today ) })
+      subscriptions = Subscription.active.paid.find(:all, :conditions => {:next_renewal_at => (10.days.ago .. Date.today ) })
       subscriptions.each do |subscription|
         p subscription
         if subscription.charge
