@@ -3,13 +3,13 @@
 <table class="active-scaffold">
   <thead>
     <tr>
-      <th><p>Name</p></th>
-      <th><p>Email</p></th>
-      <th><p>Subscription</p></th>
-      <th><p>Next Bill Date</p></th>
-      <th><p>Amb.<br />ID</p></th>
-      <th><p>Amb. Points<br />Current/Earned/Used</p></th>
-      <th><p>Signup Date</p></th>
+      <th><%= link_to 'Name', admin_users_path(:order => 'name', :desc => 'false') %></th>
+      <th><%= link_to 'Email', admin_users_path(:order => 'email', :desc => 'false') %></th>
+      <th><%= link_to 'Subscription', admin_users_path(:order => 'subscription_plans.name', :desc => 'false') %></th>
+      <th><%= link_to 'Next Bill Date', admin_users_path(:order => 'subscriptions.next_renewal_at', :desc => 'true') %></th>
+      <th><%= link_to 'Amb.<br />ID', admin_users_path(:order => 'ambassador_name', :desc => 'false') %></th>
+      <th><%= link_to 'Amb. Points<br />Current/Earned/Used', admin_users_path(:order => 'points_earned') %></th>
+      <th><%= link_to 'Signup Date', admin_users_path(:order => 'created_at') %></th>
       <th></th>
     </tr>
   </thead>
@@ -19,7 +19,11 @@
       <td><%= user.name %></td>
       <td><%= user.email %></td>
       <td><%= subscription.subscription_plan.name %></td>
-      <td><%= subscription.next_renewal_at.strftime('%b %e %Y') if subscription.subscription_plan.amount > 0 || subscription.subscription_plan.is_trial? %></td>
+      <td>
+        <% '<strong>' if subscription.next_renewal_at < Time.zone.now %>
+        <%= subscription.next_renewal_at.strftime('%b %e %Y') if subscription.subscription_plan.amount > 0 || subscription.subscription_plan.is_trial? %>
+        <% '</strong>' if subscription.next_renewal_at < Time.zone.now %>
+      </td>
       <td><%= user.ambassador_name %></td>
       <td>
         <% unless user.ambassador_name.blank? %>

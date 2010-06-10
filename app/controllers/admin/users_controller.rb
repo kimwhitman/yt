@@ -26,9 +26,16 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
+    order = params[:order] || 'created_at'
+    if params[:desc]
+      descending = params[:desc] == 'true' ? 'DESC' : 'ASC'
+    else
+      descending = 'DESC'
+    end
+
     @users = User.paginate(:all, :page => params[:page], :per_page => 100,
       :include => { :account => { :subscription => :subscription_plan } },
-      :order => 'created_at DESC')
+      :order => "IF(ISNULL(#{ order }),1,0), #{ order } #{ descending }")
   end
 
   def show
