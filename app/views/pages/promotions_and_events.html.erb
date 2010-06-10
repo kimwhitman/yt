@@ -11,7 +11,7 @@
       </div>-->
   </div>
 
-  <div id="main_content">  
+  <div id="main_content">
     <div style="float: left;" id="container_4col">
       <div class="filter_options" style="border: none; background-image: none; padding-left: 0px;">
         <div class="form_row" style="padding-top: 21px;">
@@ -19,9 +19,9 @@
            <div class="form_row" style="padding-top: 0px;">
             <% Event.to_show.each do |event| %>
               <p style="margin-top: 0px;">
-                <% if event.asset_content_type == "image/jpeg" || event.asset_content_type == "image/png" %>
+                <% if event.asset_content_type == "image/jpeg" || event.asset_content_type == "image/pjpeg" || event.asset_content_type == "image/png" %>
                   <%= link_to image_tag(event.asset.url, :style => "border: 0"), event.url %>
-                <% end %>  
+                <% end %>
               </p>
             <% end %>
           </div>
