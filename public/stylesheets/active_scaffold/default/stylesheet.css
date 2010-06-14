@@ -163,10 +163,6 @@ color: #eee;
 padding: 2px 5px;
 }
 
-.active-scaffold th a:visited {
-color: #fff;
-}
-
 .active-scaffold th a:hover {
 background-color: #000;
 color: #ff8;
