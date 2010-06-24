@@ -10,7 +10,7 @@ Hello <%= @user.name %>,
 
 Be sure to visit your page to create an avatar so that other members will recognize you when you rate, review and discuss classes.
 
-Classes added to your Yoga Queue will be saved for your return when you log out. to begin practicing with us right away!
+Classes added to your Yoga Queue will be saved for your return when you log out. Visit http://yogatoday.com to begin practicing with us right away!
 
 Thanks and Love from everyone at Yoga Today:)
 
@@ -44,20 +44,17 @@ Membership Terms:
 
 <% unless @user.account.subscription.subscription_plan.is_free? %>
   Billing occurs automatically at the beginning of each period and your next payment is scheduled to be debited on <%= @user.account.subscription.next_renewal_at.strftime("%A, %e %B %Y") %>. You may cancel at any time by visiting http://www.yogatoday.com, logging into your account, clicking on “My Profile” and selecting “Cancel Membership.” Sorry, no refunds can be offered for partial months.
-
 <% end %>
-For details about the Yoga Today Terms of Service, visit http://www.yogatoday.com/terms-and-conditions
+For details about the Yoga Today Terms of Service, visit http://www.yogatoday.com/terms-and-conditions/
 
-Our privacy policy can be accessed at http://www.yogatoday.com/privacy-policy
+Our privacy policy can be accessed at http://www.yogatoday.com/privacy-policy/
 
 This email was sent to you as part of your Yoga Today membership. If you would like to stop receiving these emails please visit your Profile page, uncheck “Yes, send me news from YogaToday.com,” and save your changes.
 Please do not reply to this email.
 
-For more information about your account, please visit http://www.yogatoday.com/faqs
+For more information about your account, please visit http://www.yogatoday.com/faqs/
 
 If you require further assistance, please contact support@yogatoday.com
-
-<%= root_url.sub('http:', '').gsub('/', '') %>
 
 <%= render :partial => 'footer.plain.erb',
     :locals => {:follow => true, :tos => true, :privacy => true, :unsubscribe => true, :no_reply => true } %>
