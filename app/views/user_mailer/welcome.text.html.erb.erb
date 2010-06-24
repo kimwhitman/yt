@@ -8,7 +8,11 @@
       <div id="main">
         <p>Hello <%= @user.name %></p>
         <br />
-        <p>Welcome to the Yoga Today Community! We’re pleased to inform you that your subscription has been successfully processed and you now have unlimited streaming access to the Yoga Today Library. As an Unlimited Member, you also qualify for our special subscriber’s rate of $2.99 for downloaded classes.</p>
+        <% if @user.account.subscription.subscription_plan.is_free? %>
+          <p>Welcome to the Yoga Today Community! We’re pleased to inform you that your account has been activated. With your status as a free member, you can enjoy viewing a featured free class every week. You can also download any of our yoga videos for $3.99 per class.</p>
+        <% else %>
+          <p>Welcome to the Yoga Today Community! We’re pleased to inform you that your subscription has been successfully processed and you now have unlimited streaming access to the Yoga Today Library. As an Unlimited Member, you also qualify for our special subscriber’s rate of $2.99 for downloaded classes.</p>
+        <% end %>
         <br />
         <p>Be sure to visit your page to create an avatar so that other members will recognize you when you rate, review and discuss classes.</p>
         <br />
@@ -16,32 +20,38 @@
         <br />
         <p>Thanks and Love from everyone at Yoga Today:)</p>
         <br />
-        <p>Order # <%= @user.account.subscription.id %></p>
-        <p>Name: <%= @user.name %></p>
-        <p>Order Date: <%= Time.now.strftime "%m/%d/%Y" %></p>
-        <% if @user.last_payment %>
-          <p>Credit Card Number: <%= @user.last_payment.get_card_number %></p>
-          <p>Amount Charged: <%= <%= number_to_currency(@user.last_payment.amount) %></p>
-        <% end %>
-        <br />
-        <p><%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.</p>
-        <br />
-        <% if @user.account.subscription.subscription_plan.is_trial? %>
-          <p>Your card will not be charged until your two-week free trial has expired.</p>
+
+        <% unless @user.account.subscription.subscription_plan.is_free? %>
+          <p>Order # <%= @user.account.subscription.id %></p>
+          <p>Name: <%= @user.name %></p>
+          <p>Order Date: <%= Time.now.strftime "%m/%d/%Y" %></p>
+          <% if @user.last_payment %>
+            <p>Credit Card Number: <%= @user.last_payment.get_card_number %></p>
+            <p>Amount Charged: <%= <%= number_to_currency(@user.last_payment.amount) %></p>
+          <% end %>
           <br />
-          <% if current_user.account.subscription.subscription_plan.renewal_period == 12 %>
-            <p>Billing recurs automatically for annual memberships.</p>
+          <p><%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.</p>
+          <br />
+          <% if @user.account.subscription.subscription_plan.is_trial? %>
+            <p>Your card will not be charged until your two-week free trial has expired.</p>
+            <br />
+            <% if current_user.account.subscription.subscription_plan.renewal_period == 12 %>
+              <p>Billing recurs automatically for annual memberships.</p>
+              <br />
+            <% end %>
+            <p>Cancel anytime on or before <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %> and you will not be billed.</p>
             <br />
           <% end %>
-          <p>Cancel anytime on or before <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %> and you will not be billed.</p>
-          <br />
         <% end %>
         <p>To Cancel, click "Profile", “Cancel Membership.</p>
         <br />
+
         <p>Membership Terms:</p>
         <br />
-        <p>Billing occurs automatically at the beginning of each period and your next payment is scheduled to be debited on <%= @user.account.subscription.next_renewal_at.strftime("%A, %e %B %Y") %>. You may cancel at any time by visiting http://www.yogatoday.com, logging into your account, clicking on “My Profile” and selecting “Cancel Membership.” Sorry, no refunds can be offered for partial months.</p>
-        <br />
+        <% unless @user.account.subscription.subscription_plan.is_free? %>
+          <p>Billing occurs automatically at the beginning of each period and your next payment is scheduled to be debited on <%= @user.account.subscription.next_renewal_at.strftime("%A, %e %B %Y") %>. You may cancel at any time by visiting http://www.yogatoday.com, logging into your account, clicking on “My Profile” and selecting “Cancel Membership.” Sorry, no refunds can be offered for partial months.</p>
+          <br />
+        <% end %>
         <p>For details about the Yoga Today Terms of Service, visit http://www.yogatoday.com/terms-and-conditions</p>
         <br />
         <p>Our privacy policy can be accessed at http://www.yogatoday.com/privacy-policy</p>
