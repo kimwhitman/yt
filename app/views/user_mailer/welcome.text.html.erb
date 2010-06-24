@@ -27,7 +27,7 @@
           <p>Order Date: <%= Time.now.strftime "%m/%d/%Y" %></p>
           <% if @user.last_payment %>
             <p>Credit Card Number: <%= @user.last_payment.get_card_number %></p>
-            <p>Amount Charged: <%= <%= number_to_currency(@user.last_payment.amount) %></p>
+            <p>Amount Charged: <%= number_to_currency(@user.last_payment.amount) %></p>
           <% end %>
           <br />
           <p><%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.</p>
