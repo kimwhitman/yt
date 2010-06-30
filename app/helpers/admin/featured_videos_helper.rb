@@ -9,18 +9,18 @@ module Admin::FeaturedVideosHelper
 
   def free_date_range_column(featured_video)
     if featured_video.could_be_free?
-      "#{featured_video.starts_free_at.strftime('%m/%d/%y')} -- #{featured_video.ends_free_at.strftime('%m/%d/%y')}"
+      "#{featured_video.starts_free_at.strftime('%m/%d/%y %l:%M%p')} - #{featured_video.ends_free_at.strftime('%m/%d/%y %l:%M%p')}"
     else
       "Premium video only."
     end
   end
 
   def starts_free_at_form_column(featured_video, name)
-    calendar_date_select :record, :starts_free_at, :popup => 'force', :time => false
+    calendar_date_select :record, :starts_free_at, :popup => 'force', :time => true
   end
 
   def ends_free_at_form_column(featured_video, name)
-    calendar_date_select :record, :ends_free_at, :popup => 'force', :time => false
+    calendar_date_select :record, :ends_free_at, :popup => 'force', :time => true
   end
 
   def image_form_column(featured_video, name)

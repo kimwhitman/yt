@@ -34,6 +34,7 @@
       <%= link_to_unless_current 'Discussions', url_for(:controller => 'admin/comments') %> |
       <%= link_to_unless_current 'Reviews', url_for(:controller => 'admin/reviews') %> |
       <%= link_to_unless_current 'FAQs', url_for(:controller => 'admin/faqs') %> |
+      <br />
       <%= link_to_unless_current 'Get Started Today', url_for(:controller => 'admin/get_started_todays') %> |
       <%= link_to_unless_current 'Media Downloads', url_for(:controller => 'admin/media_kits') %> |
       <%= link_to_unless_current 'Events', url_for(:controller => 'admin/events') %> |
@@ -41,8 +42,8 @@
       <%= link_to_unless_current 'Analytics', url_for(:controller => 'admin/analytics') %> |
       <%= link_to_unless_current 'Share URLs', url_for(:controller => 'admin/share_urls') %> |
       <%= link_to_unless_current 'Share URL Redirects', url_for(:controller => 'admin/share_url_redirects') %>
-      <%= link_to 'Return to public site', '/' %>
     </p>
+    <p><%= link_to 'Return to public site', '/' %></p>
     <% if @show_search %>
       <p><input id="search" style="width: 450px" type="text" value="Search by name, email, ambassador id..." onClick="this.value=''"/></p>
     <% end %>
