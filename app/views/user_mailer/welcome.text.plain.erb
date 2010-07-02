@@ -23,14 +23,12 @@ Thanks and Love from everyone at Yoga Today:)
     Amount Charged: <%= number_to_currency(@user.last_payment.amount) %>
   <% end %>
 
-  <% unless @user.account.subscription.subscription_plan.is_free? %>
-    <%= number_to_currency(@user.membership_price.to_f) %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.
-  <% end %>
+  <%= number_to_currency(@user.membership_price.to_f) %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.
 
   <% if @user.account.subscription.subscription_plan.is_trial? %>
     Your card will not be charged until your two-week free trial has expired.
 
-    <% if current_user.account.subscription.subscription_plan.renewal_period == 12 %>
+    <% if @user.account.subscription.subscription_plan.renewal_period == 12 %>
       Billing recurs automatically for annual memberships.
 
     <% end %>

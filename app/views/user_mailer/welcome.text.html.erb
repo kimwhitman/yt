@@ -32,10 +32,11 @@
           <br />
           <p><%= display_membership_price %> is scheduled to be debited from your card ending in <%= @user.last_payment.get_card_number(4) %> on <%= @user.account.subscription.next_renewal_at.strftime("%m/%d/%Y") %>.</p>
           <br />
+
           <% if @user.account.subscription.subscription_plan.is_trial? %>
             <p>Your card will not be charged until your two-week free trial has expired.</p>
             <br />
-            <% if current_user.account.subscription.subscription_plan.renewal_period == 12 %>
+            <% if @user.account.subscription.subscription_plan.renewal_period == 12 %>
               <p>Billing recurs automatically for annual memberships.</p>
               <br />
             <% end %>
