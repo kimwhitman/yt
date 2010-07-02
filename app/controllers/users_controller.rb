@@ -181,6 +181,7 @@ class UsersController < ApplicationController
         else
           @user.account.subscription.upgrade_to_premium(@billing_cycle.to_i, cookies[:ambassador_user_id])
         end
+        @user.account.subscription.update_attributes(:is_cancelled => false)
 
         migrate_cart!
 
@@ -240,13 +241,17 @@ class UsersController < ApplicationController
 
   def cancel_membership
     return unless request.post?
+
     unless params[:accept_cancel_terms] == "1"
       flash[:notice] = "You must agree to cancel your membership."
       render :action => 'cancel_membership'
     end
+
     @subscription = Subscription.find(current_user.account.subscription.id)
-    @subscription.downgrade_to_free
-    current_user.cart_items_to_non_subscription_price
+
+    #@subscription.downgrade_to_free
+    #current_user.cart_items_to_non_subscription_price
+    @subscription.update_attributes(:is_cancelled => true)
     @subscription.destroy_gateway_record!
     @subscription.save!
     SubscriptionNotifier.deliver_plan_changed_cancelled(current_user, @subscription)

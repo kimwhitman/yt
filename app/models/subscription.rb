@@ -437,7 +437,13 @@ class Subscription < ActiveRecord::Base
     def self.charge_due_accounts
       subscriptions = Subscription.find_due
       subscriptions.each do |subscription|
-        subscription.charge_due
+        if subscription.is_cancelled?
+          puts "Subscription #{ subscription.id} is cancelled. Moving to a free account."
+          subscription.downgrade_to_free
+          subscription.update_attributes(:is_cancelled => false)
+        else
+          subscription.charge_due
+        end
         puts "=================================================="
       end
       true

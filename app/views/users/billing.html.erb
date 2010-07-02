@@ -15,17 +15,29 @@
         plan = subscription.subscription_plan
       %>
 
-      <% if subscription.amount > 0 %>
+      <% if subscription.amount > 0 && !current_user.account.subscription.is_cancelled? %>
         <h3>You are currently using card <%= subscription.card_number %> (expires on <%= subscription.card_expiration %>).</h3>
         <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %>  for <%= number_to_currency(subscription.amount)%></h3>
       <% end %>
 
       <% if plan.name == 'Premium' && plan.renewal_period == 12 %>
-        <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
+        <% if current_user.account.subscription.is_cancelled? %>
+          <h3>You have cancelled your Yoga Today 365 membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+        <% else %>
+          <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
+        <% end %>
       <% elsif plan.name == 'Premium' && plan.renewal_period == 1 %>
-        <h3>You are signed up for monthly billing</h3>
+        <% if current_user.account.subscription.is_cancelled? %>
+          <h3>You have cancelled your Premium membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+        <% else %>
+          <h3>You are signed up for monthly billing</h3>
+        <% end %>
       <% elsif plan.name == 'Spring Signup Special' %>
-        <h3>You are signed up for the Spring Special. After the four month period has ended you will be billed monthly.</h3>
+        <% if current_user.account.subscription.is_cancelled? %>
+          <h3>You have cancelled your Spring Special membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+        <% else %>
+          <h3>You are signed up for the Spring Special. After the four month period has ended you will be billed monthly.</h3>
+        <% end %>
       <% else %>
         <h3>You are signed up for a free account</h3>
       <% end %>

@@ -28,17 +28,24 @@
             <p class="value"><%= current_membership_period %></p>
           </div>
 
-          <div class="details date">
-            <p class="title">Next payment date</p>
-            <p class="value"><%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %></p>
-          </div>
+          <% unless current_user.account.subscription.is_cancelled? %>
+            <div class="details date">
+              <p class="title">Next payment date</p>
+              <p class="value">
+                <%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %>
+              </p>
+            </div>
 
-          <div class="details">
-            <p class="title">Amount</p>
-            <p class="value">
-              <%= current_membership_amount %>
-            </p>
-          </div>
+            <div class="details">
+              <p class="title">Amount</p>
+              <p class="value">
+                <%= current_membership_amount %>
+              </p>
+            </div>
+          <% else %>
+            <h3 class="notification" style="clear:both">You have cancelled your membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+            <br />
+          <% end %>
         <% end %>
 
         <h2>Recent Billing Activity <!-- <a href="#">Show All</a> --></h2>

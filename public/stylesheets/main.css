@@ -418,3 +418,7 @@ input.star {
 #container_4col h3, #new_user h3 {
   color: #666;
 }
+
+#container_4col h3, #new_user h3 .notification {
+  color: #488a1a;
+}
