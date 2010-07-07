@@ -48,10 +48,11 @@ module ApplicationHelper
       auto_play_flashvars = ''
     end
     if video.free? && logged_in?
-        media_id = video.streaming_media_id
+      media_id = video.streaming_media_id
     elsif logged_in? && current_user.has_paying_subscription?
       media_id = video.streaming_media_id
     end
+
     # Embed is deprecated -- why did I use it here?!
     object_opts = {
       :name => 'delve_player_embed_name',

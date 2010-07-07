@@ -40,7 +40,7 @@ class Video < ActiveRecord::Base
 
   named_scope :after_this_week, lambda { { :conditions => ['published_at >= ?', Time.zone.today.next_week], :order => 'published_at ASC' } }
 
-  named_scope :recently_released, lambda { { :conditions => 
+  named_scope :recently_released, lambda { { :conditions =>
     { :published_at => (2.weeks.ago.beginning_of_week..1.weeks.ago.end_of_week) }, :order => 'published_at ASC' } }
 
   named_scope :by_title, :order => 'title ASC'
@@ -177,7 +177,7 @@ class Video < ActiveRecord::Base
   def price(user_or_symbol = :everyone)
     case user_or_symbol
       when User
-        user_or_symbol.has_paying_subscription?? VIDEO_PRICES[:subscribers] : VIDEO_PRICES[:everyone]
+        user_or_symbol.has_paying_subscription? ? VIDEO_PRICES[:subscribers] : VIDEO_PRICES[:everyone]
       when Symbol
         raise "Invalid symbol; got #{user_or_symbol}" unless VIDEO_PRICES.include? user_or_symbol
         VIDEO_PRICES[user_or_symbol]
