@@ -67,7 +67,7 @@ class SessionsController < ApplicationController
   def forgot
     return unless request.post?
 
-    if !params[:email].blank? && @user = User.find_by_email(params[:email])
+    if !params[:email].blank? && @user = User.find_by_email(params[:email]) || User.find_by_email(params[:email].downcase)
       PasswordReset.create(:user => @user, :remote_ip => request.remote_ip)
 
       respond_to do |format|
