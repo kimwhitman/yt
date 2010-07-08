@@ -10,6 +10,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   before_filter :show_search
+  before_filter :fetch_user, :only => [:show, :cancel_subscription]
 
   def remove_photo
     user = User.find(params[:record])
@@ -39,14 +40,23 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def show
-    @user = User.find(params[:id])
     @subscription_payments = @user.account.subscription.subscription_payments
     @billing_transactions = @user.account.subscription.billing_transactions
+  end
+
+  def cancel_subscription
+    @user.account.subscription.downgrade_to_free
+    flash[:success] = "This user's subscription has been cancelled and they now have a Free subscription"
+    redirect_to admin_user_path(@user)
   end
 
 
 
   private
+
+    def fetch_user
+      @user = User.find(params[:id])
+    end
 
     def show_search
       @show_search = true

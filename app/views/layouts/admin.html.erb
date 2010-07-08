@@ -47,7 +47,13 @@
     <% if @show_search %>
       <p><input id="search" style="width: 450px" type="text" value="Search by name, email, ambassador id..." onClick="this.value=''"/></p>
     <% end %>
-    <p><%= flash[:notice]  %> </p>
+
+    <% if flash[:success] %>
+      <p id="flash_success"><%= flash[:success] %></p>
+    <% end %>
+    <% if flash[:notice] %>
+      <p id="flash_notice"><%= flash[:notice]  %></p>
+    <% end %>
 
     <%= yield %>
 

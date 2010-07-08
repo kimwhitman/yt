@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : admin
     Created on : Feb 21, 2009, 10:35:52 PM
     Author     : arron
@@ -6,7 +6,7 @@
         Purpose of the stylesheet follows.
 */
 
-/* 
+/*
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
@@ -17,10 +17,10 @@
 }
 
 .active-scaffold textarea .intro-input {
-	height: 50px;
+  height: 50px;
 }
 .active-scaffold .rank-input {
-	width: 30px;
+  width: 30px;
 }
 
 /* Sortables */
@@ -47,5 +47,12 @@
 }
 
 #videos_sortable {
-    
+
+}
+
+#flash_success {
+  padding: 10px;
+  background-color: #9AFF8D;
+  border:1px solid #1F7F00;
+  font-family:Arial,Helvetica,sans-serif;
 }
