@@ -216,12 +216,12 @@ class User < ActiveRecord::Base
           # If this is a user with a free account then we need to change their subscription plan
           if self.has_free_subscription?
             subscription.subscription_plan_id = SubscriptionPlan.find_by_internal_name('premium_monthly_free').id
+            start_date = Date.today
+          else
+            start_date = subscription.next_renewal_at
           end
-
-          start_date = subscription.next_renewal_at
           end_date = start_date.advance(:months => 1)
           subscription.next_renewal_at = end_date
-
           subscription.save
 
           self.account.subscription_payments << SubscriptionPayment.create(
