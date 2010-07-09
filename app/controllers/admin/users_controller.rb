@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   active_scaffold :users do |config|
-    list_columns = edit_columns = [:name, :photo, :email, :city, :state, :country, :wants_newsletter, :membership_type]
+    list_columns = edit_columns = [:name, :photo, :email, :city, :state, :country, :wants_newsletter, :membership_type, :points_current]
     edit_columns.delete(:membership_type)
     config.list.columns = list_columns
     config.show.columns = list_columns
