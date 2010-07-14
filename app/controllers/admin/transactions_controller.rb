@@ -1,4 +1,6 @@
 class Admin::TransactionsController < Admin::BaseController
+  before_filter :show_search
+
   active_scaffold :billing_transactions do |config|
     config.list.sorting = { :created_at => :desc}
     config.actions.exclude :create, :delete, :update
@@ -7,4 +9,12 @@ class Admin::TransactionsController < Admin::BaseController
     config.list.columns = display_columns
     config.show.columns = display_columns + [:videos]
   end
+
+
+  private
+
+    def show_search
+      @show_search = true
+    end
+
 end

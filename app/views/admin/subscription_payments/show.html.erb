@@ -1,10 +1,6 @@
 <div class="active-scaffold">
   <div class="show-view admin/users-view view">
-    <h4>User</h4>
-
-    <%= link_to 'Edit', edit_admin_user_path(@user) %> |
-    <%= link_to 'Delete', admin_user_path(@user), :method => :delete, :confirm => "Are you sure you want to delete #{ @user.name }'s account?" %> |
-    <%= link_to 'Cancel Subscription', cancel_subscription_admin_user_path(@user), :method => :post, :confirm => "Are you sure you want to cancel the subscription for #{ @user.name }'s account? They will be set to a free account." %>
+    <h4>Transaction</h4>
 
     <dl>
       <dt>Name</dt>

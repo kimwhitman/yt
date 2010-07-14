@@ -11,6 +11,29 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
+body {
+  left: 16px;
+  top: 16px;
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;/*UPDATED 2009-03-06*/
+  color: #666666;/*UPDATED 2009-03-06*/
+  line-height: 130%;
+}
+
+.navigation {
+  font-size: 14px;
+}
+
+.active-scaffold th a {
+  color: #AAA;
+}
+
+.active-scaffold th a:visited {
+  color: #CCC;
+}
+
 .active-scaffold textarea {
     height:150px;
     width:600px;

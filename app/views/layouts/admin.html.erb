@@ -21,8 +21,9 @@
 
     <%= stylesheet_link_tag 'admin', 'autosuggest_inquisitor' %>
   </head>
+
   <body>
-    <p>
+    <p class="navigation">
       <%= link_to_unless_current 'Videos', url_for(:controller => 'admin/videos') %> |
       <%= link_to_unless_current 'Featured Videos', url_for(:controller => 'admin/featured_videos') %> |
       <%= link_to_unless_current 'Users', url_for(:controller => 'admin/users') %> |
@@ -30,11 +31,12 @@
       <%= link_to_unless_current 'Instructors', url_for(:controller => 'admin/instructors') %> |
       <%= link_to_unless_current 'Video Focus', url_for(:controller => 'admin/video_focus') %> |
       <%= link_to_unless_current 'Yoga Types / Styles', url_for(:controller => 'admin/yoga_types') %> |
-      <%# link_to 'Yoga Poses', url_for(:controller => 'admin/yoga_poses') %>
       <%= link_to_unless_current 'Discussions', url_for(:controller => 'admin/comments') %> |
       <%= link_to_unless_current 'Reviews', url_for(:controller => 'admin/reviews') %> |
-      <%= link_to_unless_current 'FAQs', url_for(:controller => 'admin/faqs') %> |
-      <br />
+      <%= link_to_unless_current 'FAQs', url_for(:controller => 'admin/faqs') %>
+    </p>
+
+    <p class="navigation">
       <%= link_to_unless_current 'Get Started Today', url_for(:controller => 'admin/get_started_todays') %> |
       <%= link_to_unless_current 'Media Downloads', url_for(:controller => 'admin/media_kits') %> |
       <%= link_to_unless_current 'Events', url_for(:controller => 'admin/events') %> |
@@ -43,7 +45,9 @@
       <%= link_to_unless_current 'Share URLs', url_for(:controller => 'admin/share_urls') %> |
       <%= link_to_unless_current 'Share URL Redirects', url_for(:controller => 'admin/share_url_redirects') %>
     </p>
-    <p><%= link_to 'Return to public site', '/' %></p>
+
+    <p><%= link_to '&laquo; Return to public site', '/' %></p>
+
     <% if @show_search %>
       <p><input id="search" style="width: 450px" type="text" value="Search by name, email, ambassador id..." onClick="this.value=''"/></p>
     <% end %>

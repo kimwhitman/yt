@@ -57,6 +57,14 @@ class User < ActiveRecord::Base
     !read_attribute(:name).blank?? read_attribute(:name) : "Anonymous"
   end
 
+  def subscription_plan_name
+    if self.account && self.account.subscription && self.account.subscription && self.account.subscription.subscription_plan
+      self.account.subscription.subscription_plan.name
+    else
+      ''
+    end
+  end
+
   def wants_newsletter=(value)
     write_attribute(:wants_newsletter,value)
     @newsletter_changed = true
