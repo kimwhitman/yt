@@ -46,7 +46,7 @@
       <%= link_to_unless_current 'Share URL Redirects', url_for(:controller => 'admin/share_url_redirects') %>
     </p>
 
-    <p><%= link_to '&laquo; Return to public site', '/' %></p>
+    <p><%= link_to '&laquo; Return to public site', '/', :class => 'highlighted' %></p>
 
     <% if @show_search %>
       <p><input id="search" style="width: 450px" type="text" value="Search by name, email, ambassador id..." onClick="this.value=''"/></p>

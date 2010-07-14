@@ -25,7 +25,7 @@ ActionController::Base.asset_host = Proc.new { |source, request|
   if request && request.ssl?
     "#{request.protocol}#{request.host_with_port}"
   else
-    "http://#{HOST}"
+    "http://assets%d.#{ HOST }"
   end
 }
 

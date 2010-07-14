@@ -26,6 +26,11 @@ body {
   font-size: 14px;
 }
 
+a.highlighted {
+  color:#AAA;
+  font-weight: bold;
+}
+
 .active-scaffold th a {
   color: #AAA;
 }
