@@ -71,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
     root_pages = ['about', 'advertising', 'contact', 'faqs', 'home',
       'instructors', 'news',
       'media-downloads', 'press-and-news', 'privacy-policy',
-      'promotions-and-events', 'terms-and-conditions', 'get-started-today', 'ambassador-details']
+      'promotions-and-events', 'terms-and-conditions', 'get-started-today', 'ambassador-details', 'ambassador-terms-and-conditions']
     root_pages.each do |root_page|
       eval "pages.#{root_page.underscore} '/#{root_page}', :action => root_page.underscore"
     end

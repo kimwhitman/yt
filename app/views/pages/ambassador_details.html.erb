@@ -108,7 +108,10 @@
           <div class="preview"><img src="/images/ambassador_details_4.png" /></div>
         </li>
       </ul>
-      <div class="join"><%= link_to image_tag("/images/ambassador_details_button_join-now.png"), sign_up_path, :class => 'join_now' %></input></div>
+      <div class="join">
+        <%= link_to image_tag("/images/ambassador_details_button_join-now.png"), sign_up_path, :class => 'join_now' %></input>
+      </div>
+      <%= link_to 'Ambassador Rewards Program - Terms &amp; Conditions', ambassador_terms_and_conditions_path, :id => 'ambassador_terms_conditions' %>
     </div>
   </div>
 </div>

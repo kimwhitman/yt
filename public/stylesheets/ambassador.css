@@ -221,7 +221,18 @@
   bottom: 62px;
 }
 #ambassador_details div.hero a.join_now img { border: none; }
+#ambassador_details a#ambassador_terms_conditions {
+  display: block;
+  text-decoration: underline;
+  color: #7f7f7f;
+  font-size: 11px;
+  line-height: 20px;
+  padding-top: 10px;
+  text-align: center;
+}
+#ambassador_details a#ambassador_terms_conditions:hover { color: #4c4c4c; }
 #ambassador_details div.join {
+  position: relative;
   background: #d4e4ff;
   height: 40px;
   text-align: center;
