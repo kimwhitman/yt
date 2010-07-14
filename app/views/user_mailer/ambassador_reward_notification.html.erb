@@ -4,7 +4,7 @@ Hello <%= @user.name %>
 
 Congratulations! <%= @rewarding_user.name %> has signed up for a paid account, and you have received an ambassador point.
 
-Up to this point you have earned <%= pluralize(@user.points_earned, 'Ambassador Point') %>. You can invite more people to yogatoday.com by directing them to your personal Ambassador URL. Click here to spread the word.
+Up to this point you have earned <%= pluralize(@user.points_earned, 'Ambassador Point') %>. You can invite more people to yogatoday.com by directing them to your personal Ambassador URL. Click <%= link_to 'here', ambassador_tools_invite_by_email_user_url(@user) %> to spread the word.
 
 Thanks and love from everyone at Yoga Today:)
 
