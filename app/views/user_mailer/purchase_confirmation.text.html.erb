@@ -55,6 +55,7 @@ If you experience trouble downloading items, contact us at <br>support@yogatoday
                   <span title='<%= item.product.instructor_names.join(', ')%>'>
                     <%= item.product.instructor_names.first.split(" ")[0] == "No" ? "No Instr..." : truncate(item.product.instructor_names.first.split('')[0], 11) %>
                 </span>
+                  | <%= item.product.friendly_name %>
                   | <%= item.product.skill_name %>
                   | <%= item.product.duration_to_minutes %>:<%= item.product.duration_seconds %>
                 </div>
@@ -76,6 +77,7 @@ If you experience trouble downloading items, contact us at <br>support@yogatoday
   <p>Order placed on <%= @purchase.created_at.strftime "%m/%d/%Y" %></p>
   <p>Order total: <%= @purchase.total %></p>
   <p>Invoice number: <%= @purchase.invoice_no %></p>
+  <p>Transaction number: <%= @purchase.transaction_code %></p>
  </div>
   <div style="height: 10px; border-bottom: 3px solid #cccccc;margin-bottom: 20px;"></div>
 
