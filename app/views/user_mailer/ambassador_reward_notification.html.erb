@@ -4,9 +4,9 @@ Hello <%= @user.name %>
 
 Congratulations! <%= @rewarding_user.name %> has signed up for a paid account, and you have received an ambassador point.
 
-Thanks and Love from everyone at Yoga Today:)
+Up to this point you have earned <%= pluralize(@user.points_earned, 'Ambassador Point') %>. You can invite more people to yogatoday.com by directing them to your personal Ambassador URL. Click here to spread the word.
 
-<%= root_url.sub('http:', '').gsub('/', '') %>
+Thanks and love from everyone at Yoga Today:)
 
 <%= render :partial => 'footer.plain.erb',
     :locals => { :follow => true, :tos => true, :privacy => true, :unsubscribe => true, :no_reply => true } %>
