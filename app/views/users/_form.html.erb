@@ -16,7 +16,6 @@
     <fieldset>
       <legend><span>Prepaid Unlimited Membership with 2 week free trial</span></legend>
       <label><%= radio_button_tag 'membership', 'Premium Trial', @billing_cycle == 'Premium Trial' %> Yoga Today 365 <span>A Full year for just $89.95 - saves you 25%</span></label>
-      <label><%= radio_button_tag 'membership', 'Spring Signup Special Trial', @billing_cycle == 'Spring Signup Special Trial' %> Spring Signup Special <span>Four months for $34.95 - saves you 13%</span></label>
     </fieldset>
 
     <div class="panel">
@@ -53,7 +52,7 @@
 
     <p class="title">Prepaid Unlimited Membership</p>
     <label class="radio"><%= radio_button_tag 'membership', '12', @billing_cycle == '12' %> Yoga Today 365: A full year for just $89.95 - saves you 25%</label>
-    <label class="radio end_set"><%= radio_button_tag 'membership', 'Spring Signup Special', @billing_cycle == 'Spring Signup Special' %> Spring Signup Special: Four months for $34.95 - saves you 13%</label>
+
 
     <div class="trial">
       <h3>2 Week Free Trial</h3>
