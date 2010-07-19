@@ -41,7 +41,9 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @subscription_payments = @user.account.subscription.subscription_payments
-    @billing_transactions = @user.account.subscription.billing_transactions
+    @subscription_billing_transactions = @user.account.subscription.billing_transactions
+    @purchases = @user.purchases
+    @purchase_billing_transactions = @user.purchases.collect(&:billing_transaction).flatten.compact
   end
 
   def cancel_subscription
