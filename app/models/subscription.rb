@@ -118,28 +118,40 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
-    puts "Name: #{ self.account.users.last.name } Plan: #{ self.subscription_plan } (ID=#{ self.subscription_plan.id })"
-    logger.debug "DEBUG: Subscription charge Amount=#{ amount }"
-    if amount == 0 || (@response = gateway.purchase(amount_in_pennies, self.billing_id)).success?
-      logger.debug "DEBUG: Subscription charge success"
+    charge_attempts = 0
+    gateway_contacted = false
+    puts "Name(#{ self.account.users.last.id }):#{ self.account.users.last.name } Plan(#{ self.subscription_plan.id }):#{ self.subscription_plan } Amount:#{ amount }"
 
-      # dates to be used by SubscriptionPayment
-      start_date = self.next_renewal_at
-      end_date   = self.next_renewal_at.advance(:months => self.renewal_period)
-      update_attributes(:next_renewal_at => end_date, :state => 'active')
+    while gateway_contacted == false && charge_attempts < 10
+      begin
+        @response = gateway.purchase(amount_in_pennies, self.billing_id)
+        gateway_contacted = true
+      rescue Exception => e
+        charge_attempts += 1
+        sleep(1)
+      end
 
-      logger.debug("DEBUG: Charge by adding new payment")
-      subscription_payments.create(:account => account, :amount => amount,
-        :transaction_id => @response.authorization,
-        :start_date => start_date,
-        :end_date => end_date,
-        :payment_method => "Card #{ self.card_number }") unless amount == 0
-      billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
-      true
-    else
-      logger.debug "DEBUG: Subscription charge failure. amount=#{ amount_in_pennies } billing_id=#{ billing_id } response=#{ @response.inspect }"
-      errors.add_to_base(@response.message)
-      false
+      if amount == 0 || @response.success?
+        puts "Subscription charge success"
+
+        # dates to be used by SubscriptionPayment
+        start_date = self.next_renewal_at
+        end_date   = self.next_renewal_at.advance(:months => self.renewal_period)
+        update_attributes(:next_renewal_at => end_date, :state => 'active')
+
+        logger.debug("DEBUG: Charge by adding new payment")
+        subscription_payments.create(:account => account, :amount => amount,
+          :transaction_id => @response.authorization,
+          :start_date => start_date,
+          :end_date => end_date,
+          :payment_method => "Card #{ self.card_number }") unless amount == 0
+        billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
+        true
+      else
+        puts "Subscription charge failure. amount=#{ amount_in_pennies } billing_id=#{ billing_id } response=#{ @response.inspect }"
+        errors.add_to_base(@response.message)
+        false
+      end
     end
   end
 
