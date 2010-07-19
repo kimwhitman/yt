@@ -1,0 +1,27 @@
+<%= render :partial => 'submenu' %>
+<table>
+  <thead>
+    <th>User</th>
+    <th>Ambassador Name</th>
+    <th>Visits</th>
+    <th>Free Conversions</th>
+    <th>Paid Conversions</th>
+    <th>Email Address</th>
+    <th>Member Since</th>
+  </thead>
+  <% @ambassadors.each do |ambassador| %>
+    <tr>
+      <td><%= ambassador.name %></td>
+      <td><%= ambassador.ambassador_name %></td>
+      <td><%= ambassador.share_url.share_url_redirects.size %></td>
+      <td><%= ambassador.ambassador_referrals('free').size %></td>
+      <td><%= ambassador.ambassador_referrals('paid').size %></td>
+      <td><%= ambassador.email %></td>
+      <td><%= ambassador.account.created_at %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <th></th>
+  </tr>
+</table>
+<%= will_paginate @ambassadors %>
