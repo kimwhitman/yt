@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :email, :on => :create
 
   # Scopes
+  named_scope :ambassadors, :conditions => [ 'ambassador_name IS NOT NULL' ]
 
   # Extensions
   has_attached_file :photo,
@@ -294,7 +295,20 @@ class User < ActiveRecord::Base
     subscription_plan.amount
   end
 
+  def ambassador_referrals(scoped_to = nil)
+    users = User.scoped :joins => "INNER JOIN accounts ON accounts.id = users.account_id
+      INNER JOIN subscriptions ON subscriptions.account_id = accounts.id
+      INNER JOIN subscription_plans ON subscription_plan_id = subscription_plans.id"
 
+    case scoped_to
+      when 'paid'
+        users = users.scoped :conditions => [ "subscription_plans.name = 'free'" ]
+      when 'free'
+        users = users.scoped :conditions => [ "subscription_plans.name != 'free'" ]
+    end
+
+    users = users.scoped :conditions => [ 'users.ambassador_id = ?', self.id ]
+  end
 
   protected
 
