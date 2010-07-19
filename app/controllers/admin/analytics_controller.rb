@@ -26,4 +26,8 @@ class Admin::AnalyticsController < Admin::BaseController
       :order => 'users.email',
       :page => @page, :per_page => @per_page)
   end
+
+  def ambassador_referrals
+    @ambassadors = User.ambassadors.paginate :page => @page, :per_page => @per_page
+  end
 end
