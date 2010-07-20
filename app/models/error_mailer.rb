@@ -9,7 +9,7 @@ class ErrorMailer < ActionMailer::Base
   end
 
   def bill_failure(user)
-    setup_email('bugs@planetargon.com')
+    setup_email('bugs@planetargon.com, jamie@yogatoday.com')
     @subject     = "[YogaToday] Billing failure - #{ user.email }"
     @body[:user] = user
   end
