@@ -49,6 +49,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users,
       :member => { :cancel_subscription => :post }
   end
+  map.admin_ambassador_referrals '/admin/analytics/ambassador_referrals', :controller => 'admin/analytics',
+    :action => 'ambassador_referrals'
 
 
   # Root-level routes.

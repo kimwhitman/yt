@@ -28,17 +28,25 @@ class Admin::AnalyticsController < Admin::BaseController
   end
 
   def ambassador_referrals
-      @ambassadors = User.ambassadors.paginate(:select =>
-        "users.*, (SELECT COUNT(ambassador_users.id) FROM users AS ambassador_users
-          INNER JOIN accounts ON accounts.id = ambassador_users.account_id
-          INNER JOIN subscriptions ON subscriptions.account_id = accounts.id
-          INNER JOIN subscription_plans ON subscription_plan_id = subscription_plans.id
-          WHERE subscription_plans.name = 'Free'
-          AND ambassador_users.ambassador_id = users.id
-        ) AS free_conversions",
-        :joins => "INNER JOIN accounts ON accounts.id = users.account_id
-          INNER JOIN subscriptions ON subscriptions.account_id = accounts.id
-          INNER JOIN subscription_plans ON subscription_plan_id = subscription_plans.id",
-        :order => 'points_earned DESC, free_conversions DESC', :page => @page, :per_page => @per_page)
+    order = params[:order] || 'points_earned DESC, free_conversions DESC'
+    if params[:desc]
+      descending = params[:desc] == 'true' ? 'DESC' : 'ASC'
+    end
+
+    @ambassadors = User.ambassadors.paginate(:select =>
+      "users.*, (SELECT COUNT(ambassador_users.id) FROM users AS ambassador_users
+        INNER JOIN accounts ON accounts.id = ambassador_users.account_id
+        INNER JOIN subscriptions ON subscriptions.account_id = accounts.id
+        INNER JOIN subscription_plans ON subscription_plan_id = subscription_plans.id
+        WHERE subscription_plans.name = 'Free'
+        AND ambassador_users.ambassador_id = users.id
+      ) AS free_conversions,
+      (SELECT COUNT(share_url_redirects.id) FROM share_url_redirects
+        INNER JOIN share_urls ON share_urls.id = share_url_redirects.share_url_id
+        WHERE share_urls.user_id = users.id) AS visits",
+      :joins => "INNER JOIN accounts ON accounts.id = users.account_id
+        INNER JOIN subscriptions ON subscriptions.account_id = accounts.id
+        INNER JOIN subscription_plans ON subscription_plan_id = subscription_plans.id",
+      :order => "#{order} #{descending}", :page => @page, :per_page => @per_page)
   end
 end
