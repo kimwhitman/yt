@@ -147,7 +147,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
       <% end %>
     </div>
 
-    <% unless current_user.has_paying_subscription? %>
+    <% unless current_user && current_user.has_paying_subscription? %>
       <div class="promo_yt365_wide">
         <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
         <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
