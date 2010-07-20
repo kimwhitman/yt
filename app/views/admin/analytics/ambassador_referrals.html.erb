@@ -17,9 +17,9 @@
   </thead>
   <% @ambassadors.each do |ambassador| %>
     <tr class="record">
-      <td><%= ambassador.name %></td>
+      <td><%= link_to ambassador.name, admin_user_path(ambassador) %></td>
       <td><%= ambassador.ambassador_name %></td>
-      <td><%= ambassador.email %></td>
+      <td><%= mail_to ambassador.email %></td>
       <td><%= ambassador.visits %></td>
       <td><%= ambassador.points_earned %></td>
       <td><%= ambassador.free_conversions %></td>
