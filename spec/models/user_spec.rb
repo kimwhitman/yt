@@ -101,8 +101,38 @@ describe User do
   describe "Redeeming points" do
     
   end
-
-
+  
+  describe "Ambassador Referrals" do
+    before(:each) do
+      Subscription.stub!(:card_storage)
+      @free_subscription_plan = SubscriptionPlan.create(:renewal_period => 1, :name => 'Free')
+      @paid_subscription_plan = SubscriptionPlan.create(:renewal_period => 1, :name => 'Premium')
+      
+      @user_1 = create_user(:login => 'foo', :email => 'foo@example.com')
+      @user_2 = create_user(:login => 'bar', :email => 'bar@example.com')
+      @user_3 = create_user(:login => 'meep', :email => 'meep@example.com')
+      
+      @user_2.ambassador = @user_1
+      @user_2.save
+      @user_3.ambassador = @user_1
+      @user_3.save
+            
+      @user_2.account.create_subscription(:account_id => @user_1.account_id, :subscription_plan_id => @free_subscription_plan.id)
+      @user_3.account.create_subscription(:account_id => @user_2.account_id, :subscription_plan_id => @paid_subscription_plan.id)
+    end
+        
+    it "should return my referred users through the ambassador program" do
+      @user_1.ambassador_referrals('free').should include @user_2, @user_3
+    end
+    
+    it "should return my referred users through the ambassador program that are on a paid plan" do
+      @user_1.ambassador_referrals('free').should include @user_2
+    end
+    
+    it "should return my referred users through the ambassador program that are on a free plan" do
+      @user_1.ambassador_referrals('free').should include @user_3
+    end    
+  end
 
   protected
 
