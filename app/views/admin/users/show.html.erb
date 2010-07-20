@@ -87,7 +87,7 @@
           <tr class="record">
             <td><%= purchase.billing_transaction ? purchase.id : 'NA' %></td>
             <td><%= purchase.created_at.strftime('%B %e, %Y') %></td>
-            <td><%= purchase.billing_transaction ? "$#{ purchase.billing_transaction.amount }" : 'NA' %></td>
+            <td><%= purchase.billing_transaction ? "$#{ purchase.billing_transaction.amount.to_f / 100 }" : 'NA' %></td>
             <td><%= purchase.transaction_code %></td>
             <td><%= purchase.purchase_items.collect(&:name).sort.join(', ') %></td>
           </tr>
