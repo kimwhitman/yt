@@ -105,12 +105,9 @@ class Subscription < ActiveRecord::Base
       if self.charge
         # comment out to avoid double receipts
         #SubscriptionNotifier.deliver_charge_receipt(self.subscription_payments.last)
-        p "#{Time.now} Charged"
         self.account.users.last.apply_ambassador_points!
-        puts "#{ Time.now } Success"
       else
         SubscriptionNotifier.deliver_charge_failure(self)
-        puts "#{ Time.now } Failed to charge"
       end
     else
       puts "#{ Time.now } Not charging - free"
@@ -118,41 +115,52 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge
-    charge_attempts = 0
+    charge_attempts = 1
     gateway_contacted = false
-    puts "Name(#{ self.account.users.last.id }):#{ self.account.users.last.name } Plan(#{ self.subscription_plan.id }):#{ self.subscription_plan } Amount:#{ amount }"
+    charge_success = false
+    puts "User(ID=#{ self.account.users.last.id }):#{ self.account.users.last.name }"
+    puts "Plan(ID=#{ self.subscription_plan.id }):#{ self.subscription_plan }"
+    puts "Amount:#{ amount }"
 
-    while gateway_contacted == false && charge_attempts < 10
+    while gateway_contacted == false && charge_attempts <= 10
+      puts "Attempt #{ charge_attempts }" if charge_attempts > 1
+
       begin
         @response = gateway.purchase(amount_in_pennies, self.billing_id)
         gateway_contacted = true
+
+        if amount == 0 || @response.success?
+          puts "Subscription charge success"
+
+          # dates to be used by SubscriptionPayment
+          start_date = self.next_renewal_at
+          end_date   = self.next_renewal_at.advance(:months => self.renewal_period)
+          update_attributes(:next_renewal_at => end_date, :state => 'active')
+
+          subscription_payments.create(:account => account, :amount => amount,
+            :transaction_id => @response.authorization,
+            :start_date => start_date,
+            :end_date => end_date,
+            :payment_method => "Card #{ self.card_number }") unless amount == 0
+          billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
+          charge_success = true
+        else
+          puts "Subscription charge failure. amount=#{ amount_in_pennies } billing_id=#{ billing_id } response=#{ @response.inspect }"
+          errors.add_to_base(@response.message)
+        end
+
       rescue Exception => e
-        charge_attempts += 1
         sleep(1)
       end
 
-      if amount == 0 || @response.success?
-        puts "Subscription charge success"
-
-        # dates to be used by SubscriptionPayment
-        start_date = self.next_renewal_at
-        end_date   = self.next_renewal_at.advance(:months => self.renewal_period)
-        update_attributes(:next_renewal_at => end_date, :state => 'active')
-
-        logger.debug("DEBUG: Charge by adding new payment")
-        subscription_payments.create(:account => account, :amount => amount,
-          :transaction_id => @response.authorization,
-          :start_date => start_date,
-          :end_date => end_date,
-          :payment_method => "Card #{ self.card_number }") unless amount == 0
-        billing_transactions.create(:authorization_code => @response.authorization, :amount => (amount * 100)) unless amount == 0
-        true
-      else
-        puts "Subscription charge failure. amount=#{ amount_in_pennies } billing_id=#{ billing_id } response=#{ @response.inspect }"
-        errors.add_to_base(@response.message)
-        false
-      end
+      charge_attempts += 1
     end
+
+    if charge_attempts > 10
+      ErrorMailer.deliver_bill_failure(self.account.users.last)
+      puts "Billing failed. Unable to communicate with gateway"
+    end
+    charge_success
   end
 
   def start_paypal(return_url, cancel_url)
@@ -466,11 +474,9 @@ class Subscription < ActiveRecord::Base
       subscriptions.each do |subscription|
         p subscription
         if subscription.charge
-          puts "#{Time.now} Charged #{subscription.inspect}"
           subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => true})
         else
           SubscriptionNotifier.deliver_charge_failure(subscription)
-          puts "#{Time.now} Failed to charge #{subscription.inspect}"
           subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => false})
         end
       end

@@ -7,10 +7,11 @@
 # Payment gateway: 286776
 # ==================================
 # Current API Login ID:  7y4UnQPW5hd
-# Current Transaction Key:  78dy5J4mvF56Qwxs
+# Current Transaction Key:  36F3Nak49u2B9kYN
 # ==================================
-# Note, if using a test Authorize.net account, remember to change the gateway setting in config.yml
 
+# NOTE:
+# If using a test Authorize.net account, remember to change the gateway setting in config.yml
 # If using the PRODUCTION account in development or staging, you will also need to comment out
 # the section for (ActiveMerchant::Billing::Base.gateway_mode) in development.rb/staging.rb
 
@@ -20,7 +21,7 @@ development:
 
   # Test Authorize.net account
   login: '7y4UnQPW5hd'
-  password: '78dy5J4mvF56Qwxs'
+  password: '36F3Nak49u2B9kYN'
 
   # Production Authorize.net account
   #login: '2zSn67VN'
