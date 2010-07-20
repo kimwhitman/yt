@@ -28,6 +28,7 @@ class Admin::AnalyticsController < Admin::BaseController
   end
 
   def ambassador_referrals
-    @ambassadors = User.ambassadors.paginate :include => { :share_url => :share_url_redirects }, :page => @page, :per_page => @per_page
+    @ambassadors = User.ambassadors.paginate :include => { :share_url => :share_url_redirects },
+      :page => @page, :per_page => @per_page, :order => 'points_earned'
   end
 end
