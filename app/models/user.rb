@@ -58,6 +58,14 @@ class User < ActiveRecord::Base
     !read_attribute(:name).blank?? read_attribute(:name) : "Anonymous"
   end
 
+  def subscription
+    self.account ? self.account.subscription : nil
+  end
+
+  def subscription_plan
+    self.account && self.account.subscription ? self.account.subscription.subscription_plan : nil
+  end
+
   def subscription_plan_name
     if self.account && self.account.subscription && self.account.subscription && self.account.subscription.subscription_plan
       self.account.subscription.subscription_plan.name
