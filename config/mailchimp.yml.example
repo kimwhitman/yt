@@ -1,0 +1,15 @@
+development:
+  login:
+  password:
+  api_key:
+  members_list_id:
+test:
+  login:
+  password:
+  api_key:
+  members_list_id:
+production:
+  login:
+  password:
+  api_key:
+  members_list_id:
