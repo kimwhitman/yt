@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   after_save :setup_free_account
   after_save :setup_newsletter
   after_update :setup_share_url
+  after_create :add_to_mailchimp
 
   # Attributes
   attr_accessor :password
@@ -317,6 +318,15 @@ class User < ActiveRecord::Base
 
     users = users.scoped :conditions => [ 'users.ambassador_id = ?', self.id ]
   end
+
+  def add_to_mailchimp(list_name = "Members")
+    # http://github.com/bgetting/hominid
+    hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
+    hominid.subscribe(hominid.find_list_id_by_name(list_name), self.email, {:FNAME => self.name, :LNAME => ''}, {:email_type => 'html'})
+    self.mailchimp_id = hominid.member_info(MAILCHIMP_MEMBERS_LIST_ID, self.email)["id"]
+  end
+
+
 
   protected
 
