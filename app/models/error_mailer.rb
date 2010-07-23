@@ -1,7 +1,7 @@
 class ErrorMailer < ActionMailer::Base
 
   def error(exception, opts = {})
-    setup_email('bugs@planetargon.com')
+    setup_email('bugs@planetargon.com, jamie@yogatoday.com')
     @body[:content] = exception
     @body[:backtrace] = exception.backtrace
     @body[:server] = HOST_NAME
