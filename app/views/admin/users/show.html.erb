@@ -82,14 +82,14 @@
     <% unless @purchases.empty? %>
       <table class="active-scaffold" style="width:750px">
         <thead>
-          <tr><th><p>ID</p></th><th style="width: 90px"><p>Date</p></th><th><p>Amount</p></th><th><p>Transaction ID</p></th><th><p>Items</p></th></tr>
+          <tr><th><p>ID</p></th><th style="width: 90px"><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th><th><p>Items</p></th></tr>
         </thead>
         <% @purchases.each do |purchase| %>
           <tr class="record">
             <td><%= purchase.billing_transaction ? purchase.id : 'NA' %></td>
             <td><%= purchase.created_at.strftime('%B %e, %Y') %></td>
             <td><%= purchase.billing_transaction ? "$#{ purchase.billing_transaction.amount.to_f / 100 }" : 'NA' %></td>
-            <td><%= purchase.transaction_code %></td>
+            <td><%= purchase.billing_transaction.authorization_code %></td>
             <td><%= purchase.purchase_items.collect(&:name).sort.join(', ') %></td>
           </tr>
         <% end %>
