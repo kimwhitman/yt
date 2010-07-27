@@ -460,7 +460,7 @@ class Subscription < ActiveRecord::Base
         if subscription.is_cancelled?
           puts "Subscription #{ subscription.id} is cancelled. Moving to a free account."
           subscription.downgrade_to_free
-          subscription.update_attributes(:is_cancelled => false)
+          subscription.update_attributes(:is_cancelled => false, :cancelled_at => nil)
         else
           subscription.charge_due
         end
