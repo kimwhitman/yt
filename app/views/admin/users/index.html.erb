@@ -10,6 +10,7 @@
       <th><%= link_to 'Amb.<br />ID', admin_users_path(:order => 'ambassador_name', :desc => 'false') %></th>
       <th><%= link_to 'Amb. Points<br />Current/Earned/Used', admin_users_path(:order => 'points_earned') %></th>
       <th><%= link_to 'Signup Date', admin_users_path(:order => 'created_at') %></th>
+      <th><%= link_to 'Cancel Date', admin_users_path(:order => 'subscriptions.cancelled_at') %></th>
       <th></th>
     </tr>
   </thead>
@@ -33,6 +34,7 @@
         <% end %>
       </td>
       <td><%= user.created_at.strftime('%b %e %Y %H:%M') %></td>
+      <td><%= user.account.subscription.cancelled_at.strftime('%b %e %Y %H:%M') unless user.account.subscription.cancelled_at.blank? %></td>
       <td>
         <%= link_to 'View', admin_user_path(user) %> |
         <%= link_to 'Edit', edit_admin_user_path(user) %> |
