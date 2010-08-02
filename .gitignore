@@ -21,3 +21,4 @@ rerun.txt
 .DS_Store
 public/stylesheets/*_packaged.css
 public/javascripts/*_packaged.js
+config/mailchimp.yml
