@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   after_save :setup_newsletter
   after_update :setup_share_url
   after_create :add_to_mailchimp
+  after_save :analyse_for_mailchimp_group_changes
 
   # Attributes
   attr_accessor :password
@@ -325,6 +326,61 @@ class User < ActiveRecord::Base
       hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
       hominid.subscribe(hominid.find_list_id_by_name(list_name), self.email, {:FNAME => self.name, :LNAME => ''}, {:email_type => 'html'})
       self.mailchimp_id = hominid.member_info(MAILCHIMP_MEMBERS_LIST_ID, self.email)["id"]
+
+
+
+
+      # Add to a group for this list?
+      #groups = hominid.groups(hominid.find_list_id_by_name('Members'))
+      #hominid.update_member(hominid.find_list_id_by_name('Members'), 'imogene.lesch@lueilwitz.ca', { :INTERESTS => "Regular\,Ambassador invited" })
+      #hominid.update_member(hominid.find_list_id_by_name('Members'), 'imogene.lesch@lueilwitz.ca', { :INTERESTS => "Regular" }, 'html', true)
+
+      #groupings = hominid.groupings(hominid.find_list_id_by_name('Members'))
+      #hominid.update_member(hominid.find_list_id_by_name('Members'), 'imogene.lesch@lueilwitz.ca', { :GROUPINGS => "Regular" }, 'html', true)
+
+
+
+    rescue Exception => e
+      ErrorMailer.deliver_error(e, :user_id => self.id)
+    end
+  end
+
+  def assign_mailchimp_groups
+    # NOTE: Any changes to the group names in Mailchimp has to be reflected here, or these group additions will fail
+    # Free Members
+    #   Regular Free Members
+    #   Free Members by Ambassador Invitation
+    # Class Download Customers
+    #   Class Download Customers
+    #
+    # Ambassadors
+    #   Ambassadors
+    #
+    # Paid Members
+    #   Monthly recurring subscribers
+    #   4 month prepaid subscribers
+    #   1 year prepaid subscribers
+    #   All Paid Members by Ambassador Invitation
+
+    begin
+      groups = []
+
+      groups << 'Ambassadors' if self.ambassador_name
+
+      if self.account.subscription.subscription_plan.is_free?
+        groups << 'Free Members by Ambassador Invitation' if self.ambassador_id
+        groups << 'Regular Free Members' if self.ambassador_id.blank?
+      end
+
+      if !self.account.subscription.subscription_plan.is_free?
+        groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
+        groups << 'Monthly recurring subscribers'
+        groups << '4 month prepaid subscribers'
+        groups << '1 year prepaid subscribers'
+      end
+
+      hominid.update_member(hominid.find_list_id_by_name('Members'), self.email, { :GROUPINGS => groups.join('\,') }, 'html', true)
+
     rescue Exception => e
       ErrorMailer.deliver_error(e, :user_id => self.id)
     end
@@ -410,6 +466,12 @@ class User < ActiveRecord::Base
     def send_new_ambassador_mail
       if self.ambassador_name_changed?
         UserMailer.deliver_new_ambassador(self)
+      end
+    end
+
+    def analyse_for_mailchimp_group_changes
+      if self.ambassador_name_changed? || self.ambassador_id_changed?
+        self.assign_mailchimp_groups
       end
     end
 end
