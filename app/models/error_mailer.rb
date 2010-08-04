@@ -4,7 +4,7 @@ class ErrorMailer < ActionMailer::Base
     setup_email('bugs@planetargon.com, jamie@yogatoday.com')
     @body[:content] = exception
     @body[:backtrace] = exception.backtrace
-    @body[:server] = HOST_NAME
+    @body[:server] = '' #HOST_NAME
     @body[:options] = opts.collect{|key, value| "#{key}=#{value}"}.join(', ')
   end
 

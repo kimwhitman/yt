@@ -19,6 +19,7 @@ class Subscription < ActiveRecord::Base
   # Callbacks
   before_create :set_renewal_at
   before_destroy :destroy_gateway_record!
+  after_save :analyse_for_mailchimp_group_changes
 
   # Attributes
   attr_accessor :creditcard, :address
@@ -479,6 +480,12 @@ class Subscription < ActiveRecord::Base
           SubscriptionNotifier.deliver_charge_failure(subscription)
           subscription.update_attributes({:last_attempt_at => Time.now, :last_attempt_successful => false})
         end
+      end
+    end
+
+    def analyse_for_mailchimp_group_changes
+      if self.subscription_plan_id_changed?
+        self.account.users.last.assign_mailchimp_groups unless self.account.users.empty?
       end
     end
 end

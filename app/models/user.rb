@@ -42,9 +42,10 @@ class User < ActiveRecord::Base
   before_save :send_new_ambassador_mail
   after_save :setup_free_account
   after_save :setup_newsletter
+  after_save :analyse_for_mailchimp_group_changes
   after_update :setup_share_url
   after_create :add_to_mailchimp
-  after_save :analyse_for_mailchimp_group_changes
+
 
   # Attributes
   attr_accessor :password
@@ -363,23 +364,28 @@ class User < ActiveRecord::Base
     #   All Paid Members by Ambassador Invitation
 
     begin
-      groups = []
+      if @assigning_mailchimp_groups.nil?
+        @assigning_mailchimp_groups = true
+        groups = []
 
-      groups << 'Ambassadors' if self.ambassador_name
+        groups << 'Ambassadors' if self.ambassador_name
 
-      if self.account.subscription.subscription_plan.is_free?
-        groups << 'Free Members by Ambassador Invitation' if self.ambassador_id
-        groups << 'Regular Free Members' if self.ambassador_id.blank?
+        if self.account.subscription.subscription_plan.is_free?
+          groups << 'Free Members by Ambassador Invitation' if self.ambassador_id
+          groups << 'Regular Free Members' if self.ambassador_id.blank?
+        end
+
+        if !self.account.subscription.subscription_plan.is_free?
+          groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
+          groups << 'Monthly recurring subscribers'
+          groups << '4 month prepaid subscribers'
+          groups << '1 year prepaid subscribers'
+        end
+
+        hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
+        result = hominid.update_member(hominid.find_list_id_by_name('Members'), self.email, { :INTERESTS => groups.join('\,') }, 'html', true)
+        @assigning_mailchimp_groups = nil
       end
-
-      if !self.account.subscription.subscription_plan.is_free?
-        groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
-        groups << 'Monthly recurring subscribers'
-        groups << '4 month prepaid subscribers'
-        groups << '1 year prepaid subscribers'
-      end
-
-      hominid.update_member(hominid.find_list_id_by_name('Members'), self.email, { :GROUPINGS => groups.join('\,') }, 'html', true)
 
     rescue Exception => e
       ErrorMailer.deliver_error(e, :user_id => self.id)
