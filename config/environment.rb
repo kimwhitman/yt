@@ -99,5 +99,8 @@ if mailchimp_config = YAML.load(File.open("#{ Rails.root }/config/mailchimp.yml"
   MAILCHIMP_PASSWORD = mailchimp_config[Rails.env]['password']
   MAILCHIMP_API_KEY = mailchimp_config[Rails.env]['api_key']
   MAILCHIMP_MEMBERS_LIST_ID = mailchimp_config[Rails.env]['members_list_id']
+  MAILCHIMP_FREE_GROUP_ID = mailchimp_config[Rails.env]['free_group_id']
+  MAILCHIMP_AMBASSADORS_GROUP_ID = mailchimp_config[Rails.env]['ambassadors_group_id']
+  MAILCHIMP_PAID_GROUP_ID = mailchimp_config[Rails.env]['paid_group_id']
 end
 

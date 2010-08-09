@@ -1,15 +1,27 @@
+# Mailchimp groupings information can be obtained by using:
+# hominid.groupings(hominid.find_list_id_by_name('Members'))
+
 development:
   login:
   password:
   api_key:
   members_list_id:
+  free_group_id:
+  ambassadors_group_id:
+  paid_group_id:
 test:
   login:
   password:
   api_key:
   members_list_id:
+  free_group_id:
+  ambassadors_group_id:
+  paid_group_id:
 production:
   login:
   password:
   api_key:
   members_list_id:
+  free_group_id:
+  ambassadors_group_id:
+  paid_group_id:

@@ -42,9 +42,9 @@ class User < ActiveRecord::Base
   before_save :send_new_ambassador_mail
   after_save :setup_free_account
   after_save :setup_newsletter
-  after_save :analyse_for_mailchimp_group_changes
   after_update :setup_share_url
   after_create :add_to_mailchimp
+  after_save :analyse_for_mailchimp_group_changes
 
 
   # Attributes
@@ -293,7 +293,6 @@ class User < ActiveRecord::Base
       end
       self.has_rewarded_ambassador = true
       self.save
-      logger.debug "DEBUG: Applied #{ self.ambassador.inspect }"
     end
   end
 
@@ -323,23 +322,11 @@ class User < ActiveRecord::Base
 
   def add_to_mailchimp(list_name = "Members")
     begin
-      # http://github.com/bgetting/hominid
       hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
-      hominid.subscribe(hominid.find_list_id_by_name(list_name), self.email, {:FNAME => self.name, :LNAME => ''}, {:email_type => 'html'})
+      hominid.subscribe(hominid.find_list_id_by_name(list_name), self.email,
+        {:FNAME => self.name, :LNAME => ''}, {:email_type => 'html'})
       self.mailchimp_id = hominid.member_info(MAILCHIMP_MEMBERS_LIST_ID, self.email)["id"]
-
-
-
-
-      # Add to a group for this list?
-      #groups = hominid.groups(hominid.find_list_id_by_name('Members'))
-      #hominid.update_member(hominid.find_list_id_by_name('Members'), 'imogene.lesch@lueilwitz.ca', { :INTERESTS => "Regular\,Ambassador invited" })
-      #hominid.update_member(hominid.find_list_id_by_name('Members'), 'imogene.lesch@lueilwitz.ca', { :INTERESTS => "Regular" }, 'html', true)
-
-      #groupings = hominid.groupings(hominid.find_list_id_by_name('Members'))
-      #hominid.update_member(hominid.find_list_id_by_name('Members'), 'imogene.lesch@lueilwitz.ca', { :GROUPINGS => "Regular" }, 'html', true)
-
-
+      self.assign_mailchimp_groups
 
     rescue Exception => e
       ErrorMailer.deliver_error(e, :user_id => self.id)
@@ -348,16 +335,18 @@ class User < ActiveRecord::Base
 
   def assign_mailchimp_groups
     # NOTE: Any changes to the group names in Mailchimp has to be reflected here, or these group additions will fail
-    # Free Members
+    # Also, changes must be made to config/mailchimp.yml, where the group ids are set
+
+    # Free Members (2)
     #   Regular Free Members
     #   Free Members by Ambassador Invitation
     # Class Download Customers
     #   Class Download Customers
     #
-    # Ambassadors
+    # Ambassadors (26)
     #   Ambassadors
     #
-    # Paid Members
+    # Paid Members (34)
     #   Monthly recurring subscribers
     #   4 month prepaid subscribers
     #   1 year prepaid subscribers
@@ -366,29 +355,50 @@ class User < ActiveRecord::Base
     begin
       if @assigning_mailchimp_groups.nil?
         @assigning_mailchimp_groups = true
-        groups = []
 
-        groups << 'Ambassadors' if self.ambassador_name
-
-        if self.account.subscription.subscription_plan.is_free?
-          groups << 'Free Members by Ambassador Invitation' if self.ambassador_id
-          groups << 'Regular Free Members' if self.ambassador_id.blank?
+        free_groups = []
+        if self.account && self.account.subscription.subscription_plan.is_free?
+          free_groups << 'Free Members by Ambassador Invitation' if self.ambassador_id
+          free_groups << 'Regular Free Members' if self.ambassador_id.blank?
         end
+        free_groups = free_groups.empty? ? '' : free_groups.join('\,')
 
-        if !self.account.subscription.subscription_plan.is_free?
-          groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
-          groups << 'Monthly recurring subscribers'
-          groups << '4 month prepaid subscribers'
-          groups << '1 year prepaid subscribers'
+        ambassadors_groups = []
+        ambassadors_groups << 'Ambassadors' if self.ambassador_name
+        ambassadors_groups = ambassadors_groups.empty? ? '' : ambassadors_groups.join('\,')
+
+        paid_groups = []
+        if self.account && !self.account.subscription.subscription_plan.is_free?
+          paid_groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
+          paid_groups << 'Monthly recurring subscribers' if self.subscription_plan.name == 'Premium' && self.subscription_plan.renewal_period == 1
+          paid_groups << '4 month prepaid subscribers' if self.subscription_plan.name == 'Spring Signup Special' && self.subscription_plan.renewal_period == 4
+          paid_groups << '1 year prepaid subscribers' if self.subscription_plan.name == 'Premium' && self.subscription_plan.renewal_period == 12
         end
+        paid_groups = paid_groups.empty? ? '' : paid_groups.join('\,')
+
+        RAILS_DEFAULT_LOGGER.debug "DEBUG: F='#{ free_groups }' A='#{ ambassadors_groups }' P='#{ paid_groups }'"
 
         hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
-        result = hominid.update_member(hominid.find_list_id_by_name('Members'), self.email, { :INTERESTS => groups.join('\,') }, 'html', true)
+        if result = hominid.update_member(hominid.find_list_id_by_name('Members'), self.email,
+          { :GROUPINGS => {
+            "Free Members" => { "name" => "Free Members", 'id' => "#{ MAILCHIMP_FREE_GROUP_ID }", 'groups' => free_groups },
+            "Ambassadors" => { "name" => "Ambassadors", 'id' => "#{ MAILCHIMP_AMBASSADORS_GROUP_ID }", 'groups' => ambassadors_groups },
+            "Paid Members" => { "name" => "Paid Members", 'id' => "#{ MAILCHIMP_PAID_GROUP_ID }", 'groups' => paid_groups }
+          } }, 'html', true)
+
+          # Successful submission. If this person was flagged for resubmission then remove that flag.
+
+        else
+          # Flag this person as needing to be resubmitted to Mailchimp?
+
+        end
         @assigning_mailchimp_groups = nil
+        true
       end
 
     rescue Exception => e
       ErrorMailer.deliver_error(e, :user_id => self.id)
+      false
     end
   end
 
@@ -448,6 +458,7 @@ class User < ActiveRecord::Base
       self.account.save!
       self.account_id = self.account.id
       self.save
+      self.assign_mailchimp_groups
     end
 
     def setup_share_url
