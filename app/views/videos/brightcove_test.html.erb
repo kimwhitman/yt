@@ -6,7 +6,7 @@
 <ul>
   <li>Connects to the Brightcove <span class="caps">API</span> via YogaToday&#8217;s <span class="caps">API</span> key</li>
   <li>Grabs the first video</li>
-  <li>Generates a video player</li>
+  <li>Generates a stock video player</li>
   <li>Displays the video in the player</li>
 </ul>
 </p>
@@ -49,8 +49,8 @@ function addPlayer() {
     params.publishedID = "105925308001";
     //params.autoStart = "true";
     params.bgcolor = "#993300";
-    params.width = "316";
-    params.height = "267";
+    params.width = "600";
+    params.height = "400";
     params.isVid = "true";
 
     var player = brightcove.createElement("object");
