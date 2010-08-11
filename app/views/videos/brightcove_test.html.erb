@@ -1,0 +1,81 @@
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+<div id="main">
+<p>This is a test page, which does the following:
+
+<ul>
+  <li>Connects to the Brightcove <span class="caps">API</span> via YogaToday&#8217;s <span class="caps">API</span> key</li>
+  <li>Grabs the first video</li>
+  <li>Generates a video player</li>
+  <li>Displays the video in the player</li>
+</ul>
+</p>
+
+<div>
+  <button onclick="addPlayer()" />Show Player</button>
+  <button onclick="removePlayer()" />Remove Player</button>
+</div>
+
+<div id="placeHolder">
+Place holder for player. <i>id="placeHolder"</i>
+</div>
+
+
+<div style="width: 500px; overflow: auto;">
+<pre><code>
+  DBEUG
+
+<%= @brightcove_video.inspect %>
+
+</code></pre>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+playerName = "player1";
+isPlayerAdded = false;
+
+function addPlayer() {
+
+  if(isPlayerAdded == false) {
+    isPlayerAdded = true;
+
+    var params = {};
+    params.playerID = "107142267001";
+    params.videoId = "<%= @brightcove_video['id'] -%>";
+    params.publishedID = "105925308001";
+    //params.autoStart = "true";
+    params.bgcolor = "#993300";
+    params.width = "316";
+    params.height = "267";
+    params.isVid = "true";
+
+    var player = brightcove.createElement("object");
+    player.id = playerName;
+    var parameter;
+    for (var i in params) {
+      parameter = brightcove.createElement("param");
+      parameter.name = i;
+      parameter.value = params[i];
+      player.appendChild(parameter);
+    }
+
+    var playerContainer = document.getElementById("placeHolder");
+
+    brightcove.createExperience(player, playerContainer, true);
+  }
+}
+
+function removePlayer() {
+
+  if(isPlayerAdded == true) {
+    isPlayerAdded = false;
+
+    brightcove.removeExperience(playerName);
+  }
+
+}
+</script>
