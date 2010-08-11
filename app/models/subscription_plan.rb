@@ -33,4 +33,16 @@ class SubscriptionPlan < ActiveRecord::Base
     self.name == 'Free'
   end
 
+  def is_monthly_premium?
+    self.name == 'Premium' && self.renewal_period == 1
+  end
+
+  def is_spring_special?
+    self.name == 'Spring Signup Special' && self.renewal_period == 4
+  end
+
+  def is_annual_premium?
+    self.name == 'Premium' && self.renewal_period == 12
+  end
+
 end

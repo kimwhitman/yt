@@ -334,7 +334,7 @@ class User < ActiveRecord::Base
   end
 
   def assign_mailchimp_groups
-    # NOTE: Any changes to the group names in Mailchimp has to be reflected here, or these group additions will fail
+    # IMPORTANT: Any changes to the group names in Mailchimp has to be reflected here, or these group additions will fail
     # Also, changes must be made to config/mailchimp.yml, where the group ids are set
 
     # Free Members (2)
@@ -370,9 +370,11 @@ class User < ActiveRecord::Base
         paid_groups = []
         if self.account && !self.account.subscription.subscription_plan.is_free?
           paid_groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
-          paid_groups << 'Monthly recurring subscribers' if self.subscription_plan.name == 'Premium' && self.subscription_plan.renewal_period == 1
-          paid_groups << '4 month prepaid subscribers' if self.subscription_plan.name == 'Spring Signup Special' && self.subscription_plan.renewal_period == 4
-          paid_groups << '1 year prepaid subscribers' if self.subscription_plan.name == 'Premium' && self.subscription_plan.renewal_period == 12
+          unless self.subscription.is_cancelled?
+            paid_groups << 'Monthly recurring subscribers' if self.subscription_plan.is_monthly_premium?
+            paid_groups << '4 month prepaid subscribers' if self.subscription_plan.is_spring_special?
+            paid_groups << '1 year prepaid subscribers' if self.subscription_plan.is_annual_premium?
+          end
         end
         paid_groups = paid_groups.empty? ? '' : paid_groups.join('\,')
 

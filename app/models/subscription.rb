@@ -484,7 +484,7 @@ class Subscription < ActiveRecord::Base
     end
 
     def analyse_for_mailchimp_group_changes
-      if self.subscription_plan_id_changed?
+      if self.subscription_plan_id_changed? || (self.is_cancelled_changed? && self.is_cancelled == true)
         self.account.users.last.assign_mailchimp_groups unless self.account.users.empty?
       end
     end
