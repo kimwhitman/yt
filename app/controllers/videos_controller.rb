@@ -3,8 +3,8 @@ class VideosController < ApplicationController
 
   def brightcove_test
     brightcove = Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGocO1HmQlj4SbNKlo_YoP_ow..')
-    respone = brightcove.get('find_all_videos',  {:page_size => 10})
-    @brightcove_video = respone['items'].first
+    response = brightcove.get('find_all_videos',  {:page_size => 10})
+    @brightcove_video = response['items'].first
   end
 
 
