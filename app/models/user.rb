@@ -353,7 +353,7 @@ class User < ActiveRecord::Base
     #   All Paid Members by Ambassador Invitation
 
     begin
-      if @assigning_mailchimp_groups.nil?
+      if self.mailchimp_id && @assigning_mailchimp_groups.nil?
         @assigning_mailchimp_groups = true
 
         free_groups = []
