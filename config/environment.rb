@@ -23,7 +23,7 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
   config.gem 'aasm', :version => '2.1.5'
-  config.gem 'brightcove-api', :version => '1.0.0'
+  config.gem 'brightcove-api', :version => '1.0.2'
   config.gem 'fakeweb', :version => '1.2.8'
   config.gem 'httparty', :version => '0.5.2'
   config.gem 'exceptional'
@@ -33,6 +33,7 @@ Rails::Initializer.run do |config|
   config.gem 'calendar_date_select', :version => '1.15'
   config.gem 'fastercsv', :version => '1.4'
   config.gem 'paperclip'
+  config.gem 'hashie'
 
   #config.gem 'rmagick', :lib => 'RMagick' (EAE - skip for jruby)
   # Only load the plugins named here, in the order given. By default, all plugins
