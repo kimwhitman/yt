@@ -98,4 +98,24 @@ describe Video do
       Video.upcoming.should_not include(@video_3)
     end
   end
+  
+  describe "Converting Brightcove Reference ID" do
+    it "should insert two zeros after the first character and remove any suffixes when the prefix is 2 characters in size" do
+      reference_id = 'A7-HD'
+      
+      Video.convert_brightcove_reference_id(reference_id).should == 'A007'
+    end
+    
+    it "should insert a zero after the first character and remove any suffixes when the prefix is 3 characters in size" do
+      reference_id = 'A07-HD'
+      
+      Video.convert_brightcove_reference_id(reference_id).should == 'A007'
+    end
+    
+    it "should not insert zeros but should remove suffixes when the prefix is more than 3 characters in size" do
+      reference_id = 'A0007-HD'
+      
+      Video.convert_brightcove_reference_id(reference_id).should == 'A0007'
+    end
+  end
 end

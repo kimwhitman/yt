@@ -1,4 +1,9 @@
 class Video < ActiveRecord::Base
+  class_inheritable_hash :brightcove_api
+
+  self.brightcove_api = { :read => Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGocO1HmQlj4SbNKlo_YoP_ow..'),
+    :write => Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGohy23aAxSviXipfc7WCQV6w..')}
+
   belongs_to :skill_level
   #has_one :video_focus_category, :through => :video_focus
   has_many :featured_videos, :dependent => :destroy
@@ -128,6 +133,19 @@ class Video < ActiveRecord::Base
     :subscribers => 2.99
   }
 
+  def self.convert_brightcove_reference_id(reference_id)
+    if reference_id
+      converted_name = reference_id.gsub('_PV', '').gsub('-HD', '')
+
+      case converted_name.size
+        when 2 : converted_name.insert(1, '00')
+        when 3 : converted_name.insert(1, '0')
+      end
+
+      converted_name
+    end
+  end
+
   def score
     # We're only doing whole stars for now.
     # half-stars come later.
@@ -251,6 +269,17 @@ class Video < ActiveRecord::Base
     rescue Exception => e
       Rails.logger.info "Could not retrieve download_url for #{self.id}; #{e.inspect}"
       nil
+  end
+
+  def fetch_from_brightcove
+    return nil if self.brightcove_id.blank?
+    Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_id }))
+  end
+
+  def update_brightcove_data!
+    Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_id,
+      :customFields => { :instructor => self.instructors.map(&:name).join(', '), :skilllevel => self.skill_level.name },
+      :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
 
   protected
