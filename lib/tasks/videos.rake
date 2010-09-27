@@ -1,4 +1,42 @@
 namespace :videos do
+  desc "Initial Import"
+  task :initial_import => :environment do
+    require 'json/pure'
+
+    brightcove_videos = []
+    page_number = 0
+    loop do
+      puts "Page Number #{page_number}"
+      videos = Hashie::Mash.new(Video.brightcove_api[:read].get('find_all_videos',
+        { :page_size => 100, :page_number => page_number, :custom_fields => 'skill,instructor' }))
+      break if videos.items.blank?
+      brightcove_videos << videos
+      page_number += 1
+    end
+
+    found_videos = []
+
+    brightcove_videos.first.items.each do |brightcove_video|
+      puts "Processing video #{brightcove_video.name}"
+      video = Video.find_by_friendly_name(Video.convert_brightcove_reference_id(brightcove_video.referenceId))
+
+      if video
+        video.update_attributes(:brightcove_id => brightcove_video.id)
+        puts "Updating Data on Brightcove..."
+        video.reload
+        response = video.update_brightcove_data!
+      end
+
+      if video
+        found_videos << video
+      else
+        puts "Could not find matching video for #{brightcove_video.name} with reference ID #{brightcove_video.referenceId} : #{Video.convert_brightcove_reference_id(brightcove_video.referenceId)}"
+      end
+    end
+
+    puts "Videos Found #{found_videos.size}"
+  end
+
   desc "Query and display YogaToday media in the Delve Platform."
   task :list_remote => [:environment] do
     target = REMOTE_MEDIA_ENDPOINT
