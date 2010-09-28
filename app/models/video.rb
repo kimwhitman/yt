@@ -1,9 +1,4 @@
 class Video < ActiveRecord::Base
-  class_inheritable_hash :brightcove_api
-
-  self.brightcove_api = { :read => Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGocO1HmQlj4SbNKlo_YoP_ow..'),
-    :write => Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGohy23aAxSviXipfc7WCQV6w..')}
-
   belongs_to :skill_level
   #has_one :video_focus_category, :through => :video_focus
   has_many :featured_videos, :dependent => :destroy
@@ -132,6 +127,11 @@ class Video < ActiveRecord::Base
     :everyone => 3.99,
     :subscribers => 2.99
   }
+
+  def self.brightcove_api
+    { :read => Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGocO1HmQlj4SbNKlo_YoP_ow..'),
+      :write => Brightcove::API.new('ctb2F9B1IE23UcaR00CF0QjxvTeMKZGohy23aAxSviXipfc7WCQV6w..')}
+  end
 
   def self.convert_brightcove_reference_id(reference_id)
     if reference_id
