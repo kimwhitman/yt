@@ -94,3 +94,5 @@ ExceptionNotifier.sender_address = %("YogaToday Application Error" <app.error@yo
 ExceptionNotifier.email_prefix = "[YOGATODAY-ERROR] "
 
 Synthesis::AssetPackage.merge_environments = ["staging", "production"]
+
+BRIGHTCOVE_API_KEYS = YAML.load(File.open("#{RAILS_ROOT}/config/brightcove.yml")).symbolize_keys!
