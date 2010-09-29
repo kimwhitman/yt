@@ -130,7 +130,7 @@ class Video < ActiveRecord::Base
 
   def self.brightcove_api
     { :read => Brightcove::API.new(BRIGHTCOVE_API_KEYS[:read]),
-      :write => Brightcove::API.new(BRIGHTCOVE_API_KEYS[:write]}
+      :write => Brightcove::API.new(BRIGHTCOVE_API_KEYS[:write])}
   end
 
   def self.convert_brightcove_reference_id(reference_id)
