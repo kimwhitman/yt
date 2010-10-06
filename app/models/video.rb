@@ -158,12 +158,17 @@ class Video < ActiveRecord::Base
     page_number = 0
     loop do
       videos = Hashie::Mash.new(Video.brightcove_api[:read].get(method, video_options.merge!(:page_number => page_number)))
-      brightcove_videos << videos
+
       break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
+
+      videos.first.each do |video|
+        brightcove_videos << video unless video.is_a? String
+      end
+
       page_number += 1
     end
 
-    return brightcove_videos.first
+    return brightcove_videos.flatten
   end
 
   def score
