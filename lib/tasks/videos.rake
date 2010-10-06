@@ -3,20 +3,11 @@ namespace :videos do
   task :initial_import => :environment do
     require 'json/pure'
 
-    brightcove_videos = []
-    page_number = 0
-    loop do
-      puts "Page Number #{page_number}"
-      videos = Hashie::Mash.new(Video.brightcove_api[:read].get('find_all_videos',
-        { :page_size => 100, :page_number => page_number, :custom_fields => 'skill,instructor' }))
-      break if videos.items.blank?
-      brightcove_videos << videos
-      page_number += 1
-    end
+    brightcove_videos = Video.fetch_videos_from_brightcove('find_all_videos')
 
     found_videos = []
 
-    brightcove_videos.first.items.each do |brightcove_video|
+    brightcove_videos.each do |brightcove_video|
       puts "Processing video #{brightcove_video.name}"
       video = Video.find_by_friendly_name(Video.convert_brightcove_reference_id(brightcove_video.referenceId))
 
