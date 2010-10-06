@@ -277,8 +277,10 @@ class Video < ActiveRecord::Base
   end
 
   def update_brightcove_data!
-    Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_id,
-      :customFields => { :instructor => self.instructors.map(&:name).join(', '), :skilllevel => self.skill_level.name },
+    Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_id, :name => self.title,
+      :customFields => { :instructor => self.instructors.map(&:name).join(', '), :skilllevel => self.skill_level.name,
+        :relatedvideos => self.related_videos.map(&:title).join(', '), :videofocus => self.video_focus.map(&:name).join(', '),
+        :public => self.is_public.to_s.titleize },
       :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
 
