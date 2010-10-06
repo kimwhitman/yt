@@ -146,6 +146,26 @@ class Video < ActiveRecord::Base
     end
   end
 
+  def self.fetch_videos_from_brightcove(method, options = {})
+    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus' }
+
+    # Convert UNIX epoch time to minutes
+    options[:from_date] = ((Time.now - options[:updated_since]).to_i / 60) if options[:updated_since]
+
+    video_options.merge!(options)
+
+    brightcove_videos = []
+    page_number = 0
+    loop do
+      videos = Hashie::Mash.new(Video.brightcove_api[:read].get(method, video_options.merge!(:page_number => page_number)))
+      brightcove_videos << videos
+      break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
+      page_number += 1
+    end
+
+    return brightcove_videos.first
+  end
+
   def score
     # We're only doing whole stars for now.
     # half-stars come later.
