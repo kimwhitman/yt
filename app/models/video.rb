@@ -171,6 +171,22 @@ class Video < ActiveRecord::Base
     return brightcove_videos.flatten
   end
 
+  def self.import_videos_from_brightcove(updated_since = 3600)
+    brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
+
+    brightcove_videos.each do |brightcove_video|
+      video = Video.find_or_initialize_by_friendly_id(brightcove_video.referenceId)
+
+      video_attributes = { :title => brightcove_video.name, duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
+        :published_at => brightcove_video.publishedDate.to_i,
+        :is_public => brightcove_video.customFields.public == 'True' ? true : false
+        :created_at => video.new_record? ? Time.now : brightcove_video.creationDate.to_i,
+        :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
+        :description => brightcove_video.longDescription }
+    end
+  end
+
+
   def score
     # We're only doing whole stars for now.
     # half-stars come later.
