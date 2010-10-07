@@ -175,17 +175,29 @@ class Video < ActiveRecord::Base
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
 
     brightcove_videos.each do |brightcove_video|
-      video = Video.find_or_initialize_by_friendly_id(brightcove_video.referenceId)
+      if Video.full_version?(brightcove_video)
+        video = Video.find_or_initialize_by_friendly_id(brightcove_video.referenceId)
 
-      video_attributes = { :title => brightcove_video.name, duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
-        :published_at => brightcove_video.publishedDate.to_i,
-        :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
-        :created_at => video.new_record? ? Time.now : brightcove_video.creationDate.to_i,
-        :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
-        :description => brightcove_video.longDescription }
+        video_attributes = { :title => brightcove_video.name,
+          :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
+          :published_at => brightcove_video.publishedDate.to_i,
+          :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
+          :created_at => video.new_record? ? Time.now : brightcove_video.creationDate.to_i,
+          :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
+          :description => brightcove_video.longDescription,
+          :brightcove_full_video_id => brightcove_video.id,
+          :brightcove_full_preview_id => brightcove_video.customFields.previewVideo }
+
+        video.attributes = video_attributes
+
+        video.save
+      end
     end
   end
 
+  def self.full_version?(reference_id)
+    reference_id.include?('-HD') ? true : false
+  end
 
   def score
     # We're only doing whole stars for now.
@@ -313,15 +325,18 @@ class Video < ActiveRecord::Base
   end
 
   def fetch_from_brightcove
-    return nil if self.brightcove_id.blank?
-    Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_id }))
+    return nil if self.brightcove_full_video_id.blank?
+    Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id }))
   end
 
   def update_brightcove_data!
-    Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_id, :name => self.title,
-      :customFields => { :instructor => self.instructors.map(&:name).join(', '), :skilllevel => self.skill_level.name,
-        :relatedvideos => self.related_videos.map(&:friendly_name).join(', '), :videofocus => self.video_focus.map(&:name).join(', '),
-        :public => self.is_public.to_s.titleize },
+    Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_full_video_id, :name => self.title,
+      :customFields => { :instructor => self.instructors.map(&:name).join(', '),
+        :skilllevel => self.skill_level.name,
+        :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
+        :videofocus => self.video_focus.map(&:name).join(', '),
+        :public => self.is_public.to_s.titleize,
+        :previewvideo => self.brightcove_preview_video_id.to_s },
       :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
 

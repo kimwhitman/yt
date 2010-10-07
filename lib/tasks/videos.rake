@@ -5,27 +5,48 @@ namespace :videos do
 
     brightcove_videos = Video.fetch_videos_from_brightcove('find_all_videos')
 
-    found_videos = []
+    videos_processed = []
+    preview_videos = []
 
     brightcove_videos.each do |brightcove_video|
-      puts "Processing video #{brightcove_video.name}"
-      video = Video.find_by_friendly_name(Video.convert_brightcove_reference_id(brightcove_video.referenceId))
+      next if brightcove_video.referenceId.blank?
 
-      if video
-        video.update_attributes(:brightcove_id => brightcove_video.id)
-        puts "Updating Data on Brightcove..."
-        video.reload
-        response = video.update_brightcove_data!
-      end
-
-      if video
-        found_videos << video
+      if Video.full_version?(brightcove_video.referenceId)
+        puts "Processing full video #{brightcove_video.name}"
+        video = Video.find_by_friendly_name(Video.convert_brightcove_reference_id(brightcove_video.referenceId))
+        if video
+          video.update_attributes(:brightcove_full_video_id => brightcove_video.id)
+          videos_processed << video
+        else
+          puts "Could not find matching full video for #{brightcove_video.name} with reference ID #{brightcove_video.referenceId} : #{Video.convert_brightcove_reference_id(brightcove_video.referenceId)}"
+        end
       else
-        puts "Could not find matching video for #{brightcove_video.name} with reference ID #{brightcove_video.referenceId} : #{Video.convert_brightcove_reference_id(brightcove_video.referenceId)}"
+        puts "Storing preview video #{brightcove_video.name}"
+        preview_videos << { :reference_id => Video.convert_brightcove_reference_id(brightcove_video.referenceId),
+          :brightcove_id => brightcove_video.id }
       end
     end
 
-    puts "Videos Found #{found_videos.size}"
+    preview_videos.each do |preview_video|
+      video = Video.find_by_friendly_name(preview_video[:reference_id])
+      if video
+        puts "Updating full video with preview video id"
+        video.update_attributes(:brightcove_preview_video_id => preview_video[:brightcove_id])
+        videos_processed << video
+      else
+        puts "Could not find matching full video for preview video #{preview_video[:reference_id]}"
+      end
+    end
+
+    videos_processed.uniq!.each do |video|
+      puts "Updating data on Brightcove for video"
+      response = video.update_brightcove_data!
+      if response['error']
+        puts "There was an error updating this video #{response['message']}"
+      end
+    end
+
+    puts "Processed #{videos_processed.size} videos"
   end
 
   desc "Query and display YogaToday media in the Delve Platform."
