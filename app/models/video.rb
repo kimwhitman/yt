@@ -179,7 +179,7 @@ class Video < ActiveRecord::Base
 
       video_attributes = { :title => brightcove_video.name, duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
         :published_at => brightcove_video.publishedDate.to_i,
-        :is_public => brightcove_video.customFields.public == 'True' ? true : false
+        :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
         :created_at => video.new_record? ? Time.now : brightcove_video.creationDate.to_i,
         :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
         :description => brightcove_video.longDescription }
@@ -320,7 +320,7 @@ class Video < ActiveRecord::Base
   def update_brightcove_data!
     Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_id, :name => self.title,
       :customFields => { :instructor => self.instructors.map(&:name).join(', '), :skilllevel => self.skill_level.name,
-        :relatedvideos => self.related_videos.map(&:title).join(', '), :videofocus => self.video_focus.map(&:name).join(', '),
+        :relatedvideos => self.related_videos.map(&:friendly_name).join(', '), :videofocus => self.video_focus.map(&:name).join(', '),
         :public => self.is_public.to_s.titleize },
       :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
