@@ -147,7 +147,7 @@ class Video < ActiveRecord::Base
   end
 
   def self.fetch_videos_from_brightcove(method, options = {})
-    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus' }
+    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo' }
 
     # Convert UNIX epoch time to minutes
     options[:from_date] = ((Time.now - options[:updated_since]).to_i / 60) if options[:updated_since]
@@ -326,7 +326,8 @@ class Video < ActiveRecord::Base
 
   def fetch_from_brightcove
     return nil if self.brightcove_full_video_id.blank?
-    Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id }))
+    Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo' }))
   end
 
   def update_brightcove_data!
@@ -336,7 +337,8 @@ class Video < ActiveRecord::Base
         :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
         :videofocus => self.video_focus.map(&:name).join(', '),
         :public => self.is_public.to_s.titleize,
-        :previewvideo => self.brightcove_preview_video_id.to_s },
+        :previewvideo => self.brightcove_preview_video_id.to_s,
+        :yogatypes => self.yoga_types.map(&:name).join(', ').gsub("\256", "\xC2\xAE") },
       :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
 
