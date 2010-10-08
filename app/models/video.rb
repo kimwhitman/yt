@@ -327,7 +327,8 @@ class Video < ActiveRecord::Base
   def fetch_from_brightcove
     return nil if self.brightcove_full_video_id.blank?
     Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
-      :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo' }))
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo',
+      :media_delivery => 'http' }))
   end
 
   def update_brightcove_data!
