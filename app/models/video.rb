@@ -151,6 +151,7 @@ class Video < ActiveRecord::Base
 
     # Convert UNIX epoch time to minutes
     options[:from_date] = ((Time.now - options[:updated_since]).to_i / 60) if options[:updated_since]
+    options.delete(:updated_since)
 
     video_options.merge!(options)
 
@@ -158,6 +159,8 @@ class Video < ActiveRecord::Base
     page_number = 0
     loop do
       videos = Hashie::Mash.new(Video.brightcove_api[:read].get(method, video_options.merge!(:page_number => page_number)))
+
+      raise ArgumentError, "Code: #{videos.code}, Error: #{videos.error}" if !videos.errors.blank?
 
       break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
 
@@ -326,9 +329,15 @@ class Video < ActiveRecord::Base
 
   def fetch_from_brightcove
     return nil if self.brightcove_full_video_id.blank?
-    Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
+    response = Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
       :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo',
       :media_delivery => 'http' }))
+
+    if !response.error.blank?
+      raise ArgumentError, "Code: #{response.code}, Error: #{response.error}"
+    else
+      return response
+    end
   end
 
   def update_brightcove_data!
