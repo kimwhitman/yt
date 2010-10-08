@@ -42,7 +42,7 @@ namespace :videos do
       puts "Updating data on Brightcove for video"
       response = video.update_brightcove_data!
       if response['error']
-        puts "There was an error updating this video #{response['message']}"
+        puts "#{response['message']}"
       end
     end
 
