@@ -437,14 +437,16 @@ class User < ActiveRecord::Base
     def setup_newsletter
       return unless @newsletter_changed || !@old_email.blank?
 
-      if Rails.env == 'production'
-        if wants_newsletter
-          ConstantContact.subscribe(self)
-        else
-          ConstantContact.unsubscribe(self)
-        end
-      end
+      # Disabling Constant Contact for now, but leaving method in case we use the same principle with MaleChimp
+      # if Rails.env == 'production'
+      #         if wants_newsletter
+      #           ConstantContact.subscribe(self)
+      #         else
+      #           ConstantContact.unsubscribe(self)
+      #         end
+      #       end
       @newsletter_changed = false
+
     rescue Exception => e
       # In case the CC API doesn't want to talk to us right now.
       Rails.logger.info "Could not contact CC api: #{e}, #{e.backtrace}"
