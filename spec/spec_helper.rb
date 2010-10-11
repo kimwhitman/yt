@@ -2,8 +2,10 @@
 # from the project root directory.
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
+require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 require 'spec/autorun'
 require 'spec/rails'
+require 'fakeweb'
 
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
@@ -19,6 +21,7 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  config.before(:each) { Sham.reset }
 
   # == Fixtures
   #
