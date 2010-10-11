@@ -1,4 +1,5 @@
 class Video < ActiveRecord::Base
+  class BrightcoveApiError < StandardError; end
   belongs_to :skill_level
   #has_one :video_focus_category, :through => :video_focus
   has_many :featured_videos, :dependent => :destroy
@@ -20,12 +21,12 @@ class Video < ActiveRecord::Base
   #has_and_belongs_to_many :yoga_poses
   has_and_belongs_to_many :yoga_types
 
-  validates_presence_of :title, :duration, :description, :streaming_media_id
+  validates_presence_of :title, :duration, :description, :instructors, :yoga_types
   validates_inclusion_of :is_public, :in => [true, false]
   validates_length_of :title, :maximum => 255, :allow_blank => true
   validates_length_of :description, :maximum => 1000, :allow_blank => true
 
-  before_validation :update_duration, :update_tags, :update_caches
+  before_validation :update_caches
 
   # This association is just used for pagination.
   named_scope :related_videos_for, lambda { |id|
@@ -160,7 +161,7 @@ class Video < ActiveRecord::Base
     loop do
       videos = Hashie::Mash.new(Video.brightcove_api[:read].get(method, video_options.merge!(:page_number => page_number)))
 
-      raise ArgumentError, "Code: #{videos.code}, Error: #{videos.error}" if !videos.errors.blank?
+      raise Video::BrightcoveApiError, "Code: #{videos.code}, Error: #{videos.error}" if !videos.errors.blank?
 
       break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
 
@@ -175,6 +176,7 @@ class Video < ActiveRecord::Base
   end
 
   def self.import_videos_from_brightcove(updated_since = 3600)
+    invalid_videos = []
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
 
     brightcove_videos.each do |brightcove_video|
@@ -193,9 +195,31 @@ class Video < ActiveRecord::Base
 
         video.attributes = video_attributes
 
-        video.save
+        # Find Associations
+        instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
+        yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes)]
+        skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
+        video_focuses = []
+        brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
+          video_focuses << VideoFocus.find_by_name(video_focus)
+        end
+        video_focuses.compact!
+
+        # Setup Associations
+        video.instructors << instructors
+        video.yoga_types << yoga_types
+        video.skill_level = skill_level
+        video.video_focus << video_focuses
+
+        if video.valid?
+          video.save
+        else
+          invalid_videos << video
+        end
       end
     end
+    rescue Video::BrightcoveApiError => exception
+      logger.warn("There was an exception returning data from Brightcove. The exception was #{exception}")
   end
 
   def self.full_version?(reference_id)
@@ -334,7 +358,7 @@ class Video < ActiveRecord::Base
       :media_delivery => 'http' }))
 
     if !response.error.blank?
-      raise ArgumentError, "Code: #{response.code}, Error: #{response.error}"
+      raise Video::BrightcoveApiError, "Code: #{response.code}, Error: #{response.error}"
     else
       return response
     end
