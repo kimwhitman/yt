@@ -39,7 +39,7 @@ namespace :videos do
     end
 
     videos_processed.uniq!.each do |video|
-      puts "Updating data on Brightcove for video"
+      puts "Updating data on Brightcove for video #{video.title}"
       response = video.update_brightcove_data!
       if response['error']
         puts "#{response['message']}"
