@@ -217,9 +217,9 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-  def first_name
-    self.name.split.first || ''
-  end
+  # def first_name
+  #     self.name.split.first || ''
+  #   end
 
   def ambassador_invite_with_default_body
     self.ambassador_invites.find(:first, :conditions => ["is_default_body_for_user = ?", true])
