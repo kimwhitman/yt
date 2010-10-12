@@ -10,7 +10,7 @@ class PagesController < ApplicationController
         :url => video_path(fv.video), :time => "#{fv.video.duration_to_minutes}:#{fv.video.duration_seconds}",
         :title => fv.video.title, :skill => fv.video.skill_name,
         :instructors => fv.video.instructor_names.join(', '),
-        :yoga_types => fv.video.style_names.join(', ').gsub("\256", "\xC2\xAE"),
+        :yoga_types => fv.video.style_names.join(', '),
         :free => fv.free?
       }
     end
