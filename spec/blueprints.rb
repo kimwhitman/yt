@@ -8,20 +8,35 @@ Sham.define do
   password { Faker::Lorem.words(4).join('') }
   password_confirmation { password }
   url { 'http://' << Faker::Internet.domain_name }
+  description { Faker::Lorem.words(4).join(' ') }
 end
 
 Instructor.blueprint do
-  name { Faker::Name.name }
+  name
+end
+
+SkillLevel.blueprint do
+  name
+  description
+end
+
+VideoFocus.blueprint do
+  video_focus_category_id { 1 }
+  name
+end
+
+VideoFocusCategory.blueprint do
+  name
 end
 
 Video.blueprint do
   title { Faker::Lorem.words(4).join(' ') }
-  description { Faker::Lorem.words(4).join(' ') }
+  description
   is_public { true }
   duration { 100 }
 end
 
 YogaType.blueprint do
-  name { Faker::Name.name }
-  description { Faker::Lorem.paragraphs(3).to_s }
+  name
+  description
 end
