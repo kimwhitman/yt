@@ -181,7 +181,7 @@ class Video < ActiveRecord::Base
 
     brightcove_videos.each do |brightcove_video|
       if Video.full_version?(brightcove_video)
-        video = Video.find_or_initialize_by_friendly_id(brightcove_video.referenceId)
+        video = Video.find_or_initialize_by_friendly_name(brightcove_video.referenceId)
 
         video_attributes = { :title => brightcove_video.name,
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
@@ -191,7 +191,7 @@ class Video < ActiveRecord::Base
           :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
-          :brightcove_full_preview_id => brightcove_video.customFields.previewVideo }
+          :brightcove_preview_video_id => brightcove_video.customFields.previewVideo }
 
         video.attributes = video_attributes
 
@@ -353,6 +353,7 @@ class Video < ActiveRecord::Base
 
   def fetch_from_brightcove
     return nil if self.brightcove_full_video_id.blank?
+
     response = Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
       :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo',
       :media_delivery => 'http' }))
