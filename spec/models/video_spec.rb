@@ -146,4 +146,41 @@ describe Video do
       Video.convert_brightcove_reference_id(reference_id).should == 'A0007'
     end
   end
+  
+  describe "Querying Brightcove API for videos" do
+    it "should return an array with at least one video" do
+      Brightcove::API.stub!(:get).and_return(valid_brightcove_response)
+      Video.fetch_videos_from_brightcove('find_all_videos', :page_number => 1).should_not be_empty
+    end
+    
+    it "should raise a Video::BrightcoveApiError exception when brightcove returns an error" do
+      Brightcove::API.stub!(:get).and_return(error_brightcove_response)
+      lambda { Video.fetch_videos_from_brightcove('find_all_videos')}.should raise_error(Video::BrightcoveApiError)
+    end
+  end
+  
+  describe "Importing Videos from Brightcove" do
+    it "should import a video with a good response from Brightcove" do
+      Instructor.make(:name => "Sarah Kline")
+      YogaType.make(:name => "Hatha Blend")
+      VideoFocus.make(:name => "Twists")
+      SkillLevel.make(:name => "Yogis")
+      
+      Video.stub!(:full_version?).and_return(true)
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      Video.count.should == 1
+    end
+        
+    it "should not import a video if it's a preview video" do
+      Video.stub!(:full_version?).and_return(false)
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      Video.count.should == 0
+    end
+  end
 end
