@@ -191,7 +191,8 @@ class Video < ActiveRecord::Base
           :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
-          :brightcove_preview_video_id => brightcove_video.customFields.previewVideo }
+          :brightcove_preview_video_id => brightcove_video.customFields.previewVideo,
+          :mds_tags => brightcove_video.tags }
 
         video.attributes = video_attributes
 
