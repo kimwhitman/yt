@@ -148,7 +148,7 @@ class Video < ActiveRecord::Base
   end
 
   def self.fetch_videos_from_brightcove(method, options = {})
-    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo' }
+    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo' }
 
     # Convert UNIX epoch time to minutes
     options[:from_date] = ((Time.now - options[:updated_since]).to_i / 60) if options[:updated_since]
@@ -198,7 +198,8 @@ class Video < ActiveRecord::Base
 
         # Find Associations
         instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
-        yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes)]
+        yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes),
+          YogaType.find_by_name(brightcove_video.customFields.yogatypes2)].compact
         skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
         video_focuses = []
         brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
@@ -352,7 +353,7 @@ class Video < ActiveRecord::Base
     return nil if self.brightcove_full_video_id.blank?
 
     response = Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
-      :custom_fields => 'skilllevel,instructor,public,yogatypes,relatedvideos,videofocus,previewvideo',
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo',
       :media_delivery => 'http' }))
 
     if !response.error.blank?
@@ -370,7 +371,8 @@ class Video < ActiveRecord::Base
         :videofocus => self.video_focus.map(&:name).join(', '),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
-        :yogatypes => self.yoga_types.map(&:name).join(', ').gsub("\256", "\xC2\xAE") },
+        :yogatypes => self.yoga_types.first.name.gsub("\256", "\xC2\xAE"),
+        :yogatypes2 => (self.yogatypes.size > 1 ? self.yoga_types.last.name.gsub("\256", "\xC2\xAE") : '') },
       :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
 
