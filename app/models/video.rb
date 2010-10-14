@@ -310,20 +310,16 @@ class Video < ActiveRecord::Base
   # API-accessing functions
   def thumbnail_url
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do
-      remote_properties['thumbnail_url']
+      self.fetch_from_brightcove.thumbnailURL
     end
   end
 
   def tags
-    Rails.cache.fetch("video_#{id}_remote_tags") do
-      remote_properties['tags']
-    end
+    self.mds_tags
   end
 
   def duration_in_milliseconds
-    Rails.cache.fetch("video_#{id}_remote_duration") do
-      remote_properties['duration_in_milliseconds']
-    end
+    self.duration
   end
 
   # Get an Amazon S3 download URL for this media.
@@ -380,26 +376,7 @@ class Video < ActiveRecord::Base
 
   protected
 
-  def remote_properties(media_id = nil)
-    media_id ||= streaming_media_id
-    @remote_properties ||= ActiveSupport::JSON.decode(RestClient.get "#{REMOTE_ORG_ENDPOINT}/media/#{media_id}/properties.json")
-  rescue RestClient::ExceptionWithResponse => e
-    Rails.logger.info "An error occured trying to retrieve media remote properties: #{e.message} || #{e.response.body}"
-  end
-
-  def update_duration
-    if self.streaming_media_id_changed? || self.downloadable_media_id_changed?
-      media_id = self.streaming_media_id || self.downloadable_media_id
-      return unless media_id
-      self.duration = remote_properties(media_id)['duration_in_milliseconds'].to_i / 1000
+    def update_caches
+      self.video_focus_cache = self.video_focus.collect(&:name).join(',')
     end
-  end
-
-  def update_tags
-    self.mds_tags = self.tags.to_s
-  end
-
-  def update_caches
-    self.video_focus_cache = self.video_focus.collect(&:name).join(',')
-  end
 end
