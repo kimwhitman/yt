@@ -88,6 +88,8 @@ ActionController::Routing::Routes.draw do |map|
   map.purchase '/purchase/:id', :controller => 'purchases', :action => 'show'
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
 
+  map.master_feed '/master_feed.:format', :controller => 'master_feed', :action => 'index'
+
   # This has to be the last route before the defaults
   map.share_url '/sr/:id', :controller => 'share_urls', :action => 'show'
 
