@@ -1,4 +1,5 @@
 require 'digest/sha1'
+include UserImport
 
 class User < ActiveRecord::Base
   # Associations
