@@ -103,6 +103,5 @@ if mailchimp_config = YAML.load(File.open("#{ Rails.root }/config/mailchimp.yml"
   MAILCHIMP_AMBASSADORS_GROUP_ID = mailchimp_config[Rails.env]['ambassadors_group_id']
   MAILCHIMP_PAID_GROUP_ID = mailchimp_config[Rails.env]['paid_group_id']
   MAILCHIMP_NEWSLETTER_LIST_ID = mailchimp_config[Rails.env]['newsletter_list_id']
-  MAILCHIMP_NEWSLETTER_GROUP_ID = mailchimp_config[Rails.env]['newsletter_group_id']
 end
 
