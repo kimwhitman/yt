@@ -372,7 +372,7 @@ class Video < ActiveRecord::Base
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
         :yogatypes => self.yoga_types.first.name.gsub("\256", "\xC2\xAE"),
-        :yogatypes2 => (self.yogatypes.size > 1 ? self.yoga_types.last.name.gsub("\256", "\xC2\xAE") : '') },
+        :yogatypes2 => (self.yoga_types.size > 1 ? self.yoga_types.last.name.gsub("\256", "\xC2\xAE") : '') },
       :tags => (self.tags.blank? ? [] : [self.tags]) })
   end
 
