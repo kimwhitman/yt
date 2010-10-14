@@ -1,12 +1,14 @@
 var brightcovePlayer = {
   "params": {
-    playerID:"107142267001",
+    playerID:"587214493001",
     publishedID:"105925308001",
     bgcolor:"#ffffff",
-    width:"600",
-    height:"400",
+    width:"566",
+    height:"318",
     isVid:"true",
+    isUI:"true",
     videoId:"0",
+    playerKey:"AQ%2E%2E,AAAAGKmj7mE%2E,mo4U6jieCmBlzspTCceSHSMrjk4_eTc6"
   },
   startPlayer:function(){
     isPlayerAdded = true;
