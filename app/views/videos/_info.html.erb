@@ -1,35 +1,47 @@
-    <div id="instructor_info">
-      <div>
-        <span class="arial16_bold_green"><%= video.title %></span><br/>
-      </div>
-      <div><img height="3" width="1" src="/images/spacer.gif"/></div>
+<div class="details"><h1><%= video.title %></h1>
 
-      <div>
-        <div class='video_overall_rating' style='display:inline'>
-          <%= render_star_rating(video.score, :name => 'header_rating') %>  
-        </div>
-        <a class="verdana10_gray" href="#RIGHT_HERE_RIGHT_NOW" onclick="discussionChange('review_display_button','review_display');$.scrollTo('#review_display', 800);"><span class='review_count'><%= video.reviews.public.count %></span> reviews</a>
-      </div>
-
-      <div><img height="34" width="1" src="/images/spacer.gif"/></div>
-      <% unless video.instructors.blank? %>
-        <% if video.instructors.first.photo? %>
-          <div id="instructor_photo">
-            <%= image_tag video.instructors.first.photo.url, :style=> 'max-width:84px;max-height:121px;' %>
-          </div>
-        <% end %>
-      <% end %>
-      <div id="instructor_stats">
-        <strong>Skill Level: </strong><%= video.skill_name %><br/>
-        <strong>Style: </strong><%= video.style_names.join(', ')  %> <br/>
-        <strong>Focus: </strong><%= video.focus_name  %> <br/>
-        <strong>Length: </strong><%= video.duration_to_minutes %>:<%= video.duration_seconds %><br/>
-        <strong>Instructor: </strong><%= video.instructor_names.join(', ')  %><br/>
-      </div>
-
-
+  <div style="margin-bottom: 15px;">
+    <div class='video_overall_rating' style='display:inline'>
+      <%= render_star_rating(video.score, :name => 'header_rating') %>  
     </div>
+    <a class="verdana10_gray" href="#RIGHT_HERE_RIGHT_NOW" onclick="discussionChange('review_display_button','review_display');$.scrollTo('#review_display', 800);"><span class='review_count'><%= video.reviews.public.count %></span> reviews</a>
+  </div>
 
-    <div id="class_description">
-      <%= video.description %>
-    </div>
+  <% unless video.instructors.blank? %>
+    <% if video.instructors.first.photo? %>
+      <div id="instructor_photo">
+        <%= image_tag video.instructors.first.photo.url, :style=> 'max-width:84px;max-height:121px;' %>
+      </div>
+    <% end %>
+  <% end %>
+  
+  <div class="details" style="margin:0 0 0 89px;">
+    <p><strong>Skill Level:</strong> <%= video.skill_name %></p>
+    <p><strong>Style:</strong> <%= video.style_names.join(', ')  %></p>
+    <p><strong>Focus:</strong> <%= video.focus_name  %></p>
+    <p><strong>Length:</strong> <%= video.duration_to_minutes %>:<%= video.duration_seconds %></p>
+    <p><strong>Instructor:</strong> <%= video.instructor_names.join(', ')  %></p>
+  </div>
+  <div style="clear:both;"></div>
+
+</div>
+
+<div id="detail_menu">
+<ul>
+	<li><a href="#">Description</a></li>
+    <li><a href="#">Poses</a></li>
+    <li><a href="#">Search Tags</a></li>
+</ul>
+</div>
+
+<div id="detail_menu_description" class="details" style="height:110px; padding-top:10px;">
+<p><%= video.description %></p>
+</div>
+
+<div id="detail_menu_poses" class="details" style="height:110px; padding-top:10px; display: none;">
+<p>Poses</p>
+</div>
+
+<div id="detail_menu_tags" class="details" style="height:110px; padding-top:10px; display: none;">
+<p><%= @video.mds_tags %></p>
+</div>

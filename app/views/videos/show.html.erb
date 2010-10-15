@@ -141,32 +141,37 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
       <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path(:membership => 12), {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
     </div>
   </div>
-  <div style="float: right;" id="container_2col">
-    <div class="grid_line"><img height="1" width="1" src="/images/spacer.gif"/></div>
+  <div class="video_show_sidebar" style="float: right;" id="container_2col">
+    
+    <div class="container_2col" name="header_2col" style="margin: 3px 0 0 0; height:15px; background: url('/images/details_background.png') no-repeat 0px 0px;"></div>
+      
+    <div class="container_2col" name="details_2col" style="margin:0; background: url('/images/details_background_repeated.png') repeat-y 0px 0px;">
+        
+      <div id="info_panel">
+        <% if @preview == nil %>
+          <%= render :partial => 'info', :locals => { :video => @video } %>
+        <% else %>
+          <div class="member_cta">
+          <%= render :partial => 'member', :locals => { :video => @video } %>
+          </div>
+        <% end %>
+      </div>
 
-    <div id="info_panel">
-      <% if @preview == nil %>
-        <%= render :partial => 'info', :locals => { :video => @video } %>
-      <% else %>
-        <%= render :partial => 'member', :locals => { :video => @video } %>
-      <% end %>
+      <div id="class_buttons">
+
+        <% unless (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
+          <%= link_to "<span>Preview</span>", { :action => "show", :id => @video.id, :preview => 'true' }, :class => 'smaller_button', :style => 'float:left' %>
+        <% end %>
+
+        <%= add_video_to_playlist_link "+ My Yoga Queue", @video, :class => 'biga_button', :style => 'float:left' %>
+        <%= add_video_to_cart_link "Buy | #{ number_to_currency(@video.price(current_user)).split('.').first }<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>", @video, :class => 'smaller_button', :style => 'float:left' %>
+
+        <img height="30" width="5" src="/images/spacer.gif"/>
+        <!-- Need better placement for preview button -->
+      </div>
+    
     </div>
-
-    <div id="class_buttons">
-
-      <%= add_video_to_playlist_link "+ My Yoga Queue", @video, :class => 'biga_button', :style => 'float:left' %>
-      <%= add_video_to_cart_link "Buy | #{ number_to_currency(@video.price(current_user)).split('.').first }<span style='vertical-align: top; line-height: 14px; font-size: 9px;'>99</span>", @video, :class => 'smaller_button', :style => 'float:left' %>
-
-      <% unless (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
-        <%= link_to "<span>Preview</span>", { :action => "show", :id => @video.id, :preview => 'true' }, :class => 'smaller_button', :style => 'float:left' %>
-      <% end %>
-      <img height="30" width="5" src="/images/spacer.gif"/>
-      <!-- Need better placement for preview button -->
-    </div>
-
-    <div id="class_description">
-      <strong>Tags: </strong><%= @video.mds_tags %>
-    </div>
+    
   </div>
 
   <div id="page_container">
