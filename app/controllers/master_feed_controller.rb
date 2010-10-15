@@ -11,6 +11,9 @@ class MasterFeedController < ApplicationController
       (CASE WHEN starts_free_at IS NULL THEN 2 ELSE 1 END) ASC;",
       Time.zone.now.beginning_of_week, Time.zone.now.end_of_week,
       Time.zone.now.beginning_of_week, Time.zone.now.end_of_week])
+
+    @user_story = UserStory.by_publish_at.first
+
     render :action => 'index'
   end
 end
