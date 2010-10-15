@@ -38,7 +38,11 @@
 </div>
 
 <div id="detail_menu_tags" class="details" style="height:110px; padding-top:10px; display: none;">
-  <p><%= video.mds_tags %></p>
+  <p>
+    <% video.tags.split(', ').each do |tag| %>
+      <%= link_to tag, video_path(Video.find_by_friendly_name(Video.convert_brightcove_reference_id(tag.upcase))) %>
+    <% end %>
+  </p>
 </div>
 
 <script type="text/javascript">
