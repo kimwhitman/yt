@@ -29,17 +29,12 @@
 <div id="x_detail_menu">
   <ul>
     <li><a id="x_description" href="#">Description</a></li>
-    <li><a id="x_poses" href="#">Poses</a></li>
     <li><a id="x_search_tags" href="#">Search Tags</a></li>
   </ul>
 </div>
 
 <div id="detail_menu_description" class="details" style="height:110px; padding-top:10px;">
   <p><%= video.description %></p>
-</div>
-
-<div id="detail_menu_poses" class="details" style="height:110px; padding-top:10px; display: none;">
-  <p>Poses</p>
 </div>
 
 <div id="detail_menu_tags" class="details" style="height:110px; padding-top:10px; display: none;">
@@ -49,20 +44,22 @@
 <script type="text/javascript">
   jQuery(function($){
     $('#x_detail_menu').click(function(event){
-      var menuItemIds = ['detail_menu_description', 'detail_menu_poses', 'detail_menu_tags'];
-      
+      var menuItemIds = ['detail_menu_description', 'detail_menu_tags'];
+
       var $target = $(event.target);
       var $idName = $target.attr('id').replace('x_', '').replace('search_', '');
-      
-      $(menuItemIds).each(function(item){
-        if (menuItemIds[item].indexOf($idName) > 0) {
-          $('#' + menuItemIds[item]).show();
-        }
-        else {
-          $('#' + menuItemIds[item]).hide();
-        }
-      });
-            
+
+      if ($target.is('a')) {
+        $(menuItemIds).each(function(item){
+          if (menuItemIds[item].indexOf($idName) > 0) {
+            $('#' + menuItemIds[item]).show();
+          }
+          else {
+            $('#' + menuItemIds[item]).hide();
+          }
+        });
+      }
+
       event.preventDefault();
     });
   });
