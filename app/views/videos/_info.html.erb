@@ -14,7 +14,7 @@
       </div>
     <% end %>
   <% end %>
-  
+
   <div class="details" style="margin:0 0 0 89px;">
     <p><strong>Skill Level:</strong> <%= video.skill_name %></p>
     <p><strong>Style:</strong> <%= video.style_names.join(', ')  %></p>
@@ -28,7 +28,7 @@
 
 <div id="detail_menu">
 <ul>
-	<li><a href="#">Description</a></li>
+  <li><a href="#">Description</a></li>
     <li><a href="#">Poses</a></li>
     <li><a href="#">Search Tags</a></li>
 </ul>
@@ -43,5 +43,5 @@
 </div>
 
 <div id="detail_menu_tags" class="details" style="height:110px; padding-top:10px; display: none;">
-<p><%= @video.mds_tags %></p>
+<p><%= video.mds_tags %></p>
 </div>
