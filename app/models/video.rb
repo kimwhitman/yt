@@ -323,30 +323,8 @@ class Video < ActiveRecord::Base
     self.duration
   end
 
-  # Get an Amazon S3 download URL for this media.
-  # :quality: us one of:
-  # => :low, :medium, :high, or :hd
-  def download_url(quality = :hd)
-    return @download_url if @download_url
-    # POST 'http://staging-api.delvenetworks.com/rest/organizations/ id>/media//download_url?quality=<{low,medium,high,hd}>'
-    url = "#{REMOTE_ORG_ENDPOINT}/media/#{downloadable_media_id}/download_url.json"
-    signing_url = "http://#{ENV['api_domain']}/calc_presigned_url"
-    # Replace desired URL with signed copy
-    url = RestClient.post signing_url, {
-      :access_key => DELVE_API_ACCESS_KEY,
-      :secret => DELVE_API_SECRET,
-      :http_verb => 'post',
-      :resource_url => url,
-      :quality => quality.to_s
-    }
-    # Koichi says this is a string. Just a string. So... let's hope it's just a string.
-    @download_url = ActiveSupport::JSON.decode(RestClient.post url, {})
-    rescue RestClient::RequestFailed => rf
-      Rails.logger.info "Could not retrieve download_url for #{self.id}; #{rf.response.body}"
-      nil
-    rescue Exception => e
-      Rails.logger.info "Could not retrieve download_url for #{self.id}; #{e.inspect}"
-      nil
+  def download_url
+    self.fetch_from_brightcove.renditions.select { |video| video.url if video.frameWidth == 640 && video.frameHeight == 360 }.first.url
   end
 
   def fetch_from_brightcove
