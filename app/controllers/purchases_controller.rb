@@ -8,7 +8,7 @@ class PurchasesController < ApplicationController
     # Receiving a purchase_item id here.
     pi = PurchaseItem.find(params[:id])
     if pi.downloadable?
-      url = pi.product.download_url(:hd)
+      url = pi.product.download_url
       unless url.blank?
         pi.last_downloaded_at = DateTime.now
         pi.save
