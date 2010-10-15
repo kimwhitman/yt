@@ -311,7 +311,7 @@ class Video < ActiveRecord::Base
   # API-accessing functions
   def thumbnail_url
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do
-      self.fetch_from_brightcove.thumbnailURL
+      self.fetch_from_brightcove.thumbnailURL if self.fetch_from_brightcove
     end
   end
 
