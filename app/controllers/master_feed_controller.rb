@@ -1,7 +1,7 @@
 class MasterFeedController < ApplicationController
   def index
-    @free_video = FeaturedVideo.free_videos.first
-    @featured_video = FeaturedVideo.find(:first)
+    @free_video = FeaturedVideo.free_videos.last
+    @featured_video = FeaturedVideo.find(:last)
 
     # TODO this is duplicated in the Videos controller, need to consolidate into a model method when time permits
     @this_weeks_videos = Video.find_by_sql(["SELECT videos.id, videos.title, videos.description, videos.streaming_media_id, skill_level_id, published_at,
