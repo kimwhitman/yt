@@ -39,7 +39,7 @@ xml.tag! 'master_feed' do
     xml.tag! "user_story_title", @user_story.title.strip
     xml.tag! "user_story_location", @user_story.location.strip
     xml.tag! "user_story_body", @user_story.story.strip
-    xml.tag! "user_story_photo", 'http://yogatoday.com/system' + @user_story.image.url
+    xml.tag! "user_story_photo", 'http://yogatoday.com' + @user_story.image.url
     xml.tag! "user_story_published_at", pretty_date_for_xml(@user_story.publish_at)
   end
 end
