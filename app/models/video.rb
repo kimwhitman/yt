@@ -175,7 +175,7 @@ class Video < ActiveRecord::Base
     return brightcove_videos.flatten
   end
 
-  def self.import_videos_from_brightcove(updated_since = 3600)
+  def self.import_videos_from_brightcove(updated_since = 86400)
     invalid_videos = []
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
 
