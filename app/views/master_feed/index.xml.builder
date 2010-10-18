@@ -25,13 +25,18 @@ xml.tag! 'master_feed' do
     xml.tag! "lineup_video_#{idx + 1}_description", video.description.strip
     xml.tag! "lineup_video_#{idx + 1}_instuctors", video.instructor_names
     xml.tag! "lineup_video_#{idx + 1}_skill_level", video.skill_name
-    xml.tag! "lineup_video_#{idx + 1}_published_at", pretty_date_for_xml(video.published_at)
+    if @video.could_be_free?
+      xml.tag! "lineup_video_#{idx + 1}_published_at", pretty_date_for_xml(video.starts_free_at)
+    else
+      xml.tag! "lineup_video_#{idx + 1}_published_at", pretty_date_for_xml(video.published_at)
+    end
     xml.tag! "lineup_video_#{idx + 1}_link_url", video_url(video)
     xml.tag! "lineup_video_#{idx + 1}_thumbnail_url", video.thumbnail_url
   end
 
   if @user_story
     xml.tag! "user_story_name", @user_story.name.strip
+    xml.tag! "user_story_title", @user_story.title.strip
     xml.tag! "user_story_location", @user_story.location.strip
     xml.tag! "user_story_body", @user_story.story.strip
     xml.tag! "user_story_photo", 'http://yogatoday.com/system' + @user_story.image.url
