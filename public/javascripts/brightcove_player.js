@@ -8,7 +8,8 @@ var brightcovePlayer = {
     isVid:"true",
     isUI:"true",
     videoId:"0",
-    playerKey:"AQ%2E%2E,AAAAGKmj7mE%2E,mo4U6jieCmBlzspTCceSHSMrjk4_eTc6"
+    playerKey:"AQ%2E%2E,AAAAGKmj7mE%2E,mo4U6jieCmBlzspTCceSHSMrjk4_eTc6",
+		wmode: "transparent"
   },
   startPlayer:function(){
     isPlayerAdded = true;
