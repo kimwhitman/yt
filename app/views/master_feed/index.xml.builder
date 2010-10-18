@@ -25,7 +25,7 @@ xml.tag! 'master_feed' do
     xml.tag! "lineup_video_#{idx + 1}_description", video.description.strip
     xml.tag! "lineup_video_#{idx + 1}_instuctors", video.instructor_names
     xml.tag! "lineup_video_#{idx + 1}_skill_level", video.skill_name
-    if @video.could_be_free?
+    if video.could_be_free?
       xml.tag! "lineup_video_#{idx + 1}_published_at", pretty_date_for_xml(video.starts_free_at)
     else
       xml.tag! "lineup_video_#{idx + 1}_published_at", pretty_date_for_xml(video.published_at)
