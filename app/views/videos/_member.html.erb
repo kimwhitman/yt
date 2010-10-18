@@ -67,6 +67,8 @@
   <% end %>
   <br />
   <div><img height="20" width="1" src="/images/spacer.gif"/></div>
+<% elsif logged_in? && current_user.has_paying_subscription? %>
+  <%= render :partial => 'info', :locals => { :video => @video } %>
 <% else %>
   <div><img height="3" width="1" src="/images/spacer.gif"/></div>
   <div style="float: left">
