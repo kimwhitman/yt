@@ -342,16 +342,23 @@ class Video < ActiveRecord::Base
   end
 
   def update_brightcove_data!
-    Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_full_video_id, :name => self.title,
+    response = Hashie::Mash.new(Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_full_video_id, :name => self.title,
+      :longDescription => self.description,
       :customFields => { :instructor => self.instructors.map(&:name).join(', '),
         :skilllevel => self.skill_level.name,
         :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
         :videofocus => self.video_focus.map(&:name).join(', '),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
-        :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.gsub("\256", "\xC2\xAE") : ''),
-        :yogatypes2 => (self.yoga_types.size > 1 ? self.yoga_types.last.name.gsub("\256", "\xC2\xAE") : '') },
-      :tags => (self.tags.blank? ? [] : [self.tags]) })
+        :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip.gsub("\256", "\xC2\xAE") : ''),
+        :yogatypes2 => (self.yoga_types.size > 1 ? self.yoga_types.last.name.strip.gsub("\256", "\xC2\xAE") : '') },
+      :tags => (self.tags.blank? ? [] : [self.tags]) }))
+
+      if !response.error.blank?
+        raise Video::BrightcoveApiError, "Code: #{response.code}, Error: #{response.error}"
+      else
+        return response
+      end
   end
 
   protected
