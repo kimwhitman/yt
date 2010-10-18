@@ -9,8 +9,8 @@ development:
   free_group_id:
   ambassadors_group_id:
   paid_group_id:
-  newsletter_list_id: ''
-  newsletter_group_id: 45
+  non_members_list_id:
+  newsletter_list_id:
 
 test:
   login:
@@ -20,8 +20,8 @@ test:
   free_group_id:
   ambassadors_group_id:
   paid_group_id:
-  newsletter_list_id: ''
-  newsletter_group_id: 45
+  non_members_list_id:
+  newsletter_list_id:
 
 production:
   login:
@@ -31,5 +31,5 @@ production:
   free_group_id: 2
   ambassadors_group_id: 26
   paid_group_id: 34
-  newsletter_list_id: ''
-  newsletter_group_id: 45
+  non_members_list_id: '66f992c0b0'
+  newsletter_list_id: '9f5227144d'
