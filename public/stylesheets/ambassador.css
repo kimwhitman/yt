@@ -2,29 +2,23 @@
   position: relative;
   height: 526px;
   width: 524px;
-  background: url('/images/home_hero_new-classes.jpg') no-repeat 0px 0px;
+  background: url('/images/home_hero_share-yoga-today.jpg') no-repeat 0px 0px;
 }
-#homepage_intro_promo div.home_hero_share a.check_the_lineup {
+#homepage_intro_promo div.home_hero_share a.learn_how {
   display: block;
   position: absolute;
-  top: 138px;
-  left: 29px;
-  padding: 0;
+  top: 130px;
+  left: 48px;
+  background: url('/images/home_bullet_notch.gif') no-repeat 0px 1px;
+  padding: 0 0 0 10px;
   margin: 0;
+  color: #ffffff;
   text-decoration: none;
   font-size: 12px;
+  font-weight: bold;
   line-height: 12px;
-  text-indent: -999em;
-  background: url('/images/home_hero_button_check-the-lineup.png');
-  height: 22px;
-  width: 124px;
 }
-#homepage_intro_promo div.home_hero_share a.check_the_lineup:active {
-  top: 139px;
-  moz-opacity: 0.9;
-  filter: alpha(opacity=90);
-  opacity: 0.9;
-}
+#homepage_intro_promo div.home_hero_share a.learn_how:hover { text-decoration: underline; }
 #home_200videos_signup {
   background: url('/images/home_hero_signup.png') no-repeat 0px -21px;
   height: 289px;
