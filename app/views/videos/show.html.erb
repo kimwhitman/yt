@@ -134,6 +134,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
     <div id="slug" style="margin-left:35px;">
       <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
     </div>
+    <div id="adCompanionBanner" style="margin-left:35px;"></div>
     </div>
     <div class="promo_yt365_wide">
       <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
@@ -142,11 +143,11 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
     </div>
   </div>
   <div class="video_show_sidebar" style="float: right;" id="container_2col">
-    
+
     <div class="container_2col" name="header_2col" style="margin: 3px 0 0 0; height:15px; background: url('/images/details_background.png') no-repeat 0px 0px;"></div>
-      
+
     <div class="container_2col" name="details_2col" style="margin:0; background: url('/images/details_background_repeated.png') repeat-y 0px 0px;">
-        
+
       <div id="info_panel">
         <% if @preview == nil %>
           <%= render :partial => 'info', :locals => { :video => @video } %>
@@ -169,9 +170,9 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
         <img height="30" width="5" src="/images/spacer.gif"/>
         <!-- Need better placement for preview button -->
       </div>
-    
+
     </div>
-    
+
   </div>
 
   <div id="page_container">
@@ -554,6 +555,12 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
 
 
 <script type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+<script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js"></script>
+<script type"text/javascript">
+  function displayCompanionBanners(banners) {
+    tmDisplayBanner(banners,"adCompanionBanner", 300, 250);
+  }
+</script>
 <script type="text/javascript">
   <% if (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
     brightcovePlayer.params.videoId = '<%= @video.brightcove_full_video_id -%>';
