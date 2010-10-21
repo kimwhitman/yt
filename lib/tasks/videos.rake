@@ -14,7 +14,8 @@ namespace :videos do
       if Video.full_version?(brightcove_video.referenceId)
         puts "Processing full video #{brightcove_video.name}"
         video = Video.find_by_friendly_name(Video.convert_brightcove_reference_id(brightcove_video.referenceId))
-        if video && video.update_attribute(:brightcove_full_video_id, brightcove_video.id)
+        if video && video.update_attributes(:brightcove_full_video_id => brightcove_video.id,
+            :brightcove_player_id => brightcove_video.customFields.assignedplayerid)
           videos_processed << video
         else
           puts "Could not find matching full video for #{brightcove_video.name} with reference ID #{brightcove_video.referenceId} : #{Video.convert_brightcove_reference_id(brightcove_video.referenceId)}"
