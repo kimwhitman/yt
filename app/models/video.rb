@@ -1,4 +1,7 @@
 class Video < ActiveRecord::Base
+
+  DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
+
   class BrightcoveApiError < StandardError; end
   belongs_to :skill_level
   #has_one :video_focus_category, :through => :video_focus
@@ -148,7 +151,8 @@ class Video < ActiveRecord::Base
   end
 
   def self.fetch_videos_from_brightcove(method, options = {})
-    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo' }
+    video_options = { :page_size => 100,
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo,assignedplayerid' }
 
     # Convert UNIX epoch time to minutes
     options[:from_date] = ((Time.now - options[:updated_since]).to_i / 60) if options[:updated_since]
