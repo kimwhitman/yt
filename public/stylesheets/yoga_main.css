@@ -101,6 +101,7 @@ input.empty {
   text-align: right;
   position: relative;
   overflow: visible;
+	z-index: 2;
 }
 #container #header #yoga_logo {
   position: relative;
@@ -142,6 +143,7 @@ input.empty {
   width: 941px;
   text-align: left;
   overflow: visible;
+	z-index: 1;
 }
 
 #container #menu {
