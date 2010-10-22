@@ -97,9 +97,7 @@ ExceptionNotifier.email_prefix = "[YOGATODAY-ERROR] "
 
 Synthesis::AssetPackage.merge_environments = ["staging", "production"]
 
-<<<<<<< HEAD
 BRIGHTCOVE_API_KEYS = YAML.load(File.open("#{RAILS_ROOT}/config/brightcove.yml")).symbolize_keys!
-=======
 if mailchimp_config = YAML.load(File.open("#{ Rails.root }/config/mailchimp.yml"))
   MAILCHIMP_LOGIN = mailchimp_config[Rails.env]['login']
   MAILCHIMP_PASSWORD = mailchimp_config[Rails.env]['password']
@@ -110,5 +108,3 @@ if mailchimp_config = YAML.load(File.open("#{ Rails.root }/config/mailchimp.yml"
   MAILCHIMP_PAID_GROUP_ID = mailchimp_config[Rails.env]['paid_group_id']
   MAILCHIMP_NEWSLETTER_LIST_ID = mailchimp_config[Rails.env]['newsletter_list_id']
 end
-
->>>>>>> master
