@@ -132,9 +132,6 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
     <div id="x_video_player"></div>
     </div>
     <div id="slug" style="margin-left:35px;">
-      <!-- <div id="adCompanionBanner">
-        <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
-      </div> -->
     </div>
     </div>
     <div class="promo_yt365_wide">
@@ -556,12 +553,6 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
 
 
 <script type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
-<!-- <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js"></script>
-<script type"text/javascript">
-  function displayCompanionBanners(banners) {
-    tmDisplayBanner(banners,"adCompanionBanner", 300, 250);
-  }
-</script> -->
 <script type="text/javascript">
   brightcovePlayer.params.playerID = <%= @video.brightcove_player_id || Video::DEFAULT_BRIGHTCOVE_PLAYER_ID  %>;
   <% if (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
