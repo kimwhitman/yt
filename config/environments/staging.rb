@@ -29,6 +29,11 @@ config.action_mailer.perform_deliveries = true
 # DELVE_API_ACCESS_KEY = 'xUIk6ov+S6UoeaW6B9NExEx9hGE=';
 # DELVE_API_SECRET = 'yjqn3esX2QMzhbwFU03LXYwjj/s='
 
+config.action_controller.session = {
+  :session_key => '_yogatoday_staging',
+  :secret      => 'hoht9824htr924ht924hth429h429hf92n439rh29hr923r9823yt93qyt98h32f924yr923h93h23d9h230h239fh23fh24th240th240th'
+}
+
 config.log_level = :info
 
 config.after_initialize do
