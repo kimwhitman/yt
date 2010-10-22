@@ -1644,9 +1644,6 @@ input[type="button"].button_cancel {
 }
 
 .lineup ul.lineup_legend {
-	position: absolute;
-	right: 320px;
-  top: 38px;
 	display: block;
 	clear: both;
 	margin: 0;
@@ -1705,7 +1702,7 @@ input[type="button"].button_cancel {
   width: 50%;
 }
 
-.lineup table tr.free td.title {
+.lineup table tr.free td.title {legend
   color: #333;
   background: #efefef url(/images/icons/freeIcon.png) 5px 10px no-repeat;
 }
