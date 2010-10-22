@@ -128,19 +128,17 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
   <div style="float: left;" id="container_4col">
     <div style="width:631px; height:377px; padding-top:30px; background-image:url('/images/playWindow.png'); background-repeat:no-repeat; float:left;">
 
-    <div style="width:566px; height:318px; border:solid 0px #eee; margin-left:35px; background-color:none; text-align:center; padding:0;">
-    <div id="x_video_player"></div>
-    </div>
-    <div id="slug" style="margin-left:35px;">
-      <div id="adCompanionBanner">
+      <div style="width:566px; height:318px; border:solid 0px #eee; margin-left:35px; background-color:none; text-align:center; padding:0;">
+        <div id="x_video_player"></div>
+      </div>
+      <div id="slug" style="margin-left:35px;">
         <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
       </div>
-    </div>
-    </div>
-    <div class="promo_yt365_wide">
-      <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
-      <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
-      <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path(:membership => 12), {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
+      <div class="promo_yt365_wide">
+        <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
+        <%= link_to image_tag( 'button_homepromo_learnmore.png', :alt => 'Learn More' ), get_started_today_url, {:class => 'learn_more_link', :title => 'Get started today'} -%>
+        <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path(:membership => 12), {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
+      </div>
     </div>
   </div>
   <div class="video_show_sidebar" style="float: right;" id="container_2col">
@@ -173,6 +171,8 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
       </div>
 
     </div>
+
+    <div id="adCompanionBanner"></div>
 
   </div>
 
@@ -563,6 +563,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
   }
 </script>
 <script type="text/javascript">
+  brightcovePlayer.params.playerID = <%= @video.brightcove_player_id || Video::DEFAULT_BRIGHTCOVE_PLAYER_ID  %>;
   <% if (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
     brightcovePlayer.params.videoId = '<%= @video.brightcove_full_video_id -%>';
   <% else %>

@@ -1,4 +1,8 @@
 class Video < ActiveRecord::Base
+
+  # DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
+  DEFAULT_BRIGHTCOVE_PLAYER_ID = 587214493001 # Ad enabled player
+
   class BrightcoveApiError < StandardError; end
   alias_attribute :tags, :mds_tags
 
@@ -150,7 +154,8 @@ class Video < ActiveRecord::Base
   end
 
   def self.fetch_videos_from_brightcove(method, options = {})
-    video_options = { :page_size => 100, :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo' }
+    video_options = { :page_size => 100,
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo,assignedplayerid' }
 
     # Convert UNIX epoch time to minutes
     options[:from_date] = ((Time.now - options[:updated_since]).to_i / 60) if options[:updated_since]
