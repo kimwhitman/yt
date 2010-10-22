@@ -22,12 +22,18 @@
   </head>
   <body>
     <div id="container">
+      <!-- Updating site message: -->
+      <div style="background-color: #fff5d9; position: relative; z-index:1; padding: 20px; font-weight: bold;">
+        Please be patient while we are upgrading our video player.We will be back in the flow very shortly. Thanks. Namast&eacute;.
+      </div>
+
       <div id="header">
         <div id="yoga_logo">
           <a title="Yoga Today - Practice for Life" href="<%= root_url  %> ">
             <%= image_tag 'yogatoday-logo-tag-1.gif', :size => '285x70', :border => '0' %>
           </a>
         </div>
+
         <div id="menu">
           <%= render :partial => 'shared/menu' %>
         </div>
@@ -40,6 +46,7 @@
       <%#= render :partial => 'shared/flashes' %>
 
       <%= yield %>
+
     </div>
     <div id="footer">
       <div id="content">
