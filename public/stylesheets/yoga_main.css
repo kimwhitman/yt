@@ -1643,6 +1643,20 @@ input[type="button"].button_cancel {
   margin-top: 65px;
 }
 
+.lineup ul.lineup_legend {
+	display: block;
+	clear: both;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.lineup ul.lineup_legend li {
+	margin: 0;
+	padding: 0 0 0 10px;
+	float: right;
+}
+
 .lineup table {
   width: 100%;
   margin-bottom: 40px;
@@ -1665,6 +1679,15 @@ input[type="button"].button_cancel {
   line-height: 45px;
 }
 
+.lineup table tr.new td.title {
+  background: url(/images/icons/newIcon.png) 5px 12px no-repeat;
+}
+
+.lineup table tr.studio_sessions td.title {
+  background: url(/images/icons/studioSessionsIcon.png) 5px 12px no-repeat;
+}
+
+
 .lineup table tr.free td {
   background: #efefef;
 }
@@ -1679,9 +1702,9 @@ input[type="button"].button_cancel {
   width: 50%;
 }
 
-.lineup table tr.free td.title {
+.lineup table tr.free td.title {legend
   color: #333;
-  background: #efefef url(/images/icon_freeclass_graybg.png) 10px 16px no-repeat;
+  background: #efefef url(/images/icons/freeIcon.png) 5px 10px no-repeat;
 }
 
 .lineup table.thisweek tr.free td {
@@ -1689,7 +1712,7 @@ input[type="button"].button_cancel {
 }
 
 .lineup table.thisweek tr.free td.title {
-  background: #edffe2 url(/images/icon_freeclass_greenbg.png) 10px 15px no-repeat;
+  background: #edffe2 url(/images/icons/freeIcon.png) 5px 10px no-repeat;
 }
 
 .lineup table tr.free td.title span {
