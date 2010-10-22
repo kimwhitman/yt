@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
 
-  DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
+  # DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
+  DEFAULT_BRIGHTCOVE_PLAYER_ID = 587214493001 # Ad enabled player
 
   class BrightcoveApiError < StandardError; end
   belongs_to :skill_level
