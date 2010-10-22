@@ -354,8 +354,8 @@ class Video < ActiveRecord::Base
         :videofocus => self.video_focus.map(&:name).join(', '),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
-        :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip),
-        :yogatypes2 => (self.yoga_types.size > 1 ? self.yoga_types.last.name.strip) },
+        :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip.gsub("\256", "\xC2\xAE") : ''),
+        :yogatypes2 => (self.yoga_types.size > 1 ? self.yoga_types.last.name.strip.gsub("\256", "\xC2\xAE") : '') },
       :tags => (self.tags.blank? ? [] : [self.tags]) }))
 
       if !response.error.blank?
