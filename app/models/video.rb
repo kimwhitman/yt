@@ -215,10 +215,10 @@ class Video < ActiveRecord::Base
         video_focuses.compact!
 
         # Setup Associations
-        video.instructors << instructors
-        video.yoga_types << yoga_types
+        video.instructors << instructors.reject! { |instructor| video.instructors.include?(instructor) }
+        video.yoga_types << yoga_types.reject! { |yoga_type| video.yoga_types.include?(yoga_type) }
         video.skill_level = skill_level
-        video.video_focus << video_focuses
+        video.video_focus << video_focuses.reject! { |video_focus| video.video_focuses.include?(video_focus) }
 
         if video.valid?
           video.save
