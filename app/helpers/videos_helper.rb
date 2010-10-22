@@ -64,7 +64,7 @@ module VideosHelper
 
   def video_icon_class(video)
     return 'free' if video.free?
-    return 'studio_session' if video.tags.downcase.split(',').each { |tag| tag.strip }.include?('studio session')
+    return 'studio_sessions' if video.tags.downcase.split(',').each { |tag| tag.strip }.include?('studio session')
     return 'new'
   end
 end
