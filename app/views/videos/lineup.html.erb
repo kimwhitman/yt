@@ -25,7 +25,7 @@
           <% end -%>
           <span>This week's free class</span></span></td>
       <% else %>
-      <tr>
+      <tr class="<%= video_icon_class(video) %>">
         <td class="title">
           <% if video.published_at >= Time.now -%>
             <%= video.title -%>
@@ -63,7 +63,7 @@
             <%= 2.weeks.ago.beginning_of_week.strftime('%b %e') -%>-<%= 1.weeks.ago.end_of_week.strftime('%b %e') -%></span></th>
         </tr>
         <% @recently_released_videos.each do |video| -%>
-          <tr>
+          <tr class="<%= video_icon_class(video) %>">
             <td class="title">
               <% if video.published_at >= Time.now -%>
                 <%= video.title -%>
@@ -94,7 +94,7 @@
         <tr class="free">
           <td class="title"><span><%= video.title -%> <span>FREE</span></span></td>
         <% else %>
-        <tr>
+        <tr class="<%= video_icon_class(video) %>">
           <td class="title"><%= video.title -%></td>
         <% end %>
           <td class="type"><%= video.skill_name -%> |</td>

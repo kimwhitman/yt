@@ -61,4 +61,10 @@ module VideosHelper
     end
     link_to link_content, path, opts
   end
+
+  def video_icon_class(video)
+    return 'free' if video.free?
+    return 'studio_session' if video.tags.downcase.split(',').each { |tag| tag.strip }.include?('studio session')
+    return 'new'
+  end
 end
