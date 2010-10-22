@@ -38,7 +38,7 @@ end
 namespace :config do
   desc "Make symlink for database yaml"
   task :symlinks do
-    ['database.yml', 'mongrel_cluster.yml'].each do |name|
+    ['database.yml', 'mongrel_cluster.yml', 'mailchimp.yml'].each do |name|
       run "ln -nfs #{shared_path}/#{name} #{release_path}/config/#{name}"
     end
   end

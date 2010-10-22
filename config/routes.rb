@@ -49,6 +49,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users,
       :member => { :cancel_subscription => :post }
   end
+  map.admin_ambassador_referrals '/admin/analytics/ambassador_referrals', :controller => 'admin/analytics',
+    :action => 'ambassador_referrals'
 
 
   # Root-level routes.
@@ -85,6 +87,8 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm_purchase '/confirm-purchase', :controller => 'shopping_cart', :action => 'confirm_purchase'
   map.purchase '/purchase/:id', :controller => 'purchases', :action => 'show'
   map.purchase_item '/purchase/:invoice_no/download/:id', :controller => 'purchases', :action => 'download'
+
+  map.master_feed '/master_feed.:format', :controller => 'master_feed', :action => 'index'
 
   # This has to be the last route before the defaults
   map.share_url '/sr/:id', :controller => 'share_urls', :action => 'show'

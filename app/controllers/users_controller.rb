@@ -251,7 +251,7 @@ class UsersController < ApplicationController
 
     #@subscription.downgrade_to_free
     #current_user.cart_items_to_non_subscription_price
-    @subscription.update_attributes(:is_cancelled => true)
+    @subscription.update_attributes(:is_cancelled => true, :cancelled_at => Time.now)
     @subscription.destroy_gateway_record!
     @subscription.save!
     SubscriptionNotifier.deliver_plan_changed_cancelled(current_user, @subscription)

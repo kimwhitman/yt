@@ -56,8 +56,8 @@ class VideosController < ApplicationController
   def show
     @sorting = sorting
     @video = Video.published.find(params[:id])
-    # @preview = params['preview']
-    @preview = true
+    @preview = params['preview']
+    #@preview = true
     session[:continue_shopping_to] = "show"
     session[:last_video_id] = params[:id]
 

@@ -1,4 +1,5 @@
 require 'digest/sha1'
+include UserImport
 
 class User < ActiveRecord::Base
   # Associations
@@ -24,6 +25,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :email, :on => :create
 
   # Scopes
+  named_scope :ambassadors, :conditions => [ 'ambassador_name IS NOT NULL' ]
 
   # Extensions
   has_attached_file :photo,
@@ -42,6 +44,9 @@ class User < ActiveRecord::Base
   after_save :setup_free_account
   after_save :setup_newsletter
   after_update :setup_share_url
+  after_create :add_to_mailchimp
+  after_save :analyse_for_mailchimp_group_changes
+
 
   # Attributes
   attr_accessor :password
@@ -55,6 +60,14 @@ class User < ActiveRecord::Base
   def name
     # FIXME !read_attribute(:name).blank?? read_attribute(:name) : self.login
     !read_attribute(:name).blank?? read_attribute(:name) : "Anonymous"
+  end
+
+  def subscription
+    self.account ? self.account.subscription : nil
+  end
+
+  def subscription_plan
+    self.account && self.account.subscription ? self.account.subscription.subscription_plan : nil
   end
 
   def subscription_plan_name
@@ -205,9 +218,9 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-  def first_name
-    self.name.split.first || ''
-  end
+  # def first_name
+  #     self.name.split.first || ''
+  #   end
 
   def ambassador_invite_with_default_body
     self.ambassador_invites.find(:first, :conditions => ["is_default_body_for_user = ?", true])
@@ -281,7 +294,6 @@ class User < ActiveRecord::Base
       end
       self.has_rewarded_ambassador = true
       self.save
-      logger.debug "DEBUG: Applied #{ self.ambassador.inspect }"
     end
   end
 
@@ -292,6 +304,105 @@ class User < ActiveRecord::Base
       subscription_plan = self.account.subscription.subscription_plan
     end
     subscription_plan.amount
+  end
+
+  def ambassador_referrals(scoped_to = nil)
+    users = User.scoped :joins => "INNER JOIN accounts ON accounts.id = users.account_id
+      INNER JOIN subscriptions ON subscriptions.account_id = accounts.id
+      INNER JOIN subscription_plans ON subscription_plan_id = subscription_plans.id"
+
+    case scoped_to
+      when 'paid'
+        users = users.scoped :conditions => [ "subscription_plans.name = 'free'" ]
+      when 'free'
+        users = users.scoped :conditions => [ "subscription_plans.name != 'free'" ]
+    end
+
+    users = users.scoped :conditions => [ 'users.ambassador_id = ?', self.id ]
+  end
+
+  def add_to_mailchimp(list_name = "Members")
+    begin
+      hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
+      hominid.subscribe(hominid.find_list_id_by_name(list_name), self.email,
+        {:FNAME => self.name, :LNAME => ''}, {:email_type => 'html'})
+      self.mailchimp_id = hominid.member_info(MAILCHIMP_MEMBERS_LIST_ID, self.email)["id"]
+      self.assign_mailchimp_groups
+
+    rescue Exception => e
+      ErrorMailer.deliver_error(e, :user_id => self.id)
+    end
+  end
+
+  def assign_mailchimp_groups
+    # IMPORTANT: Any changes to the group names in Mailchimp has to be reflected here, or these group additions will fail
+    # Also, changes must be made to config/mailchimp.yml, where the group ids are set
+
+    # Free Members (2)
+    #   Regular Free Members
+    #   Free Members by Ambassador Invitation
+    # Class Download Customers
+    #   Class Download Customers
+    #
+    # Ambassadors (26)
+    #   Ambassadors
+    #
+    # Paid Members (34)
+    #   Monthly recurring subscribers
+    #   4 month prepaid subscribers
+    #   1 year prepaid subscribers
+    #   All Paid Members by Ambassador Invitation
+
+    begin
+      if self.mailchimp_id && @assigning_mailchimp_groups.nil?
+        @assigning_mailchimp_groups = true
+
+        free_groups = []
+        if self.account && self.account.subscription.subscription_plan.is_free?
+          free_groups << 'Free Members by Ambassador Invitation' if self.ambassador_id
+          free_groups << 'Regular Free Members' if self.ambassador_id.blank?
+        end
+        free_groups = free_groups.empty? ? '' : free_groups.join('\,')
+
+        ambassadors_groups = []
+        ambassadors_groups << 'Ambassadors' if self.ambassador_name
+        ambassadors_groups = ambassadors_groups.empty? ? '' : ambassadors_groups.join('\,')
+
+        paid_groups = []
+        if self.account && !self.account.subscription.subscription_plan.is_free?
+          paid_groups << 'All Paid Members by Ambassador Invitation' if self.ambassador_id
+          unless self.subscription.is_cancelled?
+            paid_groups << 'Monthly recurring subscribers' if self.subscription_plan.is_monthly_premium?
+            paid_groups << '4 month prepaid subscribers' if self.subscription_plan.is_spring_special?
+            paid_groups << '1 year prepaid subscribers' if self.subscription_plan.is_annual_premium?
+          end
+        end
+        paid_groups = paid_groups.empty? ? '' : paid_groups.join('\,')
+
+        RAILS_DEFAULT_LOGGER.debug "DEBUG: F='#{ free_groups }' A='#{ ambassadors_groups }' P='#{ paid_groups }'"
+
+        hominid = Hominid::Base.new({:api_key => MAILCHIMP_API_KEY})
+        if result = hominid.update_member(hominid.find_list_id_by_name('Members'), self.email,
+          { :GROUPINGS => {
+            "Free Members" => { "name" => "Free Members", 'id' => "#{ MAILCHIMP_FREE_GROUP_ID }", 'groups' => free_groups },
+            "Ambassadors" => { "name" => "Ambassadors", 'id' => "#{ MAILCHIMP_AMBASSADORS_GROUP_ID }", 'groups' => ambassadors_groups },
+            "Paid Members" => { "name" => "Paid Members", 'id' => "#{ MAILCHIMP_PAID_GROUP_ID }", 'groups' => paid_groups }
+          } }, 'html', true)
+
+          # Successful submission. If this person was flagged for resubmission then remove that flag.
+
+        else
+          # Flag this person as needing to be resubmitted to Mailchimp?
+
+        end
+        @assigning_mailchimp_groups = nil
+        true
+      end
+
+    rescue Exception => e
+      ErrorMailer.deliver_error(e, :user_id => self.id)
+      false
+    end
   end
 
 
@@ -327,14 +438,16 @@ class User < ActiveRecord::Base
     def setup_newsletter
       return unless @newsletter_changed || !@old_email.blank?
 
-      if Rails.env == 'production'
-        if wants_newsletter
-          ConstantContact.subscribe(self)
-        else
-          ConstantContact.unsubscribe(self)
-        end
-      end
+      # Disabling Constant Contact for now, but leaving method in case we use the same principle with MaleChimp
+      # if Rails.env == 'production'
+      #         if wants_newsletter
+      #           ConstantContact.subscribe(self)
+      #         else
+      #           ConstantContact.unsubscribe(self)
+      #         end
+      #       end
       @newsletter_changed = false
+
     rescue Exception => e
       # In case the CC API doesn't want to talk to us right now.
       Rails.logger.info "Could not contact CC api: #{e}, #{e.backtrace}"
@@ -350,6 +463,7 @@ class User < ActiveRecord::Base
       self.account.save!
       self.account_id = self.account.id
       self.save
+      self.assign_mailchimp_groups
     end
 
     def setup_share_url
@@ -374,6 +488,12 @@ class User < ActiveRecord::Base
     def send_new_ambassador_mail
       if self.ambassador_name_changed?
         UserMailer.deliver_new_ambassador(self)
+      end
+    end
+
+    def analyse_for_mailchimp_group_changes
+      if self.ambassador_name_changed? || self.ambassador_id_changed?
+        self.assign_mailchimp_groups
       end
     end
 end

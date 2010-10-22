@@ -13,6 +13,7 @@ doc/app
 doc/specs.*
 doc/features.html
 config/database.yml
+config/mailchimp.yml
 public/system
 vendor/
 mkmf.log

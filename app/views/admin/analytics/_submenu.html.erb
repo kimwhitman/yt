@@ -1,7 +1,8 @@
 <p>
-	<%= link_to_unless_current 'Home', url_for(:controller => 'admin/analytics') %> |
-	<%= link_to_unless_current 'Transactions', url_for(:controller => 'admin/transactions') %> |	
-	<%= link_to_unless_current 'Sales by User', url_for(:controller => 'admin/analytics', :action => 'sales_by_user') %> |
-	<%= link_to_unless_current 'Sales by Episode', url_for(:controller => 'admin/analytics', :action => 'sales_by_episode') %> |
-	<%= link_to_unless_current 'Subscriber info', url_for(:controller => 'admin/analytics', :action => 'subscribers') %>
+  <%= link_to_unless_current 'Home', url_for(:controller => 'admin/analytics') %> |
+  <%= link_to_unless_current 'Transactions', url_for(:controller => 'admin/transactions') %> |
+  <%= link_to_unless_current 'Sales by User', url_for(:controller => 'admin/analytics', :action => 'sales_by_user') %> |
+  <%= link_to_unless_current 'Sales by Episode', url_for(:controller => 'admin/analytics', :action => 'sales_by_episode') %> |
+  <%= link_to_unless_current 'Subscriber info', url_for(:controller => 'admin/analytics', :action => 'subscribers') %>
+  <%= link_to_unless_current 'Ambassador Referrals', url_for(:controller => 'admin/analytics', :action => 'ambassador_referrals') %>
 </p>

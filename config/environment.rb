@@ -26,14 +26,16 @@ Rails::Initializer.run do |config|
   config.gem 'brightcove-api', :version => '1.0.2'
   config.gem 'fakeweb', :version => '1.2.8'
   config.gem 'httparty', :version => '0.5.2'
-  config.gem 'exceptional'
-  config.gem 'lockfile', :version => '1.4.3'
-  config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
-  config.gem 'mislav-will_paginate', :lib => 'will_paginate', :version => '~> 2.2.3', :source => 'http://gems.github.com'
   config.gem 'calendar_date_select', :version => '1.15'
+  config.gem 'exceptional'
   config.gem 'fastercsv', :version => '1.4'
+  config.gem 'hominid', :version => '2.1.5'
+  config.gem 'lockfile', :version => '1.4.3'
+  config.gem 'mislav-will_paginate', :lib => 'will_paginate', :version => '~> 2.2.3', :source => 'http://gems.github.com'
   config.gem 'paperclip'
   config.gem 'hashie'
+  config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
+
 
   #config.gem 'rmagick', :lib => 'RMagick' (EAE - skip for jruby)
   # Only load the plugins named here, in the order given. By default, all plugins
@@ -95,4 +97,18 @@ ExceptionNotifier.email_prefix = "[YOGATODAY-ERROR] "
 
 Synthesis::AssetPackage.merge_environments = ["staging", "production"]
 
+<<<<<<< HEAD
 BRIGHTCOVE_API_KEYS = YAML.load(File.open("#{RAILS_ROOT}/config/brightcove.yml")).symbolize_keys!
+=======
+if mailchimp_config = YAML.load(File.open("#{ Rails.root }/config/mailchimp.yml"))
+  MAILCHIMP_LOGIN = mailchimp_config[Rails.env]['login']
+  MAILCHIMP_PASSWORD = mailchimp_config[Rails.env]['password']
+  MAILCHIMP_API_KEY = mailchimp_config[Rails.env]['api_key']
+  MAILCHIMP_MEMBERS_LIST_ID = mailchimp_config[Rails.env]['members_list_id']
+  MAILCHIMP_FREE_GROUP_ID = mailchimp_config[Rails.env]['free_group_id']
+  MAILCHIMP_AMBASSADORS_GROUP_ID = mailchimp_config[Rails.env]['ambassadors_group_id']
+  MAILCHIMP_PAID_GROUP_ID = mailchimp_config[Rails.env]['paid_group_id']
+  MAILCHIMP_NEWSLETTER_LIST_ID = mailchimp_config[Rails.env]['newsletter_list_id']
+end
+
+>>>>>>> master

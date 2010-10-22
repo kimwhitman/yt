@@ -6,6 +6,10 @@
     <%= link_to 'Delete', admin_user_path(@user), :method => :delete, :confirm => "Are you sure you want to delete #{ @user.name }'s account?" %> |
     <%= link_to 'Cancel Subscription', cancel_subscription_admin_user_path(@user), :method => :post, :confirm => "Are you sure you want to cancel the subscription for #{ @user.name }'s account? They will be set to a free account." %>
 
+    <% if @user.account.subscription.is_cancelled? %>
+      <p style="color: #f00"><br /><strong>NOTE: This user has cancelled their subscription<%= " on #{ @user.account.subscription.cancelled_at.strftime('%b %e %Y %H:%M') }" unless @user.account.subscription.cancelled_at.blank? %></strong></p>.
+    <% end %>
+
     <dl>
       <dt>Name</dt>
       <dd><%= @user.name %></dd>
@@ -29,41 +33,95 @@
       <dd><%= @user.account.subscription.card_expiration || '-' %></dd>
     </dl>
 
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <h4>Payments</h4>
-    <table class="active-scaffold" style="width:650px">
-      <thead>
-        <tr><th><p>ID</p></th><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th><th><p>Transaction ID</p></th></tr>
-      </thead>
-      <% @subscription_payments.each do |subscription_payment| %>
-        <tr class="record">
-          <td><%= subscription_payment.id %></td>
-          <% if subscription_payment.start_date %>
-            <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
-          <% else %>
-            <td>No start date for this payment</td>
-          <% end %>
-          <td>$<%= subscription_payment.amount %></td>
-          <td><%= subscription_payment.payment_method %></td>
-          <td><%= subscription_payment.transaction_id %></td>
-        </tr>
-      <% end %>
-    </table>
+
+    <div style="height: 240px"></div>
+
+    <h4>Subscription Payments</h4>
+    <% unless @subscription_payments.empty? %>
+      <table class="active-scaffold" style="width:750px">
+        <thead>
+          <tr><th><p>ID</p></th><th style="width: 90px"><p>Date</p></th><th><p>Period</p></th><th><p>Amount</p></th><th><p>Method</p></th><th><p>Transaction ID</p></th></tr>
+        </thead>
+        <% @subscription_payments.each do |subscription_payment| %>
+          <tr class="record">
+            <td><%= subscription_payment.id %></td>
+            <td><%= subscription_payment.created_at.strftime('%B %e, %Y') %></td>
+            <% if subscription_payment.start_date %>
+              <td><%= subscription_payment.start_date.strftime('%B %e, %Y') %> - <%= subscription_payment.end_date.strftime('%B %e, %Y') %></td>
+            <% else %>
+              <td>No start date for this payment</td>
+            <% end %>
+            <td>$<%= subscription_payment.amount %></td>
+            <td><%= subscription_payment.payment_method %></td>
+            <td><%= subscription_payment.transaction_id %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p>There are no subscription payment records.</p>
+    <% end %>
 
     <br />
-    <h4>Transactions</h4>
-    <table class="active-scaffold" style="width:650px">
-      <thead>
-        <tr><th><p>ID</p></th><th><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th></tr>
-      </thead>
-      <% @billing_transactions.each do |billing_transaction| %>
-        <tr class="record">
-          <td><%= link_to billing_transaction.id, admin_billing_transaction_path(billing_transaction) %></td>
-          <td><%= billing_transaction.created_at.strftime('%B %e, %Y') %></td>
-          <td>$<%= billing_transaction.amount.to_f / 100 %></td>
-          <td><%= billing_transaction.authorization_code %></td>
-        </tr>
-      <% end %>
-    </table>
+    <h4>Subscription Transactions</h4>
+    <% unless @subscription_billing_transactions.empty? %>
+      <table class="active-scaffold" style="width:750px">
+        <thead>
+          <tr><th><p>ID</p></th><th style="width: 90px"><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th></tr>
+        </thead>
+        <% @subscription_billing_transactions.each do |billing_transaction| %>
+          <tr class="record">
+            <td><%= billing_transaction.id %></td>
+            <td><%= billing_transaction.created_at.strftime('%B %e, %Y') %></td>
+            <td>$<%= billing_transaction.amount.to_f / 100 %></td>
+            <td><%= billing_transaction.authorization_code %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p>There are no subscription billing transaction records.</p>
+    <% end %>
+
+    <br />
+    <h4>Purchases</h4>
+    <% unless @purchases.empty? %>
+      <table class="active-scaffold" style="width:750px">
+        <thead>
+          <tr><th><p>ID</p></th><th style="width: 90px"><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th><th><p>Items</p></th></tr>
+        </thead>
+        <% @purchases.each do |purchase| %>
+          <tr class="record">
+            <td><%= purchase.billing_transaction ? purchase.id : 'NA' %></td>
+            <td><%= purchase.created_at.strftime('%B %e, %Y') %></td>
+            <td><%= purchase.billing_transaction ? "$#{ purchase.billing_transaction.amount.to_f / 100 }" : 'NA' %></td>
+            <td><%= purchase.billing_transaction.authorization_code %></td>
+            <td><%= purchase.purchase_items.collect(&:name).sort.join(', ') %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p>There are no purchase records.</p>
+    <% end %>
+
+    <br />
+    <h4>Purchase Transactions</h4>
+    <% unless @purchase_billing_transactions.empty? %>
+      <table class="active-scaffold" style="width:750px">
+        <thead>
+          <tr><th><p>ID</p></th><th><p>Date</p></th><th><p>Amount</p></th><th><p>Auth Code</p></th></tr>
+        </thead>
+        <% @purchase_billing_transactions.each do |billing_transaction| %>
+          <tr class="record">
+            <td><%= billing_transaction.id %></td>
+            <td><%= billing_transaction.created_at.strftime('%B %e, %Y') %></td>
+            <td>$<%= billing_transaction.amount.to_f / 100 %></td>
+            <td><%= billing_transaction.authorization_code %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p>There are no purchase transaction records.</p>
+    <% end %>
+
+    <div style="height: 120px"></div>
   </div>
 </div>

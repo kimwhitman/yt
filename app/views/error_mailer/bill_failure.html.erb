@@ -1,0 +1,10 @@
+BILL FAILURE
+
+We were unable to bill the following subscription.
+
+Datetime: <%= Time.zone.now %>
+Member: <%= @user.email %>
+Subscription Plan: <%= @user.account.subscription.subscription_plan.name %>
+Amount: $<%= @user.account.subscription.subscription_plan.amount %>
+Renewal Date <%= @user.account.subscription.next_renewal_at %>
+

@@ -40,8 +40,10 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def show
-    @subscription_payments = @user.account.subscription.subscription_payments
-    @billing_transactions = @user.account.subscription.billing_transactions
+    @subscription_payments = @user.account.subscription.subscription_payments.find(:all, :order => 'created_at DESC')
+    @subscription_billing_transactions = @user.account.subscription.billing_transactions.find(:all, :order => 'created_at DESC')
+    @purchases = @user.purchases.find(:all, :order => 'created_at DESC')
+    @purchase_billing_transactions = @user.purchases.find(:all, :order => 'created_at DESC').collect(&:billing_transaction).flatten.compact
   end
 
   def cancel_subscription
