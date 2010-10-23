@@ -24,7 +24,7 @@ class Video < ActiveRecord::Base
   #has_and_belongs_to_many :yoga_poses
   has_and_belongs_to_many :yoga_types
 
-  validates_presence_of :title, :description, :instructors, :yoga_types
+  validates_presence_of :title, :duration, :description, :instructors, :yoga_types
   validates_inclusion_of :is_public, :in => [true, false]
   validates_length_of :title, :maximum => 255, :allow_blank => true
   validates_length_of :description, :maximum => 1000, :allow_blank => true
@@ -369,5 +369,6 @@ class Video < ActiveRecord::Base
 
     def update_caches
       self.video_focus_cache = self.video_focus.collect(&:name).join(',')
+      self.duration = 100 if self.duration.blank?
     end
 end
