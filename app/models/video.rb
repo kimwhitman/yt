@@ -368,5 +368,6 @@ class Video < ActiveRecord::Base
 
     def update_caches
       self.video_focus_cache = self.video_focus.collect(&:name).join(',')
+      self.duration = 100 if self.duration.blank?
     end
 end
