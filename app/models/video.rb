@@ -199,7 +199,7 @@ class Video < ActiveRecord::Base
           sanitized_tags << tag.gsub(/\W/, '')
         end
 
-        video_attributes = { :title => (brightcove_video.name == self.convert_brightcove_reference_id(brightcove_video.referenceId) ? nil : brightcove_video.name),
+        video_attributes = { :title => self.title.blank? ? brightcove_video.name : self.title),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
           :is_public => (brightcove_video.customFields.blank? ? nil : (brightcove_video.customFields.public == 'True' ? true : false)),
