@@ -1,7 +1,6 @@
 class Video < ActiveRecord::Base
 
-  # DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
-  DEFAULT_BRIGHTCOVE_PLAYER_ID = 587214493001 # Ad enabled player
+  DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
 
   class BrightcoveApiError < StandardError; end
   alias_attribute :tags, :mds_tags
