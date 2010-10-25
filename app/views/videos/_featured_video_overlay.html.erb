@@ -1,9 +1,11 @@
 <%
-  fv ||= featured_video_overlay
+  fv ||= free_video_of_week
   video ||= fv.video if fv
   controls = true if controls.nil?
   size ||= nil
   width ||= nil
+
+
 %>
 
 <% if controller.action_name == 'home' %>
