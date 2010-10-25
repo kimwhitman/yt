@@ -51,6 +51,11 @@ namespace :videos do
     puts "Processed #{videos_processed.size} videos"
   end
 
+  desc "Import new video from Brightcove"
+  task :import_videos_from_brightcove => :environment do
+    Video.import_videos_from_brightcove
+  end
+
   desc "Query and display YogaToday media in the Delve Platform."
   task :list_remote => [:environment] do
     target = REMOTE_MEDIA_ENDPOINT
