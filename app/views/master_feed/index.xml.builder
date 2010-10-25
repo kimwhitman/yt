@@ -20,7 +20,8 @@ xml.tag! 'master_feed' do
     xml.tag! 'free_video_thumbnail_url', @free_video.video.thumbnail_url
   end
 
-  @this_weeks_videos.each_with_index do |video, idx|
+  @this_weeks_videos.each_with_index do |vid, idx|
+    video = Video.find(vid.id)
     xml.tag! "lineup_video_#{idx + 1}_title", video.title.strip
     xml.tag! "lineup_video_#{idx + 1}_description", video.description.strip
     xml.tag! "lineup_video_#{idx + 1}_instuctors", video.instructor_names
