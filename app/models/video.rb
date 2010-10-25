@@ -202,24 +202,26 @@ class Video < ActiveRecord::Base
         video_attributes = { :title => (brightcove_video.name == self.convert_brightcove_reference_id(brightcove_video.referenceId) ? nil : brightcove_video.name),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
-          :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
+          :is_public => (brightcove_video.customFields.blank? ? nil : (brightcove_video.customFields.public == 'True' ? true : false)),
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
-          :brightcove_preview_video_id => brightcove_video.customFields.previewVideo,
+          :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewVideo),
           :mds_tags => sanitized_tags.join(','),
           :thumbnail_url => brightcove_video.thumbnailURL }
 
         video.attributes = video_attributes.reject! { |k,v| v.blank? || v == 0 }
 
         # Find Associations
-        instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
-        yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes),
-          YogaType.find_by_name(brightcove_video.customFields.yogatypes2)].compact
-        skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
-        video_focuses = []
-        if brightcove_video.customFields.videofocus
-          brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
-            video_focuses << VideoFocus.find_by_name(video_focus.strip)
+        unless brightcove_video.customFields.blank?
+          instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
+          yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes),
+            YogaType.find_by_name(brightcove_video.customFields.yogatypes2)].compact
+          skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
+          video_focuses = []
+          if brightcove_video.customFields.videofocus
+            brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
+              video_focuses << VideoFocus.find_by_name(video_focus.strip)
+            end
           end
         end
 
@@ -372,10 +374,10 @@ class Video < ActiveRecord::Base
   def update_brightcove_data!
     response = Hashie::Mash.new(Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_full_video_id, :name => self.title,
       :longDescription => self.description,
-      :customFields => { :instructor => self.instructors.map(&:name).join(', '),
-        :skilllevel => self.skill_level.name,
-        :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
-        :videofocus => self.video_focus.map(&:name).uniq.join(', '),
+      :customFields => { :instructor => (self.instructors.blank? ? '' : self.instructors.map(&:name).join(', ')),
+        :skilllevel => (self.skill_level.blank? ? '' : self.skill_level.name),
+        :relatedvideos => (self.skill_level.blank? ? '' : self.related_videos.map(&:friendly_name).join(', ')),
+        :videofocus => (self.video_focus.blank? ? '' : self.video_focus.map(&:name).uniq.join(', ')),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
         :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip : ''),
