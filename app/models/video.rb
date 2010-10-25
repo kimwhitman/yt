@@ -198,7 +198,7 @@ class Video < ActiveRecord::Base
           :brightcove_preview_video_id => brightcove_video.customFields.previewVideo,
           :mds_tags => brightcove_video.tags }
 
-        video.attributes = video_attributes
+        video.attributes = video_attributes.reject { |k,v| v.blank? }
 
         # Find Associations
         instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
@@ -219,6 +219,7 @@ class Video < ActiveRecord::Base
 
         if video.valid?
           video.save
+          video.update_brightcove_data! # Re-upload data back to Brightcove
         else
           invalid_videos << video
         end
