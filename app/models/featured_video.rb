@@ -38,7 +38,7 @@ class FeaturedVideo < ActiveRecord::Base
   end
 
   def thumbnail
-    image? ? image.url(:carousel) : video.thumbnail_url
+    image? ? image.url(:carousel) : video.cached_thumbnail_url
   end
 
   # For active scaffold to display the correct label in "update"
