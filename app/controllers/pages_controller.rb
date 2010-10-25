@@ -17,7 +17,9 @@ class PagesController < ApplicationController
   end
 
   def get_started_today
+    @video = Video.fetch_videos_from_brightcove('find_video_by_reference_id', :reference_id => 'YTPROMO')
     @user_story = UserStory.published.by_publish_at(:limit => 1).first
+    @billing_cycle = 'Premium Trial'
   end
 
   def faqs
@@ -63,12 +65,6 @@ class PagesController < ApplicationController
   def ask_question
     redirect_to contact_path(:message => params[:message])
   end
-
-  def get_started_today
-    @billing_cycle = 'Premium Trial'
-  end
-
-
 
   private
 
