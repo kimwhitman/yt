@@ -181,24 +181,29 @@ class Video < ActiveRecord::Base
 
   def self.import_videos_from_brightcove(updated_since = 86400)
     invalid_videos = []
+    preview_videos = []
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
 
     brightcove_videos.each do |brightcove_video|
-      if Video.full_version?(brightcove_video)
-        video = Video.find_or_initialize_by_friendly_name(brightcove_video.referenceId)
+      if self.full_version?(brightcove_video.referenceId)
+        video = Video.find_or_initialize_by_friendly_name(self.convert_brightcove_reference_id(brightcove_video.referenceId))
 
-        video_attributes = { :title => brightcove_video.name,
+        sanitized_tags = []
+        brightcove_video.tags.each do |tag|
+          sanitized_tags << tag.gsub(/\W/, '')
+        end
+
+        video_attributes = { :title => (brightcove_video.name == self.convert_brightcove_reference_id(brightcove_video.referenceId) ? nil : brightcove_video.name),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
-          :published_at => brightcove_video.publishedDate.to_i,
+          :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
           :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
-          :created_at => video.new_record? ? Time.now : brightcove_video.creationDate.to_i,
-          :updated_at => video.new_record? ? Time.now : brightcove_video.lastModifiedDate.to_i,
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
           :brightcove_preview_video_id => brightcove_video.customFields.previewVideo,
-          :mds_tags => brightcove_video.tags }
+          :mds_tags => sanitized_tags.join(','),
+          :thumbnail_url => brightcove_video.thumbnailURL }
 
-        video.attributes = video_attributes
+        video.attributes = video_attributes.reject! { |k,v| v.blank? || v == 0 }
 
         # Find Associations
         instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
@@ -206,21 +211,33 @@ class Video < ActiveRecord::Base
           YogaType.find_by_name(brightcove_video.customFields.yogatypes2)].compact
         skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
         video_focuses = []
-        brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
-          video_focuses << VideoFocus.find_by_name(video_focus)
+        if brightcove_video.customFields.videofocus
+          brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
+            video_focuses << VideoFocus.find_by_name(video_focus.strip)
+          end
         end
-        video_focuses.compact!
 
         # Setup Associations
-        video.instructors << instructors
-        video.yoga_types << yoga_types
+        video.instructors << instructors.reject! { |instructor| video.instructors.include?(instructor) } unless instructors.blank?
+        video.yoga_types << yoga_types.reject! { |yoga_type| video.yoga_types.include?(yoga_type) } unless yoga_types.blank?
         video.skill_level = skill_level
-        video.video_focus << video_focuses
+        video.video_focus << video_focuses.reject! { |video_focus| video.video_focus.include?(video_focus) } unless video_focuses.blank?
 
         if video.valid?
           video.save
+          video.update_brightcove_data! # Re-upload data back to Brightcove - simulates a sync process
         else
           invalid_videos << video
+        end
+      else
+        preview_videos << { :reference_id => Video.convert_brightcove_reference_id(brightcove_video.referenceId),
+          :brightcove_id => brightcove_video.id }
+
+        preview_videos.each do |preview_video|
+          video = Video.find_by_friendly_name(preview_video[:reference_id])
+          if video
+            video.update_attributes(:brightcove_preview_video_id => preview_video[:brightcove_id])
+          end
         end
       end
     end
@@ -313,7 +330,8 @@ class Video < ActiveRecord::Base
   end
 
   # API-accessing functions
-  def thumbnail_url
+  def cached_thumbnail_url
+    return self.thumbnail_url unless self.thumbnail_url.blank?
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do
       self.fetch_from_brightcove.thumbnailURL if self.fetch_from_brightcove
     end
@@ -351,7 +369,7 @@ class Video < ActiveRecord::Base
       :customFields => { :instructor => self.instructors.map(&:name).join(', '),
         :skilllevel => self.skill_level.name,
         :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
-        :videofocus => self.video_focus.map(&:name).join(', '),
+        :videofocus => self.video_focus.map(&:name).uniq.join(', '),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
         :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip : ''),

@@ -52,11 +52,11 @@ module VideosHelper
     unless opts[:dont_show_free].to_s == "true"
       link_content = opts.delete(:text) || <<-EOF
       #{content_tag(:div, image_tag('freeClassIcon_resultsThumbnail.png', :border => 0, :style => 'width:100%'), :id => 'free_video') if video.free?}
-        #{image_tag(video.thumbnail_url.to_s, :size => '140x78', :border => 0, :alt => "More about #{video.title}")}
+        #{image_tag(video.cached_thumbnail_url.to_s, :size => '140x78', :border => 0, :alt => "More about #{video.title}")}
       EOF
     else
       link_content = opts.delete(:text) || <<-EOF
-        #{image_tag(video.thumbnail_url, :size => '140x78', :border => 0, :alt => "More about #{video.title}")}
+        #{image_tag(video.cached_thumbnail_url, :size => '140x78', :border => 0, :alt => "More about #{video.title}")}
       EOF
     end
     link_to link_content, path, opts

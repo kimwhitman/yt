@@ -1,5 +1,5 @@
 <li id='<%= dom_id(featured_video) %>'>
-    <%= image_tag featured_video.video.thumbnail_url, :size => '128x128' %>
+    <%= image_tag featured_video.video.cached_thumbnail_url, :size => '128x128' %>
     <br />
     <%= truncate(featured_video.video.title, 20) %>
     <%= hidden_field_tag 'featured_video_id[]', featured_video.id  %>
