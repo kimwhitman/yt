@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def home
     @home_page = true
     @user_story = UserStory.published.by_publish_at(:limit => 1).first
-    @featured_videos = FeaturedVideo.previously_featured.by_rank(:include => [:video]).to_a # * 10 # multiply by 10 to create the feel of infinite looping scroll
+    @featured_videos = FeaturedVideo.previously_featured.by_rank(:include => [:video]).to_a  * 10 # multiply by 10 to create the feel of infinite looping scroll
     @featured_videos_data = @featured_videos.collect do |fv|
       {
         :url => video_path(fv.video), :time => "#{fv.video.duration_to_minutes}:#{fv.video.duration_seconds}",
