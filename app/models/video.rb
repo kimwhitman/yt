@@ -215,7 +215,6 @@ class Video < ActiveRecord::Base
           brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
             video_focuses << VideoFocus.find_by_name(video_focus.strip)
           end
-          video_focuses.uniq!.compact! unless video_focuses.blank?
         end
 
         # Setup Associations
