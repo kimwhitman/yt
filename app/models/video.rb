@@ -181,6 +181,7 @@ class Video < ActiveRecord::Base
 
   def self.import_videos_from_brightcove(updated_since = 86400)
     invalid_videos = []
+    preview_videos = []
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
 
     brightcove_videos.each do |brightcove_video|
@@ -199,7 +200,8 @@ class Video < ActiveRecord::Base
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
           :brightcove_preview_video_id => brightcove_video.customFields.previewVideo,
-          :mds_tags => sanitized_tags.join(',') }
+          :mds_tags => sanitized_tags.join(','),
+          :thumbnail_url => brightcove_video.thumbnailURL }
 
         video.attributes = video_attributes.reject! { |k,v| v.blank? || v == 0 }
 
@@ -227,6 +229,16 @@ class Video < ActiveRecord::Base
           video.update_brightcove_data! # Re-upload data back to Brightcove - simulates a sync process
         else
           invalid_videos << video
+        end
+      else
+        preview_videos << { :reference_id => Video.convert_brightcove_reference_id(brightcove_video.referenceId),
+          :brightcove_id => brightcove_video.id }
+
+        preview_videos.each do |preview_video|
+          video = Video.find_by_friendly_name(preview_video[:reference_id])
+          if video
+            video.update_attributes(:brightcove_preview_video_id => preview_video[:brightcove_id])
+          end
         end
       end
     end
@@ -358,7 +370,7 @@ class Video < ActiveRecord::Base
       :customFields => { :instructor => self.instructors.map(&:name).join(', '),
         :skilllevel => self.skill_level.name,
         :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
-        :videofocus => self.video_focus.map(&:name).join(', '),
+        :videofocus => self.video_focus.map(&:name).uniq.join(', '),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
         :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip : ''),
