@@ -167,13 +167,19 @@ class Video < ActiveRecord::Base
 
       raise Video::BrightcoveApiError, "Code: #{videos.code}, Error: #{videos.error}" if !videos.errors.blank?
 
-      break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
+      # If videos responds to name that means that it's a solo video, otherwise start looping through the collections
+      if videos.respond_to?(:name)
+        brightcove_videos << videos
+        break # break the look after the first one
+      else
+        break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
 
-      videos.first.each do |video|
-        brightcove_videos << video unless video.is_a? String
+        videos.first.each do |video|
+          brightcove_videos << video unless video.is_a? String
+        end
+
+        page_number += 1
       end
-
-      page_number += 1
     end
 
     return brightcove_videos.flatten
