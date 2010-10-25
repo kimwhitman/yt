@@ -192,7 +192,7 @@ class Video < ActiveRecord::Base
           sanitized_tags << tag.gsub(/\W/, '')
         end
 
-        video_attributes = { :title => brightcove_video.name,
+        video_attributes = { :title => (brightcove_video.name == self.convert_brightcove_reference_id(brightcove_video.referenceId) ? nil : brightcove_video.name),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
           :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
@@ -211,9 +211,9 @@ class Video < ActiveRecord::Base
         video_focuses = []
         if brightcove_video.customFields.videofocus
           brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
-            video_focuses << VideoFocus.find_by_name(video_focus)
+            video_focuses << VideoFocus.find_by_name(video_focus.strip)
           end
-          video_focuses.compact!
+          video_focuses.uniq!.compact!
         end
 
         # Setup Associations
