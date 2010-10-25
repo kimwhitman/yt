@@ -4,7 +4,11 @@
   <div style="float: left;" id="container_4col">
     <h1 class="arial18_green">Scheduled Releases</h1>
     <%= link_to 'Keep up with RSS', 'http://blog.yogatoday.com/feed/', :title => 'YogaToday RSS feed', :class => 'rss_link' -%>
-
+    <ul class="lineup_legend">
+      <li><%= image_tag '/images/icons/key_studioSession.png', :alt => 'Legend - Studio Session' %></li>
+      <li><%= image_tag '/images/icons/key_new.png', :alt => 'Legend - New' %></li>
+      <li><%= image_tag '/images/icons/key_free.png', :alt => 'Legend - Free' %></li>
+    </ul>
     <% if @this_weeks_videos.size > 0 -%>
     <table class="thisweek" cellpadding="0" cellspacing="0">
       <tr>
@@ -19,9 +23,9 @@
           <% else -%>
             <%= link_to(video.title, video_path(video)) -%>
           <% end -%>
-          <span>FREE</span></span></td>
+          <span>This week's free class</span></span></td>
       <% else %>
-      <tr>
+      <tr class="<%= video_icon_class(video) %>">
         <td class="title">
           <% if video.published_at >= Time.now -%>
             <%= video.title -%>
@@ -59,7 +63,7 @@
             <%= 2.weeks.ago.beginning_of_week.strftime('%b %e') -%>-<%= 1.weeks.ago.end_of_week.strftime('%b %e') -%></span></th>
         </tr>
         <% @recently_released_videos.each do |video| -%>
-          <tr>
+          <tr class="<%= video_icon_class(video) %>">
             <td class="title">
               <% if video.published_at >= Time.now -%>
                 <%= video.title -%>
@@ -90,7 +94,7 @@
         <tr class="free">
           <td class="title"><span><%= video.title -%> <span>FREE</span></span></td>
         <% else %>
-        <tr>
+        <tr class="<%= video_icon_class(video) %>">
           <td class="title"><%= video.title -%></td>
         <% end %>
           <td class="type"><%= video.skill_name -%> |</td>

@@ -3,6 +3,8 @@ class Video < ActiveRecord::Base
   DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
 
   class BrightcoveApiError < StandardError; end
+  alias_attribute :tags, :mds_tags
+
   belongs_to :skill_level
   #has_one :video_focus_category, :through => :video_focus
   has_many :featured_videos, :dependent => :destroy
@@ -343,10 +345,6 @@ class Video < ActiveRecord::Base
     Rails.cache.fetch("video_#{id}_remote_thumbnail_url") do
       self.fetch_from_brightcove.thumbnailURL if self.fetch_from_brightcove
     end
-  end
-
-  def tags
-    self.mds_tags
   end
 
   def duration_in_milliseconds
