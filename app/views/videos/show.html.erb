@@ -133,7 +133,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
       </div>
       <div id="slug" style="margin-left:35px;">
         <% if @video.brightcove_player_id == Video::NEW_BALANCE_PLAYER_ID %>
-          <img src="/images/new_balance_slug.png" alt="Yoga Today | Practice for Life" />
+          <%= link_to image_tag('/images/anue_slug.png', :alt => 'Apparel provided by Anue'), 'http://www.shopnewbalance.com/nb_yoga.asp?s1=yoga&s2=Yogatoday+10%25+FS&s3=2010', :title => 'Apparel provided by Anue' %>
         <% else %>
           <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
         <% end %>

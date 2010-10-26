@@ -1842,3 +1842,7 @@ div.video_show_sidebar #class_buttons a.smaller_button span, div.video_show_side
 div.video_show_sidebar #class_buttons a.smaller_button:hover span, div.video_show_sidebar #class_buttons a.biga_button:hover {
   color: #488A1A;
 }
+
+#slug a, #slug img {
+	border: none;
+}
