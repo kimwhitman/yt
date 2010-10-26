@@ -160,11 +160,28 @@ describe Video do
   end
   
   describe "Importing Videos from Brightcove" do
-    it "should import a video with a good response from Brightcove" do
+    before(:each) do
       Instructor.make(:name => "Sarah Kline")
       YogaType.make(:name => "Hatha Blend")
       VideoFocus.make(:name => "Twists")
-      SkillLevel.make(:name => "Yogis")
+      SkillLevel.make(:name => "Yogis")      
+    end
+    
+    it "should create a brand new video with a good response from Brightcove" do  
+      Video.stub!(:full_version?).and_return(true)
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      Video.count.should == 1
+    end
+    
+    it "should not create a brand new video with a good response from Brightcove when a video already exists with that friendly name" do
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make
+      video.yoga_types << YogaType.make
+      
+      video.save
       
       Video.stub!(:full_version?).and_return(true)
       brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
@@ -172,6 +189,20 @@ describe Video do
       Video.import_videos_from_brightcove
       
       Video.count.should == 1
+    end
+    
+    it "should not set the title when a video already has a title during the import process" do
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+      
+      Video.stub!(:full_version?).and_return(true)
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      Video.all.first.title.should == 'Test Title'
     end
         
     it "should not import a video if it's a preview video" do
