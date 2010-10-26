@@ -1,6 +1,6 @@
 var brightcovePlayer = {
   "params": {
-    playerID:"587214493001",
+    playerID:"641807589001",
     publishedID:"105925308001",
     bgcolor:"#ffffff",
     width:"566",
