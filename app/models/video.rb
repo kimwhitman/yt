@@ -201,7 +201,7 @@ class Video < ActiveRecord::Base
           sanitized_tags << tag.gsub(/\W/, '')
         end
 
-        video_attributes = { :title => (self.title.blank? ? brightcove_video.name : self.title),
+        video_attributes = { :title => (video.title.blank? ? brightcove_video.name : video.title),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
           :is_public => (brightcove_video.customFields.blank? ? nil : (brightcove_video.customFields.public == 'True' ? true : false)),
@@ -228,10 +228,19 @@ class Video < ActiveRecord::Base
         end
 
         # Setup Associations
-        video.instructors << instructors.reject! { |instructor| video.instructors.include?(instructor) } unless instructors.blank?
-        video.yoga_types << yoga_types.reject! { |yoga_type| video.yoga_types.include?(yoga_type) } unless yoga_types.blank?
+        unless instructors.blank?
+          video.instructors << instructors.reject! { |instructor| video.instructors.include?(instructor) }
+        end
+
+        unless yoga_types.blank?
+          video.yoga_types << yoga_types.reject! { |yoga_type| video.yoga_types.include?(yoga_type) }
+        end
+
         video.skill_level = skill_level
-        video.video_focus << video_focuses.reject! { |video_focus| video.video_focus.include?(video_focus) } unless video_focuses.blank?
+
+        unless video_focuses.blank?
+          video.video_focus << video_focuses.reject! { |video_focus| video.video_focus.include?(video_focus) }
+        end
 
         if video.valid?
           video.save
