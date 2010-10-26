@@ -8,25 +8,25 @@
   <div>
     <div class="arial18_green" id="main_title">
     Related Classes
-    </div>    
-	  <div class="search_results_bar">
-	    <div id="sort_by_div">
-	      <strong>Sort by:</strong>
-	      <%= select_tag 'sort_by', options_for_select([
-	              ['Most Recent', 'most_recent'],
-	              ['Top Rated', 'top_rated'],
-	              ['Most Viewed', 'most_popular'],
-	              ['Most Discussed', 'most_discussed']
-	          ], params[:sort_by]), :onchange => remote_function(:url => {:action => 'sort_related_videos', :id => @video.id, :display_mode => display_mode}, :with => "$('#sort_by').serialize()", :loading => "$('#sort_spinner').show()" ) %>      
-	    </div>
-	    <div id="page_count">          
-	      <%= will_paginate @related_videos, :renderer => 'SearchPaginationRenderer', :class => 'search_pagination', :params => {:action => "show", :id => @video.id, :sort_by => @sorting } %>
-	    </div>
-	    <div class="display_results_options_nav">
-	      <%# if we use don't put these on one line, we get whitespace problems. %>
-	      <%= link_to image_tag(grid_image, :size => '30x18', :border => 0), video_path(@video.id, :display => 'grid') -%><%= link_to image_tag(list_image, :size => '30x18', :border => 0), video_path(@video.id, :display => 'list') -%>
-	    </div>
-	  </div>
+    </div>
+    <div class="search_results_bar">
+      <div id="sort_by_div">
+        <strong>Sort by:</strong>
+        <%= select_tag 'sort_by', options_for_select([
+                ['Most Recent', 'most_recent'],
+                ['Top Rated', 'top_rated'],
+                ['Most Viewed', 'most_popular'],
+                ['Most Discussed', 'most_discussed']
+            ], params[:sort_by]), :onchange => remote_function(:url => {:action => 'sort_related_videos', :id => @video.id, :display_mode => display_mode}, :with => "$('#sort_by').serialize()", :loading => "$('#sort_spinner').show()" ) %>
+      </div>
+      <div id="page_count">
+        <%= will_paginate @related_videos, :renderer => 'SearchPaginationRenderer', :class => 'search_pagination', :params => {:action => "show", :id => @video.id, :sort_by => @sorting } %>
+      </div>
+      <div class="display_results_options_nav">
+        <%# if we use don't put these on one line, we get whitespace problems. %>
+        <%= link_to image_tag(grid_image, :size => '30x18', :border => 0), video_path(@video.id, :display => 'grid') -%><%= link_to image_tag(list_image, :size => '30x18', :border => 0), video_path(@video.id, :display => 'list') -%>
+      </div>
+    </div>
   </div>
   <div id="sort_spinner" style="display: none;color: #333333; font-size: 18px; padding-top: 10px;">Sorting <%= image_tag "search_spinner.gif" %></div>
   <% unless @related_videos.empty? %>
