@@ -567,7 +567,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
     brightcovePlayer.params.autoStart = 'true';
   <% end %>
 
-  brightcovePlayer.params.playerID = <%= @video.brightcove_player_id || Video::DEFAULT_BRIGHTCOVE_PLAYER_ID  %>;
+  brightcovePlayer.params.playerID = '<%= @video.brightcove_player_id || Video::DEFAULT_BRIGHTCOVE_PLAYER_ID -%>';
   <% if (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
     brightcovePlayer.params.videoId = '<%= @video.brightcove_full_video_id -%>';
   <% else %>
