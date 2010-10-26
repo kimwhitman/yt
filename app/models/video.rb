@@ -266,6 +266,7 @@ class Video < ActiveRecord::Base
   end
 
   def self.full_version?(reference_id)
+    return false if reference_id.blank?
     reference_id.include?('-HD') ? true : false
   end
 
