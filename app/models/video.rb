@@ -238,7 +238,8 @@ class Video < ActiveRecord::Base
         video.yoga_types << yoga_types unless yoga_types.blank?
 
         video_focuses.reject! { |video_focus| !video.video_focus.blank? && video.video_focus.include?(video_focus) }
-        video.video_focus << video_focuses.compact! unless video_focuses.blank?
+        video_focuses.compact!
+        video.video_focus <<  video_focuses unless video_focuses.blank?
 
         video.skill_level = skill_level
 
