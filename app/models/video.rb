@@ -207,9 +207,10 @@ class Video < ActiveRecord::Base
           :is_public => (brightcove_video.customFields.blank? ? nil : (brightcove_video.customFields.public == 'True' ? true : false)),
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
-          :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewVideo),
+          :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
           :mds_tags => sanitized_tags.join(','),
-          :thumbnail_url => brightcove_video.thumbnailURL }
+          :thumbnail_url => brightcove_video.thumbnailURL,
+          :brightcove_player_id => brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.assignedplayerid }
 
         video.attributes = video_attributes.reject! { |k,v| v.blank? || v == 0 }
 
@@ -365,7 +366,7 @@ class Video < ActiveRecord::Base
     return nil if self.brightcove_full_video_id.blank?
 
     response = Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
-      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo',
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo,assignedplayerid',
       :media_delivery => 'http' }))
 
     if !response.error.blank?
