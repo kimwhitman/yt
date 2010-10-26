@@ -132,7 +132,11 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
         <div id="x_video_player"></div>
       </div>
       <div id="slug" style="margin-left:35px;">
-        <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
+        <% if @video.brightcove_player_id == Video::NEW_BALANCE_PLAYER_ID %>
+          <img src="/images/new_balance_slug.png" alt="Yoga Today | Practice for Life" />
+        <% else %>
+          <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
+        <% end %>
       </div>
     <% unless current_user && current_user.has_paying_subscription? %>
       <div class="promo_yt365_wide">
