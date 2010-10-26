@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
 
   DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
+  NEW_BALANCE_PLAYER_ID = 649621028001
 
   class BrightcoveApiError < StandardError; end
   alias_attribute :tags, :mds_tags
@@ -201,8 +202,6 @@ class Video < ActiveRecord::Base
           sanitized_tags << tag.gsub(/\W/, '')
         end
 
-
-
         video_attributes = { :title => (video.title.blank? ? brightcove_video.name : video.title),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
@@ -212,9 +211,10 @@ class Video < ActiveRecord::Base
           :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
           :mds_tags => sanitized_tags.join(','),
           :thumbnail_url => brightcove_video.thumbnailURL,
-          :brightcove_player_id => brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.assignedplayerid.to_i }
+          :brightcove_player_id => brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.assignedplayerid }
 
-        video.attributes = video_attributes.reject! { |k,v| v.blank? || v == 0 }
+        video_attributes.reject! { |k,v| v.blank? || v == 0 }
+        video.attributes = video_attributes
 
         # Find Associations
         unless brightcove_video.customFields.blank?
@@ -244,6 +244,7 @@ class Video < ActiveRecord::Base
 
         if video.valid?
           video.save
+          video.reload
           video.update_brightcove_data! # Re-upload data back to Brightcove - simulates a sync process
         else
           invalid_videos << video
