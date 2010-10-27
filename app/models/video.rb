@@ -231,17 +231,17 @@ class Video < ActiveRecord::Base
         end
 
         # Setup Associations
-        instructors.reject! { |instructor| !video.instructors.blank? && video.instructors.include?(instructor) }
+        (instructors ||= []).reject! { |instructor| !video.instructors.blank? && video.instructors.include?(instructor) }
         video.instructors << instructors unless instructors.blank?
 
-        yoga_types.reject! { |yoga_type| !video.yoga_types.blank? && video.yoga_types.include?(yoga_type) }
+        (yoga_types ||= []).reject! { |yoga_type| !video.yoga_types.blank? && video.yoga_types.include?(yoga_type) }
         video.yoga_types << yoga_types unless yoga_types.blank?
 
-        video_focuses.reject! { |video_focus| !video.video_focus.blank? && video.video_focus.include?(video_focus) }
+        (video_focuses ||= []).reject! { |video_focus| !video.video_focus.blank? && video.video_focus.include?(video_focus) }
         video_focuses.compact!
         video.video_focus << video_focuses unless video_focuses.blank?
 
-        video.skill_level = skill_level
+        video.skill_level = (skill_level ||= '')
 
         if video.valid?
           video.save
