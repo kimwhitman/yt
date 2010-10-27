@@ -241,7 +241,7 @@ class Video < ActiveRecord::Base
         video_focuses.compact!
         video.video_focus << video_focuses unless video_focuses.blank?
 
-        video.skill_level = (skill_level ||= '')
+        video.skill_level = (skill_level ||= nil)
 
         if video.valid?
           video.save
