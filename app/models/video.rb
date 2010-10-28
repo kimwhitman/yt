@@ -1,8 +1,11 @@
 class Video < ActiveRecord::Base
 
   DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
+  NEW_BALANCE_PLAYER_ID = 649621028001
 
   class BrightcoveApiError < StandardError; end
+  alias_attribute :tags, :mds_tags
+
   belongs_to :skill_level
   #has_one :video_focus_category, :through => :video_focus
   has_many :featured_videos, :dependent => :destroy
@@ -199,38 +202,50 @@ class Video < ActiveRecord::Base
           sanitized_tags << tag.gsub(/\W/, '')
         end
 
-        video_attributes = { :title => (brightcove_video.name == self.convert_brightcove_reference_id(brightcove_video.referenceId) ? nil : brightcove_video.name),
+        video_attributes = { :title => (video.title.blank? ? brightcove_video.name : video.title),
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
-          :is_public => (brightcove_video.customFields.public == 'True' ? true : false),
-          :description => brightcove_video.longDescription,
+          :is_public => (video.is_public.blank? ? (brightcove_video.customFields.blank? ? false : (brightcove_video.customFields.public == 'True' ? true : false)) : video.is_public),
+          :description => video.description.blank? ? brightcove_video.longDescription : video.description,
           :brightcove_full_video_id => brightcove_video.id,
-          :brightcove_preview_video_id => brightcove_video.customFields.previewVideo,
+          :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
           :mds_tags => sanitized_tags.join(','),
-          :thumbnail_url => brightcove_video.thumbnailURL }
+          :thumbnail_url => brightcove_video.thumbnailURL,
+          :brightcove_player_id => brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.assignedplayerid }
 
-        video.attributes = video_attributes.reject! { |k,v| v.blank? || v == 0 }
+        video_attributes.reject! { |k,v| v.blank? || v == 0 }
+        video.attributes = video_attributes
 
         # Find Associations
-        instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
-        yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes),
-          YogaType.find_by_name(brightcove_video.customFields.yogatypes2)].compact
-        skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
-        video_focuses = []
-        if brightcove_video.customFields.videofocus
-          brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
-            video_focuses << VideoFocus.find_by_name(video_focus.strip)
+        unless brightcove_video.customFields.blank?
+          instructors = [Instructor.find_by_name(brightcove_video.customFields.instructor)]
+          yoga_types = [YogaType.find_by_name(brightcove_video.customFields.yogatypes),
+            YogaType.find_by_name(brightcove_video.customFields.yogatypes2)].compact
+          skill_level = SkillLevel.find_by_name(brightcove_video.customFields.skilllevel)
+          video_focuses = []
+          if brightcove_video.customFields.videofocus
+            brightcove_video.customFields.videofocus.split(", ").each do |video_focus|
+              video_focuses << VideoFocus.find_by_name(video_focus.strip)
+            end
           end
         end
 
         # Setup Associations
-        video.instructors << instructors.reject! { |instructor| video.instructors.include?(instructor) } unless instructors.blank?
-        video.yoga_types << yoga_types.reject! { |yoga_type| video.yoga_types.include?(yoga_type) } unless yoga_types.blank?
-        video.skill_level = skill_level
-        video.video_focus << video_focuses.reject! { |video_focus| video.video_focus.include?(video_focus) } unless video_focuses.blank?
+        (instructors ||= []).reject! { |instructor| !video.instructors.blank? && video.instructors.include?(instructor) }
+        video.instructors << instructors unless instructors.blank?
+
+        (yoga_types ||= []).reject! { |yoga_type| !video.yoga_types.blank? && video.yoga_types.include?(yoga_type) }
+        video.yoga_types << yoga_types unless yoga_types.blank?
+
+        (video_focuses ||= []).reject! { |video_focus| !video.video_focus.blank? && video.video_focus.include?(video_focus) }
+        video_focuses.compact!
+        video.video_focus << video_focuses unless video_focuses.blank?
+
+        video.skill_level = (skill_level ||= nil)
 
         if video.valid?
           video.save
+          video.reload
           video.update_brightcove_data! # Re-upload data back to Brightcove - simulates a sync process
         else
           invalid_videos << video
@@ -252,6 +267,7 @@ class Video < ActiveRecord::Base
   end
 
   def self.full_version?(reference_id)
+    return false if reference_id.blank?
     reference_id.include?('-HD') ? true : false
   end
 
@@ -343,23 +359,22 @@ class Video < ActiveRecord::Base
     end
   end
 
-  def tags
-    self.mds_tags
-  end
-
   def duration_in_milliseconds
     self.duration
   end
 
   def download_url
-    self.fetch_from_brightcove.renditions.select { |video| video.url if video.frameWidth == 640 && video.frameHeight == 360 }.first.url
+    selected_rendition = self.fetch_from_brightcove.renditions.select { |video| video.url if video.frameWidth == 640 && video.frameHeight == 360 }.first
+
+    # If there is no 640x360 rendition, return nil
+    selected_rendition.blank? ? nil : selected_rendition.url
   end
 
   def fetch_from_brightcove
     return nil if self.brightcove_full_video_id.blank?
 
     response = Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
-      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo',
+      :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo,assignedplayerid',
       :media_delivery => 'http' }))
 
     if !response.error.blank?
@@ -372,10 +387,10 @@ class Video < ActiveRecord::Base
   def update_brightcove_data!
     response = Hashie::Mash.new(Video.brightcove_api[:write].post('update_video', :video => { :id => self.brightcove_full_video_id, :name => self.title,
       :longDescription => self.description,
-      :customFields => { :instructor => self.instructors.map(&:name).join(', '),
-        :skilllevel => self.skill_level.name,
-        :relatedvideos => self.related_videos.map(&:friendly_name).join(', '),
-        :videofocus => self.video_focus.map(&:name).uniq.join(', '),
+      :customFields => { :instructor => (self.instructors.blank? ? '' : self.instructors.map(&:name).join(', ')),
+        :skilllevel => (self.skill_level.blank? ? '' : self.skill_level.name),
+        :relatedvideos => (self.skill_level.blank? ? '' : self.related_videos.map(&:friendly_name).join(', ')),
+        :videofocus => (self.video_focus.blank? ? '' : self.video_focus.map(&:name).uniq.join(', ')),
         :public => self.is_public.to_s.titleize,
         :previewvideo => self.brightcove_preview_video_id.to_s,
         :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip : ''),

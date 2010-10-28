@@ -128,14 +128,16 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
   <div style="float: left;" id="container_4col">
     <div style="width:631px; height:377px; padding-top:30px; background-image:url('/images/playWindow.png'); background-repeat:no-repeat; float:left;">
 
-    <div style="width:566px; height:318px; border:solid 0px #eee; margin-left:35px; background-color:none; text-align:center; padding:0;">
-    <div id="x_video_player"></div>
-    </div>
-    <div id="slug" style="margin-left:35px;">
-      <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
-    </div>
-    </div>
-
+      <div style="width:566px; height:318px; border:solid 0px #eee; margin-left:35px; background-color:none; text-align:center; padding:0;">
+        <div id="x_video_player"></div>
+      </div>
+      <div id="slug" style="margin-left:35px;">
+        <% if @video.brightcove_player_id == Video::NEW_BALANCE_PLAYER_ID %>
+          <%= link_to image_tag('/images/anue_slug.png', :alt => 'Apparel provided by Anue'), 'http://www.shopnewbalance.com/nb_yoga.asp?s1=yoga&s2=Yogatoday+10%25+FS&s3=2010', :title => 'Apparel provided by Anue' %>
+        <% else %>
+          <img src="/images/default_slug.png" alt="Yoga Today | Practice for Life" />
+        <% end %>
+      </div>
     <% unless current_user && current_user.has_paying_subscription? %>
       <div class="promo_yt365_wide">
         <%= image_tag( 'promo_yt365_623x60.png', :alt => 'Save 25% with Yoga Today 365' ) %>
@@ -143,7 +145,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
         <%= link_to image_tag( 'button_homepromo_subscribe.png', :alt => 'Subscribe' ), subscription_users_path(:membership => 12), {:class => 'subscribe_link', :title => 'Subscribe to Yoga Today'} -%>
       </div>
     <% end %>
-
+      </div>
   </div>
   <div class="video_show_sidebar" style="float: right;" id="container_2col">
 
@@ -176,6 +178,8 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
 
     </div>
 
+    <div id="adCompanionBanner"></div>
+
   </div>
 
   <div id="page_container">
@@ -186,7 +190,7 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
     </div>
   </div>
   <div id="main_content">
-    <div id="container_4col" style="float:left;">
+    <div id="container_4col" style="float:left; margin-top: 80px;">
       <div class="grid_line"><img height="1" width="1" src="/images/spacer.gif"/></div>
       <% unless @related_videos.blank? %>
         <%= render :partial => 'related_videos' %>
@@ -557,7 +561,17 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
 <% end %>
 
 <script type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+<script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js"></script>
+<script type"text/javascript">
+  function displayCompanionBanners(banners) {
+    tmDisplayBanner(banners,"adCompanionBanner", 300, 250);
+  }
+</script>
 <script type="text/javascript">
+  <% if params[:preview] && params[:preview] == 'true' %>
+    brightcovePlayer.params.autoStart = 'true';
+  <% end %>
+
   brightcovePlayer.params.playerID = <%= @video.brightcove_player_id || Video::DEFAULT_BRIGHTCOVE_PLAYER_ID  %>;
   <% if (logged_in? && (@video.free? || current_user.has_paying_subscription?)) %>
     brightcovePlayer.params.videoId = '<%= @video.brightcove_full_video_id -%>';

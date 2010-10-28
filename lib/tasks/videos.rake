@@ -53,6 +53,7 @@ namespace :videos do
 
   desc "Import new video from Brightcove"
   task :import_videos_from_brightcove => :environment do
+    require 'json/pure'
     Video.import_videos_from_brightcove
   end
 

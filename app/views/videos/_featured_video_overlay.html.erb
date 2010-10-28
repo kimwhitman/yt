@@ -1,16 +1,18 @@
 <%
-  fv ||= featured_video_overlay
+  fv ||= free_video_of_week
   video ||= fv.video if fv
   controls = true if controls.nil?
   size ||= nil
   width ||= nil
+
+
 %>
 
 <% if controller.action_name == 'home' %>
   <% unless logged_in? -%>
     <div id="homepage_intro_promo">
       <div class="home_hero_share">
-        <a class="learn_how" href="/ambassador-details">Learn How</a>
+        <a class="check_the_lineup" href="/videos/lineup">Check the lineup</a>
       </div>
       <%#= image_tag 'home_hero_studiosessions.jpg', :alt => 'The Yoga Today Studio Sessions' -%>
       <%#= link_to(image_tag( 'button_homepromo_checklineup.png'), lineup_videos_path, {:class => 'check_lineup', :title => 'Check the Lineup'}) -%>
