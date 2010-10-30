@@ -191,20 +191,97 @@ describe Video do
       Video.count.should == 1
     end
     
-    it "should not set the title when a video already has a title during the import process" do
+    it "should be published when it's set to public and the published date is is in the past" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.public = 'True'
+      
       video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
       video.instructors << Instructor.make(:name => 'Robby Russell')
       video.yoga_types << YogaType.make
       video.save
       
       Video.stub!(:full_version?).and_return(true)
-      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
       Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
       Video.import_videos_from_brightcove
       
-      Video.all.first.title.should == 'Test Title'
+      Video.published.should include(video)
     end
-        
+    
+    it "should not be published when it's set to public and the published date is in the future" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (3.weeks.from_now.to_i * 1000).to_s
+      brightcove_response.first.customFields.public = 'True'
+      
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+      
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      Video.published.should_not include(video)
+    end
+    
+    it "should change an existing video's published at timestamp" do
+      two_weeks_ago = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = two_weeks_ago
+      brightcove_response.first.customFields.public = 'True'
+      
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title', :published_at => Time.zone.now )
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+      
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      video.reload
+      video.published_at.should == (Time.at(two_weeks_ago.to_i / 1000))
+    end
+    
+    it "should not be published when it's not public" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.public = 'False'
+      
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+      
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+      
+      video.reload
+      
+      Video.published.should_not include(video)
+    end
+    
+    it "should import a video when it's not public" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.public = 'False'
+
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+
+      video.reload
+
+      Video.count.should == 1
+    end
+                
     it "should not import a video if it's a preview video" do
       Video.stub!(:full_version?).and_return(false)
       brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
