@@ -8,12 +8,17 @@ class ErrorMailer < ActionMailer::Base
     @body[:options] = opts.collect{|key, value| "#{key}=#{value}"}.join(', ')
   end
 
+  def video_import_failure(videos)
+    setuo_email('bugs@planetargon.com')
+    @subject = '[YogaToday] Import video failure'
+    @body[:videos] = videos
+  end
+
   def bill_failure(user)
     setup_email('bugs@planetargon.com')
     @subject     = "[YogaToday] Billing failure - #{ user.email }"
     @body[:user] = user
   end
-
 
   protected
 

@@ -202,18 +202,19 @@ class Video < ActiveRecord::Base
           sanitized_tags << tag.gsub(/\W/, '')
         end
 
-        video_attributes = { :title => (video.title.blank? ? brightcove_video.name : video.title),
+        video_attributes = { :title => brightcove_video.name,
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
-          :is_public => (video.is_public.blank? ? (brightcove_video.customFields.blank? ? false : (brightcove_video.customFields.public == 'True' ? true : false)) : video.is_public),
-          :description => video.description.blank? ? brightcove_video.longDescription : video.description,
+          :is_public => brightcove_video.customFields.blank? ? false : (brightcove_video.customFields.public == 'True' ? true : false),
+          :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
           :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
           :mds_tags => sanitized_tags.join(','),
           :thumbnail_url => brightcove_video.thumbnailURL,
           :brightcove_player_id => brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.assignedplayerid }
 
-        video_attributes.reject! { |k,v| v.blank? || v == 0 }
+        video_attributes.reject! { |k,v| v.nil? || v == 0 }
+
         video.attributes = video_attributes
 
         # Find Associations
@@ -246,7 +247,6 @@ class Video < ActiveRecord::Base
         if video.valid?
           video.save
           video.reload
-          video.update_brightcove_data! # Re-upload data back to Brightcove - simulates a sync process
         else
           invalid_videos << video
         end
@@ -262,8 +262,12 @@ class Video < ActiveRecord::Base
         end
       end
     end
+
+    ErrorMailer.deliver_video_import_failure(invalid_videos) unless invalid_videos.blank?
+
     rescue Video::BrightcoveApiError => exception
       logger.warn("There was an exception returning data from Brightcove. The exception was #{exception}")
+      ErrorMailer.deliver_error(exception)
   end
 
   def self.full_version?(reference_id)
