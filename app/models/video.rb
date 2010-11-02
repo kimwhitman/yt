@@ -262,8 +262,12 @@ class Video < ActiveRecord::Base
         end
       end
     end
+
+    ErrorMailer.deliver_video_import_failure(invalid_videos) unless invalid_videos.blank?
+
     rescue Video::BrightcoveApiError => exception
       logger.warn("There was an exception returning data from Brightcove. The exception was #{exception}")
+      ErrorMailer.deliver_error(exception)
   end
 
   def self.full_version?(reference_id)
