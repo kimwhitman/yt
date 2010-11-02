@@ -206,7 +206,7 @@ class Video < ActiveRecord::Base
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
           :is_public => brightcove_video.customFields.blank? ? false : (brightcove_video.customFields.public == 'True' ? true : false),
-          :description => video.description.blank? ? brightcove_video.longDescription : video.description,
+          :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
           :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
           :mds_tags => sanitized_tags.join(','),
