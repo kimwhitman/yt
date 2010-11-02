@@ -290,5 +290,25 @@ describe Video do
       
       Video.count.should == 0
     end
+    
+    it "should send an email when there is a problem importing a video" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.public = 'False'
+      brightcove_response.first.longDescription = nil
+      
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      ErrorMailer.stub!(:deliver_video_import_failure)
+      ErrorMailer.should_receive(:deliver_video_import_failure)
+      Video.import_videos_from_brightcove
+    end
+    
+    it "should send an email when there is an exception during the import process" do
+      Brightcove::API.stub!(:get).and_return(error_brightcove_response)
+      
+      ErrorMailer.stub!(:deliver_error)
+      ErrorMailer.should_receive(:deliver_error)
+      Video.import_videos_from_brightcove
+    end
   end
 end
