@@ -395,7 +395,7 @@ class Video < ActiveRecord::Base
         :previewvideo => self.brightcove_preview_video_id.to_s,
         :yogatypes => (!self.yoga_types.blank? ? self.yoga_types.first.name.strip : ''),
         :yogatypes2 => (self.yoga_types.size > 1 ? self.yoga_types.last.name.strip : '') },
-      :tags => (self.tags.blank? ? [] : [self.tags]) }))
+      :tags => (self.tags.blank? ? [] : self.tags.split(',')) }))
 
       if !response.error.blank?
         raise Video::BrightcoveApiError, "Code: #{response.code}, Error: #{response.error}"
