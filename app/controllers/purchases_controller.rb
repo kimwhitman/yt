@@ -6,20 +6,21 @@ class PurchasesController < ApplicationController
 
   def download
     # Receiving a purchase_item id here.
-    pi = PurchaseItem.find(params[:id])
-    if pi.downloadable?
-      url = pi.product.download_url
-      unless url.blank?
-        pi.last_downloaded_at = DateTime.now
-        pi.save
-        redirect_to url
+    @purchase_item = PurchaseItem.find(params[:id])
+    if @purchase_item.downloadable?
+      @download_url = @purchase_item.product.download_url
+      unless @download_url.blank?
+        @purchase_item.last_downloaded_at = DateTime.now
+        @purchase_item.save
+        render :action => 'download', :layout => 'download'
+        # redirect_to url
       else
         flash[:notice] = "That download is not available at this time; please try again, later."
-        redirect_to purchase_url(pi.purchase)
+        redirect_to purchase_url(@purchase_item.purchase)
       end
     else
       flash[:notice] = "That download has expired. Please contact customer support for more information."
-      redirect_to purchase_url(pi.purchase)
+      redirect_to purchase_url(@purchase_item.purchase)
     end
   end
 

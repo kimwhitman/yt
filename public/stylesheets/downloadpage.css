@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/* CSS Document */
+
+*{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 0;
+}#downloadContainer {
+  width: 940px;
+  margin: 0 auto;
+}
+#downloadContainer #pageHeader {
+  margin-top: 20px;
+  width: 940px;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 10px;
+}
+#downloadContainer #pageHeader h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  color: #488a1a;
+  font-weight: normal;
+}
+#downloadContainer #pageHeader h4 {
+  font-size: 14px;
+  color: #999999;
+  font-weight: normal;
+}
+#downloadContainer #pageContent {
+  margin-top: 40px;
+}
+#downloadContainer #pageContent #leftColumn {
+  width: 250px;
+  float: left;
+  margin-right: 20px;
+}
+#downloadContainer #pageContent #leftColumn #videoDetail h4 {
+  color: #488a1a;
+  font-size: 12px;
+  font-weight:normal;
+}
+p {
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.2;
+  margin-bottom: 1.1em;
+}
+#downloadContainer #pageContent #rightColumn {
+  float: left;
+  margin: 0;
+  width: 550px;
+  padding-left: 15px;
+}
+#downloadContainer #pageContent #rightColumn #rightColumnContent p {
+  color: #333333;
+}
+#downloadContainer #pageContent #rightColumn #rightColumnContent h2 {
+  color: #488a1a;
+  font-weight:normal;
+}
+#downloadContainer #pageContent #rightColumn #rightColumnContent h4 {
+  color: #999999;
+  font-weight: normal;
+}
+#downloadContainer #pageContent #rightColumn #rightColumnContent h3 {
+  color: #488a1a;
+  font-weight:normal;
+}
+a {
+  font-size: 12px;
+  color: #333333;
+  line-height: 1.2;
+  margin-bottom: 1.1em;
+}
+#downloadContainer #pageContent #leftColumn #purchasebox {
+  width: 250px;
+  background-image: url(/images/purchase_box.png);
+  background-repeat: no-repeat;
+  height: 300px;
+}
+#downloadContainer #pageContent #rightColumn #rightColumnContent #note {
+  background-color: #edf6ff;
+  padding: 10px;
+}

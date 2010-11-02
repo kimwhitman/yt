@@ -1,0 +1,12 @@
+<div id="purchasebox">
+<div id="thumbnail" style="text-align:center;"><%= image_tag(@purchase_item.product.thumbnail_url, :style => "width:200px; margin:20px 0 10px 0;") unless @purchase_item.product.thumbnail_url.blank? -%></div>
+  <div id="videoDetail" style="padding:0 25px 0 25px;">
+
+      <h4><%= @purchase_item.product.title -%></h4>
+<p style="font-size:10px;"><%= @purchase_item.product.instructor_names -%> | <%= @purchase_item.product.skill_name -%> | <%= @purchase_item.product.duration_to_minutes -%>:<%= @purchase_item.product.duration_seconds -%></p>
+
+  </div>
+
+  <div style="text-align:center; margin-top:20px;"><a href="<%= @download_url -%>"><img src="/images/saveButton.png" border="0" /></a></div>
+
+</div>
