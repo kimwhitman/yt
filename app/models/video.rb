@@ -211,7 +211,10 @@ class Video < ActiveRecord::Base
           :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
           :mds_tags => sanitized_tags.join(','),
           :thumbnail_url => brightcove_video.thumbnailURL,
-          :brightcove_player_id => brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.assignedplayerid }
+          :brightcove_player_id => (brightcove_video.customFields.blank? || brightcove_video.customFields.assignedplayerid.blank?) ? nil :
+            brightcove_video.customFields.assignedplayerid.split('|').first,
+          :brightcove_player_key => (brightcove_video.customFields.blank? || brightcove_video.customFields.assignedplayerid.blank?) ? nil :
+            (brightcove_video.customFields.assignedplayerid.split('|').size > 1 ? brightcove_video.customFields.assignedplayerid.split('|').last : nil) }
 
         video_attributes.reject! { |k,v| v.nil? || v == 0 }
 

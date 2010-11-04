@@ -310,5 +310,59 @@ describe Video do
       ErrorMailer.should_receive(:deliver_error)
       Video.import_videos_from_brightcove
     end
+    
+    it "should set the player id when it's defined" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.assignedplayerid = '1234567890'
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+
+      video.reload
+      
+      video.brightcove_player_id.should == 1234567890
+    end
+    
+    it "should set the player key when the assigned player key has a pipe in it" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.assignedplayerid = '1234567890|KEY HERE'
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+
+      video.reload
+      
+      video.brightcove_player_key.should == 'KEY HERE'
+    end
+    
+    it "should set the player key to nil when there is no pipe in the assignedplayerid response" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.customFields.assignedplayerid = '1234567890'
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+
+      video.reload
+      
+      video.brightcove_player_key.should == nil
+    end
   end
 end
