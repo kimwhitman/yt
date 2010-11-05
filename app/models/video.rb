@@ -2,6 +2,7 @@ class Video < ActiveRecord::Base
 
   DEFAULT_BRIGHTCOVE_PLAYER_ID = 641807589001
   NEW_BALANCE_PLAYER_ID = 649621028001
+  DEFAULT_BRIGHTCOVE_PLAYER_KEY = 'AQ%2E%2E,AAAAGKmj7mE%2E,mo4U6jieCmBlzspTCceSHSMrjk4_eTc6'
 
   class BrightcoveApiError < StandardError; end
   alias_attribute :tags, :mds_tags
