@@ -372,7 +372,9 @@ class Video < ActiveRecord::Base
   end
 
   def download_url
-    selected_rendition = self.fetch_from_brightcove.renditions.select { |video| video.url if video.frameWidth == 640 && video.frameHeight == 360 }.first
+
+    renditions = self.fetch_from_brightcove.blank? ? nil : self.fetch_from_brightcove.renditions
+    selected_rendition = renditions.blank? ? nil : renditions.select { |video| video.url if video.frameWidth == 640 && video.frameHeight == 360 }.first
 
     # If there is no 640x360 rendition, return nil
     selected_rendition.blank? ? nil : selected_rendition.url
