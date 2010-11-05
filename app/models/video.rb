@@ -169,12 +169,12 @@ class Video < ActiveRecord::Base
     loop do
       videos = Hashie::Mash.new(Video.brightcove_api[:read].get(method, video_options.merge!(:page_number => page_number)))
 
-      raise Video::BrightcoveApiError, "Code: #{videos.code}, Error: #{videos.error}" if !videos.errors.blank?
+      raise Video::BrightcoveApiError, "Code: #{videos.code}, Error: #{videos.error}" if !videos.errors.blank? || !videos.error.blank?
 
       # If videos responds to name that means that it's a solo video, otherwise start looping through the collections
       if videos.respond_to?(:name)
         brightcove_videos << videos
-        break # break the look after the first one
+        break # break the lookup after the first one
       else
         break if videos.items.blank? || (options[:page_number] && page_number == options[:page_number])
 
@@ -381,11 +381,13 @@ class Video < ActiveRecord::Base
   def fetch_from_brightcove
     return nil if self.brightcove_full_video_id.blank?
 
-    response = Hashie::Mash.new(Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
+    response = Video.brightcove_api[:read].get('find_video_by_id', { :video_id => self.brightcove_full_video_id,
       :custom_fields => 'skilllevel,instructor,public,yogatypes,yogatypes2,relatedvideos,videofocus,previewvideo,assignedplayerid',
-      :media_delivery => 'http' }))
+      :media_delivery => 'http' })
 
-    if !response.error.blank?
+    response = Hashie::Mash.new(response) unless response.blank?
+
+    if !response.blank? && !response.error.blank?
       raise Video::BrightcoveApiError, "Code: #{response.code}, Error: #{response.error}"
     else
       return response
