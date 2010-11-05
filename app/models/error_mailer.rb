@@ -9,7 +9,7 @@ class ErrorMailer < ActionMailer::Base
   end
 
   def video_import_failure(videos)
-    setuo_email('bugs@planetargon.com')
+    setup_email('bugs@planetargon.com')
     @subject = '[YogaToday] Import video failure'
     @body[:videos] = videos
   end
