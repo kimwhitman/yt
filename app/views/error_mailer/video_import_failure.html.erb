@@ -4,6 +4,6 @@ There was a problem importing the following videos from Brightcove to the YogaTo
   Video Title: <%= video.title %>
   Errors:
   <% video.errors.each do |attribute, message| -%>
-    <li><%= attribute -%>: <%= message -%></li>
+    <%= attribute -%>: <%= message -%>
   <% end %>
 <% end %>
