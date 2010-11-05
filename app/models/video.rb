@@ -198,11 +198,6 @@ class Video < ActiveRecord::Base
       if self.full_version?(brightcove_video.referenceId)
         video = Video.find_or_initialize_by_friendly_name(self.convert_brightcove_reference_id(brightcove_video.referenceId))
 
-        sanitized_tags = []
-        brightcove_video.tags.each do |tag|
-          sanitized_tags << tag.gsub(/\W/, '')
-        end
-
         video_attributes = { :title => brightcove_video.name,
           :duration => brightcove_video.videoFullLength.videoDuration.to_i / 1000,
           :published_at => Time.at(brightcove_video.publishedDate.to_i / 1000),
@@ -210,7 +205,7 @@ class Video < ActiveRecord::Base
           :description => brightcove_video.longDescription,
           :brightcove_full_video_id => brightcove_video.id,
           :brightcove_preview_video_id => (brightcove_video.customFields.blank? ? nil : brightcove_video.customFields.previewvideo),
-          :mds_tags => sanitized_tags.join(','),
+          :mds_tags => brightcove_video.tags.blank? ? nil : brightcove_video.tags.join(','),
           :thumbnail_url => brightcove_video.thumbnailURL,
           :brightcove_player_id => (brightcove_video.customFields.blank? || brightcove_video.customFields.assignedplayerid.blank?) ? nil :
             brightcove_video.customFields.assignedplayerid.split('|').first,

@@ -365,5 +365,24 @@ describe Video do
       
       video.brightcove_player_key.should == nil
     end
+    
+    it "should have the tags foo and bar" do
+      brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
+      brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
+      brightcove_response.first.tags = ["foo", "bar"]
+      
+      video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
+      video.instructors << Instructor.make(:name => 'Robby Russell')
+      video.yoga_types << YogaType.make
+      video.save
+
+      Video.stub!(:full_version?).and_return(true)
+      Video.stub!(:fetch_videos_from_brightcove).and_return(brightcove_response)
+      Video.import_videos_from_brightcove
+
+      video.reload
+      
+      video.tags.should == 'foo,bar'
+    end
   end
 end
