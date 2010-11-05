@@ -351,6 +351,7 @@ describe Video do
       brightcove_response = [Hashie::Mash.new(valid_brightcove_response).items.first]
       brightcove_response.first.publishedDate = (2.weeks.ago.to_i * 1000).to_s
       brightcove_response.first.customFields.assignedplayerid = '1234567890'
+      
       video = Video.make_unsaved(:friendly_name => 'S075', :title => 'Test Title')
       video.instructors << Instructor.make(:name => 'Robby Russell')
       video.yoga_types << YogaType.make
