@@ -35,7 +35,8 @@ Rails::Initializer.run do |config|
   config.gem 'paperclip'
   config.gem 'hashie'
   config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
-
+  config.gem 'savon'
+  config.gem 'nokogiri'
 
   #config.gem 'rmagick', :lib => 'RMagick' (EAE - skip for jruby)
   # Only load the plugins named here, in the order given. By default, all plugins
@@ -44,7 +45,7 @@ Rails::Initializer.run do |config|
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
   # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %W( #{RAILS_ROOT}/lib/ #{RAILS_ROOT}/lib/gift_card_service )
 
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)

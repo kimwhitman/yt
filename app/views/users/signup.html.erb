@@ -1,0 +1,77 @@
+<div id="main">
+  <div id="page_container">
+
+    <%= render :partial => 'shared/flashes' %>
+
+    <!-- <div id="signup_section"> -->
+
+      <h1 class="header_primary signup_banner">Sign Up</h1> 
+            <div id="signup_header"> 
+              <div id="signup_step" class="signup_active"> 
+                <h4>Step 1: Choose your membership</h4> 
+              </div> 
+              <div id="signup_step" class="signup_inactive last"> 
+                <h4>Step 2: Create your account</h4> 
+              </div> 
+            </div> 
+            <div class="clear"></div> 
+            <div id="membership-matrix"> 
+              <ul> 
+                <li style="background-image: url('/images/member-option-monthly.png')"><%= link_to(' ', sign_up_membership_path(:membership_type => 'monthly')) %></li>
+                <li style="background-image: url('/images/member-option-prepaidyear.png')"><%= link_to(' ', sign_up_membership_path(:membership_type => 'prepaid')) %></li>
+                <li style="background-image: url('/images/member-option-free.png')"><%= link_to(' ', sign_up_membership_path(:membership_type => 'free')) %></li>
+              </ul> 
+            </div> 
+            <div class="clear"></div> 
+            <div id="redeemgift-matrix last"> 
+              <div class="redeemgift"> 
+                <ul> 
+                  <li> 
+                    <h2>Or, redeem your Yoga Today Gift Subscription</h2> 
+                    <p>Once you create your account, your Gift Subscription will be credited and your membership will begin.</p> 
+                  </li> 
+                  <li> 
+                  <div style="background-color:#eef7f1; padding:6px 10px; width:560px; margin:8px 0 0 0; border:1px solid #c0c0c0;"> 
+                    <fieldset class="basic"> 
+                    <% form_tag new_user_path, :method => 'get' do |f| -%>
+                    <%= label_tag :serial_number, "Enter your 24-digit Gift Code", :class => 'giftcode' %>
+                    <%= text_field_tag :serial_number, params[:serial_number], :class => 'giftcode' %>
+                    <%= image_submit_tag '/images/giftcode-continue.png', :class => 'giftcode-submit' %>
+                    </fieldset> 
+                    <% end -%>
+                  </div> 
+                  </li> 
+                  <li class="giftcode-caption">Find this number in the e-mail sent to you by shop@yogatoday.com, or on the back of your Gift Card.</li> 
+                </ul> 
+             </div> 
+      	  </div> 
+            <div id="membership-features"> 
+                <ul> 
+                  <li> 
+                    <h5>All paid memberships</h5> 
+                    <h2>Full library access</h2> 
+                  </li> 
+                  <li>Whichever paid subscription you choose, you’ll have full access to our growing library of over 200 classes... and counting!</li> 
+                </ul> 
+                <ul> 
+                  <li> 
+                    <h5>All paid memberships</h5> 
+                    <h2>Unlimited class streaming</h2> 
+                  </li> 
+                  <li>Unlimited streaming means there’s no limit to the number of classes you can watch directly from the streaming player on our Web site.</li> 
+                </ul> 
+                <ul style="margin-right:0px;"> 
+                  <li> 
+                    <h5>All paid memberships</h5> 
+                    <h2>Downloads Only $2.99</h2> 
+                  </li> 
+                  <li>Subscribe and save a buck each time you download a full one-hour class. That’s 25% savings with a monthly or prepaid membership.</li> 
+                </ul> 
+                <ul style="margin-bottom:25px;"> 
+                  <li> 
+                    <h5>All paid memberships</h5> 
+                    <h2>Ambassador ID trial offer</h2> 
+                  </li> 
+                  <li>Enjoy a two week free trial before you’re billed when you subscribe using an Ambassador ID. Cancel any time.</li> 
+                </ul> 
+              </div>

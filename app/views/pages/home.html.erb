@@ -42,10 +42,11 @@
     </a>
   </div>
 </div>
-
 <% if @featured_videos %>
+
 <script type="text/javascript" charset="utf-8">
-  var video_details = <%= @featured_videos_data.to_json %>;
+  var video_details = {};
+  // var video_details = {}; <%#= @featured_videos_data.to_json %>;
   // $(document).ready(function() { $('.timeago').timeago(); });
   var jCarousel = $(window).ready(function() {
     jQuery('#featured_videos_carousel').jcarousel({

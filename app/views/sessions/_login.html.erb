@@ -1,6 +1,8 @@
-<div id="login_section">
+<div id="login_section" <%= use_alternate ? 'class="login-alternate"' : '' %>>
+  <% if use_alternate.nil? %>
   <h1 class="header_primary signup_banner">Login</h1>
-  <% if controller.controller_name == 'users' && controller.action_name == 'new' %>
+  <% end %>
+  <% if controller.controller_name == 'users' && (['new', 'signup'].include? controller.action_name) %>
   <h2 class="header_secondary">Returning Members Login</h2>
   <% else %>
   <h2 class="header_secondary">Returning Members Login <%= link_to("New user?  Sign up!", sign_up_path) %></h2>

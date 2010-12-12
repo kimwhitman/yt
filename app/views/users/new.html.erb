@@ -8,15 +8,82 @@
     <div id="signup_section">
       <h1 class="header_primary signup_banner">Sign Up</h1>
 
-      <h2 class="header_secondary">Sign Up <%= link_to 'Already a member?', login_path %></h2>
+      <div id="signup_header">
+        <div id="signup_step" class="signup_inactive"><h4>
+          <%= link_to 'Step 1: Choose your membership', sign_up_path %>
+          </h4></div>
+        <div id="signup_step" class="signup_active last"><h4>Step 2: Create your account</h4></div>
+      </div>
+
+      <div class="clear"></div>
+
+      <% if @membership_type == 'monthly' %>
+
+      <div id="membership-type" class="monthly-box">
+        <h2>Unlimited Membership - monthly recurring</h2>
+        <p>Once you create your account, your credit card will be charged <strong>$9.99</strong>. Once the payment is approved your subscription will begin. Your subscription will automatically renew on <strong>July 10, 2010</strong>.</p>
+      </div>
+      
+      <div id="signup-option1" class="ambassador-box">
+      <% if @gift_card %>
+        <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
+      <% else %>
+                <h2 style="margin-bottom:0; line-height:0;">Option: Begin your membership with a two week free trial, cancel any time.</h2>
+                <p>Enter a valid Ambassador ID with your prepaid subscription
+      and enjoy a 2 week free trial before your account is billed.</p>
+            <input class="input" id="x_ambassador_name" name="ambassador_name" type="text" size="30"><br>
+                      <a class="submit" href="#" onclick="selectAmbassador(); return false;"><img alt="Ambassador_button_enter" src="/images/ambassador_button_enter.png"></a>
+
+      <% end %>
+      </div>
+      <% elsif @membership_type == 'prepaid' %>
+      <div id="membership-type" class="prepaid-box">
+                <h2>Unlimited Membership - prepaid, one year</h2>
+                <p>Once you create your account, your credit card will be charged <strong>$89.95</strong>. When payment is approved your 1-year subscription will begin and will remain open until July 10, 2011.</p>
+              </div>
+              <div id="signup-option1" class="ambassador-box">
+              <% if @gift_card %>
+                <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
+              <% else %>
+                        <h2 style="margin-bottom:0; line-height:0;">Option: Begin your membership with a two week free trial, cancel any time.</h2>
+                        <p>Enter a valid Ambassador ID with your prepaid subscription
+              and enjoy a 2 week free trial before your account is billed.</p>
+                    <input class="input" id="x_ambassador_name" name="ambassador_name" type="text" size="30"><br>
+                              <a class="submit" href="#" onclick="selectAmbassador(); return false;"><img alt="Ambassador_button_enter" src="/images/ambassador_button_enter.png"></a>
+              <% end %>
+              </div>
+      <% elsif @membership_type == 'free' %>
+      <div id="membership-type" class="free-box">
+                <h2>Free Membership</h2>
+                <p>Once you create your account, each week you will have access to “This week’s free class,” our gift to those who are new to Yoga Today. You can upgrade to a subscription at any time.</p>
+              </div>
+      <% end %>
+
+      <fieldset class="basic">
+        <legend class="signup">Basic Information</legend> <label class="end_set wide">screen name <input value="" class="empty" id="user_name" name="user[name]" size="30" type="text"></label> <label class="column">first name <input value="" size="30" tabindex="0" class=" empty" type="text"> <input type="text" class=" empty" style="display: none;" tabindex="0" size="30"><input style="display: none;" id="user_password" name="user[password]" size="30" type="password"></label> <label class="end_set">last name <input value="" size="30" tabindex="0" class=" empty" type="text"> <input type="text" class=" empty" style="display: none;" tabindex="0" size="30"><input style="display: none;" id="user_password_confirmation" name="user[password_confirmation]" size="30" type="password"></label> <label class="column">e-mail address <input value="" class="empty" id="user_email" name="user[email]" size="30" type="text"></label> <label class="end_set">confirm e-mail address <input value="Retype E-mail address" class="empty" id="user_email_confirmation" name="user[email_confirmation]" size="30" type="text"></label> <label class="column">password <input value="" size="30" tabindex="0" class=" empty" type="text"> <input style="display: none;" id="user_password" name="user[password]" size="30" type="password"></label> <label class="end_set">confirm password <input value="" size="30" tabindex="0" class=" empty" type="text"> <input style="display: none;" id="user_password_confirmation" name="user[password_confirmation]" size="30" type="password"></label>
+      </fieldset>
+
+      <% if @membership_type != 'free' %>
+
+      <%= render :partial => "credit_card", :locals => { :user => @user } %>
+
+      <% end %>
+
+      <fieldset class="basic">
+        <legend class="signup">E-mail Preferences</legend> <label class="checkbox"><input checked="checked" id="user_wants_newsletter" name="user[wants_newsletter]" value="1" type="checkbox"> <input name="user[wants_newsletter]" value="0" type="hidden"> Send me the weekly Yoga Today newsletter and weekly class update.</label> <label class="checkbox"><input checked="checked" id="user_wants_promos" name="user[wants_promos]" value="1" type="checkbox"> <input name="user[wants_promos]" value="0" type="hidden"> Keep me informed of Yoga Today offers and special announcements.</label> <label class="radio"><input checked="checked" id="user_newsletter_format_html" name="user[newsletter_format]" value="html" type="radio"> HTML E-mail</label> <label class="radio"><input id="user_newsletter_format_plain" name="user[newsletter_format]" value="plain" type="radio"> Plain Text E-mail</label>
+      </fieldset>
+
+      <div class="actions">
+        <input class="submit" src="/images/profile_button_signup.png" type="image">
+      </div>
 
       <% form_for @user do |f| -%>
-        <%= render :partial => "form", :locals => { :f => f } %>
+        <%#= render :partial => "form", :locals => { :f => f } %>
       <% end -%>
 
     </div>
 
-    <%= render :partial => "sessions/login" %>
+    <%= render :partial => "sessions/login", :locals => { :use_alternate => true } %>
 
   </div>
 </div>

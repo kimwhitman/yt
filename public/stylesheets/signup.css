@@ -1,0 +1,340 @@
+#signup_step {
+	width:220px;
+	height:25px;
+	text-align:center;
+	float:left;
+	margin-right:15px;
+}
+
+#signup_step h4 {
+	margin:5px;
+	padding:0;
+	font-weight:lighter;
+}
+
+.signup_inactive {
+	background-image:url('/images/stepBackground.png');
+	background-repeat:no-repeat;
+
+}
+
+.signup_active {
+	background-image:url('/images/stepBackground_active.png');
+	background-repeat:no-repeat;
+}
+
+.last {
+	margin-right:none;
+}
+
+.clear {
+	clear:both;
+}
+
+.prepaid-box {
+	background-image:url('/images/member_icon.png');
+	background-position:10px 10px;
+	background-repeat:no-repeat;
+	background-color:#163c7a;
+	color:white;
+	margin:30px 0 0 0;
+	padding:8px 15px 15px 60px;
+}
+.prepaid-box h2 {
+	color:white;
+	font-size:18px !important;
+	font-weight:lighter;
+
+}
+
+.monthly-box {
+	background-image:url('/images/member_icon.png');
+	background-position:10px 10px;
+	background-repeat:no-repeat;
+	background-color:#3466cc;
+	color:white;
+	margin:30px 0 0 0;
+	padding:8px 15px 15px 60px;
+}
+.monthly-box h2 {
+	color:white;
+	font-size:18px !important;
+	font-weight:lighter;
+
+}
+
+.giftcard-box {
+	background-image:url('/images/giftcard-step2-bg.png');
+	background-position:right bottom;
+	background-repeat:no-repeat;
+	background-color:#f7f4f1;
+	color:#531a57;
+	margin:30px 0 30px 0;
+	padding:8px 35px 15px 15px;
+	height:130px;
+}
+.giftcard-box h2 {
+	color:#531a57;
+	font-size:18px !important;
+	font-weight:lighter;
+
+}
+
+.free-box {
+	background-image:url('/images/free_icon.png');
+	background-position:10px 10px;
+	background-repeat:no-repeat;
+	background-color:#f5f5f5;
+	color:#666;
+	margin:30px 0 30px 0;
+	padding:8px 15px 15px 60px;
+}
+
+#signup-option1 {
+	margin:0 0 30px 0;
+}
+
+#signup-option1 a {
+	border:0;
+	color:#e9f1ff;
+	text-decoration:none;
+	margin-top:8px;
+}
+#signup-option1 input {
+	width:260px;
+	height:18px;
+}
+#signup-option1 a img{
+	border:0;
+	text-decoration:none;
+	margin-top:8px;
+}
+
+
+.ambassador-box {
+	background-color:#e9f1ff;
+	color:#666;
+	padding:15px;
+}
+.ambassador-box p {
+	font-size:11px;
+}
+.ambassador-box h2 {
+	font-size:14px;
+}
+
+legend.signup {
+	font-size:11px;
+	font-weight:bold;
+	margin:0 0 15px 0;
+	padding:2px;
+	background-color:#f2f2f2;
+	width:100%;
+	text-transform: uppercase;
+}
+
+#membership-matrix {
+	width:940px;
+	height:283px;
+	list-style:none;
+	margin:25px 0 0 0;
+}
+
+#membership-matrix ul {
+	list-style:none;
+	margin:0;
+	padding:0;
+	height:283px;
+}
+
+#membership-matrix ul li {
+	float:left;
+	margin:0;
+	width:306px;
+	height:283px;
+	padding:0;
+	border:3px solid white;
+}
+#membership-matrix ul li a {
+	position: relative; top: 0; left: 0; display: block; width: 100%; height: 100%;
+}
+
+#membership-matrix ul li:hover {
+	border:3px solid #70df38;
+	cursor:pointer;
+}
+
+#redeemgift-matrix {
+	width:930px;
+	height:150px;
+	list-style:none;
+	overflow:hidden;
+}
+.redeemgift {
+	height:100%;
+	background-image:url('/images/giftbox-bg.gif');
+	color:#531a57;
+	padding:15px;
+	padding-left:30px;
+	margin:20px 0 0 3px;
+	background-repeat: no-repeat;
+}
+.redeemgift h2{
+	color:#531a57;
+	margin-bottom:0px;
+	line-height: 1.1;
+}
+.redeemgift p{
+	margin:0px;
+	padding:0px;
+}
+.redeemgift ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.redeemgift fieldset {
+	margin:0px;
+	border:0px;
+}
+input.giftcode {
+	width:350px;
+	height:22px;
+	font-size:12px;
+	margin:0px;
+	line-height:0px;
+	vertical-align:top;
+}
+
+label.giftcode {
+	font-size:11px;
+	line-height:0px;
+	margin:0 0 6px 0;
+	padding:0px;
+	display:block;
+}
+
+a.giftcode-submit {
+	border:0px;
+	padding:0px;
+	text-decoration:none;
+	height:27px;
+	display:inline;
+	vertical-align:top;
+}	
+
+.giftcode-submit img{
+	width:127px;
+	height:27px;
+	border:none;
+	padding:0px;
+	margin:0 0 0 4px;
+
+}
+
+.giftcode-caption {
+	font-size:10px;
+	color:#668989;
+	margin-top:10px;
+	font-style:italic;
+}
+
+#membership-features {
+	color:#666;
+	font-size:14px;
+}
+
+#membership-features h2 {
+	color:blue;
+	font-size:24px;
+	font-weight:lighter;
+	margin:2px 0 0 0;
+	padding:0;
+}
+
+#membership-features h5 {
+	font-size:9px;
+	color:#333;
+	margin:0;
+	padding:0;
+}
+
+#membership-features ul {
+	float:left;
+	width:300px;
+	border-top:1px solid #f0f0f0;
+	margin:35px 15px 0 0;
+	list-style:none;
+	padding:0px;
+}
+#membership-features ul li{
+	margin-top:10px;
+	line-height:1.3em;
+}
+#credit_card{
+	margin:30px 0;
+}
+
+select#select-country {
+	font-size:12px;
+	padding:2px;
+	margin:0 10px 18px 0;
+	display:block;
+
+}
+
+select#select-state {
+	font-size:12px;
+	padding:2px;
+	margin:0 20px 18px 0;
+	display:block;
+
+}
+#creditcard_number {
+	font-size:12px;
+	padding:2px;
+	margin:0 20px 18px 0;
+	display:block;
+
+}
+select#creditcard_month {
+	font-size:12px;
+	padding:2px;
+	margin:0 20px 28px 0;
+	display:block;
+
+}
+select#creditcard_year {
+	font-size:12px;
+	padding:2px;
+	margin:0 20px 18px 0;
+	display:block;
+
+}
+#creditcard_verification_value {
+	font-size:12px;
+	padding:2px;
+	margin:0 20px 18px 0;
+	display:inline;
+	width:30px;
+	background-image:url('/images/cvv2.png');
+	background:url('/images/cvv2.png');
+	background-repeat:no-repeat;
+	background-position:right;
+}
+
+#user_agree_to_terms {
+	margin:0 0 30px; 0;
+}
+
+.login-alternate {
+	margin:105px 0 0 0;
+}
+
+input#giftcode-verify {
+	font-size:16px;
+	color:#531a57;
+	padding:6px;
+}
+

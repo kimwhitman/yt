@@ -1,20 +1,53 @@
+require 'gift_card_service/api'
+
 class UsersController < ApplicationController
   ssl_required :billing if RAILS_ENV == 'production'
 
   skip_filter :verify_authenticity_token, :only => [:check_login, :check_email]
+
   before_filter :login_required,
-    :except => [:create, :new, :special_message, :no_special_message, :check_email, :subscription, :select_ambassador,
-      :change_ambassador, :notify_ambassador]
+    :except => [
+      :change_ambassador,
+      :notify_ambassador,
+      :signup,
+      :create,
+      :new,
+      :special_message,
+      :no_special_message,
+      :check_email,
+      :subscription,
+      :select_ambassador,
+      ]
+
   before_filter :setup_ambassador, :only => [:ambassador_tools_invite_by_email, :ambassador_tools_widget_invite_by_email]
   before_filter :fetch_ambassador, :only => [:new, :create, :select_ambassador, :billing]
   before_filter :setup_ambassador_email, :only => [:ambassador_tools_widget_invite_by_email, :ambassador_tools_invite_by_email]
 
+  before_filter :ensure_not_logged_in, :only => :new
+  before_filter :check_serial_number, :only => :new
+
+  def signup
+    @user = User.new
+  end
 
   def new
+    @membership_types = %w(free monthly prepaid)
+    @membership_type = @membership_types.include?(params[:membership_type].to_s) ? params[:membership_type] : 'free'
+
+    if @gift_card && @gift_card.valid?
+      if @gift_card.balance == 89.95
+        @membership_type = 'prepaid'
+      else
+        @membership_type = 'monthly'
+      end
+    end
+
     @user = User.new
     @user.wants_newsletter = true
-    @user.wants_promos = true
+    @user.wants_promos     = true
+
     setup_fake_values
+
     @show_ambassador_plans = params[:ambassador_plans] == '0' ? false : true
     if !params[:membership].blank? #&& %w(free 1 12).include?(params[:membership])
       @billing_cycle = params[:membership]
@@ -25,8 +58,6 @@ class UsersController < ApplicationController
         @billing_cycle = 'free'
       end
     end
-
-    redirect_to profile_user_path(current_user) if logged_in?
   end
 
   def create
@@ -117,13 +148,14 @@ class UsersController < ApplicationController
     @user.attributes = params[:user]
     # @user.add_to_base("You must agree to Membership Terms and Details") unless @user.agree_to_terms?
     @creditcard = ActiveMerchant::Billing::CreditCard.new params[:creditcard]
+
     if request.get? && Rails.env == 'development'
-      @creditcard.number = '1'
+      @creditcard.number             = '1'
       @creditcard.verification_value = '123'
-      #@creditcard.year = Time.now.year + 1
-      @creditcard.first_name = 'John'
-      @creditcard.last_name = 'Smith'
-      @user.agree_to_terms = 1
+      #@creditcard.year              = Time.now.year + 1
+      @creditcard.first_name         = 'John'
+      @creditcard.last_name          = 'Smith'
+      @user.agree_to_terms           = 1
     end
 
     begin
@@ -411,6 +443,11 @@ class UsersController < ApplicationController
       logger.debug "DEBUG AmbassadorID=#{ @ambassador_user.id if @ambassador_user } CurrentUser.ambassador_id=#{ current_user.ambassador_id if current_user }"
     end
 
+
+    def ensure_not_logged_in
+      redirect_to profile_user_path(current_user) if logged_in?
+    end
+
     def setup_fake_values
       if Rails.env == 'development'
         @user.name = Faker::Name.last_name
@@ -419,8 +456,27 @@ class UsersController < ApplicationController
         logger.debug "DEBUG User=#{ @user.inspect }"
       end
     end
+    
+    def check_serial_number
+      unless params[:serial_number].blank?
+        soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
+        namespace     = 'http://complemar.com/'
+        client        = GiftCardService::API.new(soap_endpoint, namespace)
+        @gift_card    = client.search(params[:serial_number])
 
+        # @gift_card    = GiftCardService::GiftCard.new(:balance => '89.95', :expiraton_date => 5.days.since.to_s)
 
+        unless @gift_card && @gift_card.valid?
+          flash[:error] = "Your Gift Card Number could not be found"
+          redirect_to sign_up_path(:serial_number => params[:serial_number])
+        end
+
+        if @gift_card.expired?
+          flash[:error] = "Your Gift Card has expired"
+          redirect_to sign_up_path(:serial_number => params[:serial_number])
+        end
+      end
+    end
 
   private
 
