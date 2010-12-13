@@ -23,7 +23,7 @@ module GiftCardService
       @client    = Savon::Client.new(url)
       @namespace = namespace
       @username  = 'aghag@complemar.com'
-      @password  = 'Abhishek7*'
+      @password  = 'Computer7*'
       @base_url  = 'http://complemar.com'
       @xmlnses   = { "xmlns" => @namespace }
     end
