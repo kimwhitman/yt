@@ -12,14 +12,18 @@ set :default_stage, "staging"
 set :rake, "/opt/local/bin/rake"
 # set :repository, "git@github.com:kimwhitman/YogaToday.git"
 
-set :repository, "git@github.com:planetargon/yogatoday.git"
+set :repository, "git@github.com:YogaToday/yogatoday.git"
 set :scm, :git
-set :branch, "ITER-002" # or whatever branch/tag/SHA1
+set :branch, "master" # or whatever branch/tag/SHA1
 
 set :branch do
   Capistrano::CLI.ui.ask "Which remote branch would you like to deploy to #{stage.to_s.upcase}: "
 end
 
+
+set :deploy_via, :copy
+set :copy_compression, :zip
+set :copy_exclude, ".git/*"
 
 set :user, 'yoga'
 set :password, "y0g4"
@@ -34,6 +38,7 @@ rescue LoadError => e
   puts "Please install multistage: gem install capistrano-ext"
   exit
 end
+
 
 namespace :config do
   desc "Make symlink for database yaml"
