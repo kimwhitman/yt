@@ -82,19 +82,17 @@ class UsersController < ApplicationController
             if result && @user.membership_type == 'prepaid'
               time = Time.now.advance(:months => 12)
             elsif result && @user.membership_type == 'monthly'
-              time = Time.now.advance(:months => 1)
+              time = Time.now.advance(:months => 3)
             else
               logger.fatal "Gift Card Redemption unsuccessful. #{@gift_card.inspect}"
               time = Time.now
             end
 
             @user.account.subscription.update_attribute(:next_renewal_at, time)
-          end
-          
-          if @user.membership_type == 'prepaid' && apply_ambassador
-            @user.account.subscription.update_attribute(:next_renewal_at, Time.now.advance(:weeks => 2))
-            sp = SubscriptionPlan.find_by_internal_name('premium_annualy_trial')
-            @user.account.subscription.plan = sp
+          elsif @user.membership_type == 'prepaid' && apply_ambassador
+              @user.account.subscription.update_attribute(:next_renewal_at, Time.now.advance(:weeks => 2))
+              sp = SubscriptionPlan.find_by_internal_name('premium_annualy_trial')
+              @user.account.subscription.plan = sp
           end
 
           @user.account.subscription.renewal_period = @user.account.plan.renewal_period
