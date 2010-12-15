@@ -29,6 +29,10 @@ class UsersController < ApplicationController
 
   def signup
     @user = User.new
+
+    if params[:gift_card_code]
+      redirect_to new_user_path(:gift_card_code => params[:gift_card_code])
+    end
   end
 
   def new
