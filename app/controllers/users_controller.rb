@@ -536,7 +536,7 @@ class UsersController < ApplicationController
             render :action => 'new'
             return
           else
-            redirect_to sign_up_path(:gift_card_code => params[:gift_card_code])
+            redirect_to sign_up_path
           end
         end
 
@@ -547,7 +547,7 @@ class UsersController < ApplicationController
             render :action => 'new'
             return
           else
-            redirect_to sign_up_path(:gift_card_code => params[:gift_card_code])
+            redirect_to sign_up_path
           end
         end
       end
