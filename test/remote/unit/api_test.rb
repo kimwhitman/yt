@@ -40,6 +40,7 @@ class ApiTest < ActiveSupport::TestCase
   # TODO: add gift card that works
   def test_search_with_empty_giftcard
     gift_card = @client.search('')
+    assert_not_nil gift_card
     assert_equal false, gift_card.valid?
     assert_equal gift_card.balance, 0
   end
