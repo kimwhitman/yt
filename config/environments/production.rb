@@ -30,3 +30,7 @@ ActionController::Base.asset_host = Proc.new { |source, request|
 }
 
 Paperclip.options[:command_path] = '/opt/local/bin/'
+
+Savon::Request.logger = Logger.new("#{RAILS_ROOT}/log/soap_production.txt")
+Savon::Request.log_level = :info
+Savon::Response.raise_errors = false
