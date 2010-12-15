@@ -531,7 +531,10 @@ class UsersController < ApplicationController
         if @gift_card.nil? || (@gift_card && !@gift_card.valid?)
           flash[:error] = "Your Gift Card Number could not be found"
           
-          
+          if @gift_card
+            logger.info "Could not validate gift card code: #{@gift_card.inspect}"
+          end
+
           if params[:action] == 'create'
             render :action => 'new'
             return
