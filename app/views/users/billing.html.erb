@@ -126,19 +126,7 @@
             <% fields_for :creditcard do |cc| %>
             <label>
               select card type
-              <%
-              card_types = [['American Express', 'american_express'],
-                    ['Discover', 'discover'],
-                    ['Mastercard', 'master'],
-                    ['Visa', 'visa']]
-
-                if Rails.env != 'production'
-                  card_types << ['Bogus', 'bogus']
-                end %>
-
-              <%= cc.select :type, card_types, :selected => 'bogus' if Rails.env != 'production' %>
-              <%= cc.select :type, card_types if Rails.env == 'production' %>
-
+              <%= select_tag 'creditcard[type]', credit_card_options_for_select(@creditcard.type), :id => 'creditcard_type' %>
               <%= image_tag 'credit_cards.png', :size => '111x27' %>
             </label>
             <label>

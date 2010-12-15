@@ -24,50 +24,101 @@ class UsersController < ApplicationController
   before_filter :setup_ambassador_email, :only => [:ambassador_tools_widget_invite_by_email, :ambassador_tools_invite_by_email]
 
   before_filter :ensure_not_logged_in, :only => :new
-  before_filter :check_serial_number, :only => :new
+  before_filter :check_gift_card_code, :determine_membership_type, :only => [:new, :create]
+  before_filter :setup_user, :only => :new
 
   def signup
     @user = User.new
   end
 
   def new
-    @membership_types = %w(free monthly prepaid)
-    @membership_type = @membership_types.include?(params[:membership_type].to_s) ? params[:membership_type] : 'free'
-
-    if @gift_card && @gift_card.valid?
-      if @gift_card.balance == 89.95
-        @membership_type = 'prepaid'
-      else
-        @membership_type = 'monthly'
-      end
-    end
-
-    @user = User.new
-    @user.wants_newsletter = true
-    @user.wants_promos     = true
-
-    setup_fake_values
-
-    @show_ambassador_plans = params[:ambassador_plans] == '0' ? false : true
-    if !params[:membership].blank? #&& %w(free 1 12).include?(params[:membership])
-      @billing_cycle = params[:membership]
-    else
-      if @ambassador_user
-        @billing_cycle = 'Premium Trial'
-      else
-        @billing_cycle = 'free'
-      end
-    end
+    @creditcard = ActiveMerchant::Billing::CreditCard.new(params[:creditcard])
+    @date = Date.today
   end
 
   def create
-    @user = User.new params[:user]
-    @user.valid?
+    @user = User.new(params[:user])
+    @creditcard = ActiveMerchant::Billing::CreditCard.new(params[:creditcard])
+
+    begin
+      @date = Date.parse("#{@creditcard.month}/#{@creditcard.year}")
+    rescue ArgumentError
+      @date = Date.parse("Jan #{Date.today.year}")
+    end
+
+    if @user.valid? && @membership_type != 'free'
+
+      # create subscription
+
+      @address = SubscriptionAddress.new(:first_name => @creditcard.first_name,
+                                         :last_name  => @creditcard.last_name)
+
+      if @user.valid? && @creditcard.valid? && @address.valid?
+
+        @user.membership_type = @membership_type
+
+        ActiveRecord::Base.transaction do
+          @user.save
+
+          if @gift_card && @gift_card.valid?
+
+            soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
+            namespace     = 'http://complemar.com/'
+            client        = GiftCardService::API.new(soap_endpoint, namespace)
+
+            # FIXME: what if this fails?
+            result = client.redeem(@gift_card.serial_number, @gift_card.balance)
+            
+            if result && @user.membership_type == 'prepaid'
+              time = Time.now.advance(:months => 12)
+            elsif result && @user.membership_type == 'monthly'
+              time = Time.now.advance(:months => 1)
+            else
+              time = Time.now
+            end
+
+            @user.account.subscription.update_attribute(:next_renewal_at, time)
+          end
+          
+          if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
+            logger.info "Subscription success!"
+          else
+            @user.errors.add_to_base "We were unable to obtain account authorization"
+            errors = @user.account.subscription.errors.full_messages
+            logger.info "Subscription Error: #{errors}"
+            flash[:error_messages] = errors.join("<br/>")
+            raise ActiveRecord::Rollback
+          end
+        end
+      else
+        @creditcard.errors.full_messages.each do |message|
+          logger.debug("CC: #{message}")
+          @user.errors.add_to_base message
+        end
+
+        @address.errors.full_messages.each do |message|
+          logger.debug("ADDRESS: #{message}")
+          @user.errors.add_to_base message
+        end
+
+        if @user.account
+          @user.account.subscription.errors.full_messages.each do |message|
+            logger.debug("SUB: #{message}")
+            @user.errors.add_to_base message
+          end
+        end
+
+        errors = @creditcard.errors.full_messages + @address.errors.full_messages
+
+        logger.debug("ERRORS: #{errors}")
+
+        flash[:error_messages] = errors.join("<br/>")
+      end
+      
+    end
 
     if @user.errors.count == 0 && @user.save
-      free_user = params[:membership] && params[:membership] == 'free'
-
-      UserMailer.deliver_welcome(@user) if free_user
+      UserMailer.deliver_welcome(@user) if @membership_type == 'free'
       self.current_user = @user
 
       # Assign user to ambassador
@@ -80,20 +131,11 @@ class UsersController < ApplicationController
       end
 
       respond_to do |format|
-        format.html do
-          if free_user
-            render :action => "welcome"
-          else
-            redirect_to billing_user_url(@user, :membership => params[:membership])
-          end
-          return
-         end
-        format.js
+        format.html { render :action => "welcome" }
       end
     else
       respond_to do |format|
         format.html { render :action => "new" }
-        format.js
       end
     end
   end
@@ -443,37 +485,81 @@ class UsersController < ApplicationController
       logger.debug "DEBUG AmbassadorID=#{ @ambassador_user.id if @ambassador_user } CurrentUser.ambassador_id=#{ current_user.ambassador_id if current_user }"
     end
 
-
     def ensure_not_logged_in
       redirect_to profile_user_path(current_user) if logged_in?
     end
 
     def setup_fake_values
       if Rails.env == 'development'
-        @user.name = Faker::Name.last_name
-        @user.email = @user.email_confirmation = Faker::Internet.email
-        @user.password = @user.password_confirmation = Faker::Name.first_name << Faker::Name.last_name
+        @user.name       = Faker::Name.last_name
+        @user.first_name = Faker::Name.first_name
+        @user.last_name  = Faker::Name.last_name
+        @user.email      = @user.email_confirmation = Faker::Internet.email
+        @user.password   = @user.password_confirmation = '123456'
         logger.debug "DEBUG User=#{ @user.inspect }"
       end
     end
-    
-    def check_serial_number
-      unless params[:serial_number].blank?
-        soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
-        namespace     = 'http://complemar.com/'
-        client        = GiftCardService::API.new(soap_endpoint, namespace)
-        @gift_card    = client.search(params[:serial_number])
 
-        # @gift_card    = GiftCardService::GiftCard.new(:balance => '89.95', :expiraton_date => 5.days.since.to_s)
+    def check_gift_card_code
+      unless params[:gift_card_code].blank?
 
-        unless @gift_card && @gift_card.valid?
-          flash[:error] = "Your Gift Card Number could not be found"
-          redirect_to sign_up_path(:serial_number => params[:serial_number])
+        if Rails.env == 'development'
+          if params[:gift_card_code] == '1'
+            @gift_card = GiftCardService::GiftCard.new(:balance => '9.95', :expiraton_date => 5.days.since.to_s)
+          elsif params[:gift_card_code] == '2'
+            @gift_card = GiftCardService::GiftCard.new(:balance => '89.95', :expiraton_date => 5.days.since.to_s)
+          end
+        else
+          soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
+          namespace     = 'http://complemar.com/'
+          client        = GiftCardService::API.new(soap_endpoint, namespace)
+          @gift_card    = client.search(params[:gift_card_code])
         end
 
-        if @gift_card.expired?
+        if @gift_card.nil? || (@gift_card && !@gift_card.valid?)
+          flash[:error] = "Your Gift Card Number could not be found"
+          
+          
+          if params[:action] == 'create'
+            render :action => 'new'
+            return
+          else
+            redirect_to sign_up_path(:gift_card_code => params[:gift_card_code])
+          end
+        end
+
+        if @gift_card && @gift_card.expired?
           flash[:error] = "Your Gift Card has expired"
-          redirect_to sign_up_path(:serial_number => params[:serial_number])
+
+          if params[:action] == 'create'
+            render :action => 'new'
+            return
+          else
+            redirect_to sign_up_path(:gift_card_code => params[:gift_card_code])
+          end
+        end
+      end
+    end
+
+    def setup_user
+      @user = User.new
+      @user.wants_newsletter = true
+      @user.wants_promos     = true
+      setup_fake_values
+    end
+
+    def determine_membership_type
+      if %w(monthly prepaid).include?(params[:membership_type].to_s)
+        @membership_type = params[:membership_type]
+      else
+        @membership_type = 'free'
+      end
+
+      if @gift_card && @gift_card.valid?
+        if @gift_card.balance == 89.95
+          @membership_type = 'prepaid'
+        else
+          @membership_type = 'monthly'
         end
       end
     end

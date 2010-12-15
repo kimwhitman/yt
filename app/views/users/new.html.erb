@@ -17,8 +17,17 @@
 
       <div class="clear"></div>
 
-      <% if @membership_type == 'monthly' %>
+      <% form_for @user, :html => {:id => 'billing_form'} do |f| %>
 
+
+      <%= f.error_messages(:class => 'notice',
+          :header_message => nil,
+          :message => "I'm sorry, we were unable to create your account.") %>
+
+      <%= hidden_field_tag :membership_type, @membership_type  %>
+      <%= hidden_field_tag :gift_card_code, params[:gift_card_code] unless params[:gift_card_code].blank?  %>
+
+      <% if @membership_type == 'monthly' %>
       <div id="membership-type" class="monthly-box">
         <h2>Unlimited Membership - monthly recurring</h2>
         <p>Once you create your account, your credit card will be charged <strong>$9.99</strong>. Once the payment is approved your subscription will begin. Your subscription will automatically renew on <strong>July 10, 2010</strong>.</p>
@@ -60,30 +69,62 @@
       <% end %>
 
       <fieldset class="basic">
-        <legend class="signup">Basic Information</legend> <label class="end_set wide">screen name <input value="" class="empty" id="user_name" name="user[name]" size="30" type="text"></label> <label class="column">first name <input value="" size="30" tabindex="0" class=" empty" type="text"> <input type="text" class=" empty" style="display: none;" tabindex="0" size="30"><input style="display: none;" id="user_password" name="user[password]" size="30" type="password"></label> <label class="end_set">last name <input value="" size="30" tabindex="0" class=" empty" type="text"> <input type="text" class=" empty" style="display: none;" tabindex="0" size="30"><input style="display: none;" id="user_password_confirmation" name="user[password_confirmation]" size="30" type="password"></label> <label class="column">e-mail address <input value="" class="empty" id="user_email" name="user[email]" size="30" type="text"></label> <label class="end_set">confirm e-mail address <input value="Retype E-mail address" class="empty" id="user_email_confirmation" name="user[email_confirmation]" size="30" type="text"></label> <label class="column">password <input value="" size="30" tabindex="0" class=" empty" type="text"> <input style="display: none;" id="user_password" name="user[password]" size="30" type="password"></label> <label class="end_set">confirm password <input value="" size="30" tabindex="0" class=" empty" type="text"> <input style="display: none;" id="user_password_confirmation" name="user[password_confirmation]" size="30" type="password"></label>
+        <legend class="signup">Basic Information</legend>
+        <label class="end_set wide">screen name
+          <%= f.text_field :name, :size => 30 %>
+        </label>
+        <label class="column">first name 
+          <%= f.text_field :first_name, :size => 30 %>
+        </label> 
+        <label class="end_set">last name 
+          <%= f.text_field :last_name, :size => 30 %>
+        </label> 
+        <label class="column">e-mail address 
+          <%= f.text_field :email, :size => 30 %>
+        </label> 
+        <label class="end_set">confirm e-mail address 
+          <%= f.text_field :email_confirmation, :size => 30 %>
+        </label> 
+        <label class="column">password
+          <%= f.password_field :password %>
+        </label> 
+        <label class="end_set">confirm password 
+          <%= f.password_field :password_confirmation %>
+        </label>
       </fieldset>
 
       <% if @membership_type != 'free' %>
-
-      <%= render :partial => "credit_card", :locals => { :user => @user } %>
-
+        <%= render :partial => "credit_card", :locals => { :f => f } %>
       <% end %>
 
       <fieldset class="basic">
-        <legend class="signup">E-mail Preferences</legend> <label class="checkbox"><input checked="checked" id="user_wants_newsletter" name="user[wants_newsletter]" value="1" type="checkbox"> <input name="user[wants_newsletter]" value="0" type="hidden"> Send me the weekly Yoga Today newsletter and weekly class update.</label> <label class="checkbox"><input checked="checked" id="user_wants_promos" name="user[wants_promos]" value="1" type="checkbox"> <input name="user[wants_promos]" value="0" type="hidden"> Keep me informed of Yoga Today offers and special announcements.</label> <label class="radio"><input checked="checked" id="user_newsletter_format_html" name="user[newsletter_format]" value="html" type="radio"> HTML E-mail</label> <label class="radio"><input id="user_newsletter_format_plain" name="user[newsletter_format]" value="plain" type="radio"> Plain Text E-mail</label>
+        <legend class="signup">E-mail Preferences</legend>
+          <label class="checkbox">
+            <%= f.check_box :wants_newsletter %>
+            Send me the weekly Yoga Today newsletter and weekly class update.
+          </label>
+          <label class="checkbox">
+            <%= f.check_box :wants_promos %>
+            <label class="radio">
+              <%= f.radio_button :newsletter_format, 'html' %>
+              HTML E-mail
+            </label>
+            <label class="radio">
+              <%= f.radio_button :newsletter_format, 'plain' %>
+              Plain Text E-mail
+            </label>
       </fieldset>
 
       <div class="actions">
         <input class="submit" src="/images/profile_button_signup.png" type="image">
       </div>
-
-      <% form_for @user do |f| -%>
-        <%#= render :partial => "form", :locals => { :f => f } %>
-      <% end -%>
-
+      
+      
+      <% end %>
     </div>
 
     <%= render :partial => "sessions/login", :locals => { :use_alternate => true } %>
+
 
   </div>
 </div>

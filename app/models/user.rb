@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   before_save :strip_ambassador_name
   before_save :validate_ambassador_name
   before_save :send_new_ambassador_mail
-  after_save :setup_free_account
+  after_save :setup_account
   after_save :setup_newsletter
   after_update :setup_share_url
   after_create :add_to_mailchimp
@@ -49,12 +49,12 @@ class User < ActiveRecord::Base
 
 
   # Attributes
-  attr_accessor :password
-  attr_accessor :old_email
+  attr_accessor :password, :old_email, :membership_type
   attr_accessible :name, :email, :password, :password_confirmation,
     :wants_newsletter, :wants_promos, :photo, :photo_file_name,
     :photo_content_type, :photo_file_size, :city, :state, :country,
-    :agree_to_terms, :newsletter_format, :email_confirmation, :ambassador_name
+    :agree_to_terms, :newsletter_format, :email_confirmation, :ambassador_name,
+    :first_name, :last_name
 
 
   def name
@@ -453,13 +453,22 @@ class User < ActiveRecord::Base
       Rails.logger.info "Could not contact CC api: #{e}, #{e.backtrace}"
     end
 
-    def setup_free_account
+    def setup_account
       return unless self.account.nil?
-      self.build_account :name => "#{self.name}'s Yoga Today account",
-        :user => self,
-        :plan => SubscriptionPlan.find_by_name('Free'),
-        :plan_start => DateTime.now
-      self.account.full_domain = 'yogatoday.com'
+      
+      acc = self.build_account :name => "#{self.name}'s Yoga Today account",
+                               :user => self,
+                               :plan_start => DateTime.now,
+                               :full_domain => 'yogatoday.com'
+
+      if membership_type && membership_type == 'monthly'
+        acc.plan = SubscriptionPlan.find_by_name_and_renewal_period('Premium', 1)
+      elsif membership_type && membership_type == 'prepaid'
+        acc.plan = SubscriptionPlan.find_by_name_and_renewal_period('Premium', 12)
+      else
+        acc.plan = SubscriptionPlan.find_by_name('Free')
+      end
+
       self.account.save!
       self.account_id = self.account.id
       self.save

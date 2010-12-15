@@ -47,6 +47,21 @@ module UsersHelper
       end
     end
   end
+  
+  def credit_card_options_for_select(selected = nil)
+    card_types = [['American Express', 'american_express'],
+                  ['Discover', 'discover'],
+                  ['Mastercard', 'master'],
+                  ['Visa', 'visa']]
+
+      if Rails.env != 'production'
+        card_types << ['Bogus', 'bogus']
+        selected ||= 'bogus'
+      end
+
+    options_for_select(card_types, selected)
+  end
+  
 
   def ambassador_navigation_links
     [{:title => 'Invite by E-mail', :path => ambassador_tools_invite_by_email_user_path(current_user) },
