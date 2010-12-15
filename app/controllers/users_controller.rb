@@ -58,6 +58,7 @@ class UsersController < ApplicationController
         @user.membership_type = @membership_type
 
         ActiveRecord::Base.transaction do
+
           @user.save
 
           if @gift_card && @gift_card.valid?
@@ -66,19 +67,34 @@ class UsersController < ApplicationController
             namespace     = 'http://complemar.com/'
             client        = GiftCardService::API.new(soap_endpoint, namespace)
 
-            # FIXME: what if this fails?
-            result = client.redeem(@gift_card.serial_number, @gift_card.balance)
+            # don't use card service when in dev mode. Instead check against 2 cards
+            if Rails.env == 'development'
+              result = ['1', '2'].include? @gift_card.serial_number
+            else
+              # FIXME: what if this fails?
+              result = client.redeem(@gift_card.serial_number, @gift_card.balance)
+            end
             
             if result && @user.membership_type == 'prepaid'
               time = Time.now.advance(:months => 12)
             elsif result && @user.membership_type == 'monthly'
               time = Time.now.advance(:months => 1)
             else
+              logger.fatal "Gift Card Redemption unsuccessful. #{@gift_card.inspect}"
               time = Time.now
             end
 
             @user.account.subscription.update_attribute(:next_renewal_at, time)
           end
+          
+          if @user.membership_type == 'prepaid' && apply_ambassador
+            @user.account.subscription.update_attribute(:next_renewal_at, Time.now.advance(:weeks => 2))
+            sp = SubscriptionPlan.find_by_internal_name('premium_annualy_trial')
+            @user.account.subscription.plan = sp
+          end
+
+          @user.account.subscription.renewal_period = @user.account.plan.renewal_period
+          @user.account.subscription.save
           
           if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
             logger.info "Subscription success!"
@@ -92,18 +108,15 @@ class UsersController < ApplicationController
         end
       else
         @creditcard.errors.full_messages.each do |message|
-          logger.debug("CC: #{message}")
           @user.errors.add_to_base message
         end
 
         @address.errors.full_messages.each do |message|
-          logger.debug("ADDRESS: #{message}")
           @user.errors.add_to_base message
         end
 
         if @user.account
           @user.account.subscription.errors.full_messages.each do |message|
-            logger.debug("SUB: #{message}")
             @user.errors.add_to_base message
           end
         end
@@ -118,17 +131,13 @@ class UsersController < ApplicationController
     end
 
     if @user.errors.count == 0 && @user.save
-      UserMailer.deliver_welcome(@user) if @membership_type == 'free'
-      self.current_user = @user
 
-      # Assign user to ambassador
-      unless cookies[:ambassador_user_id].blank?
-        ambassador = User.find_by_id(cookies[:ambassador_user_id])
-        if ambassador
-          self.current_user.set_ambassador!(ambassador.id, cookies[:notify_ambassador_of_reward])
-        end
-        cookies.delete :ambassador_user_id
+      if @membership_type == 'free'
+        UserMailer.deliver_welcome(@user) 
+        apply_ambassador
       end
+
+      self.current_user = @user
 
       respond_to do |format|
         format.html { render :action => "welcome" }
@@ -414,9 +423,7 @@ class UsersController < ApplicationController
       when 'billing'
         redirect_to billing_user_path(current_user)
       else
-        @user = User.new
-        setup_fake_values
-        render :template => 'users/new'
+        redirect_to sign_up_membership_path(:membership_type => "prepaid")
     end
   end
 
@@ -503,11 +510,12 @@ class UsersController < ApplicationController
     def check_gift_card_code
       unless params[:gift_card_code].blank?
 
+        # don't use card service when in dev mode. Instead check against 2 cards
         if Rails.env == 'development'
           if params[:gift_card_code] == '1'
-            @gift_card = GiftCardService::GiftCard.new(:balance => '9.95', :expiraton_date => 5.days.since.to_s)
+            @gift_card = GiftCardService::GiftCard.new(:serial_number => '1', :balance => '9.95', :expiraton_date => 5.days.since.to_s)
           elsif params[:gift_card_code] == '2'
-            @gift_card = GiftCardService::GiftCard.new(:balance => '89.95', :expiraton_date => 5.days.since.to_s)
+            @gift_card = GiftCardService::GiftCard.new(:serial_number => '2', :balance => '89.95', :expiraton_date => 5.days.since.to_s)
           end
         else
           soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
@@ -565,6 +573,18 @@ class UsersController < ApplicationController
     end
 
   private
+
+    def apply_ambassador
+      result = false
+      unless cookies[:ambassador_user_id].blank?
+        ambassador = User.find_by_id(cookies[:ambassador_user_id])
+        if ambassador
+          result = @user.set_ambassador!(ambassador.id, cookies[:notify_ambassador_of_reward])
+        end
+        cookies.delete :ambassador_user_id
+      end
+      result
+    end
 
     def valid_billing?
       logger.debug "DEBUG Validating billing_cycle=#{ @billing_cycle } SubscriptionPlan=#{ @subscription_plan }"

@@ -32,19 +32,13 @@
         <h2>Unlimited Membership - monthly recurring</h2>
         <p>Once you create your account, your credit card will be charged <strong>$9.99</strong>. Once the payment is approved your subscription will begin. Your subscription will automatically renew on <strong>July 10, 2010</strong>.</p>
       </div>
-      
-      <div id="signup-option1" class="ambassador-box">
-      <% if @gift_card %>
-        <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
-      <% else %>
-                <h2 style="margin-bottom:0; line-height:0;">Option: Begin your membership with a two week free trial, cancel any time.</h2>
-                <p>Enter a valid Ambassador ID with your prepaid subscription
-      and enjoy a 2 week free trial before your account is billed.</p>
-            <input class="input" id="x_ambassador_name" name="ambassador_name" type="text" size="30"><br>
-                      <a class="submit" href="#" onclick="selectAmbassador(); return false;"><img alt="Ambassador_button_enter" src="/images/ambassador_button_enter.png"></a>
 
-      <% end %>
+      <% if @gift_card %>
+      <div id="signup-option1" class="ambassador-box">
+        <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
       </div>
+      <% end %>
+
       <% elsif @membership_type == 'prepaid' %>
       <div id="membership-type" class="prepaid-box">
                 <h2>Unlimited Membership - prepaid, one year</h2>
@@ -53,10 +47,13 @@
               <div id="signup-option1" class="ambassador-box">
               <% if @gift_card %>
                 <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
+              <% elsif cookies[:ambassador_user_id] %>
+                        <h2 style="margin-bottom:0; line-height:0;">Your ambassador will be applied to your account.</h2>
               <% else %>
                         <h2 style="margin-bottom:0; line-height:0;">Option: Begin your membership with a two week free trial, cancel any time.</h2>
                         <p>Enter a valid Ambassador ID with your prepaid subscription
               and enjoy a 2 week free trial before your account is billed.</p>
+              
                     <input class="input" id="x_ambassador_name" name="ambassador_name" type="text" size="30"><br>
                               <a class="submit" href="#" onclick="selectAmbassador(); return false;"><img alt="Ambassador_button_enter" src="/images/ambassador_button_enter.png"></a>
               <% end %>
