@@ -38,5 +38,6 @@ stylesheets:
   - ambassador
   - colorbox
   - signup
+  - home_feature
 - admin:
   - admin
