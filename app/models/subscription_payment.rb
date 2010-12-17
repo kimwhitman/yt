@@ -1,5 +1,6 @@
 class SubscriptionPayment < ActiveRecord::Base
   REWARD_POINTS_PAYMENT_METHOD = 'Reward points'
+  
   # Associations
   belongs_to :subscription
   belongs_to :account

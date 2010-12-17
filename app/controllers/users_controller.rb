@@ -50,23 +50,23 @@ class UsersController < ApplicationController
       @date = Date.parse("Jan #{Date.today.year}")
     end
 
-    if @user.valid? && @membership_type != 'free'
+    if @user.valid? && @membership_type != 'free' &&  (@gift_card.nil? || @gift_card.valid?)
 
       # create subscription
 
       @address = SubscriptionAddress.new(:first_name => @creditcard.first_name,
                                          :last_name  => @creditcard.last_name)
 
-      if @user.valid? && @creditcard.valid? && @address.valid?
+      needs_credit_card = @membership_type != 'free' && (@gift_card.nil? || @gift_card.balance == 0)
+
+      if @user.valid? && (!needs_credit_card || @creditcard.valid? )
 
         @user.membership_type = @membership_type
 
         ActiveRecord::Base.transaction do
-
           @user.save
 
           if @gift_card && @gift_card.valid?
-
             soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
             namespace     = 'http://complemar.com/'
             client        = GiftCardService::API.new(soap_endpoint, namespace)
@@ -78,11 +78,22 @@ class UsersController < ApplicationController
               # FIXME: what if this fails?
               result = client.redeem(@gift_card.serial_number, @gift_card.balance)
             end
-            
+
+            payment = @user.account.subscription_payments.build(
+                          :subscription   => @user.account.subscription, 
+                          :start_date     => Date.today,
+                          :amount         => 0.00)
+
             if result && @user.membership_type == 'prepaid'
-              time = Time.now.advance(:months => 12)
+              time                   = Time.now.advance(:months => 12)
+              payment.payment_method = 'One Year Gift Card'
+              payment.end_date       = time
+              payment.save
             elsif result && @user.membership_type == 'monthly'
-              time = Time.now.advance(:months => 3)
+              time                   = Time.now.advance(:months => 3)
+              payment.payment_method = '3 Month Gift Card'
+              payment.end_date       = time
+              payment.save
             else
               logger.fatal "Gift Card Redemption unsuccessful. #{@gift_card.inspect}"
               time = Time.now
@@ -97,24 +108,35 @@ class UsersController < ApplicationController
 
           @user.account.subscription.renewal_period = @user.account.plan.renewal_period
           @user.account.subscription.save
-          
-          if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
-            logger.info "Subscription success!"
-          else
-            @user.errors.add_to_base "We were unable to obtain account authorization"
-            errors = @user.account.subscription.errors.full_messages
-            logger.info "Subscription Error: #{errors}"
-            flash[:error_messages] = errors.join("<br/>")
-            raise ActiveRecord::Rollback
+
+          if needs_credit_card
+            if @user.account.subscription.store_card(@creditcard, :billing_address => @address.to_activemerchant, :ip => request.remote_ip)
+              logger.info "Subscription success!"
+            else
+              @user.errors.add_to_base "We were unable to obtain account authorization"
+              errors = @user.account.subscription.errors.full_messages
+              logger.info "Subscription Error: #{errors}"
+              flash[:error_messages] = errors.join("<br/>")
+              raise ActiveRecord::Rollback
+            end
           end
         end
       else
-        @creditcard.errors.full_messages.each do |message|
-          @user.errors.add_to_base message
-        end
+        
+        errors = []
+        
+        if needs_credit_card
+          @creditcard.errors.full_messages.each do |message|
+            @user.errors.add_to_base message
+          end
 
-        @address.errors.full_messages.each do |message|
-          @user.errors.add_to_base message
+          errors = errors + @creditcard.errors.full_messages
+
+          @address.errors.full_messages.each do |message|
+            @user.errors.add_to_base message
+          end
+
+          errors = errors + @address.errors.full_messages
         end
 
         if @user.account
@@ -123,19 +145,17 @@ class UsersController < ApplicationController
           end
         end
 
-        errors = @creditcard.errors.full_messages + @address.errors.full_messages
-
         logger.debug("ERRORS: #{errors}")
 
         flash[:error_messages] = errors.join("<br/>")
       end
-      
+
     end
 
     if @user.errors.count == 0 && @user.save
 
       if @membership_type == 'free'
-        UserMailer.deliver_welcome(@user) 
+        UserMailer.deliver_welcome(@user)
         apply_ambassador
       end
 
@@ -528,7 +548,7 @@ class UsersController < ApplicationController
 
         if @gift_card.nil? || (@gift_card && !@gift_card.valid?)
           flash[:error] = "Your Gift Card Number could not be found"
-          
+
           if @gift_card
             logger.info "Could not validate gift card code: #{@gift_card.inspect}"
           end

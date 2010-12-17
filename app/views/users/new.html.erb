@@ -35,7 +35,7 @@
 
       <% if @gift_card %>
       <div id="signup-option1" class="ambassador-box">
-        <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
+        <h2 style="margin-bottom:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account once signup is complete</h2>
       </div>
       <% end %>
 
@@ -46,7 +46,7 @@
               </div>
               <div id="signup-option1" class="ambassador-box">
               <% if @gift_card %>
-                <h2 style="margin-bottom:0; line-height:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account</h2>
+                <h2 style="margin-bottom:0;">Your gift card has <%= number_to_currency @gift_card.balance %> and will be applied to your account once signup is complete</h2>
               <% elsif cookies[:ambassador_user_id] %>
                         <h2 style="margin-bottom:0; line-height:0;">Your ambassador will be applied to your account.</h2>
               <% else %>
@@ -90,7 +90,7 @@
         </label>
       </fieldset>
 
-      <% if @membership_type != 'free' %>
+      <% if @membership_type != 'free' && (@gift_card.nil? || @gift_card.balance == 0) %>
         <%= render :partial => "credit_card", :locals => { :f => f } %>
       <% end %>
 

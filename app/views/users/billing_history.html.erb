@@ -68,7 +68,9 @@
                 <td>Membership Payment</td>
                 <td><%= sp.payment_method %></td>
                 <td><%= billing_period(sp) %></td>
-                <td class="last"><%= sp.payment_method == SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD ? 'Free' : number_to_currency(sp.amount) %></td>
+                <td class="last">
+                  <%= sp.payment_method == SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD ? 'Free' : number_to_currency(sp.amount) %>
+                </td>
               </tr>
               <% end %>
             </tbody>
