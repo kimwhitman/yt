@@ -15,33 +15,42 @@
         plan = subscription.subscription_plan
       %>
 
-      <% if subscription.amount > 0 && !current_user.account.subscription.is_cancelled? %>
+
+      <% if current_user.active_gift_card_membership? %>
+        <h3>You are currently using a gift card for your membership.</h3>
+        <h3>Your membership will remain active through <%= subscription.next_renewal_at.to_date.to_s(:long) %></h3>
+        <br/>
+        <h3>To prevent a disruption of service, please enter and save your credit card details below.</h3>
+        <h3>Your card will not be charged until your current gift membership expires.</h3>
+      <% elsif subscription.amount > 0 && !current_user.account.subscription.is_cancelled? %>
         <h3>You are currently using card <%= subscription.card_number %> (expires on <%= subscription.card_expiration %>).</h3>
         <h3>Your next bill will be on <%= subscription.next_renewal_at.to_date.to_s(:long) %>  for <%= subscription.subscription_plan.transitions_to_subscription_plan_id.blank? ? number_to_currency(subscription.amount) : number_to_currency(subscription.subscription_plan.transitions_to_subscription_plan.amount) %></h3>
       <% end %>
 
-      <% if plan.name == 'Premium' && plan.renewal_period == 12 %>
-        <% if current_user.account.subscription.is_cancelled? %>
-          <h3>You have cancelled your Yoga Today 365 membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+      <% if current_user.active_gift_card_membership? == false %>
+        <% if plan.name == 'Premium' && plan.renewal_period == 12 %>
+          <% if current_user.account.subscription.is_cancelled? %>
+            <h3>You have cancelled your Yoga Today 365 membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+          <% else %>
+            <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
+          <% end %>
+        <% elsif plan.name == 'Premium' && plan.renewal_period == 1 %>
+          <% if current_user.account.subscription.is_cancelled? %>
+            <h3>You have cancelled your Premium membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+          <% else %>
+            <h3>You are signed up for monthly billing</h3>
+          <% end %>
+        <% elsif plan.name == 'Spring Signup Special' %>
+          <% if current_user.account.subscription.is_cancelled? %>
+            <h3>You have cancelled your Spring Special membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
+          <% else %>
+            <h3>You are signed up for the Spring Special. After the four month period has ended you will be billed monthly.</h3>
+          <% end %>
         <% else %>
-          <h3>You are signed up for the Yoga Today 365. Billing will occur annually</h3>
+          <h3>You are signed up for a free account</h3>
         <% end %>
-      <% elsif plan.name == 'Premium' && plan.renewal_period == 1 %>
-        <% if current_user.account.subscription.is_cancelled? %>
-          <h3>You have cancelled your Premium membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
-        <% else %>
-          <h3>You are signed up for monthly billing</h3>
-        <% end %>
-      <% elsif plan.name == 'Spring Signup Special' %>
-        <% if current_user.account.subscription.is_cancelled? %>
-          <h3>You have cancelled your Spring Special membership (expires on <%= current_user.account.subscription.next_renewal_at.to_s(:long_day) %>)</h3>
-        <% else %>
-          <h3>You are signed up for the Spring Special. After the four month period has ended you will be billed monthly.</h3>
-        <% end %>
-      <% else %>
-        <h3>You are signed up for a free account</h3>
       <% end %>
-
+      
       <p><strong><em>For security purposes, your personal information is not shown here.</em></strong></p>
     <% end %>
 

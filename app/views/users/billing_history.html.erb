@@ -32,14 +32,22 @@
             <div class="details date">
               <p class="title">Next payment date</p>
               <p class="value">
-                <%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %>
+                <% if current_user.active_gift_card_membership? %>
+                  N/A
+                <% else %>
+                  <%= current_user.account.subscription.next_renewal_at.strftime '%b %e, %Y' %>
+                <% end %>
               </p>
             </div>
 
             <div class="details">
               <p class="title">Amount</p>
               <p class="value">
-                <%= current_membership_amount %>
+                <% if current_user.active_gift_card_membership? %>
+                  N/A
+                <% else %>
+                  <%= current_membership_amount %>
+                <% end %>
               </p>
             </div>
           <% else %>
@@ -65,8 +73,15 @@
               <% current_user.account.subscription.subscription_payments.find(:all, :order => 'created_at desc').each do |sp| %>
               <tr>
                 <td><%= sp.created_at.strftime '%b %e, %Y' %></td>
+                
+                <% if sp.payment_method.include? 'Gift Card' %>
+                <td><%= sp.payment_method %></td>
+                <td></td>
+                <% else %>
                 <td>Membership Payment</td>
                 <td><%= sp.payment_method %></td>
+                <% end %>
+                
                 <td><%= billing_period(sp) %></td>
                 <td class="last">
                   <%= sp.payment_method == SubscriptionPayment::REWARD_POINTS_PAYMENT_METHOD ? 'Free' : number_to_currency(sp.amount) %>

@@ -138,6 +138,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def active_gift_card_membership?
+    last_payment = self.account.subscription.subscription_payments.last
+    last_payment && last_payment.payment_method.include?("Gift Card")
+  end
+
   def has_downgraded_to_free?
     (self.account.subscription.subscription_plan.name == 'Free') && had_paying_subscription?
   end

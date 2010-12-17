@@ -21,7 +21,12 @@ module UsersHelper
     else
       membership_type_amount = ""
     end
-    "#{ membership_type_amount }#{ current_user.account.subscription.subscription_plan.name } Membership"
+    
+    if current_user.active_gift_card_membership?
+      "#{ membership_type_amount }#{ current_user.account.subscription.subscription_plan.name } Membership - Gift Card"
+    else
+      "#{ membership_type_amount }#{ current_user.account.subscription.subscription_plan.name } Membership"
+    end
   end
 
   def current_membership_period
