@@ -1,0 +1,45 @@
+#home_feature {
+	width:940px;
+	margin:0;
+	padding:0;
+	background-image:url('/images/main-image.jpeg');
+}
+
+#feature_leftCol {
+	float:left;
+	width:540px;
+	height:390px;
+	border:0px;
+	margin:0px;
+}
+
+#feature_rightCol {
+	float:left;
+	width:349px;
+	height:100%;
+	/*border-left:1px solid white;*/
+}
+#feature_rightCol a img {
+	border:none;
+}
+
+#feature_linkbar {
+	background-color:black;
+	width:920px;
+	padding:10px;
+	margin:0 0 25px 0;
+}
+#feature_linkbar a {
+	text-decoration:none;
+	border:0;
+}
+#feature_linkbar a img {
+	text-decoration:none;
+	border:0;
+}
+
+.linkbar_item {
+	float:left;
+	margin:0 0 0 16px;
+	color:white;
+}

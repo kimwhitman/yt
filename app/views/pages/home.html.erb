@@ -4,18 +4,55 @@
 
   <%= render :partial => 'shared/flashes' %>
 
-  <%= render :partial => 'videos/featured_video_overlay', :locals => { :size => '940x526' } %>
-
-  <% cache "pages/home/carousel" do %>
-    <div>
-      <ul id="featured_videos_carousel" class="jcarousel-skin-tango">
-        <%= render :partial => 'videos/carousel_item', :collection => @featured_videos %>
-      </ul>
-    </div>
-    <div><img src="/images/spacer.gif" width="1" height="10" /></div>
-  <% end %>
 
   <div id="main_content" class="">
+    
+    <div id="home_feature">
+
+            <div id="feature_leftCol">
+          		&nbsp;
+          	</div>
+
+          	<div id="feature_rightCol">
+          	  <%= image_tag "/images/YT_HP_Dec2010_headline.png", :style => "margin-top: 50px" %>
+          		<a href="#">
+          		  <%= image_tag "/images/YT_HP_Dec2010_giftcard.png" %>
+          		  </a>
+          		<a href="#">
+          		  <%= image_tag "/images/YT_HP_Dec2010_cardbutton.png" %>
+          		  </a>
+          	</div>
+
+          	<div style="clear:left;"></div>
+
+          	<div id="feature_linkbar">
+
+          		<div class="linkbar_item">
+          			<a href="#"><img src="/images/feature_link_item_subscribe.png"></a>
+          		</div>
+          		<div class="linkbar_item">
+          			<a href="#"><img src="/images/feature_link_item-giftcard.png"></a>
+          		</div>
+          		<div class="linkbar_item">
+          			<a href="#"><img src="/images/feature_link_item-enews.png"></a>
+          		</div>
+          		<div class="linkbar_item">
+          			<img src="/images/feature_link_item-trial.png" style="float:left; margin-right:6px;">
+          			<div id="ambassador-input" style="width:220px; height:25px; float:left;">
+                  <input name="Search" type="text" value="Enter an Ambassador ID" onfocus="this.value = this.value=='Enter an Ambassador ID'?'':this.value;" onblur="this.value = this.value==''?'Enter an Ambassador ID':this.value;" style="float:left; border:none; padding:1px 0 0 6px; margin:2px 3px; height:19px; width:150px; background-position:0px 0px; background-color:#ddeaff;">
+                  <a href="#"><img alt="Search" src="/images/YT_HP_Dec2010_ambassador_enterbutton.png" style="float:left; margin:2px 0 0 2px;"></a> </div>
+          		</div>
+
+          		<div style="clear:both;"></div>
+
+          	</div><!--feature_linkbar-->
+
+
+    </div>
+          
+          
+          
+    
     <div class="home_promo YT365_promo">
       <%= render :partial => 'shared/promo_yt365' %>
     </div>

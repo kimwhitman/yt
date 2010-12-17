@@ -21,19 +21,19 @@
         :onmouseover => "MM_swapImage('nav_learn','','/images/nav_learn_on.png',1);displayDropDown('learn_more_menu','block','classes_menu;community_menu');" } )
         -%>
     </li>
-    <% if logged_in? %>
-    <% level = current_user.has_paying_subscription? ? nil : 'free' %>
-    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), subscription_users_path(:membership => level), {:title => 'Newsletter'}) -%></li>
-    <% else %>
-    <li class="margin_left"><%= link_to(image_tag('nav_newsletter.png', :alt => 'Sign up for e-news' ), subscription_users_path(:membership => 'free'), {:title => 'Newsletter'}) -%></li>
-    <% end %>
-    <li><%= link_to(image_tag('nav_freeclass.png', :alt => "This week' free class" ), this_weeks_free_video_videos_path, {:title => "This week's free class"}) -%></li>
+    <li class="margin_left">
+      <%= link_to(image_tag('nav_freeclass2.png', :alt => "This week' free class" ), this_weeks_free_video_videos_path, {:title => "This week's free class"}) -%></li>
     <li>
-      <%= link_to(image_tag('nav_share.png', :alt => 'Share Yoga Today', :name => 'nav_share', :id => 'nav_share', :class => "a2a_dd" ), 'http://www.addtoany.com/share_save', {
-        :title => 'Share Yoga Today',
-        :onmouseout => "MM_swapImgRestore();",
-        :onmouseover => "MM_swapImage('nav_share','','/images/nav_share_on.png',1);" }) -%>
+    <li>
+      <%= link_to(image_tag('nav_releases.png', :alt => 'Scheduled Releases' ), lineup_videos_path, :title => 'Scheduled Releases') %>
     </li>
+    <li class="margin_left">
+      <div id="estore" style="width:153px; overflow:visible;"> 
+        <%= link_to(image_tag('nav_shop.png', :alt => "Shop the E-Store", :style => "margin:-5px 0 0 -2px;"), 'http://shop.yogatoday.com', {:title => "This week's free class"}) -%>
+      </div>
+    </li>
+    <li>
+    
     <% if logged_in? -%>
     <li class="margin_left cart_logged_in"><%= link_to(image_tag('nav_cart_loggedin.png', :alt => 'Cart' ), cart_path, {:id => 'cart_link', :title => 'Your Cart'}) -%><span id="header_cart_size" class="cart_count"><%= "(#{shopping_cart.size})" -%></span></li>
     <% level = current_user.has_paying_subscription? ? nil : 1 %>
