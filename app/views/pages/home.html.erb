@@ -6,53 +6,62 @@
 
 
   <div id="main_content" class="">
-    
+
     <div id="home_feature">
 
             <div id="feature_leftCol">
-          		&nbsp;
-          	</div>
+              &nbsp;
+            </div>
 
-          	<div id="feature_rightCol">
-          	  <%= image_tag "/images/YT_HP_Dec2010_headline.png", :style => "margin-top: 50px" %>
-          		<a href="#">
-          		  <%= image_tag "/images/YT_HP_Dec2010_giftcard.png" %>
-          		  </a>
-          		<a href="#">
-          		  <%= image_tag "/images/YT_HP_Dec2010_cardbutton.png" %>
-          		  </a>
-          	</div>
+            <div id="feature_rightCol">
+              <%= image_tag "/images/YT_HP_Dec2010_headline.png", :style => "margin-top: 50px" %>
+              <a href="#">
+                <%= image_tag "/images/YT_HP_Dec2010_giftcard.png" %>
+                </a>
+              <a href="#">
+                <%= image_tag "/images/YT_HP_Dec2010_cardbutton.png" %>
+                </a>
+            </div>
 
-          	<div style="clear:left;"></div>
+            <div style="clear:left;"></div>
 
-          	<div id="feature_linkbar">
+            <div id="feature_linkbar">
 
-          		<div class="linkbar_item">
-          			<a href="#"><img src="/images/feature_link_item_subscribe.png"></a>
-          		</div>
-          		<div class="linkbar_item">
-          			<a href="#"><img src="/images/feature_link_item-giftcard.png"></a>
-          		</div>
-          		<div class="linkbar_item">
-          			<a href="#"><img src="/images/feature_link_item-enews.png"></a>
-          		</div>
-          		<div class="linkbar_item">
-          			<img src="/images/feature_link_item-trial.png" style="float:left; margin-right:6px;">
-          			<div id="ambassador-input" style="width:220px; height:25px; float:left;">
+              <div class="linkbar_item">
+                <a href="#">
+                  <%= image_tag "/images/feature_link_item_subscribe.png" %>
+                </a>
+              </div>
+              <div class="linkbar_item">
+                <a href="#">
+                  <%= image_tag "/images/feature_link_item-giftcard.png" %>
+                </a>
+              </div>
+              <div class="linkbar_item">
+                <a href="#">
+                  <%= image_tag "/images/feature_link_item-enews.png" %>
+                </a>
+              </div>
+              <div class="linkbar_item">
+                <%= image_tag "/images/feature_link_item-trial.png", :style => "margin-right: 6px; float:left;" %>
+                <div id="ambassador-input" style="width:220px; height:25px; float:left;">
                   <input name="Search" type="text" value="Enter an Ambassador ID" onfocus="this.value = this.value=='Enter an Ambassador ID'?'':this.value;" onblur="this.value = this.value==''?'Enter an Ambassador ID':this.value;" style="float:left; border:none; padding:1px 0 0 6px; margin:2px 3px; height:19px; width:150px; background-position:0px 0px; background-color:#ddeaff;">
-                  <a href="#"><img alt="Search" src="/images/YT_HP_Dec2010_ambassador_enterbutton.png" style="float:left; margin:2px 0 0 2px;"></a> </div>
-          		</div>
+                  <a href="#">
+                    <%= image_tag "/images/YT_HP_Dec2010_ambassador_enterbutton.png", :style => "float:left; margin:2px 0 0 2px;" %>
+                  </a>
+                </div>
+              </div>
 
-          		<div style="clear:both;"></div>
+              <div style="clear:both;"></div>
 
-          	</div><!--feature_linkbar-->
+            </div><!--feature_linkbar-->
 
 
     </div>
-          
-          
-          
-    
+
+
+
+
     <div class="home_promo YT365_promo">
       <%= render :partial => 'shared/promo_yt365' %>
     </div>
