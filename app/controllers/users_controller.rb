@@ -509,7 +509,14 @@ class UsersController < ApplicationController
 
           payment      = @user.account.subscription_payments.build(:start_date => Date.today, :amount => 0.00)
           next_renewal = @user.account.subscription.next_renewal_at
-          time         = next_renewal ? next_renewal.to_time : Time.now 
+          
+          if next_renewal
+            payment.start_date = next_renewal
+            time               = next_renewal.to_time
+          else
+            payment.start_date = Date.today
+            time               = Time.now
+          end
 
           if @gift_card.balance == GiftCardService::GiftCard::ANNUAL_PRICE
             time                   = time.advance(:months => 12)
