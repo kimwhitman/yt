@@ -15,12 +15,9 @@
 
             <div id="feature_rightCol">
               <%= image_tag "/images/YT_HP_Dec2010_headline.png", :style => "margin-top: 50px" %>
-              <a href="#">
-                <%= image_tag "/images/YT_HP_Dec2010_giftcard.png" %>
-                </a>
-              <a href="#">
-                <%= image_tag "/images/YT_HP_Dec2010_cardbutton.png" %>
-                </a>
+
+              <%= link_to image_tag("/images/YT_HP_Dec2010_giftcard.png"), "http://shop.yogatoday.com" %>
+              <%= link_to image_tag("/images/YT_HP_Dec2010_cardbutton.png"), "http://shop.yogatoday.com" %>
             </div>
 
             <div style="clear:left;"></div>
@@ -28,26 +25,32 @@
             <div id="feature_linkbar">
 
               <div class="linkbar_item">
-                <a href="#">
-                  <%= image_tag "/images/feature_link_item_subscribe.png" %>
-                </a>
+                <%= link_to image_tag("/images/feature_link_item_subscribe.png"), sign_up_path %>
               </div>
               <div class="linkbar_item">
-                <a href="#">
-                  <%= image_tag "/images/feature_link_item-giftcard.png" %>
-                </a>
+                  <%= link_to image_tag("/images/feature_link_item-giftcard.png"), "http://shop.yogatoday.com" %>
               </div>
               <div class="linkbar_item">
-                <a href="#">
-                  <%= image_tag "/images/feature_link_item-enews.png" %>
-                </a>
+                <% if logged_in? %>
+                  <% level = current_user.has_paying_subscription? ? nil : 'free' %>
+                  <%= link_to image_tag("/images/feature_link_item-enews.png", :alt => 'Sign up for e-news'), subscription_users_path(:membership => level), {:title => 'Newsletter'} %>
+                <% else %>                                                                                
+                  <%= link_to image_tag("/images/feature_link_item-enews.png", :alt => 'Sign up for e-news'), subscription_users_path(:membership => 'free'), {:title => 'Newsletter'} %>
+                <% end %>
               </div>
               <div class="linkbar_item">
                 <%= image_tag "/images/feature_link_item-trial.png", :style => "margin-right: 6px; float:left;" %>
                 <div id="ambassador-input" style="width:220px; height:25px; float:left;">
-                  <input name="Search" type="text" value="Enter an Ambassador ID" onfocus="this.value = this.value=='Enter an Ambassador ID'?'':this.value;" onblur="this.value = this.value==''?'Enter an Ambassador ID':this.value;" style="float:left; border:none; padding:1px 0 0 6px; margin:2px 3px; height:19px; width:150px; background-position:0px 0px; background-color:#ddeaff;">
+
+                  <% form_tag select_ambassador_users_path do %>
+                    <%= text_field_tag :ambassador_name, '', :id => 'x_ambassador_name', :class => 'input', :style => 'float:left; border:none; padding:1px 0 0 6px; margin:2px 3px; height:19px; width:150px; background-position:0px 0px; background-color:#ddeaff;',
+                                       :value => "Enter an Ambassador ID",  :onfocus => "this.value = this.value=='Enter an Ambassador ID'?'':this.value;", :onblur => "this.value = this.value==''?'Enter an Ambassador ID':this.value;" %>
+                    <%= image_tag("/images/YT_HP_Dec2010_ambassador_enterbutton.png", :style => "float:left; margin:2px 0 0 2px;", :id => 'ambassador_button') %>
+                  <% end %>
+                  
+                  
                   <a href="#">
-                    <%= image_tag "/images/YT_HP_Dec2010_ambassador_enterbutton.png", :style => "float:left; margin:2px 0 0 2px;" %>
+                    <%=  %>
                   </a>
                 </div>
               </div>
@@ -128,7 +131,24 @@
       var img = new Image();
       img.src = imgUrls[i];
     }
-
   });
+
+  
+
+  
 </script>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  
+  $(function(){
+    $("#ambassador_button").click(function(){
+      selectAmbassador();
+      return false;
+    });
+  });
+  
+  function selectAmbassador() {
+    window.location = "/users/select_ambassador?ambassador_name=" + jQuery("#x_ambassador_name").val();
+  }
+</script>
