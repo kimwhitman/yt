@@ -422,3 +422,80 @@ input.star {
 #container_4col h3, #new_user h3 .notification {
   color: #488a1a;
 }
+
+#redeembox {
+	background-color: #f7f5f1;
+	border: 1px solid #e9d5e9;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-image: url(/images/redeembox_background.png);
+}
+#redeembox #redeem-content {
+	padding: 10px;
+	padding-bottom:20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	margin: 0;
+}
+#redeembox #redeem-content h1 {
+	font-size: 12px;
+	margin: 0;
+}
+#redeembox #redeem-content h2 {
+	color: #993366;
+	font-size: 14px;
+}
+#redeembox #redeem-content h3 {
+}
+#redeembox #redeem-content h4 {
+}
+#redeembox #redeem-content p {
+}
+.redeem-error {
+	color: #993333;
+}
+.redeem-error a {
+	color: #993333;
+	text-decoration: underline;
+}
+.redeem-success {
+	color: #336666;
+}
+.redeem-success a {
+	color: #336666;
+	text-decoration: underline;
+}
+#redeembox #redeem-content fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+#redeembox #redeem-content label {
+	color:#666666;
+	margin: 0 0 4px 0;
+	padding: 0;
+}
+#redeembox-code {
+	vertical-align: top;
+	width: 220px;
+	margin: 4px 0 0 0;
+}
+#redeembox #redeem-content .submit {
+	vertical-align: top;
+	margin: 5px 0 0 2px;
+}
+#redeembox #redeem-content form {
+	margin: 0 0 25px 0;
+	padding: 0;
+}
+#redeembox #redeem-content ul {
+	padding: 0 0 0 10px;
+}
+#redeembox #redeem-content li {
+	padding: 0;
+}
+#redeembox #redeem-content a img {
+	border: 0;
+	text-decoration: none;
+}
