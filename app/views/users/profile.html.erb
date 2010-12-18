@@ -98,6 +98,7 @@
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
       <%= render :partial => 'users/shared/ambassador_profile_widget' %>
+      <%= render :partial => 'gift_card_widget', :locals => { :gift_card => @gift_card } %>
     </div>
   </div>
 </div>

@@ -41,6 +41,8 @@ ActionController::Routing::Routes.draw do |map|
       :redeem_points                           => :post,
       :select_ambassador_name                  => :put,
       :signup                                  => :get,
+      :profile_gift_card                       => :get,
+      :redeem_gift_card                        => :get,
       }
 
   map.resources :users do |users|
@@ -99,6 +101,8 @@ ActionController::Routing::Routes.draw do |map|
       :action => 'create',
       :conditions => { :method => :post }
   end
+
+  
 
   map.with_options :controller => 'users' do |users|
     users.sign_up_membership '/sign-up/:membership_type', :action => 'new'

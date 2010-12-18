@@ -1,0 +1,46 @@
+<div id="generic-temporary-build-container" style="width:300px; margin-top: 20px">
+  <div id="redeembox">
+    <img src="/images/redeembox_header.png" alt="Redeem a Gift Subscription" width="298" height="33">
+    <div id="redeem-content">
+
+      <form name="redeem" action="">
+        <fieldset>
+          <%= label_tag :gift_card_code, "Enter your 24-digit Gift Code" %>
+          <%= text_field_tag :gift_card_code, (@gift_card.serial_number if @gift_card), :id => "redeembox-code" %>
+          <%= image_submit_tag 'redeembox_enterbutton_small.png', :class => 'submit', :id => "redeem-submit" %>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+
+    $("#activate_card img").live('click', function() {
+      gift_card_code = $("#gift_card_code").val();
+
+      $.get('redeem_gift_card?gift_card_code=' + gift_card_code, function(data) {
+        $('#redeem-content').html(data);
+      });
+    });
+
+    $(".submit").click(function(){
+      gift_card_code = $("#redeembox-code").val();
+      user_id        = $("#user_id").val();
+
+      if(gift_card_code == '')
+      {
+
+      }
+      else
+      {
+        $.get('profile_gift_card?gift_card_code=' + gift_card_code, function(data) {
+          $('#redeem-content').html(data);
+        });
+      }
+
+      return false;
+    });
+  });
+</script>

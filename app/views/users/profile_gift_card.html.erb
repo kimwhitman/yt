@@ -1,0 +1,40 @@
+<% if @gift_card.nil? || (@gift_card && !@gift_card.valid?) %>
+  <h1 class="redeem-error">Sorry, there are no  Gift Subscriptions that match your Entry. Please try again.</h1>
+  <p class="redeem-error">For assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
+<% elsif @gift_card && @gift_card.expired? %>
+<h1 class="redeem-error">Sorry, your Gift Code has expired.</h1>
+<p class="redeem-error">For assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
+<% else %>
+  <h1 class="redeem-success">
+  The following Gift Subscription is available to apply to your Account
+</h1>
+<ul>
+  <li>
+    <h2>
+      <%= 
+      case @gift_card.balance 
+      when GiftCardService::GiftCard::THREE_MONTH_PRICE
+        "Three Month Membership"
+      when GiftCardService::GiftCard::ANNUAL_PRICE
+        "Annual Membership"
+      else
+        "Unknown Membership"
+      end
+        %>
+    </h2>
+  </li>
+</ul>
+<%= hidden_field_tag "gift_card_code", @gift_card.serial_number %>
+
+<a id="activate_card" style="text-align:center;">
+  <%= image_tag 'redeembox_activatebutton_big.png', :alt => "Activate Now" %>
+</a>
+
+<p class="redeem-success">
+  Activated Gift Subscriptions will begin immediately, or upon your next 
+  <%= link_to "Billing Cycle", billing_history_user_path(current_user) %>.
+  For assistance, please contact us at 
+  <%= mail_to 'help@yogatoday.com' %>
+</p>
+
+<% end %>

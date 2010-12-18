@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
 
   def active_gift_card_membership?
     last_payment = self.account.subscription.subscription_payments.last
-    last_payment && last_payment.payment_method.include?("Gift Card")
+    last_payment && last_payment.payment_method.to_s.include?("Gift Card")
   end
 
   def has_downgraded_to_free?

@@ -74,7 +74,7 @@
               <tr>
                 <td><%= sp.created_at.strftime '%b %e, %Y' %></td>
                 
-                <% if sp.payment_method.include? 'Gift Card' %>
+                <% if sp.payment_method && sp.payment_method.to_s.include?('Gift Card') %>
                 <td><%= sp.payment_method %></td>
                 <td></td>
                 <% else %>
@@ -100,5 +100,4 @@
     <div id="container_2col" style="float:right">
       <%= render :partial => 'profile_sidebar' %>
     </div>
-  </div>
 </div>

@@ -4,6 +4,9 @@ require 'date'
 module GiftCardService
   class GiftCard
 
+    THREE_MONTH_PRICE = 29.97
+    ANNUAL_PRICE      = 89.95
+
     attr_reader :id, :balance, :expiration_date, :initial_amount, :serial_number, :error
     
     def initialize(attributes)

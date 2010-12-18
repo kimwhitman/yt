@@ -24,13 +24,15 @@ class UsersController < ApplicationController
   before_filter :setup_ambassador_email, :only => [:ambassador_tools_widget_invite_by_email, :ambassador_tools_invite_by_email]
 
   before_filter :ensure_not_logged_in, :only => :new
-  before_filter :check_gift_card_code, :determine_membership_type, :only => [:new, :create]
+  before_filter :check_gift_card_code, :determine_membership_type, :only => [:new, :create, :profile]
   before_filter :setup_user, :only => :new
 
   def signup
     @user = User.new
 
-    if params[:gift_card_code]
+    if logged_in?
+      redirect_to profile_user_url(current_user, :gift_card_code => params[:gift_card_code])
+    elsif params[:gift_card_code]
       redirect_to new_user_path(:gift_card_code => params[:gift_card_code])
     end
   end
@@ -477,7 +479,68 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile_gift_card
+    if params[:gift_card_code]
+      @gift_card = search_for_card(params[:gift_card_code])
+    end
+  end
+  
+  def redeem_gift_card
+    @redeemed = false
 
+    if params[:gift_card_code]
+      @gift_card = search_for_card(params[:gift_card_code])
+
+      if @gift_card && @gift_card.valid?
+        soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
+        namespace     = 'http://complemar.com/'
+        client        = GiftCardService::API.new(soap_endpoint, namespace)
+
+        # don't use card service when in dev mode. Instead check against 2 cards
+        if Rails.env == 'development'
+          @redeemed = ['1', '2'].include? @gift_card.serial_number
+        else
+          # FIXME: what if this fails?
+          @redeemed = client.redeem(@gift_card.serial_number, @gift_card.balance)
+        end
+
+        if @redeemed
+          @user = current_user
+
+          payment      = @user.account.subscription_payments.build(:start_date => Date.today, :amount => 0.00)
+          next_renewal = @user.account.subscription.next_renewal_at
+          time         = next_renewal ? next_renewal.to_time : Time.now 
+
+          if @gift_card.balance == GiftCardService::GiftCard::ANNUAL_PRICE
+            time                   = time.advance(:months => 12)
+            payment.payment_method = 'One Year Gift Card'
+            payment.end_date       = time
+
+            unless @user.has_paying_subscription?
+              @subscription_plan = SubscriptionPlan.find_by_internal_name('premium_annually')
+              @user.account.subscription.upgrade_plan(@subscription_plan)
+            end
+
+          elsif @gift_card.balance == GiftCardService::GiftCard::THREE_MONTH_PRICE
+            time                   = time.advance(:months => 3)
+            payment.payment_method = '3 Month Gift Card'
+            payment.end_date       = time
+
+            unless @user.has_paying_subscription?
+              @subscription_plan = SubscriptionPlan.find_by_internal_name('premium_monthly')
+              @user.account.subscription.upgrade_plan(@subscription_plan)
+            end
+          end
+
+          payment.subscription  = @user.account.subscription
+          payment.save
+
+          @user.account.subscription.update_attribute(:next_renewal_at, time)
+        end
+
+      end
+    end
+  end
 
   protected
 
@@ -532,19 +595,7 @@ class UsersController < ApplicationController
     def check_gift_card_code
       unless params[:gift_card_code].blank?
 
-        # don't use card service when in dev mode. Instead check against 2 cards
-        if Rails.env == 'development'
-          if params[:gift_card_code] == '1'
-            @gift_card = GiftCardService::GiftCard.new(:serial_number => '1', :balance => '9.95', :expiraton_date => 5.days.since.to_s)
-          elsif params[:gift_card_code] == '2'
-            @gift_card = GiftCardService::GiftCard.new(:serial_number => '2', :balance => '89.95', :expiraton_date => 5.days.since.to_s)
-          end
-        else
-          soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
-          namespace     = 'http://complemar.com/'
-          client        = GiftCardService::API.new(soap_endpoint, namespace)
-          @gift_card    = client.search(params[:gift_card_code])
-        end
+        @gift_card = search_for_card(params[:gift_card_code])
 
         if @gift_card.nil? || (@gift_card && !@gift_card.valid?)
           flash[:error] = "Your Gift Card Number could not be found"
@@ -589,7 +640,7 @@ class UsersController < ApplicationController
       end
 
       if @gift_card && @gift_card.valid?
-        if @gift_card.balance == 89.95
+        if @gift_card.balance == GiftCardService::GiftCard::ANNUAL_PRICE
           @membership_type = 'prepaid'
         else
           @membership_type = 'monthly'
@@ -598,6 +649,22 @@ class UsersController < ApplicationController
     end
 
   private
+
+    def search_for_card(gift_card_code)
+      # don't use card service when in dev mode. Instead check against 2 cards
+      if Rails.env == 'development'
+        if gift_card_code == '1'
+          GiftCardService::GiftCard.new(:serial_number => '1', :balance => GiftCardService::GiftCard::THREE_MONTH_PRICE, :expiraton_date => 5.days.since.to_s)
+        elsif gift_card_code == '2'
+          GiftCardService::GiftCard.new(:serial_number => '2', :balance => GiftCardService::GiftCard::ANNUAL_PRICE, :expiraton_date => 5.days.since.to_s)
+        end
+      else
+        soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'
+        namespace     = 'http://complemar.com/'
+        client        = GiftCardService::API.new(soap_endpoint, namespace)
+        client.search(gift_card_code)
+      end
+    end
 
     def apply_ambassador
       result = false

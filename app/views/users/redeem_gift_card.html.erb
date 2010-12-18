@@ -1,0 +1,12 @@
+<div id="redeem-content">
+<% if @redeemed %>
+<h1 class="redeem-success">Success!<br>
+Your Gift Subscription has been activated.</h1>
+<p class="redeem-success">Visit your <%= link_to "Billing Activity", billing_history_user_path(current_user) %> 
+  to review the status of your Gift Subscription. 
+  For further assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
+<% else %>
+<h1 class="redeem-error">Sorry, your Gift Card could not be redeemed.</h1>
+<p class="redeem-error">For assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
+<% end %>
+</div>
