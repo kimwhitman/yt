@@ -1,11 +1,11 @@
 <% if @gift_card.nil? || (@gift_card && !@gift_card.valid?) %>
   <h1 class="redeem-error">Sorry, there are no  Gift Subscriptions that match your Entry. Please try again.</h1>
   <p class="redeem-error">For assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
-  <%= link_to(image_tag("redeembox_tryagainbutton_big.png", :alt => "Try Again"), profile_user(current_user)) %>
+  <%= link_to(image_tag("redeembox_tryagainbutton_big.png", :alt => "Try Again"), profile_user_path(current_user)) %>
 <% elsif @gift_card && @gift_card.expired? %>
 <h1 class="redeem-error">Sorry, your Gift Code has expired.</h1>
 <p class="redeem-error">For assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
-<%= link_to(image_tag("redeembox_tryagainbutton_big.png", :alt => "Try Again"), profile_user(current_user)) %>
+<%= link_to(image_tag("redeembox_tryagainbutton_big.png", :alt => "Try Again"), profile_user_path(current_user)) %>
 <% else %>
   <h1 class="redeem-success">
   The following Gift Subscription is available to apply to your Account

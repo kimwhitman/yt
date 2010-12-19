@@ -8,6 +8,6 @@ Your Gift Subscription has been activated.</h1>
 <% else %>
 <h1 class="redeem-error">Sorry, your Gift Card could not be redeemed.</h1>
 <p class="redeem-error">For assistance, please contact us at <%= mail_to 'help@yogatoday.com' %></p>
-<%= link_to(image_tag("redeembox_tryagainbutton_big.png", :alt => "Try Again"), profile_user(current_user)) %>
+<%= link_to(image_tag("redeembox_tryagainbutton_big.png", :alt => "Try Again"), profile_user_path(current_user)) %>
 <% end %>
 </div>
