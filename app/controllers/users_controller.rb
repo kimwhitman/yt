@@ -510,7 +510,7 @@ class UsersController < ApplicationController
           payment      = @user.account.subscription_payments.build(:start_date => Date.today, :amount => 0.00)
           next_renewal = @user.account.subscription.next_renewal_at
           
-          if next_renewal
+          if next_renewal && (next_renewal.to_date < Date.today)
             payment.start_date = next_renewal
             time               = next_renewal.to_time
           else
