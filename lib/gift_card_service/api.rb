@@ -22,8 +22,8 @@ module GiftCardService
     def initialize(url, namespace)
       @client    = Savon::Client.new(url)
       @namespace = namespace
-      @username  = 'aghag@complemar.com'
-      @password  = 'Computer7*'
+      @username  = 'webservice@complemar.com'
+      @password  = 'WebService7*'
       @base_url  = 'http://complemar.com'
       @xmlnses   = { "xmlns" => @namespace }
     end
