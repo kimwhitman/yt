@@ -82,7 +82,7 @@ class UsersController < ApplicationController
             end
 
             payment = @user.account.subscription_payments.build(
-                          :subscription   => @user.account.subscription, 
+                          :subscription   => @user.account.subscription,
                           :start_date     => Date.today,
                           :amount         => 0.00)
 
@@ -91,11 +91,17 @@ class UsersController < ApplicationController
               payment.payment_method = 'One Year Gift Card'
               payment.end_date       = time
               payment.save
+
+              # email that gift card has been redeeemed
+              UserMailer.deliver_gift_card_redeemed(@user, "One Year Gift Subscription")
             elsif result && @user.membership_type == 'monthly'
               time                   = Time.now.advance(:months => 3)
               payment.payment_method = '3 Month Gift Card'
               payment.end_date       = time
               payment.save
+
+              # email that gift card has been redeeemed
+              UserMailer.deliver_gift_card_redeemed(@user, "Three Month Gift Subscription")
             else
               logger.fatal "Gift Card Redemption unsuccessful. #{@gift_card.inspect}"
               time = Time.now
@@ -124,9 +130,9 @@ class UsersController < ApplicationController
           end
         end
       else
-        
+
         errors = []
-        
+
         if needs_credit_card
           @creditcard.errors.full_messages.each do |message|
             @user.errors.add_to_base message
@@ -484,7 +490,7 @@ class UsersController < ApplicationController
       @gift_card = search_for_card(params[:gift_card_code])
     end
   end
-  
+
   def redeem_gift_card
     @redeemed = false
 
@@ -507,9 +513,13 @@ class UsersController < ApplicationController
         if @redeemed
           @user = current_user
 
+          # email that gift card has been redeeemed
+          gift_card_name = (@gift_card.balance == GiftCardService::GiftCard::ANNUAL_PRICE) ? "One Year Gift Subscription" : "Three Month Gift Subscription"
+          UserMailer.deliver_gift_card_redeemed(@user, gift_card_name)
+
           payment      = @user.account.subscription_payments.build(:start_date => Date.today, :amount => 0.00)
           next_renewal = @user.account.subscription.next_renewal_at
-          
+
           if next_renewal && (next_renewal.to_date > Date.today)
             payment.start_date = next_renewal
             time               = next_renewal.to_time

@@ -78,7 +78,13 @@ class UserMailer < ActionMailer::Base
     from "YogaToday <info@yogatoday.com>"
     body :user => user
   end
-
+  
+  def gift_card_redeemed(user, gift_card_name)
+    subject "Your Gift Subscription has been redeemed"
+    recipients "#{user.name} <#{user.email}>"
+    from "YogaToday <info@yogatoday.com>"
+    body :user => user, :gift_card_name => gift_card_name
+  end
 
   private
 
