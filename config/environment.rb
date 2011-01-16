@@ -35,7 +35,7 @@ Rails::Initializer.run do |config|
   config.gem 'paperclip'
   config.gem 'hashie'
   config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
-  config.gem 'savon'
+  config.gem 'savon', :version => '0.7.9'
   config.gem 'nokogiri'
 
   #config.gem 'rmagick', :lib => 'RMagick' (EAE - skip for jruby)
