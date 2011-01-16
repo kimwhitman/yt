@@ -31,6 +31,10 @@ To run cucumber tests:
 
 h2. Deploying apps
 
+Make sure you have capistrano installed:
+
+<pre><code>gem install capistrano capistrano-ext</code></pre>
+
 To deploy to the staging server:
 
   <pre><code>cap staging deloy</code></pre>
