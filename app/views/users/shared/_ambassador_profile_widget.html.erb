@@ -66,7 +66,7 @@
       </div>
     <% end %>
 
-    <% if !params[:verify_ambassador_name].empty? %>
+    <% if params[:verify_ambassador_name] && !params[:verify_ambassador_name].empty? %>
     <p class="header">Ambassador Program <%= link_to 'Learn More', '/ambassador-details', :class => 'more' %></p>
     <img class="greeting" src="/images/ambassador_greeting.png" />
       <div class="confirm">
