@@ -88,24 +88,22 @@ require 'active_record_extensions'
 
 require 'association_proxy'
 require "#{RAILS_ROOT}/config/initializers/net_http_patch.rb" # Rails Lazy Loading in production
-ExceptionNotifier.exception_recipients = %w(bugs@planetargon.com)
 
-ExceptionNotifier.sender_address = %("YogaToday Application Error" <app.error@yogatoday.com>)
-
-# defaults to "[ERROR] "
-
-ExceptionNotifier.email_prefix = "[YOGATODAY-ERROR] "
+ExceptionNotifier.exception_recipients = %w(bugs@planetargon.com bugs@invalid8.com)
+ExceptionNotifier.sender_address       = %("YogaToday Application Error" <app.error@yogatoday.com>)
+ExceptionNotifier.email_prefix         = "[YOGATODAY-ERROR] "
 
 Synthesis::AssetPackage.merge_environments = ["staging", "production"]
 
 BRIGHTCOVE_API_KEYS = YAML.load(File.open("#{RAILS_ROOT}/config/brightcove.yml")).symbolize_keys!
+
 if mailchimp_config = YAML.load(File.open("#{ Rails.root }/config/mailchimp.yml"))
-  MAILCHIMP_LOGIN = mailchimp_config[Rails.env]['login']
-  MAILCHIMP_PASSWORD = mailchimp_config[Rails.env]['password']
-  MAILCHIMP_API_KEY = mailchimp_config[Rails.env]['api_key']
-  MAILCHIMP_MEMBERS_LIST_ID = mailchimp_config[Rails.env]['members_list_id']
-  MAILCHIMP_FREE_GROUP_ID = mailchimp_config[Rails.env]['free_group_id']
+  MAILCHIMP_LOGIN                = mailchimp_config[Rails.env]['login']
+  MAILCHIMP_PASSWORD             = mailchimp_config[Rails.env]['password']
+  MAILCHIMP_API_KEY              = mailchimp_config[Rails.env]['api_key']
+  MAILCHIMP_MEMBERS_LIST_ID      = mailchimp_config[Rails.env]['members_list_id']
+  MAILCHIMP_FREE_GROUP_ID        = mailchimp_config[Rails.env]['free_group_id']
   MAILCHIMP_AMBASSADORS_GROUP_ID = mailchimp_config[Rails.env]['ambassadors_group_id']
-  MAILCHIMP_PAID_GROUP_ID = mailchimp_config[Rails.env]['paid_group_id']
-  MAILCHIMP_NEWSLETTER_LIST_ID = mailchimp_config[Rails.env]['newsletter_list_id']
+  MAILCHIMP_PAID_GROUP_ID        = mailchimp_config[Rails.env]['paid_group_id']
+  MAILCHIMP_NEWSLETTER_LIST_ID   = mailchimp_config[Rails.env]['newsletter_list_id']
 end
