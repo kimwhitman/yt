@@ -579,5 +579,6 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
   <% else %>
     brightcovePlayer.params.videoId = '<%= @video.brightcove_preview_video_id -%>';
   <% end %>
+  brightcovePlayer.params['@videoPlayer'] = brightcovePlayer.params.videoId;
   brightcovePlayer.startPlayer();
 </script>

@@ -23,7 +23,7 @@ Place holder for player. <i>id="placeHolder"</i>
 
 <div style="width: 500px; overflow: auto;">
 <pre><code>
-  DBEUG
+  DEBUG
 
 <%= @brightcove_video.inspect %>
 
@@ -31,51 +31,49 @@ Place holder for player. <i>id="placeHolder"</i>
 
 </div>
 
-
-
 <script type="text/javascript">
 
 playerName = "player1";
 isPlayerAdded = false;
 
 function addPlayer() {
+    if (isPlayerAdded == false) {
+        isPlayerAdded = true;
 
-  if(isPlayerAdded == false) {
-    isPlayerAdded = true;
+        var params = {};
 
-    var params = {};
-    params.playerID = "107142267001";
-    params.videoId = "<%= @brightcove_video['id'] -%>";
-    params.publishedID = "105925308001";
-    //params.autoStart = "true";
-    params.bgcolor = "#993300";
-    params.width = "600";
-    params.height = "400";
-    params.isVid = "true";
+        params.bgcolor = "#FFFFFF";
+        params.width = '480';
+        params.height = '270';
+        params.playerID = '651115096001';
+        params.playerKey = 'AQ%2E%2E;AAAAGKmj7mE%2E;mo4U6jieCmAcbKqYoIYjjixJgRjCgjoX';
+        params.isVid = 'true';
+        params.isUI = 'true';
+        params.dynamicStreaming = 'true';
 
-    var player = brightcove.createElement("object");
-    player.id = playerName;
-    var parameter;
-    for (var i in params) {
-      parameter = brightcove.createElement("param");
-      parameter.name = i;
-      parameter.value = params[i];
-      player.appendChild(parameter);
+        params['@videoPlayer'] = '655481270001';
+
+        // params.videoId = "<%= @brightcove_video['id'] -%>";
+        var player = brightcove.createElement("object");
+        player.id = playerName;
+        var parameter;
+        for (var i in params) {
+            parameter = brightcove.createElement("param");
+            parameter.name = i;
+            parameter.value = params[i];
+            player.appendChild(parameter);
+        }
+
+        var playerContainer = document.getElementById("placeHolder");
+        brightcove.createExperience(player, playerContainer, true);
     }
-
-    var playerContainer = document.getElementById("placeHolder");
-
-    brightcove.createExperience(player, playerContainer, true);
-  }
 }
 
 function removePlayer() {
-
-  if(isPlayerAdded == true) {
-    isPlayerAdded = false;
-
-    brightcove.removeExperience(playerName);
-  }
+    if (isPlayerAdded == true) {
+        isPlayerAdded = false;
+        brightcove.removeExperience(playerName);
+    }
 
 }
 </script>
