@@ -19,10 +19,10 @@ class Video < ActiveRecord::Base
   # Do _NOT_ use this assocation for pagination.
   # It doesn't work. Use the named_scope related_videos_for instead, supplying a Video ID.
   has_and_belongs_to_many :related_videos,
-    :class_name => 'Video',
+    :class_name              => 'Video',
     :association_foreign_key => 'related_video_id',
-    :join_table => 'related_videos',
-    :finder_sql => %q(
+    :join_table              => 'related_videos',
+    :finder_sql              => %q(
       SELECT
         videos.*
       FROM
