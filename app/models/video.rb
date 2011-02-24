@@ -268,10 +268,6 @@ class Video < ActiveRecord::Base
     preview_videos = []
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
 
-    require 'ruby-debug'
-    
-    debugger
-
     brightcove_videos.each do |brightcove_video|
       if self.full_version?(brightcove_video.referenceId)
         video = Video.find_or_initialize_by_friendly_name(self.convert_brightcove_reference_id(brightcove_video.referenceId))
