@@ -33,14 +33,13 @@ class Video < ActiveRecord::Base
     )
 
   has_and_belongs_to_many :instructors
-  #has_and_belongs_to_many :yoga_poses
   has_and_belongs_to_many :yoga_types
 
   validates_presence_of :title, :duration, :description, :instructors, :yoga_types
 
-  validates_inclusion_of :is_public, :in      => [true, false]
-  validates_length_of :title,        :maximum => 255, :allow_blank => true
-  validates_length_of :description,  :maximum => 1000, :allow_blank => true
+  validates_inclusion_of :is_public,    :in      => [true, false]
+  validates_length_of    :title,        :maximum => 255, :allow_blank => true
+  validates_length_of    :description,  :maximum => 1000, :allow_blank => true
 
   before_validation :update_caches
 
@@ -215,8 +214,10 @@ class Video < ActiveRecord::Base
       converted_name = reference_id.gsub('_PV', '').gsub('-HD', '')
 
       case converted_name.size
-        when 2 : converted_name.insert(1, '00')
-        when 3 : converted_name.insert(1, '0')
+        when 2
+          converted_name.insert(1, '00')
+        when 3
+          converted_name.insert(1, '0')
       end
 
       converted_name
@@ -266,6 +267,10 @@ class Video < ActiveRecord::Base
     invalid_videos = []
     preview_videos = []
     brightcove_videos = self.fetch_videos_from_brightcove('find_modified_videos', :updated_since => updated_since)
+
+    require 'ruby-debug'
+    
+    debugger
 
     brightcove_videos.each do |brightcove_video|
       if self.full_version?(brightcove_video.referenceId)
@@ -329,8 +334,10 @@ class Video < ActiveRecord::Base
           invalid_videos << video
         end
       else
-        preview_videos << { :reference_id => Video.convert_brightcove_reference_id(brightcove_video.referenceId),
-          :brightcove_id => brightcove_video.id }
+        preview_videos << {
+            :reference_id  => Video.convert_brightcove_reference_id(brightcove_video.referenceId),
+            :brightcove_id => brightcove_video.id 
+          }
 
         preview_videos.each do |preview_video|
           video = Video.find_by_friendly_name(preview_video[:reference_id])
