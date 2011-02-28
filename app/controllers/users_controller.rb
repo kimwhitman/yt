@@ -514,7 +514,16 @@ class UsersController < ApplicationController
           @user = current_user
 
           # email that gift card has been redeeemed
-          gift_card_name = (@gift_card.balance == GiftCardService::GiftCard::ANNUAL_PRICE) ? "One Year Gift Subscription" : "Three Month Gift Subscription"
+          gift_card_name = case @gift_card.balance
+
+          when GiftCardService::GiftCard::ANNUAL_PRICE
+            'One Year Gift Subscription'
+          when GiftCardService::GiftCard::ONE_MONTH_PRICE
+            'One Month Gift Subscription'
+          when GiftCardService::GiftCard::THREE_MONTH_PRICE
+            'Three Month Gift Subscription'
+          end
+
           UserMailer.deliver_gift_card_redeemed(@user, gift_card_name)
 
           payment      = @user.account.subscription_payments.build(:start_date => Date.today, :amount => 0.00)
@@ -537,7 +546,15 @@ class UsersController < ApplicationController
               @subscription_plan = SubscriptionPlan.find_by_internal_name('premium_annually')
               @user.account.subscription.upgrade_plan(@subscription_plan)
             end
+          elsif @gift_card.balance == GiftCardService::GiftCard::ONE_MONTH_PRICE
+            time                   = time.advance(:months => 1)
+            payment.payment_method = '1 Month Gift Card'
+            payment.end_date       = time
 
+            unless @user.has_paying_subscription?
+              @subscription_plan = SubscriptionPlan.find_by_internal_name('premium_monthly')
+              @user.account.subscription.upgrade_plan(@subscription_plan)
+            end
           elsif @gift_card.balance == GiftCardService::GiftCard::THREE_MONTH_PRICE
             time                   = time.advance(:months => 3)
             payment.payment_method = '3 Month Gift Card'
@@ -670,10 +687,13 @@ class UsersController < ApplicationController
     def search_for_card(gift_card_code)
       # don't use card service when in dev mode. Instead check against 2 cards
       if Rails.env == 'development'
+
         if gift_card_code == '1'
-          GiftCardService::GiftCard.new(:serial_number => '1', :balance => GiftCardService::GiftCard::THREE_MONTH_PRICE, :expiraton_date => 5.days.since.to_s)
+          GiftCardService::GiftCard.new(:serial_number => '1', :balance => GiftCardService::GiftCard::ONE_MONTH_PRICE, :expiraton_date => 5.days.since.to_s)
         elsif gift_card_code == '2'
-          GiftCardService::GiftCard.new(:serial_number => '2', :balance => GiftCardService::GiftCard::ANNUAL_PRICE, :expiraton_date => 5.days.since.to_s)
+          GiftCardService::GiftCard.new(:serial_number => '2', :balance => GiftCardService::GiftCard::THREE_MONTH_PRICE, :expiraton_date => 5.days.since.to_s)
+        elsif gift_card_code == '3'
+          GiftCardService::GiftCard.new(:serial_number => '3', :balance => GiftCardService::GiftCard::ANNUAL_PRICE, :expiraton_date => 5.days.since.to_s)
         end
       else
         soap_endpoint = 'http://yogatodayws.complemar.com/Service1.asmx'

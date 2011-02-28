@@ -6,6 +6,7 @@ module GiftCardService
 
     THREE_MONTH_PRICE = 29.97
     ANNUAL_PRICE      = 89.95
+    ONE_MONTH_PRICE   = 9.99
 
     attr_reader :id, :balance, :expiration_date, :initial_amount, :serial_number, :error
     
