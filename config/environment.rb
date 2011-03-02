@@ -89,7 +89,7 @@ require 'active_record_extensions'
 require 'association_proxy'
 require "#{RAILS_ROOT}/config/initializers/net_http_patch.rb" # Rails Lazy Loading in production
 
-ExceptionNotifier.exception_recipients = %w(bugs@planetargon.com bugs@invalid8.com)
+ExceptionNotifier.exception_recipients = %w(bugs@yogatoday.com)
 ExceptionNotifier.sender_address       = %("YogaToday Application Error" <app.error@yogatoday.com>)
 ExceptionNotifier.email_prefix         = "[YOGATODAY-ERROR] "
 

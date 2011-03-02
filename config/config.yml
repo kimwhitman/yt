@@ -8,6 +8,8 @@ base_domain: example.com
 # Set this to true if you want to require CC info when creating a trial account for a paid plan
 require_payment_info_for_trials: false
 
+bug_recipients: ['bugs@yogatoday.com']
+
 # Credit card gateway: One of brain_tree, authorize_net_cim, payment_express, or trust_commerce
 
 development:
@@ -21,3 +23,4 @@ staging:
   gateway: bogus
 production:
   gateway: authorize_net_cim
+

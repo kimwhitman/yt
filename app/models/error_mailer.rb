@@ -1,7 +1,7 @@
 class ErrorMailer < ActionMailer::Base
 
   def error(exception, opts = {})
-    setup_email('bugs@planetargon.com')
+    setup_email(AppConfig['bug_recipients'])
     @body[:content] = exception
     @body[:backtrace] = exception.backtrace
     @body[:server] = '' #HOST_NAME
@@ -9,13 +9,13 @@ class ErrorMailer < ActionMailer::Base
   end
 
   def video_import_failure(videos)
-    setup_email('bugs@planetargon.com')
+    setup_email(AppConfig['bug_recipients'])
     @subject = '[YogaToday] Import video failure'
     @body[:videos] = videos
   end
 
   def bill_failure(user)
-    setup_email('bugs@planetargon.com')
+    setup_email(AppConfig['bug_recipients'])
     @subject     = "[YogaToday] Billing failure - #{ user.email }"
     @body[:user] = user
   end
