@@ -94,6 +94,14 @@ class UsersController < ApplicationController
 
               # email that gift card has been redeeemed
               UserMailer.deliver_gift_card_redeemed(@user, "One Year Gift Subscription")
+            elsif result && @gift_card.balance == GiftCardService::GiftCard::ONE_MONTH_PRICE
+              time                   = Time.now.advance(:months => 1)
+              payment.payment_method = '1 Month Gift Card'
+              payment.end_date       = time
+              payment.save
+
+              # email that gift card has been redeeemed
+              UserMailer.deliver_gift_card_redeemed(@user, "One Month Gift Subscription")
             elsif result && @user.membership_type == 'monthly'
               time                   = Time.now.advance(:months => 3)
               payment.payment_method = '3 Month Gift Card'
