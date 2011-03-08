@@ -579,7 +579,8 @@ class UsersController < ApplicationController
 
           @user.account.subscription.update_attribute(:next_renewal_at, time)
         end
-
+      else
+        logger.fatal "Gift Card Redemption unsuccessful. #{@gift_card.inspect}. User: #{current_user.inspect}"
       end
     end
   end
