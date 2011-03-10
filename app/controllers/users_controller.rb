@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 
             # don't use card service when in dev mode. Instead check against 2 cards
             if Rails.env == 'development'
-              result = ['1', '2'].include? @gift_card.serial_number
+              result = ['1', '2', '3'].include? @gift_card.serial_number
             else
               # FIXME: what if this fails?
               result = client.redeem(@gift_card.serial_number, @gift_card.balance)
@@ -512,7 +512,7 @@ class UsersController < ApplicationController
 
         # don't use card service when in dev mode. Instead check against 2 cards
         if Rails.env == 'development'
-          @redeemed = ['1', '2'].include? @gift_card.serial_number
+          @redeemed = ['1', '2', '3'].include? @gift_card.serial_number
         else
           # FIXME: what if this fails?
           @redeemed = client.redeem(@gift_card.serial_number, @gift_card.balance)
