@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
       if self.had_paying_subscription?
         self.account.subscription_payments.each do |item|
           # grace period
-          if item.created_at.advance(:days => 32) > Time.now
+          if item.created_at && item.created_at.advance(:days => 32) > Time.now
             return true
           end
         end
