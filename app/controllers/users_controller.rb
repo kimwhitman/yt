@@ -83,6 +83,7 @@ class UsersController < ApplicationController
 
             payment = @user.account.subscription_payments.build(
                           :subscription   => @user.account.subscription,
+                          :created_at     => Date.today,
                           :start_date     => Date.today,
                           :amount         => 0.00)
 
@@ -534,7 +535,10 @@ class UsersController < ApplicationController
 
           UserMailer.deliver_gift_card_redeemed(@user, gift_card_name)
 
-          payment      = @user.account.subscription_payments.build(:start_date => Date.today, :amount => 0.00)
+          payment      = @user.account.subscription_payments.build(:start_date => Date.today,
+                                                                   :amount     => 0.00,
+                                                                   :created_at => Date.today)
+
           next_renewal = @user.account.subscription.next_renewal_at
 
           if next_renewal && (next_renewal.to_date > Date.today)
