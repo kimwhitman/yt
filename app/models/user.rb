@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
     :wants_newsletter, :wants_promos, :photo, :photo_file_name,
     :photo_content_type, :photo_file_size, :city, :state, :country,
     :agree_to_terms, :newsletter_format, :email_confirmation, :ambassador_name,
-    :first_name, :last_name
+    :first_name, :last_name, :progressive_streaming
 
 
   def name
