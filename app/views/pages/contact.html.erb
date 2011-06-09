@@ -25,22 +25,25 @@
         <% form_tag contact_path, :id => 'feedback_form', :name => 'feedback_form' do %>
 
           <div class="form_row" style="padding-top: 21px;">
-            <div style="width: 130px; float: left;" id="container_2col">
+            <div style="width: 240px; float: left;" id="container_2col">
               Yoga Today LLC<br/>
               P.O. Box 9880<br/>
-              Jackson, WY 83002
+              Jackson, WY 83002<br/><br/>
+              <span class="arial13_bold_black" style="color: #666666;">For press inquiries, please contact:</span> Jessie Denny
             </div>
             <div style="float: right;" id="container_2col">
               <span class="arial13_bold_black" style="color: #666666;">Phone:</span> 307-734-0877<br/>
               <span class="arial13_bold_black" style="color: #666666;">Fax:</span> 307-734-0898<br/>
               <span class="arial13_bold_black" style="color: #666666;">Email:</span> <%= mail_to 'info@yogatoday.com', 'info(at)yogatoday.com' %>
+              <br/><br/><br/>
+              <span class="arial13_bold_black" style="color: #666666;">Phone:</span> 435.640.9338<br/>
+              <span class="arial13_bold_black" style="color: #666666;">Email:</span> <%= mail_to 'jessiedenny@mac.com', 'jessiedenny@mac.com' %>
             </div>
           </div>
 
-          <div class="form_row">
-             
+          <div class="form_row" style="float:left;">
+              
           </div>
-
 
           <div class="form_row">
             <span class="arial16_bold_green">Send us a note</span><br/>Thanks. Your feedback makes Yoga Today better for everyone.

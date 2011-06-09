@@ -22,6 +22,9 @@
       $('#video_focus_category_<%= vfc.id %> > input').attr('checked', true);
     <% end %>
       <% end %>
+        <% if params[:yoga_types] || (params[:search] && params[:search][:yoga_types])%>
+        $('#type_filter_title').click();
+      <% end %>
     });
   </script>
 <% end %>
@@ -113,11 +116,11 @@
   <div class="filter_arrow" onclick="displayDropDown('filter_type_on','block','filter_type_off');" onmouseover="this.style.cursor='Pointer';">
   <img src="/images/filter-arrow-close.png" />        </div>
   <div id="type_filter_title" class="filter_title" onclick="displayDropDown('filter_type_on','block','filter_type_off');" onmouseover="this.style.cursor='Pointer';" style="margin-top: 10px;">
-  Type        </div>
+  Style        </div>
 </div>
 
 <div class="filter_box" id="filter_type_on" style="display:none; clear:both;">
-  <div class="filter_arrow" style="margin-top: 13px;" onclick="displayDropDown('filter_type_off','block','filter_type_on');" onmouseover="this.style.cursor='Pointer';"><img src="/images/filter-arrow-open.png" /></div><div class="filter_title" onclick="displayDropDown('filter_type_off','block','filter_type_on');" onmouseover="this.style.cursor='Pointer';" style="margin-top: 10px;">Type</div>
+  <div class="filter_arrow" style="margin-top: 13px;" onclick="displayDropDown('filter_type_off','block','filter_type_on');" onmouseover="this.style.cursor='Pointer';"><img src="/images/filter-arrow-open.png" /></div><div class="filter_title" onclick="displayDropDown('filter_type_off','block','filter_type_on');" onmouseover="this.style.cursor='Pointer';" style="margin-top: 10px;">Style</div>
   <div class="filter_actions">&nbsp;-&nbsp;<%= select_all_or_cancel_links(:context => "$('#filter_type_on')") %></div>
   <div style="float: right;">
     <%= submit_tag "Apply Filters", :class => "button" %>

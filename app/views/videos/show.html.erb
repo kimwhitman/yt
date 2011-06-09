@@ -209,9 +209,9 @@ post_submission_text = logged_in? ? "Submit" : "Post anonymously"
 -->
       <div id="review_section">
         <div id="review_header" class="arial16_bold_black">
-          <div class="review_option" id="discussion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'discussion_display');" style="background-color:#ffffff; border-bottom-color: #ffffff;"><h2 style="font-weight: normal">Discussion (<span class='discussion_count'><%= @video.comments.public.count  %></span>)</h2></div>
-          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
           <div class="review_option" id="review_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'review_display');"><h2 style="font-weight: normal">Reviews (<span class='review_count'><%= @video.reviews.public.count  %></span>)</h2></div>
+          <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
+          <div class="review_option" id="discussion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'discussion_display');" style="background-color:#ffffff; border-bottom-color: #ffffff;"><h2 style="font-weight: normal">Discussion (<span class='discussion_count'><%= @video.comments.public.count  %></span>)</h2></div>
           <div class="review_option_spacer" style="width:1px;"><img src="/images/spacer.gif" width="1" height="1" /></div>
 
           <div class="review_option" id="suggestion_display_button" onmouseover="this.style.cursor='Pointer';this.style.color='#0066ff';" onmouseout="this.style.color='';" onclick="discussionChange(this.id,'suggestion_new_topic');"><h2 style="font-weight: normal">Make a suggestion</h2></div>
