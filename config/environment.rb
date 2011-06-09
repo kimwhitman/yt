@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
   config.gem 'hominid', :version => '2.1.5'
   config.gem 'lockfile', :version => '1.4.3'
   config.gem 'mislav-will_paginate', :lib => 'will_paginate', :version => '~> 2.2.3', :source => 'http://gems.github.com'
-  config.gem 'paperclip'
+  config.gem 'paperclip', :version => '2.1.2'
   config.gem 'hashie'
   config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
   config.gem 'savon', :version => '0.7.9'
