@@ -2,7 +2,7 @@
 	width:940px;
 	margin:0;
 	padding:0;
-	background-image:url('/images/main-image.jpeg');
+	background-image:url('/images/5YR_MAIN_IMG_final.PNG');
 }
 
 #feature_leftCol {
@@ -11,6 +11,10 @@
 	height:390px;
 	border:0px;
 	margin:0px;
+}
+
+#feature_leftCol a img {
+	border:none;
 }
 
 #feature_rightCol {
