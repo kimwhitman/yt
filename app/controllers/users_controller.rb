@@ -52,6 +52,9 @@ class UsersController < ApplicationController
       @date = Date.parse("Jan #{Date.today.year}")
     end
 
+    #Set the current datetime to last_login_date
+    @user.last_login_date = Time.now.to_s
+
     if @user.valid? && @membership_type != 'free' &&  (@gift_card.nil? || @gift_card.valid?)
 
       # create subscription
