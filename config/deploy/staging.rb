@@ -2,6 +2,7 @@ require 'erb'
 require 'config/accelerator/accelerator_tasks'
 
 set :application, "yogatoday_staging"
+set :rails_env, "staging"
 set :domain, 'staging.yogatoday.com'
 set :branch, "staging" # or whatever branch/tag/SHA1
 
