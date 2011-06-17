@@ -27,7 +27,12 @@ class SessionsController < ApplicationController
     else
       # if @user.email_confirmed?
         self.current_user = @user
-        
+
+        #Set the current datetime to last_login_date
+        self.current_user.last_login_date = Time.now.to_s
+        #Then save it
+        self.current_user.save()
+
         if params[:session][:remember_me] == "1"
           self.current_user.remember_me
           cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
