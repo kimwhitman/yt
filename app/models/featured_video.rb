@@ -1,9 +1,12 @@
+require 'paperclip'
 class FeaturedVideo < ActiveRecord::Base
   has_attached_file :image,
     :styles => {
       :thumb => '106x59',
       :carousel => '940x526'
-    }
+    },
+   :url => "/system/:attachment/:id/:style/:basename.:extension",
+   :path => ":rails_root/public/system/:attachment/:id/:style/:basename.:extension"
 
   belongs_to :video
 
@@ -38,6 +41,7 @@ class FeaturedVideo < ActiveRecord::Base
   end
 
   def thumbnail
+    puts image.url(:carousel)
     image? ? image.url(:carousel) : video.cached_thumbnail_url
   end
 
