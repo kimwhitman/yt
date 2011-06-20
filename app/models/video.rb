@@ -13,7 +13,7 @@ class Video < ActiveRecord::Base
   has_many :featured_videos, :dependent    => :destroy
   has_many :comments, :order               => 'updated_at DESC'
   has_many :reviews, :order                => 'updated_at DESC'
-  has_many :playlist_videos
+  #has_many :playlist_videos
 
   has_and_belongs_to_many :video_focus, :join_table => 'video_video_focus'
 
@@ -129,13 +129,13 @@ class Video < ActiveRecord::Base
       WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating",
     :order => 'avg_rating desc'
 
-sphinx_scope(:latest_first) {
-    {:select => "videos.*, (SELECT (SUM(reviews.score) / COUNT(reviews.score))
-      FROM reviews
-      WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating",
-      :order => 'avg_rating desc'
-      }
-  }
+#sphinx_scope(:latest_first) {
+#    {:select => "videos.*, (SELECT (SUM(reviews.score) / COUNT(reviews.score))
+#      FROM reviews
+#      WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating",
+#      :order => 'avg_rating desc'
+#      }
+#  }
   named_scope :search, lambda { |opts|
     opts ||= {}
     conds  = {}
