@@ -45,20 +45,20 @@ class Video < ActiveRecord::Base
 
   before_validation :update_caches
 
-  define_index do
-    indexes title, :sortable => true
-    indexes description
-    indexes comments.content, :as => :comment_content
-    indexes instructors.name, :as => :instructor_name
-    indexes yoga_types.name, :as => :yoga_type_name
-    indexes yoga_poses.name, :as => :yoga_pose_name
-    indexes video_focus.name, :as => :video_focus_name
-    has reviews.score, :as => :review_score, :sortable => true
-    has created_at, :sortable => true
+  #define_index do
+  #  indexes title, :sortable => true
+  #  indexes description
+  #  indexes comments.content, :as => :comment_content
+  #  indexes instructors.name, :as => :instructor_name
+  #  indexes yoga_types.name, :as => :yoga_type_name
+  #  indexes yoga_poses.name, :as => :yoga_pose_name
+  #  indexes video_focus.name, :as => :video_focus_name
+  #  has reviews.score, :as => :review_score, :sortable => true
+   # has created_at, :sortable => true
     #has playlist_videos.created_at, :as => :playlist_created_at, :sortable => true
     #:order => 'review_score DESC'
     #r = ThinkingSphinx.search 'Adi Amar', :include => :instructor, :per_page => 21
-  end
+ # end
 
   # This association is just used for pagination.
   named_scope :related_videos_for, lambda { |id|
@@ -136,51 +136,51 @@ sphinx_scope(:latest_first) {
       :order => 'avg_rating desc'
       }
   }
-#  named_scope :search, lambda { |opts|
-#    opts ||= {}
-#    conds  = {}
-#    duration_range = nil
-#
-#    unless opts[:time].blank?
-#      ranges = {
-#        :short => "(videos.duration BETWEEN 1 AND #{10.minutes})",
-#        :med   => "(videos.duration BETWEEN #{10.minutes} AND #{30.minutes})",
-#        :long  => "(videos.duration >= #{30.minutes})"
-#      }.with_indifferent_access
-#
-#      duration_range = opts[:time].collect { |t| ranges[t] }.join(' OR ')
-#    end
-#
-#    conds.merge! "skill_level_id" => opts[:skill_level],
-#                 "instructors.id" => opts[:instructors],
-#                 "yoga_poses.id"  => opts[:yoga_poses],
-#                 "yoga_types.id"  => opts[:yoga_types],
-#                 "video_focus.id" => opts[:video_focus]
-#
-#    conds.reject! { |k, v| v.nil? } # Reject all unset (= nil) values
-#
-#    #TODO: I didn't want to rewrite all of this code just to support a SQL fragment.
-#    if duration_range
-#      sanitized = sanitize_sql_for_conditions(conds) || ''
-#      conds     = sanitized + "#{'AND' unless sanitized.blank?} (#{duration_range})"
-#    end
-#
-#    # If a video lacks an associated yoga_pose, yoga_type, or instructor
-#    # then it's not gonna show up in the search menu 'cuz of the inner joins.
-#    # It's a little more complicated this way, but it makes the sql query
-#    # much less intensive.
-#    joins = [:instructors, :yoga_poses, :yoga_types, :video_focus]
-#
-#    joins.delete_if { |key_value| opts[key_value].blank? }
-#    {
-#      :select     => "videos.*",
-#      :joins      => joins,
-#      :group      => "videos.id",
-#      :order      => 'videos.created_at DESC',
-#      :conditions => conds
-#    }
-#
-#  }
+  named_scope :search, lambda { |opts|
+    opts ||= {}
+    conds  = {}
+    duration_range = nil
+
+    unless opts[:time].blank?
+      ranges = {
+        :short => "(videos.duration BETWEEN 1 AND #{10.minutes})",
+        :med   => "(videos.duration BETWEEN #{10.minutes} AND #{30.minutes})",
+        :long  => "(videos.duration >= #{30.minutes})"
+      }.with_indifferent_access
+
+      duration_range = opts[:time].collect { |t| ranges[t] }.join(' OR ')
+    end
+
+    conds.merge! "skill_level_id" => opts[:skill_level],
+                 "instructors.id" => opts[:instructors],
+                 "yoga_poses.id"  => opts[:yoga_poses],
+                 "yoga_types.id"  => opts[:yoga_types],
+                 "video_focus.id" => opts[:video_focus]
+
+    conds.reject! { |k, v| v.nil? } # Reject all unset (= nil) values
+
+    #TODO: I didn't want to rewrite all of this code just to support a SQL fragment.
+    if duration_range
+      sanitized = sanitize_sql_for_conditions(conds) || ''
+      conds     = sanitized + "#{'AND' unless sanitized.blank?} (#{duration_range})"
+    end
+
+    # If a video lacks an associated yoga_pose, yoga_type, or instructor
+    # then it's not gonna show up in the search menu 'cuz of the inner joins.
+    # It's a little more complicated this way, but it makes the sql query
+    # much less intensive.
+    joins = [:instructors, :yoga_poses, :yoga_types, :video_focus]
+
+    joins.delete_if { |key_value| opts[key_value].blank? }
+    {
+      :select     => "videos.*",
+      :joins      => joins,
+      :group      => "videos.id",
+      :order      => 'videos.created_at DESC',
+      :conditions => conds
+    }
+
+  }
 
   named_scope :keywords, lambda { |keywords|
     keywords ||= ''

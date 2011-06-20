@@ -5,7 +5,6 @@ set :application, "yogatoday_staging"
 set :rails_env, "staging"
 set :domain, 'staging.yogatoday.com'
 set :branch, "staging" # or whatever branch/tag/SHA1
-
 set :deploy_to, "/var/www/apps/#{application}"
 
 role :app, domain
