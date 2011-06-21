@@ -1701,7 +1701,7 @@ input[type="button"].button_cancel {
 .lineup table td.title {
   padding-left: 30px;
   color: #488A1A;
-  width: 58%;
+  width: 50%;
 }
 
 .lineup table tr.free td.title {legend

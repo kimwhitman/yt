@@ -17,7 +17,7 @@
       <% @this_weeks_videos.each do |video| -%>
       <% if video.free? %>
       <tr class="free">
-        <td class="title"><span>
+        <td class="title" style="width: 58%;"><span>
           <% if video.published_at >= Time.now -%>
             <%= video.published_at.strftime('%b %d') -%>
           <% else -%>
@@ -26,7 +26,7 @@
           <span>This week's free class</span></span></td>
       <% else %>
       <tr class="<%= video_icon_class(video) %>">
-        <td class="title">
+        <td class="title" style="width: 58%;">
           <% if video.published_at >= Time.now -%>
             <%= video.title -%>
           <% else -%>
