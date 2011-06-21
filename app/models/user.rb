@@ -31,7 +31,9 @@ class User < ActiveRecord::Base
   has_attached_file :photo,
     :default_url => "/images/user_yogi.png",
     :styles => { :small => '48x48#' },
-    :default_style => :small
+    :default_style => :small,
+    :url => "/system/:attachment/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/system/:attachment/:id/:style/:basename.:extension"
 
   # Callbacks
   before_save :encrypt_password
