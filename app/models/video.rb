@@ -35,7 +35,7 @@ class Video < ActiveRecord::Base
 
   has_and_belongs_to_many :instructors
   has_and_belongs_to_many :yoga_types
-  has_and_belongs_to_many :yoga_poses
+  #has_and_belongs_to_many :yoga_poses
 
   validates_presence_of :title, :duration, :description, :instructors, :yoga_types
 
