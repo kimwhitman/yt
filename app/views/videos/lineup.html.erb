@@ -35,8 +35,8 @@
         </td>
       <% end %>
 
-        <td class="type"><%= video.skill_name -%> |</td>
-        <td class="instructor"><%= video.instructor_names.join(', ') %></td>
+        <td class="type" style="width:12%;"><%= video.skill_name -%> |</td>
+        <td class="instructor" style="width:15%;"><%= video.instructor_names.join(', ') %></td>
         <td class="date">
           <% if video.published_at >= Time.now -%>
             <%= video.published_at.strftime('%b %e') -%>
