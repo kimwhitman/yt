@@ -22,6 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
+  #config.gem 'thinking-sphinx', :version => '1.4.4'
   config.gem 'aasm', :version => '2.1.5'
   config.gem 'brightcove-api', :version => '1.0.2'
   config.gem 'fakeweb', :version => '1.2.8'

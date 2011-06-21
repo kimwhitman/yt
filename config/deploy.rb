@@ -14,11 +14,13 @@ set :rake, "/opt/local/bin/rake"
 
 set :repository, "git@github.com:YogaToday/yogatoday.git"
 set :scm, :git
-set :branch, "master" # or whatever branch/tag/SHA1
+set :scm_username, "kim@yogatoday.com"
+set :scm_password, "yoga4all"
+#set :branch, "master" # or whatever branch/tag/SHA1
 
-set :branch do
-  Capistrano::CLI.ui.ask "Which remote branch would you like to deploy to #{stage.to_s.upcase}: "
-end
+#set :branch do
+#  Capistrano::CLI.ui.ask "Which remote branch would you like to deploy to #{stage.to_s.upcase}: "
+#end
 
 
 set :deploy_via, :copy

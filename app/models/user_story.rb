@@ -1,6 +1,8 @@
 class UserStory < ActiveRecord::Base
   validates_presence_of :name, :location, :email, :story
-  has_attached_file :image
+  has_attached_file :image,
+    :url => "/system/:attachment/:id/:style/:basename.:extension",
+   :path => ":rails_root/public/system/:attachment/:id/:style/:basename.:extension"
   validates_attachment_size(:image, :less_than => 1.megabyte, :message => "image file size must be less than 1MB.")
   validates_length_of :story, :maximum=> 3500
 

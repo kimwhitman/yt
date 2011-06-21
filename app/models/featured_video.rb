@@ -41,6 +41,7 @@ class FeaturedVideo < ActiveRecord::Base
   end
 
   def thumbnail
+    puts image.url(:carousel)
     image? ? image.url(:carousel) : video.cached_thumbnail_url
   end
 

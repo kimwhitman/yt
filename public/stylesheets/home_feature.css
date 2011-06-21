@@ -2,7 +2,9 @@
 	width:940px;
 	margin:0;
 	padding:0;
+    background-repeat:no-repeat;
 	background-image:url('/images/5YR_MAIN_IMG_final.PNG');
+   
 }
 
 #feature_leftCol {
