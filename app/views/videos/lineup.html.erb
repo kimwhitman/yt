@@ -18,7 +18,7 @@
       <% if video.free? %>
       <tr class="free" style="height: 50px;">
         <td class="title" style="width: 58%; line-height: normal;"><span style="height: auto;">
-            <span>This week's free class</span></br>
+            <span>This week's free class</span>
           <% if video.published_at >= Time.now -%>
             <%= video.published_at.strftime('%b %d') -%>
           <% else -%>
