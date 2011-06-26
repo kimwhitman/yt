@@ -13,6 +13,7 @@ class Video < ActiveRecord::Base
   has_many :featured_videos, :dependent    => :destroy
   has_many :comments, :order               => 'updated_at DESC'
   has_many :reviews, :order                => 'updated_at DESC'
+  #has_many :playlist_videos
 
   has_and_belongs_to_many :video_focus, :join_table => 'video_video_focus'
 
@@ -34,6 +35,7 @@ class Video < ActiveRecord::Base
 
   has_and_belongs_to_many :instructors
   has_and_belongs_to_many :yoga_types
+  #has_and_belongs_to_many :yoga_poses
 
   validates_presence_of :title, :duration, :description, :instructors, :yoga_types
 
@@ -42,6 +44,21 @@ class Video < ActiveRecord::Base
   validates_length_of    :description,  :maximum => 1000, :allow_blank => true
 
   before_validation :update_caches
+
+  #define_index do
+  #  indexes title, :sortable => true
+  #  indexes description
+  #  indexes comments.content, :as => :comment_content
+  #  indexes instructors.name, :as => :instructor_name
+  #  indexes yoga_types.name, :as => :yoga_type_name
+  #  indexes yoga_poses.name, :as => :yoga_pose_name
+  #  indexes video_focus.name, :as => :video_focus_name
+  #  has reviews.score, :as => :review_score, :sortable => true
+   # has created_at, :sortable => true
+    #has playlist_videos.created_at, :as => :playlist_created_at, :sortable => true
+    #:order => 'review_score DESC'
+    #r = ThinkingSphinx.search 'Adi Amar', :include => :instructor, :per_page => 21
+ # end
 
   # This association is just used for pagination.
   named_scope :related_videos_for, lambda { |id|
@@ -112,7 +129,13 @@ class Video < ActiveRecord::Base
       WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating",
     :order => 'avg_rating desc'
 
-
+#sphinx_scope(:latest_first) {
+#    {:select => "videos.*, (SELECT (SUM(reviews.score) / COUNT(reviews.score))
+#      FROM reviews
+#      WHERE (videos.id = reviews.video_id AND reviews.score > 0)) as avg_rating",
+#      :order => 'avg_rating desc'
+#      }
+#  }
   named_scope :search, lambda { |opts|
     opts ||= {}
     conds  = {}
