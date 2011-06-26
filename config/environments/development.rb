@@ -2,7 +2,7 @@
 
 HOST = 'yogatoday.local'
 
-config.gem 'deadweight'
+config.gem 'deadweight', :version => '0.2.1'
 config.gem 'faker', :version => '0.3.1'
 
 # In the development environment your application's code is reloaded on
@@ -28,6 +28,14 @@ config.action_mailer.delivery_method = :test
 config.after_initialize do
   ActiveMerchant::Billing::Base.gateway_mode = :test
 end
+
+ActionController::Base.asset_host = Proc.new { |source, request|
+  if request && request.ssl?
+    "#{request.protocol}#{request.host_with_port}"
+  else
+    "localhost:3000"
+  end
+}
 
 # Delve Platform Values
 #ENV['organization_id'] = '59b93524ab7c4d62b53d7553360c2b87'
