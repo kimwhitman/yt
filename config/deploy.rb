@@ -67,6 +67,6 @@ namespace :deploy do
 end
 
 before 'config:symlinks', 'deploy:bundle'
-after "deploy:symlink", "deploy:migrate"
+#after "deploy:symlink", "deploy:migrate"
 after 'deploy:update_code', 'config:symlinks'
 
