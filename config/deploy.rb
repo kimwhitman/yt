@@ -54,7 +54,7 @@ end
 namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
-    run "cd #{current_release} && #{sudo} rake gems:install"
+    run "cd #{current_release} && #{try_sudo}rake gems:install"
   end
 end
 
