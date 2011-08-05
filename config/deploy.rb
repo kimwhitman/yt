@@ -51,6 +51,13 @@ namespace :config do
   end
 end
 
+namespace :gems do
+  desc "Install gems"
+  task :install, :roles => :app do
+    run "cd #{current_release} && #{sudo} rake gems:install"
+  end
+end
+
 namespace :deploy do
   task :restart do
     run "touch #{deploy_to}/current/tmp/restart.txt"
@@ -69,4 +76,4 @@ end
 before 'config:symlinks', 'deploy:bundle'
 #after "deploy:symlink", "deploy:migrate"
 after 'deploy:update_code', 'config:symlinks'
-
+after "deploy:update_code", "gems:install"
