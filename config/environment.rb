@@ -38,6 +38,7 @@ Rails::Initializer.run do |config|
   config.gem 'rest-client', :lib => 'rest_client', :version => '0.8.2'
   config.gem 'savon', :version => '0.7.9'
   config.gem 'nokogiri'
+  config.gem 'thinking-sphinx', :version => '1.4.4'
 
   #config.gem 'rmagick', :lib => 'RMagick' (EAE - skip for jruby)
   # Only load the plugins named here, in the order given. By default, all plugins
