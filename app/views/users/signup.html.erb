@@ -27,14 +27,14 @@
               <div class="redeemgift"> 
                 <ul> 
                   <li> 
-                    <h2>Or, redeem your Yoga Today Gift Subscription</h2> 
+                    <h2>Redeem your Gift Subscription or your JP Selects Membership Here</h2> 
                     <p>Once you create your account, your Gift Subscription will be credited and your membership will begin.</p> 
                   </li> 
                   <li> 
                   <div style="background-color:#eef7f1; padding:6px 10px; width:560px; margin:8px 0 0 0; border:1px solid #c0c0c0;"> 
                     <fieldset class="basic"> 
                     <% form_tag new_user_path, :method => 'get' do |f| -%>
-                    <%= label_tag :gift_card_code, "Enter your 24-digit Gift Code", :class => 'giftcode' %>
+                    <%= label_tag :gift_card_code, "Enter your Code here", :class => 'giftcode' %>
                     <%= text_field_tag :gift_card_code, params[:gift_card_code], :class => 'giftcode' %>
                     <%= image_submit_tag '/images/giftcode-continue.png', :class => 'giftcode-submit' %>
                     </fieldset> 
